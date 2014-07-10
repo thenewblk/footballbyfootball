@@ -1,0 +1,105 @@
+<%= include header %>
+<div class="things">
+	<div class="sidebar">
+		<%= include author-card %>
+	</div>
+	<div class="profile-content">
+		<div class="content-controls">
+			<h3 class="content-items active" id="post-button"><span class="fa fa-pencil"></span> Post</h3>
+			<h3 class="content-items" id="instagram-button"><span class="fa fa-instagram"></span> Instagram</h3>
+		</div>
+		<div class="content-container">
+			<div class="content-object posts active">
+			  <form id="content-container" class="post-form" action="/users/<%= user.id %>/post" method="post" accept-charset="utf-8">
+			  	<h3 class="form-label">Title</h3>
+			  	<input class="title" type="text" name="title" placeholder="Type Post Title">
+			    <h3 class="form-label">Content</h3>
+			      <div id="main-toolbar" class="toolbar" style="display: none;">
+			        <span class="section">
+			          <a class="fa fa-bold" data-wysihtml5-command="bold" title="CTRL+B"></a>
+			          <a class="fa fa-italic" data-wysihtml5-command="italic" title="CTRL+I"></a>
+			        </span>
+			        <span class="section">
+			          <a class="fa fa-link" data-wysihtml5-command="createLink"></a> 
+			          <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">h1</a> 
+			          <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2">h2</a> 
+			        </span>
+			        <span class="section">
+			          <a class="fa fa-list-ul" data-wysihtml5-command="insertUnorderedList"></a> 
+			          <a class="fa fa-list-ol" data-wysihtml5-command="insertOrderedList"></a> 
+			        </span>
+			        <span class="section">
+			          <a class="fa fa-align-left" data-wysihtml5-command="justifyLeft"></a> 
+			          <a class="fa fa-align-center" data-wysihtml5-command="justifyCenter"></a> 
+			          <a class="fa fa-align-right" data-wysihtml5-command="justifyRight"></a> 
+			        </span>
+			        <span class="section">
+			          <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red" class="color red"></a> 
+			          <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="dark" class="color dark"></a> 
+			        </span>
+			        
+			        <div class="link-tool" data-wysihtml5-dialog="createLink" style="display: none;">
+			          <label>
+			            Link:
+			            <input data-wysihtml5-dialog-field="href" value="http://">
+			          </label>
+			          <a data-wysihtml5-dialog-action="save">OK</a>&nbsp;<a data-wysihtml5-dialog-action="cancel">Cancel</a>
+			        </div>
+			        
+			      </div>
+			    <textarea id="main-content" class="main content" name="content"></textarea>
+			    <input class="submit" type="submit" value="Submit">
+			  </form>
+			</div>
+			<div class="content-object instagrams">
+				<% if (user.instagram.token) { %>
+					<% instas.forEach( function( instagram , index ){ %>
+						<div class="instagram admin-instagram">
+							<img class="instagram-image" src="<%= instagram.images.standard_resolution.url %>"/>
+							<div class="controls<% if ( JSON.stringify(user.things).indexOf(instagram.id) > 0 ) { %> active<% } %>"  data-standard-resolution='<%= instagram.images.standard_resolution.url %>' data-instagram-id='<%= instagram.id %>' data-user="<%= user.id %>">
+								<span class="fa fa-check"></span>
+							</div>	
+						</div>
+					<% }); %>
+					<h5>Load More</h5>
+					<div class="unlink"> 
+						<a href="/unlink/instagram" class="btn btn-primary">Unlink</a>
+					</div>
+				<% } else { %>
+					<a href="/connect/instagram" class="btn btn-primary">Connect Instagram</a>
+				<% } %>
+			</div>
+		</div>	
+	</div>
+</div>
+
+<div class="things">
+	<hr>
+	<% if (player.instagram.token) { %>
+		<% player.things.reverse().forEach( function( thing , index ){ %>
+			<% if (thing.instagram) { %>
+				<div class="instagram" data-instagram='<%= JSON.stringify(thing) %>'>
+					<img class="instagram-image" src="<%= thing.url %>"/>
+					<span class="fa fa-instagram"></span>
+				</div>
+			<% } %>
+			<% if (thing.post) { %>
+				<div class="post">
+					<h3 class="title"><%= thing.title %></h3>
+					<%- thing.content %>
+				</div>
+			<% } %>
+		<% }); %>
+	<% } %>
+</div>
+	<script src="/js/advanced.js"></script>
+	<script src="/js/wysihtml5-0.3.0.js"></script>
+	<script>
+	  var mainEditor = new wysihtml5.Editor("main-content", {
+	    toolbar:      "main-toolbar",
+	    stylesheets:  "/css/wysihtml5.css",
+	    parserRules:  wysihtml5ParserRules
+	  });
+	  
+	</script>
+	<%= include footer %>

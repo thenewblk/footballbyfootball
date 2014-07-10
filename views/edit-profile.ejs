@@ -1,0 +1,15 @@
+<%= include header %>
+<div class="top">
+	<div class="author-card">
+		<form class="post-form" action="/users/<%= user.id %>" method="post" accept-charset="utf-8">
+		<div class="author" data-instagram="<%= user.instagram.token %>">
+			<div class="image"></div>
+		</div>
+		<input class="name" type="text" name="name" placeholder="<%= user.name || user.instagram.displayName %>">
+		<input class="position" type="text" name="position" placeholder="<%= user.position || 'Position' %>" <% if (user.position) { %>value="<%= user.position %>"<% } %>>
+		<textarea class="description" name="description"><%= user.description || 'Description'%></textarea>
+		<input class="submit" type="submit" value="Submit">
+	</form>
+	</div>
+</div>
+	<%= include footer %>

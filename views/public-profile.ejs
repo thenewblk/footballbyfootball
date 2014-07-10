@@ -1,0 +1,25 @@
+	<%= include header %>
+	<div class="top">
+		<%= include author-card %>
+	</div>
+
+	<div class="things">
+	<% if (player.instagram.token) { %>
+		<% player.things.reverse().forEach( function( thing , index ){ %>
+			<% if (thing.instagram) { %>
+				<div class="instagram" data-instagram='<%= JSON.stringify(thing) %>'>
+					<img class="instagram-image" src="<%= thing.url %>"/>
+					<span class="fa fa-instagram"></span>
+				</div>
+			<% } %>
+			<% if (thing.post) { %>
+				<div class="post">
+					<h3 class="title"><%= thing.title %></h3>
+					<%- thing.content %>
+				</div>
+			<% } %>
+		<% }); %>
+	<% } %>
+	</div>
+
+	<%= include footer %>

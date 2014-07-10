@@ -1,0 +1,13 @@
+	<%= include header %>
+	<div class="container">
+		<div class="text-center">
+			<h1>Press Mute</h1>
+			<p>Our Roster:</p>
+			<div class="main_roster">
+			<% users.forEach( function( player , index ){ %>
+				<%= include author-card %>
+			<% }); %>
+			</div>
+		</div>
+	</div>
+	<%= include footer %>

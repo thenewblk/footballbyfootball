@@ -1,0 +1,13 @@
+<div class="author-card">
+	<div class="author" data-instagram="<%= player.instagram.token %>">
+		<div class="image"></div>
+	</div>
+	<h5 class="title"><a href="users/<%= player.id %>"><%= player.name || player.instagram.displayName %></a></h5>
+	<% if (player.position) {%><h6 class="position"><%= player.position %></h6><% } %>
+	<% if (player.description) {%><p class="description"><%= player.description %></p><% } %>
+	<% if (locals.user) {%>
+		<% if (player.id == user.id) {%>
+		<h6 class="edit"><a href="/profile/edit">Edit Card</a></h6>
+		<% } %>
+	<% } %>
+</div>
