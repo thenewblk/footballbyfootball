@@ -71,27 +71,47 @@
 			</div>
 		</div>	
 	</div>
+	<hr>
 </div>
 
-<div class="things">
-	<hr>
+<div class="things sortable">
 	<% if (player.instagram.token) { %>
-		<% player.things.reverse().forEach( function( thing , index ){ %>
+		<% player.things.sort(function(a,b) { return parseInt(a.position) - parseInt(b.position) }).forEach( function( thing , index ){ %>
 			<% if (thing.instagram) { %>
-				<div class="instagram" data-instagram='<%= JSON.stringify(thing) %>'>
+				<div class="instagram" id="thing-<%= thing._id %>" data-instagram='<%= JSON.stringify(thing) %>'>
 					<img class="instagram-image" src="<%= thing.url %>"/>
 					<span class="fa fa-instagram"></span>
 				</div>
 			<% } %>
 			<% if (thing.post) { %>
-				<div class="post">
-					<h3 class="title"><%= thing.title %></h3>
-					<%- thing.content %>
+				<div class="post" id="thing-<%= thing._id %>" >
+					<div class="post-wrapper">
+						<div class="post-sub-wrapper">
+							<h3 class="title"><%= thing.title %></h3>
+							<%- thing.content %>
+						</div>
+					</div>
 				</div>
 			<% } %>
 		<% }); %>
 	<% } %>
 </div>
+
+  <script>
+	  $(function() {
+	    $( ".sortable" ).sortable({
+	    	update: function (event, ui) {
+	        var data = $('.sortable').sortable('serialize');
+	        $.ajax({
+	            data: data,
+	            type: 'POST',
+	            url: '/thing-position'
+	        });
+	      }
+    	});
+	  });
+  </script>
+
 	<script src="/js/advanced.js"></script>
 	<script src="/js/wysihtml5-0.3.0.js"></script>
 	<script>

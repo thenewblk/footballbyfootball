@@ -1,16 +1,17 @@
 <!doctype html>
 <html>
 <head>
-	<title>Press Mute</title>
+	<title>Football by Football</title>
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/css/app.css">
 
 	<script src="/js/jquery.1.9.min.js"></script>
+	<script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 </head>
 <body>
 	<div class="header">
-		<h3 class="logo"><a href="/">Press Mute</a></h3>
+		<h3 class="logo"><a href="/">FxF</a></h3>
 		<% if (locals.user) { %>
 			<% if (user.instagram.token) { %>
 			<h4 class="login">Account</h4>
@@ -22,11 +23,11 @@
 		<% } else { %>
 		<h4 class="login">Login</h4>
 		<ul class="menu">
-			<li><a href="/login"><span class="fa fa-user"></span> Local Login</a></li>
-			<li><a href="/signup"><span class="fa fa-user"></span> Local Signup</a></li>
-			<li><a href="/auth/facebook"><span class="fa fa-facebook"></span> Facebook</a></li>
-			<li><a href="/auth/twitter"><span class="fa fa-twitter"></span> Twitter</a></li>
 			<li><a href="/auth/instagram"><span class="fa fa-instagram"></span> Instagram</a></li>
+			<li><a href="/login"><span class="fa fa-user"></span> E-Mail Login</a></li>
+			<li><span class="fa fa-user"></span> E-Mail Signup</li>
+			<li><span class="fa fa-facebook"></span> Facebook</li>
+			<li><span class="fa fa-twitter"></span> Twitter</li>
 		</ul>
 		<% } %>
 

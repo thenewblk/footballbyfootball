@@ -8,7 +8,8 @@ var thingSchema = mongoose.Schema({
     title: String,
     content: String,
     post: Boolean,
-    instagram: Boolean
+    instagram: Boolean,
+    position: Number
 });
 
 // define the schema for our user model
