@@ -18,12 +18,12 @@
 			<ul class="menu">
 				<li><a href="/profile">Edit Profile</a></li>
 				<li><a href="/logout">Logout</a></li>
-				<% if (user.facebook) { %>
+				<% if (user.facebook.token) { %>
 					<li><span class="fa fa-facebook"></span> <%= user.facebook.name %></li>
 				<% } else { %> 
 					<li><a href="/connect/facebook"><span class="fa fa-facebook"></span> Facebook</a></li>
 				<% } %>
-				<% if (user.twitter) { %>
+				<% if (user.twitter.token) { %>
 					<li><span class="fa fa-twitter"></span> <%= user.twitter.displayName %></li>
 				<% } else { %> 
 					<li><a href="/connect/twitter"><span class="fa fa-twitter"></span> Twitter</a></li>
