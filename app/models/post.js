@@ -1,13 +1,13 @@
 var mongoose = require( 'mongoose' );
 var moment = require('moment');
 var postSchema = mongoose.Schema({
-    author : { type: String, ref: 'User' },
+    user : { type: String, ref: 'User' },
     title			 : String,
     excerpt    : String,
     content    : String,
     updated_date : String,
     updated_at : String,
-    approved	 : Boolean	
+    approved	 : Boolean
 });
 
 postSchema.pre('save', function (next) {

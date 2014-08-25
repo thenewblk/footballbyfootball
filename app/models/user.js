@@ -45,7 +45,13 @@ var userSchema = mongoose.Schema({
         displayName     : String,
         name         : String
     },
-    things: [thingSchema]
+    things: [ 
+        { 
+            post: { type: String, ref: 'Post' } ,
+            instagram: { type: String, ref: 'Instagram' },
+            position: Number 
+        }
+    ]
 
 });
 

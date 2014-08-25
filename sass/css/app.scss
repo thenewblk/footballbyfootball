@@ -1,5 +1,5 @@
 body {
-	background: #eee;
+	background: #fff;
 }
 
 .instagram {
@@ -365,4 +365,113 @@ hr {
 			line-height: 24px;
 		}
 	}
+}
+
+/**
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    contenteditable attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that are clearfixed.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+    *zoom: 1;
+}
+.article {
+	background: white;
+	width: 100%;
+	max-width: 1000px;
+	margin: 50px auto;
+	padding-right: 0;
+}
+
+.article p {
+	margin: 0 75px;
+}
+
+.article-top {
+	margin: -50px -50px 0;
+	width: 1100px;
+	max-width: 120%;
+}
+
+.article-bottom {
+	margin: 0 -50px -50px;
+	width: 1100px;
+	max-width: 120%;
+}
+
+.article .aside {
+	padding: 15px;
+	background: #eee;
+	max-width: 45%;
+	margin: 30px -15px 30px 30px;
+}
+
+.article .aside.right {
+	float: right;
+}
+
+.article .aside.left {
+	float: left;
+}
+
+.article-header {
+	background: url(/img/article-top-image.png);
+	height: 500px;
+	background-size: cover;
+	background-position: center;
+	padding: 15px;
+}
+
+.article-header .title {
+	text-align: center;
+	color: white;
+	text-shadow: 0 0 5px black;
+	margin-top: 200px;
+	font-size: 60px;
+}
+
+img {
+	max-width: 100%;
+}
+
+.image-set {
+	display: block;
+	background: #eee;
+	padding: 15px;
+	margin: 30px -15px;
+}
+
+.image-set p {
+	text-align: center;
+	line-height: 3;
+	margin: 0;
+}
+
+.image-set img {
+	height: 280px;
+	display: inline;
+	float: left;
+	margin-right: 15px;
+}
+
+.image-set img:nth-child(3) {
+	margin-right: 0;
 }

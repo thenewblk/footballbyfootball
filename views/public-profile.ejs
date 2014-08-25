@@ -7,8 +7,8 @@
 	<% if (player.instagram.token) { %>
 		<% player.things.sort(function(a,b) { return parseInt(a.position) - parseInt(b.position) }).forEach( function( thing , index ){ %>
 			<% if (thing.instagram) { %>
-				<div class="instagram" id="thing-<%= thing._id %>" data-instagram='<%= JSON.stringify(thing) %>'>
-					<img class="instagram-image" src="<%= thing.url %>"/>
+				<div class="instagram" id="thing-<%= thing.instagram._id %>" data-instagram='<%= JSON.stringify(thing.instagram) %>'>
+					<img class="instagram-image" src="<%= thing.instagram.url %>"/>
 					<span class="fa fa-instagram"></span>
 				</div>
 			<% } %>
@@ -16,8 +16,8 @@
 				<div class="post" id="thing-<%= thing._id %>" >
 					<div class="post-wrapper">
 						<div class="post-sub-wrapper">
-							<h3 class="title"><%= thing.title %></h3>
-							<%- thing.content %>
+							<h3 class="title"><%= thing.post.title %></h3>
+							<%- thing.post.content %>
 						</div>
 					</div>
 				</div>

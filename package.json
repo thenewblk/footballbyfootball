@@ -1,5 +1,5 @@
 {
-  "name": "press-mute-web",
+  "name": "fxf",
   "main": "server.js",
   "dependencies": {
     "bcrypt-nodejs": "latest",
@@ -7,6 +7,7 @@
     "ejs": "~0.8.5",
     "express": "~3.4.4",
     "instagram-node-lib": "~0.1.1",
+    "moment": "^2.8.1",
     "mongoose": "~3.8.1",
     "node-sass": "^0.9.3",
     "passport": "~0.1.17",

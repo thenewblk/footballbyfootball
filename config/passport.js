@@ -7,6 +7,8 @@ var GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
 
 // load up the user model
 var User       = require('../app/models/user');
+var Post       = require('../app/models/post');
+var Instagram       = require('../app/models/instagram');
 
 // load the auth variables
 var configAuth = require('./auth'); // use this one for testing
@@ -26,7 +28,9 @@ module.exports = function(passport) {
 
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
+        User.findById(id)
+        .populate('things.post things.instagram')
+        .exec(function(err, user) {
             done(err, user);
         });
     });
