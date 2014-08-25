@@ -11,8 +11,6 @@
 		<div class="content-container">
 			<div class="content-object posts active">
 			  <form id="content-container" class="post-form" action="/users/<%= user.id %>/post" method="post" accept-charset="utf-8">
-			  	<h3 class="form-label">Title</h3>
-			  	<input class="title" type="text" name="title" placeholder="Type Post Title">
 			    <h3 class="form-label">Content</h3>
 			      <div id="main-toolbar" class="toolbar" style="display: none;">
 			        <span class="section">
@@ -87,7 +85,6 @@
 				<div class="post" id="thing-<%= thing._id %>" >
 					<div class="post-wrapper">
 						<div class="post-sub-wrapper">
-							<h3 class="title"><%= thing.post.title %></h3>
 							<%- thing.post.content %>
 						</div>
 					</div>

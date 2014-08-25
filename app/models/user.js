@@ -49,6 +49,7 @@ var userSchema = mongoose.Schema({
         { 
             post: { type: String, ref: 'Post' } ,
             instagram: { type: String, ref: 'Instagram' },
+            column: { type: String, ref: 'Column' },
             position: Number 
         }
     ]

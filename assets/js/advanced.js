@@ -549,3 +549,5 @@ var wysihtml5ParserRules = {
         }
     }
 };
+
+module.exports = wysihtml5ParserRules;
