@@ -610,10 +610,10 @@ img {
 	background: url('/img/masthead1.png');
 	background-size: cover;
 	background-position: center bottom;
-	padding-top: 300px;
+	padding-top: 200px;
 
 	.big-logo {
-		width: 600px;
+		width: 1000px;
 		max-width: 100%;
 		display: table;
 		margin: auto;
@@ -993,6 +993,9 @@ img {
 	}
 
 	.column-header {
+		.title {
+			font-size: 60px;
+		}
 		.date {
 			color: #999;
 		}
