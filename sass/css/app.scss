@@ -671,7 +671,6 @@ img {
 			position: absolute;
 			bottom: 20px;
 			font-size: 80px;
-			width: 100%;
 		}
 	}
 	.lockerroom-content {
@@ -731,7 +730,7 @@ img {
 			
 			.byline {
 				text-align: right;
-
+				font-size: 16px;
 				.by {
 					color: red;
 				}
@@ -744,8 +743,8 @@ img {
 }
 
 .author-image {
-	height: 50px;
-	width: 50px;
+	height: 75px;
+	width: 75px;
 	border-radius: 50%;
 	background-size: cover;
 	background-position: center;
@@ -792,11 +791,14 @@ img {
 
 			.copy {
 				font-size: 20px;
+				h3 {
+					font-size: 30px;
+				}
 			}
 			
 			.byline {
 				text-align: right;
-
+				font-size: 16px;
 				.by {
 					color: red;
 				}
@@ -807,9 +809,9 @@ img {
 		position: absolute;
 		height: 100%;
 		width: 100%;
-		background: -webkit-radial-gradient(top, rgba(20,20,20,0.25) 0%, rgba(20,20,20,0.5) 71%, rgba(20,20,20,0.7) 100%);
-		background: -o-radial-gradient(top, rgba(20,20,20,0.25) 0%, rgba(20,20,20,0.5) 71%, rgba(20,20,20,0.7) 100%);
-		background: -ms-radial-gradient(top, rgba(20,20,20,0.25) 0%, rgba(20,20,20,0.5) 71%, rgba(20,20,20,0.7) 100%);
+		background: -webkit-radial-gradient(top, rgba(20,20,20,0.25) 0%, rgba(20,20,20,0.75) 71%, rgba(20,20,20,1) 100%);
+		background: -o-radial-gradient(top, rgba(20,20,20,0.25) 0%, rgba(20,20,20,0.75) 71%, rgba(20,20,20,1) 100%);
+		background: -ms-radial-gradient(top, rgba(20,20,20,0.25) 0%, rgba(20,20,20,0.75) 71%, rgba(20,20,20,1) 100%);
 	}
 }
 
@@ -1045,9 +1047,65 @@ img {
 	}
 }
 
+form {
+	label {
+		display: inline-block;
+		margin-bottom: 5px;
+		font-weight: bold;
+		padding: 0;
+		background: white;
+		color: #999;
+		line-height: 40px;
+		border: #ccc solid 1px;
+		float: left;
+		position: absolute;
+		text-align: center;
+		width: 75px;
+	}
+	input {
+		font-family: inherit;
+		font-size: inherit;
+		border: #ccc solid 1px;
+		line-height: 38px;
+		float: left;
+		width: 100%;
+		padding-left: 85px;
+	}
+	button {
+		width: 100%;
+		background: #aaa;
+		color: #222;
+		transition: 0.15s ease-in-out;
+		border: none;
+		line-height: 40px;
+		&:hover, &:active, &:focus {
+			background: #666;
+			color: #222;
+			border: none;
+		}
+	}
+}
+
 @media (max-width: 991px) {
 	.author-badge {
 		position: relative;
 		margin-bottom: 25px;
+	}
+	.medium-article.lockerroom {
+		margin-top: 20px;
+	}
+	.lockerroom {
+		.lockerroom-header {
+			height: 300px;
+			background-position: center;
+			background-size: cover;
+			position: relative;
+			.title {
+				color: white;
+				position: absolute;
+				bottom: 20px;
+				font-size: 40px;
+			}
+		}
 	}
 }
