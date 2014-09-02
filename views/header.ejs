@@ -8,19 +8,24 @@
 
 	<script src="/js/jquery.1.9.min.js"></script>
 	<!-- <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script> -->
+	<script type="text/javascript" src="//use.typekit.net/vnz8awm.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
 </head>
 <body class="<% if (locals.page_type) {%><%= page_type %><%} %>" >
 	<% if (locals.page_type && page_type =='home') {%>
 	<div class="masthead">
-		<img src="/img/footballbyfootball.svg" alt="" class="big-logo">
+		<img src="/img/logo-masthead.png" alt="" class="big-logo">
 	</div>
 	<%} %>
 	<div class="topbar">
 		<div class="container cf">
 		<% if (locals.page_type && page_type =='home') {%>
 			<p class="today">Today, September 2, 2014</p>
-		<% } else { %>
-			<div class="logo"><a href="/"><img src="img/logo.png" alt=""></a></div>
+		<% } else if (locals.page_type && page_type =='column') { %>
+			<div class="logo"><a href="/"><img src="/img/logo-blackbanner.png" alt=""></a></div>
+		<% } else if (locals.page_type && page_type =='lockerroom') { %>
+			<div class="logo"><a href="/"><img src="/img/logo-whitebanner.png" alt=""></a></div>
 		<% } %>
 			<div class="right-side">
 				<a href="javascript:void(0);" class="article-links">Columns</a>
