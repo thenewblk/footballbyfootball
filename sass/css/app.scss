@@ -1,5 +1,6 @@
 body {
 	background: #222;
+	color: #000;
 }
 
 body.column {
@@ -643,6 +644,9 @@ img {
 			text-transform: uppercase;
 			margin: 0;
 			padding: 0 10px;
+			&:hover {
+				text-decoration: underline;
+			}
 		}
 	}
 }
@@ -995,6 +999,7 @@ img {
 	.column-header {
 		.title {
 			font-size: 60px;
+			word-break: break-all;
 		}
 		.date {
 			color: #999;
@@ -1089,6 +1094,12 @@ form {
 	}
 }
 
+.caption-image {
+	float: right; 
+	width: 375px; 
+	padding: 15px;
+}
+
 @media (max-width: 991px) {
 	.author-badge {
 		position: relative;
@@ -1108,6 +1119,24 @@ form {
 				position: absolute;
 				bottom: 20px;
 				font-size: 40px;
+			}
+		}
+	}
+}
+
+@media (max-width: 480px) {
+	.author-badge {
+		position: relative;
+		margin-bottom: 25px;
+	}
+	.medium-article.lockerroom {
+		margin-top: 20px;
+	}
+	.lockerroom {
+		.lockerrooom-entry-title {
+			.author-image {
+				float: right;
+				position: absolute;
 			}
 		}
 	}
