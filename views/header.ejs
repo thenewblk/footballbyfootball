@@ -3,38 +3,29 @@
 <head>
 	<title>Football by Football</title>
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="/css/app.css">
 
 	<script src="/js/jquery.1.9.min.js"></script>
-	<script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+	<!-- <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script> -->
 </head>
-<body>
-	<div class="header">
-		<h3 class="logo"><a href="/">FxF</a></h3>
-		<% if (locals.user) { %>
-			<% if (user.instagram.token) { %>
-			<h4 class="login">Account</h4>
-			<ul class="menu">
-				<li><a href="/profile">Edit Profile</a></li>
-				<li><a href="/logout">Logout</a></li>
-				<% if (user.facebook.token) { %>
-					<li><span class="fa fa-facebook"></span> <%= user.facebook.name %></li>
-				<% } else { %> 
-					<li><a href="/connect/facebook"><span class="fa fa-facebook"></span> Facebook</a></li>
-				<% } %>
-				<% if (user.twitter.token) { %>
-					<li><span class="fa fa-twitter"></span> <%= user.twitter.displayName %></li>
-				<% } else { %> 
-					<li><a href="/connect/twitter"><span class="fa fa-twitter"></span> Twitter</a></li>
-				<% } %>
-			</ul>
-			<% } %>
+<body class="<% if (locals.page_type) {%><%= page_type %><%} %>" >
+	<% if (locals.page_type && page_type =='home') {%>
+	<div class="masthead">
+		<img src="/img/footballbyfootball.svg" alt="" class="big-logo">
+	</div>
+	<%} %>
+	<div class="topbar">
+		<div class="container cf">
+		<% if (locals.page_type && page_type =='home') {%>
+			<p class="today">Today, September 2, 2014</p>
 		<% } else { %>
-		<h4 class="login">Login</h4>
-		<ul class="menu">
-			<li><a href="/auth/instagram"><span class="fa fa-instagram"></span> Instagram Login</a></li>
-		</ul>
+			<div class="logo"><a href="/"><img src="img/logo.png" alt=""></a></div>
 		<% } %>
+			<div class="right-side">
+				<a href="javascript:void(0);" class="article-links">Columns</a>
+				<a href="javascript:void(0);" class="article-links">Locker Room</a>
+			</div>
+		</div>
 
 	</div>

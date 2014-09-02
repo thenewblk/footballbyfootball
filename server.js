@@ -10,6 +10,8 @@ var passport = require('passport');
 var flash    = require('connect-flash');
 var sass = require('node-sass');
 
+var knox = require('knox');
+
 var configDB = require('./config/database.js');
 
 // configuration ===============================================================
@@ -47,7 +49,7 @@ app.configure(function() {
 });
 
 // routes ======================================================================
-require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+require('./app/routes.js')(app, passport, knox); // load our routes and pass in our app and fully configured passport
 
 // launch ======================================================================
 app.listen(port);
