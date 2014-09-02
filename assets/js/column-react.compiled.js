@@ -734,27 +734,37 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
     console.log('removeContent: after new_data: '+ JSON.stringify(new_data));
   },
 
+  handleTitleChange: function(event) {
+    this.setState({title: event.target.value});
+  },
+
   submitContent: function(){
     var self = this;
+    console.log( 'title: '+ self.state.title );
     console.log('children: '+ self.state.data.length);
     for (var i = 0; i < self.state.data.length; i++) {
-      console.log( ' data.content: '+ self.state.data[i].content );
+      if ( self.state.data[i].type == 'content' ) {
+        console.log( ' data.content: '+ self.state.data[i].content );
+      } else if ( self.state.data[i].type == 'image' ) {
+        console.log( ' data.image_url: '+ self.state.data[i].image_url );
+      }
     }
   },
   render: function() {
     var self = this;
+    var title = this.state.title;
     var columns = this.state.data.map(function(object, i) {
       if ( object.type == 'content' ) {
-        return Column({key: 'content-'+i, ref: 'content-'+i, thing: object.content, content: self.handleContent, removed: self.removeContent, identifier: i});
+        return Column({ref: 'content-'+i, thing: object.content, content: self.handleContent, removed: self.removeContent, identifier: i});
       }
       if ( object.type == 'image' ) {
-        return Image({key: 'content-'+i, image: object.image_url, identifier: i, content: self.handleImage, removed: self.removeImage});
+        return Image({ref: 'image-'+i, image: object.image_url, identifier: i, content: self.handleImage, removed: self.removeImage});
       }
     });
     return (
       React.DOM.div({className: "container"}, 
         React.DOM.div({className: "column-title"}, 
-          React.DOM.input({className: "column-title-tag", type: "text", name: "title", placeholder: "Title"})
+          React.DOM.input({className: "column-title-tag", type: "text", value: title, onChange: this.handleTitleChange, placeholder: "Title"})
         ), 
         React.DOM.div({className: "column-content"}, 
           columns
@@ -800,19 +810,8 @@ var Column = React.createClass({displayName: 'Column',
     mainEditor[this.props.identifier];
   },
 
-  componentDidUpdate: function() {
-    if ( this.props.thing.length > 0 ) {
-      mainEditor[this.props.identifier].setValue(this.props.thing, true);
-    }
-  },
-
-  handleChange: function(event) {
-    this.props.content({content: this.refs.content.getDOMNode().value });
-  },
-
   handleClose: function() {
     this.props.removed({id: this.props.identifier});
-    // this.refs.contentwrapper.getDOMNode().remove();
   },
 
   getScriptURL: function() {
@@ -830,6 +829,23 @@ var Column = React.createClass({displayName: 'Column',
       cleanUp:              false
     });
 
+    mainEditor[self.props.identifier].on("load", function () {     
+      var $iframe = $(this.composer.iframe);
+      var $body = $(this.composer.element);
+      
+      $body
+        .css({
+          'min-height': 0,
+          'line-height': '20px',
+          'overflow': 'hidden',
+        })
+        .bind('keypress keyup keydown paste change focus blur', function(e) {
+          var height = Math.min($body[0].scrollHeight, $body.height());
+          var extra = 20 ;
+          $iframe.height(height + extra);
+        });
+    });
+
     mainEditor[self.props.identifier].observe("load", function () {     
       var $iframe = $(this.composer.iframe);
       var $body = $(this.composer.element);
@@ -842,12 +858,9 @@ var Column = React.createClass({displayName: 'Column',
         })
         .bind('keypress keyup keydown paste change focus blur', function(e) {
           var height = Math.min($body[0].scrollHeight, $body.height());
-          // a little extra height to prevent spazzing out when creating newlines
-          // var extra = e.type == "blur" ? 0 : 20 ;
           var extra = 20 ;
           $iframe.height(height + extra);
         });
-        // mainEditor[self.props.identifier].setValue(self.props.value, true);
     });
 
     function onFocus() { 
@@ -878,6 +891,7 @@ var Column = React.createClass({displayName: 'Column',
   },
 
   render: function() {
+    var value = this.props.thing; 
     var className = this.state.active ? 'content-container active' : 'content-container';
     return ( 
       React.DOM.div({className: className, ref: "contentwrapper"}, 
@@ -907,7 +921,7 @@ var Column = React.createClass({displayName: 'Column',
             )
           ), 
           React.DOM.a({className: "close-link", onClick: this.handleClose}, "×"), 
-          React.DOM.textarea({ref: "content", id: 'main-content-'+this.props.identifier, className: "main content", name: "content", placeholder: "Type New Content Here..."})
+          React.DOM.textarea({ref: "content", id: 'main-content-'+this.props.identifier, className: "main content", name: "content", placeholder: "Type New Content Here...", value: value, readOnly: true})
         )
       ) )
   }
@@ -941,26 +955,25 @@ var imageUploader = React.createClass({displayName: 'imageUploader',
   componentWillMount: function() {
   },
 
-  componentDidUpdate: function() {
-    var self = this;
-    console.log('componentDidUpdate: '+ self.props.image);
-    if (self.props.image > 0){
-      self.setState({ active: true });
-    }    
-  },
+  // componentDidUpdate: function() {
+  //   var self = this;
+  //   console.log('componentDidUpdate: '+ self.props.image);
+  //   // self.setState({ active: true });
+  // },
 
-  componentWillReceiveProps: function(nextProps) {
-    console.log('componentWillReceiveProps');
+  // // shouldComponentUpdate: function(nextProps, nextState) {
+  // //   return nextProps.image !== this.props.image;
+  // // },
 
-    console.log(' nextProps: '+JSON.stringify(nextProps));
+  // componentWillReceiveProps: function(nextProps) {
+  //   console.log('componentWillReceiveProps:');
 
-    console.log('this.props.image != nextProps.image: '+nextProps.image)
+  //   console.log(' nextProps: '+JSON.stringify(nextProps));
 
-
-    if (nextProps.image){
-      this.setState({ active: true });
-    }
-  },
+  //   if (nextProps.image){
+  //     this.setState({ active: true });
+  //   }
+  // },
 
   handleChange: function(event) {
 
@@ -976,13 +989,14 @@ var imageUploader = React.createClass({displayName: 'imageUploader',
 
   onScriptLoaded: function() {
     var self = this;
-    myDropzone[self.props.identifier] = new Dropzone(".uploader-"+self.props.identifier, { url: "/upload", paramName: "file"});
+    myDropzone[self.props.identifier] = new Dropzone(".uploader-"+self.props.identifier, { url: "/upload", paramName: "file", maxFiles: 1});
 
     myDropzone[self.props.identifier].on("success", function(file) {
       /* Maybe display some more file information on your page */
       var thing = JSON.parse(file.xhr.response);
       console.log('success: ' + thing.saved);
-      self.props.content({id: self.props.identifier, image_url: thing.saved });
+      self.props.content({id: self.props.identifier, image_url: thing.saved  });
+      self.setState({ active: true });
     });
   },
  
@@ -999,7 +1013,7 @@ var imageUploader = React.createClass({displayName: 'imageUploader',
       React.DOM.div({className: className, ref: "contentwrapper"}, 
 
         React.DOM.h2(null, "Image"), 
-        this.state.active ?  
+        this.props.image ?  
           React.DOM.div({className: "uploaded-image"}, 
             React.DOM.img({src: "https://s3.amazonaws.com/footballbyfootball-dev"+this.props.image})
           ) 

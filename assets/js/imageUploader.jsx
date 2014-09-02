@@ -24,26 +24,25 @@ var imageUploader = React.createClass({
   componentWillMount: function() {
   },
 
-  componentDidUpdate: function() {
-    var self = this;
-    console.log('componentDidUpdate: '+ self.props.image);
-    if (self.props.image > 0){
-      self.setState({ active: true });
-    }    
-  },
+  // componentDidUpdate: function() {
+  //   var self = this;
+  //   console.log('componentDidUpdate: '+ self.props.image);
+  //   // self.setState({ active: true });
+  // },
 
-  componentWillReceiveProps: function(nextProps) {
-    console.log('componentWillReceiveProps');
+  // // shouldComponentUpdate: function(nextProps, nextState) {
+  // //   return nextProps.image !== this.props.image;
+  // // },
 
-    console.log(' nextProps: '+JSON.stringify(nextProps));
+  // componentWillReceiveProps: function(nextProps) {
+  //   console.log('componentWillReceiveProps:');
 
-    console.log(' nextProps.image: '+nextProps.image)
+  //   console.log(' nextProps: '+JSON.stringify(nextProps));
 
-
-    if (nextProps.image){
-      this.setState({ active: true });
-    }
-  },
+  //   if (nextProps.image){
+  //     this.setState({ active: true });
+  //   }
+  // },
 
   handleChange: function(event) {
 
@@ -59,13 +58,14 @@ var imageUploader = React.createClass({
 
   onScriptLoaded: function() {
     var self = this;
-    myDropzone[self.props.identifier] = new Dropzone(".uploader-"+self.props.identifier, { url: "/upload", paramName: "file"});
+    myDropzone[self.props.identifier] = new Dropzone(".uploader-"+self.props.identifier, { url: "/upload", paramName: "file", maxFiles: 1});
 
     myDropzone[self.props.identifier].on("success", function(file) {
       /* Maybe display some more file information on your page */
       var thing = JSON.parse(file.xhr.response);
       console.log('success: ' + thing.saved);
-      self.props.content({id: self.props.identifier, image_url: thing.saved });
+      self.props.content({id: self.props.identifier, image_url: thing.saved  });
+      self.setState({ active: true });
     });
   },
  
@@ -82,7 +82,7 @@ var imageUploader = React.createClass({
       <div className={className} ref='contentwrapper'>
 
         <h2>Image</h2>
-        {this.state.active ?  
+        {this.props.image ?  
           <div className='uploaded-image'>
             <img src={"https://s3.amazonaws.com/footballbyfootball-dev"+this.props.image} />
           </div> 

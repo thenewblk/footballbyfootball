@@ -23,19 +23,8 @@ var Column = React.createClass({
     mainEditor[this.props.identifier];
   },
 
-  componentDidUpdate: function() {
-    if ( this.props.thing.length > 0 ) {
-      mainEditor[this.props.identifier].setValue(this.props.thing, true);
-    }
-  },
-
-  handleChange: function(event) {
-    this.props.content({content: this.refs.content.getDOMNode().value });
-  },
-
   handleClose: function() {
     this.props.removed({id: this.props.identifier});
-    // this.refs.contentwrapper.getDOMNode().remove();
   },
 
   getScriptURL: function() {
@@ -53,6 +42,23 @@ var Column = React.createClass({
       cleanUp:              false
     });
 
+    mainEditor[self.props.identifier].on("load", function () {     
+      var $iframe = $(this.composer.iframe);
+      var $body = $(this.composer.element);
+      
+      $body
+        .css({
+          'min-height': 0,
+          'line-height': '20px',
+          'overflow': 'hidden',
+        })
+        .bind('keypress keyup keydown paste change focus blur', function(e) {
+          var height = Math.min($body[0].scrollHeight, $body.height());
+          var extra = 20 ;
+          $iframe.height(height + extra);
+        });
+    });
+
     mainEditor[self.props.identifier].observe("load", function () {     
       var $iframe = $(this.composer.iframe);
       var $body = $(this.composer.element);
@@ -65,12 +71,9 @@ var Column = React.createClass({
         })
         .bind('keypress keyup keydown paste change focus blur', function(e) {
           var height = Math.min($body[0].scrollHeight, $body.height());
-          // a little extra height to prevent spazzing out when creating newlines
-          // var extra = e.type == "blur" ? 0 : 20 ;
           var extra = 20 ;
           $iframe.height(height + extra);
         });
-        // mainEditor[self.props.identifier].setValue(self.props.value, true);
     });
 
     function onFocus() { 
@@ -101,6 +104,7 @@ var Column = React.createClass({
   },
 
   render: function() {
+    var value = this.props.thing; 
     var className = this.state.active ? 'content-container active' : 'content-container';
     return ( 
       <div className={className} ref='contentwrapper'>
@@ -130,7 +134,7 @@ var Column = React.createClass({
             </span>
           </div>
           <a className="close-link" onClick={this.handleClose}>×</a>
-          <textarea ref='content' id={'main-content-'+this.props.identifier} className="main content" name="content" placeholder='Type New Content Here...'></textarea>
+          <textarea ref='content' id={'main-content-'+this.props.identifier} className="main content" name="content" placeholder='Type New Content Here...' value={value} readOnly></textarea>
         </div>
       </div> )
   }

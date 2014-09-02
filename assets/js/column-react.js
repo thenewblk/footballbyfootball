@@ -60,27 +60,37 @@ var ColumnList = React.createClass({
     console.log('removeContent: after new_data: '+ JSON.stringify(new_data));
   },
 
+  handleTitleChange: function(event) {
+    this.setState({title: event.target.value});
+  },
+
   submitContent: function(){
     var self = this;
+    console.log( 'title: '+ self.state.title );
     console.log('children: '+ self.state.data.length);
     for (var i = 0; i < self.state.data.length; i++) {
-      console.log( ' data.content: '+ self.state.data[i].content );
+      if ( self.state.data[i].type == 'content' ) {
+        console.log( ' data.content: '+ self.state.data[i].content );
+      } else if ( self.state.data[i].type == 'image' ) {
+        console.log( ' data.image_url: '+ self.state.data[i].image_url );
+      }
     }
   },
   render: function() {
     var self = this;
+    var title = this.state.title;
     var columns = this.state.data.map(function(object, i) {
       if ( object.type == 'content' ) {
-        return <Column key={'content-'+i} ref={'content-'+i} thing={object.content} content={self.handleContent} removed={self.removeContent} identifier={i}/>;
+        return <Column ref={'content-'+i} thing={object.content} content={self.handleContent} removed={self.removeContent} identifier={i}/>;
       }
       if ( object.type == 'image' ) {
-        return <Image key={'content-'+i} image={object.image_url} identifier={i} content={self.handleImage} removed={self.removeImage}/>;
+        return <Image ref={'image-'+i} image={object.image_url} identifier={i} content={self.handleImage} removed={self.removeImage}/>;
       }
     });
     return (
       <div className="container">
         <div className='column-title'>
-          <input className='column-title-tag' type="text" name="title" placeholder="Title" />
+          <input className='column-title-tag' type="text" value={title} onChange={this.handleTitleChange} placeholder="Title" />
         </div>
         <div className="column-content">
           {columns}
