@@ -714,6 +714,13 @@ img {
 	position: relative;
 	background-size: cover;
 	background-position: center;
+	
+	a {
+		color: white;
+	}
+	a:hover {
+		text-decoration: underline;	
+	}
 
 	.headline {
 		background: #222;
@@ -787,11 +794,11 @@ img {
 	.headline {
 		position: absolute;
 		width: 100%;
-		bottom: 10%;
+		bottom: 0;
 		color: white;
 
 		.inner-content {
-			padding: 10px 15px;
+			padding: 10px;
 
 			.copy {
 				font-size: 20px;
@@ -816,6 +823,7 @@ img {
 		background: -webkit-radial-gradient(top, rgba(20,20,20,0.25) 0%, rgba(20,20,20,0.75) 71%, rgba(20,20,20,1) 100%);
 		background: -o-radial-gradient(top, rgba(20,20,20,0.25) 0%, rgba(20,20,20,0.75) 71%, rgba(20,20,20,1) 100%);
 		background: -ms-radial-gradient(top, rgba(20,20,20,0.25) 0%, rgba(20,20,20,0.75) 71%, rgba(20,20,20,1) 100%);
+		background: rgba(20,20,20,0.8);
 	}
 }
 
@@ -1003,6 +1011,23 @@ img {
 		.date {
 			color: #999;
 		}
+	}
+}
+
+hr.bottom{
+	margin: 40px 0 20px;
+}
+
+.main-articles {
+	.date {
+		background: white;
+		display: table;
+		line-height: 40px;
+		padding: 0 20px;
+		color: #222;
+		margin: auto;
+		margin-top: -40px;
+		margin-bottom: 20px;
 	}
 }
 
