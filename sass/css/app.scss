@@ -611,7 +611,7 @@ img {
 	background: url('/img/masthead.jpg');
 	background-size: cover;
 	background-position: center bottom;
-	padding-top: 200px;
+	padding: 20px 0;
 
 	.big-logo {
 		width: 1000px;
@@ -837,10 +837,11 @@ img {
 		position: absolute;
 		height: 100%;
 		width: 100%;
+		background: rgba(20,20,20,0.8);
 		background: -webkit-radial-gradient(top, rgba(20,20,20,0.25) 0%, rgba(20,20,20,0.75) 71%, rgba(20,20,20,1) 100%);
 		background: -o-radial-gradient(top, rgba(20,20,20,0.25) 0%, rgba(20,20,20,0.75) 71%, rgba(20,20,20,1) 100%);
 		background: -ms-radial-gradient(top, rgba(20,20,20,0.25) 0%, rgba(20,20,20,0.75) 71%, rgba(20,20,20,1) 100%);
-		background: rgba(20,20,20,0.8);
+		
 	}
 }
 
