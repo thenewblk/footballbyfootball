@@ -764,15 +764,32 @@ img {
 }
 
 .locker-authors {
-	display: table;
 	width: 100%;
+	position: relative;
+	padding-left: 30px;
+	margin-top: -30px;
+	.locker-author-wrap {
+		display: table;
+		width: 100%;
+	}
 	.author-image-wrap {
 		display: table-cell;
+		background: white;
 		.author-image {
 			display: table;
 			margin: 5px auto;
 		}
 	}
+}
+
+.locker-authors:before {
+	content: '';
+	position: absolute;
+	border: 30px solid white;
+	border-left-color: transparent;
+	border-top: none;
+	top: 0;
+	left: 0;
 }
 
 .medium-article {
@@ -827,11 +844,18 @@ img {
 	}
 }
 
+.locker-square {
+
+}
+
 .medium-article.lockerroom {
 	background: red;
 	text-align: center;
 	display: table;
 	width: 100%;
+	background-image: url(https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer-small.jpg);
+	background-size: cover;
+	background-position: center;
 
 	.headline {
 		color: white;
@@ -847,16 +871,6 @@ img {
 		}
 	}
 
-}
-
-.medium-article.lockerroom:after {
-	content: '';
-	position: absolute;
-	border: 15px solid red;
-	border-right-color: transparent;
-	border-bottom-color: transparent;
-	top: 100%;
-	left: 0;
 }
 
 .banner.white.left {
@@ -935,7 +949,7 @@ img {
 	position: absolute;
 	border: white solid 10px;
 	border-left-color: transparent;
-	border-bottom: none;
+	border-bottom-color: transparent;
 	right: 100%;
 	top: 0;
 }
@@ -945,7 +959,27 @@ img {
 	position: absolute;
 	border: white solid 10px;
 	border-left-color: transparent;
-	border-top: none;
+	border-top-color: transparent;
+	right: 100%;
+	bottom: 0;
+}
+
+.banner.white.right.big:after {
+	content: '';
+	position: absolute;
+	border: white solid 15px;
+	border-left-color: transparent;
+	border-bottom-color: transparent;
+	right: 100%;
+	top: 0;
+}
+
+.banner.white.right.big:before {
+	content: '';
+	position: absolute;
+	border: white solid 15px;
+	border-left-color: transparent;
+	border-top-color: transparent;
 	right: 100%;
 	bottom: 0;
 }
