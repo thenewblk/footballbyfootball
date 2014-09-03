@@ -829,10 +829,16 @@ img {
 
 .medium-article.lockerroom {
 	background: red;
+	text-align: center;
+	display: table;
+	width: 100%;
 
 	.headline {
-		bottom: 35%;
 		color: white;
+		display: table-cell;
+		vertical-align: middle;
+		height: 100%;
+		position: relative;
 
 		.inner-content {
 			.copy {
