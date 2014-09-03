@@ -723,7 +723,8 @@ img {
 	}
 
 	.headline {
-		background: #222;
+
+		background: rgba(20,20,20,0.8);
 		position: absolute;
 		width: 100%;
 		bottom: 10%;
@@ -788,6 +789,7 @@ img {
 	border: 30px solid white;
 	border-left-color: transparent;
 	border-top: none;
+	border-right: none;
 	top: 0;
 	left: 0;
 }
