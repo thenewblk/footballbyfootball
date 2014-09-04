@@ -1,0 +1,24 @@
+<% include ../header %>
+
+<div class="main-articles">
+	<div class="container">
+		<h1>Admin Page</h1>
+		<% users.forEach(function(user){ %>
+	    <div class="user">
+	    <a href="/users/<%= user.id %>"><%= user.id %></a>
+
+	    </div>
+	  <% }) %>
+	  <div id="content"></div>
+	</div>
+</div>
+
+<script src="http://fb.me/react-0.11.1.min.js"></script>
+<script src="/js/name-test.compiled.js"></script>
+<script>
+  var Data = { name: 'world' };
+  React.renderComponent(Hello(Data), document.getElementById('content'));
+</script>
+
+
+<% include ../footer %>

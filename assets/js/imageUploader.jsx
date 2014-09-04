@@ -24,28 +24,12 @@ var imageUploader = React.createClass({
   componentWillMount: function() {
   },
 
-  // componentDidUpdate: function() {
-  //   var self = this;
-  //   console.log('componentDidUpdate: '+ self.props.image);
-  //   // self.setState({ active: true });
-  // },
-
-  // // shouldComponentUpdate: function(nextProps, nextState) {
-  // //   return nextProps.image !== this.props.image;
-  // // },
-
-  // componentWillReceiveProps: function(nextProps) {
-  //   console.log('componentWillReceiveProps:');
-
-  //   console.log(' nextProps: '+JSON.stringify(nextProps));
-
-  //   if (nextProps.image){
-  //     this.setState({ active: true });
-  //   }
-  // },
-
   handleChange: function(event) {
 
+  },
+
+  handleCaptionChange: function(event) {
+    this.props.caption_content({id: this.props.identifier, caption: event.target.value });
   },
 
   handleClose: function() {
@@ -77,6 +61,7 @@ var imageUploader = React.createClass({
   },
 
   render: function() {
+    var caption = this.props.caption;
     var className = this.state.active ? 'content-container active' : 'content-container';
     return ( 
       <div className={className} ref='contentwrapper'>
@@ -87,10 +72,13 @@ var imageUploader = React.createClass({
             <img src={"https://s3.amazonaws.com/footballbyfootball-dev"+this.props.image} />
           </div> 
         : 
-          <div className={"image-uploader uploader-"+this.props.identifier}>
-            Upload Images
+          <div className='image-container'>
+            <div className={"image-uploader uploader-"+this.props.identifier}>
+              Upload Images
+            </div>
           </div>
         }
+        <input className='column-title-tag' type="text" placeholder="Caption" value={caption} onChange={this.handleCaptionChange} />
         <a className="close-link" onClick={this.handleClose}>×</a>
       </div> )
   }
