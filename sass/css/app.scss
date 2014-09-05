@@ -663,6 +663,13 @@ img {
 	position: absolute;
 	width: 100%;
 	z-index: 1;
+	.article-links {
+		color: black;
+		&:hover {
+			text-decoration: underline;
+			color: black;
+		}
+	}
 }
 
 .lockerroom {
@@ -1165,6 +1172,13 @@ form {
 	float: right; 
 	width: 375px; 
 	padding: 15px;
+
+	p {
+		font-size: 0.8em;
+		background: #eee;
+		padding: 5px;
+	}
+
 }
 
 .pull-quote {
