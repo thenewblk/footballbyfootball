@@ -716,6 +716,15 @@ img {
 
 }
 
+.big-article.really-big {
+
+		.headline .copy h3{
+			font-size: 40px;
+			text-align: center;
+		}
+
+}
+
 .big-article {
 	height: 500px;
 	background: #eee;
@@ -727,6 +736,7 @@ img {
 		color: white;
 	}
 	a:hover {
+		color: white;
 		text-decoration: underline;	
 	}
 
