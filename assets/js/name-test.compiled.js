@@ -2,32 +2,38 @@
 /**
  * @jsx React.DOM
  */
+var app = app || {};
+
+var Data = window.Data;
+
+console.log('Data: ' + Data);
 
 var React = require('react');
 
 var World = React.createClass({displayName: 'World',
     render: function() {
-        return React.DOM.strong(null, this.props.data.name);
+        return React.DOM.strong(null, this.props.data);
     }
 });
 
 var Hello = React.createClass({displayName: 'Hello',
     clickHandler: function() {
         this.setProps({
-            data: { name: 'earth' }
+            name: 'earth' 
         });
     },
     render: function() {
+        console.log(this.props.name);
         return (
             React.DOM.div(null, 
-                "Hello ", World({data: this.props.data}), 
+                "Hello ", World({data: this.props.name}), 
                 React.DOM.button({onClick: this.clickHandler}, "Click me")
             )
         );
     }
 });
 
-module.exports = Hello;
+React.renderComponent(Hello(Data), document.getElementById('content'));
 },{"react":145}],2:[function(require,module,exports){
 /**
  * Copyright 2013-2014 Facebook, Inc.

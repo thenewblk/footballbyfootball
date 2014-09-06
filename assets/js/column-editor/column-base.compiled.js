@@ -811,7 +811,7 @@ React.renderComponent(
 
 var React = require('react');
 
-var ReactScriptLoaderModule = require('./ReactScriptLoader.js');
+var ReactScriptLoaderModule = require('../ReactScriptLoader.js');
 var ReactScriptLoaderMixin= ReactScriptLoaderModule.ReactScriptLoaderMixin;
 var ReactScriptLoader= ReactScriptLoaderModule.ReactScriptLoader;
 
@@ -841,7 +841,7 @@ var Column = React.createClass({displayName: 'Column',
   onScriptLoaded: function() {
     var self = this;
     var identifier = this.props.identifier;
-    var wysihtml5ParserRules = require('./advanced.js');
+    var wysihtml5ParserRules = require('../advanced.js');
     mainEditor[self.props.identifier] = new wysihtml5.Editor('main-content-'+identifier, {
       toolbar:      "main-toolbar-"+identifier,
       stylesheets:  "/css/wysihtml5.css",
@@ -948,14 +948,14 @@ var Column = React.createClass({displayName: 'Column',
 });
 
 module.exports = Column;
-},{"./ReactScriptLoader.js":1,"./advanced.js":2,"react":149}],5:[function(require,module,exports){
+},{"../ReactScriptLoader.js":1,"../advanced.js":2,"react":149}],5:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
 
 var React = require('react');
 
-var ReactScriptLoaderModule = require('./ReactScriptLoader.js');
+var ReactScriptLoaderModule = require('../ReactScriptLoader.js');
 var ReactScriptLoaderMixin= ReactScriptLoaderModule.ReactScriptLoaderMixin;
 var ReactScriptLoader= ReactScriptLoaderModule.ReactScriptLoader;
 
@@ -1025,7 +1025,7 @@ var imageUploader = React.createClass({displayName: 'imageUploader',
         : 
           React.DOM.div({className: "image-container"}, 
             React.DOM.div({className: "image-uploader uploader-"+this.props.identifier}, 
-              "Upload Images"
+              React.DOM.p(null, React.DOM.span({className: "fa fa-image"})), "Upload Images"
             )
           ), 
         
@@ -1036,7 +1036,7 @@ var imageUploader = React.createClass({displayName: 'imageUploader',
 });
 
 module.exports = imageUploader;
-},{"./ReactScriptLoader.js":1,"react":149,"util":153}],6:[function(require,module,exports){
+},{"../ReactScriptLoader.js":1,"react":149,"util":153}],6:[function(require,module,exports){
 /**
  * Copyright 2013-2014 Facebook, Inc.
  *

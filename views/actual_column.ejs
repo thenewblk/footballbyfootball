@@ -1,0 +1,44 @@
+<%= include header %>
+
+<div class="column">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="column-header">
+					<h2 class="title"><%= column.title %></h2>
+					<p class="date"><%= column.updated_at %></p>
+					<img src="https://s3.amazonaws.com/footballbyfootball-dev/columns/manziel_hoyer.jpg" alt="">
+					<p class="ap-image">AP Image</p>
+				</div>
+
+				<div class="column-content-wrapper">
+					<% column.data.forEach(function(item){ %>
+						<% if (item.type == 'content') { %>
+							<%- item.content %>
+						<%}%>
+						<% if (item.type == 'image') { %>
+							<div class="caption-image">
+								<img src="https://s3.amazonaws.com/footballbyfootball-dev<%= item.image_url %>" />
+								<p><%= item.caption %></p>
+							</div>
+						<%}%>
+					<% }); %>
+
+				</div>				
+			</div>
+			<div class="col-md-4">
+				<div class="author-badge">
+					<div class="black banner right">Football <span class="by">by</span> Sage Rosenfels</div>
+					<div class="author-square" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev/Headshots/pro_sagerosenfels.jpg)"></div>
+					<div class="content">
+						<p class="item">Quarterback</p>
+						<p class="item">12 years in NFL</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<%= include footer %>

@@ -4,7 +4,7 @@
 
 var React = require('react');
 
-var ReactScriptLoaderModule = require('./ReactScriptLoader.js');
+var ReactScriptLoaderModule = require('../ReactScriptLoader.js');
 var ReactScriptLoaderMixin= ReactScriptLoaderModule.ReactScriptLoaderMixin;
 var ReactScriptLoader= ReactScriptLoaderModule.ReactScriptLoader;
 
@@ -74,7 +74,7 @@ var imageUploader = React.createClass({
         : 
           <div className='image-container'>
             <div className={"image-uploader uploader-"+this.props.identifier}>
-              Upload Images
+              <p><span className="fa fa-image"></span></p>Upload Images
             </div>
           </div>
         }

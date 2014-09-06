@@ -3,10 +3,13 @@
  */
 
 var React = require('react');
+var request = require('superagent');
 
 var Column = require('./contentEditor.jsx');
 
 var Image = require('./imageUploader.jsx');
+
+var Content = window.Content || {};
 
 var ColumnList = React.createClass({  
   getInitialState: function() {
@@ -15,6 +18,17 @@ var ColumnList = React.createClass({
 
   componentDidMount: function(){
     console.log('mounted');
+  },
+
+  componentWillMount: function(){
+    if(this.props.title) {
+      this.setState({title: this.props.title});
+    }
+
+    if(this.props.data) {
+      this.setState({data: this.props.data});
+    }
+
   },
 
   addImage: function(){
@@ -71,7 +85,7 @@ var ColumnList = React.createClass({
     this.setState({title: event.target.value});
   },
 
-  submitContent: function(){
+  testContent: function(){
     var self = this;
     console.log( 'title: '+ self.state.title );
     console.log('children: '+ self.state.data.length);
@@ -84,6 +98,20 @@ var ColumnList = React.createClass({
         console.log( ' data.caption: '+ self.state.data[i].caption );
       }
     }
+  },
+
+  submitContent: function(){
+    var self = this;
+
+    request
+      .post('/column/new')
+      .send({ title: self.state.title, data: self.state.data })
+      .end(function(res) {
+        console.log(res)
+        if (res.text) {
+          window.location = "/column/"+res.text;
+        }
+      }.bind(self));
   },
   render: function() {
     var self = this;
@@ -109,17 +137,24 @@ var ColumnList = React.createClass({
     });
     return (
       <div className="container">
-        <div className='column-title'>
-          <input className='column-title-tag' type="text" value={title} onChange={this.handleTitleChange} placeholder="Title" />
+        <div className="row"> 
+          <div className="col-md-8">
+            <div className="column-header">
+              <h2 className="title"><input className='column-title-tag' type="text" value={title} onChange={this.handleTitleChange} placeholder="Title" /></h2>
+              <p className="date">September 5, 2014</p>
+            </div>
+            <div className="column-content">
+              {columns}
+            </div>
+            <div className="contentbar">
+              <p className="content-link" onClick={this.addContent}>Add Text</p>
+              <p className="content-link" onClick={this.addImage}>Add Image</p>
+            </div>
+            <a className='article-submit' onClick={this.submitContent}>submit</a>
+
+            <a className='article-submit' onClick={this.testContent}>test</a>
+          </div>
         </div>
-        <div className="column-content">
-          {columns}
-        </div>
-        <div className="contentbar">
-          <p className="content-link" onClick={this.addContent}>Add Text</p>
-          <p className="content-link" onClick={this.addImage}>Add Image</p>
-        </div>
-        <a className='article-submit' onClick={this.submitContent}>submit</a>
       </div>
       
     )
@@ -127,6 +162,6 @@ var ColumnList = React.createClass({
 });
 
 React.renderComponent(
-  <ColumnList />,
+  ColumnList(Content),
   document.getElementById('react-content')
 )

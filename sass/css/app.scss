@@ -1193,6 +1193,90 @@ form {
 	font-size: 25px;
 }
 
+.wysiwyg-font-size-smaller {
+  font-size: smaller;
+}
+
+.wysiwyg-font-size-larger {
+  font-size: larger;
+}
+
+.wysiwyg-font-size-xx-large {
+  font-size: xx-large;
+}
+
+.wysiwyg-font-size-x-large {
+  font-size: x-large;
+}
+
+.wysiwyg-font-size-large {
+  font-size: large;
+}
+
+.wysiwyg-font-size-medium {
+  font-size: medium;
+}
+
+.wysiwyg-font-size-small {
+  font-size: small;
+}
+
+.wysiwyg-font-size-x-small {
+  font-size: x-small;
+}
+
+.wysiwyg-font-size-xx-small {
+  font-size: xx-small;
+}
+
+.wysiwyg-color-red {
+  color: #ad1a19;
+}
+
+.wysiwyg-color-dark {
+  color: #2C3744;
+}
+
+.wysiwyg-text-align-right {
+  text-align: right;
+}
+
+.wysiwyg-text-align-center {
+  text-align: center;
+}
+
+.wysiwyg-text-align-left {
+  text-align: left;
+}
+
+.wysiwyg-float-left {
+  float: left;
+  margin: 0 8px 8px 0;
+}
+
+.wysiwyg-float-right {
+  float: right;
+  margin: 0 0 8px 8px;
+}
+
+.wysiwyg-clear-right {
+  clear: right;
+}
+
+.wysiwyg-clear-left {
+  clear: left;
+}
+
+a {
+  color: #ad1a19;
+  transition: 0.15s ease-in-out; 
+  text-decoration: none;
+}
+a:hover {
+  color: #ad1a19;
+  text-decoration: underline;
+}
+
 @media (max-width: 991px) {
 	.author-badge {
 		position: relative;
@@ -1215,6 +1299,10 @@ form {
 			}
 		}
 	}
+}
+
+.full-width {
+	margin: 30px 0;
 }
 
 @media (max-width: 480px) {

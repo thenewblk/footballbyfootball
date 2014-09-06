@@ -4,7 +4,7 @@
 
 var React = require('react');
 
-var ReactScriptLoaderModule = require('./ReactScriptLoader.js');
+var ReactScriptLoaderModule = require('../ReactScriptLoader.js');
 var ReactScriptLoaderMixin= ReactScriptLoaderModule.ReactScriptLoaderMixin;
 var ReactScriptLoader= ReactScriptLoaderModule.ReactScriptLoader;
 
@@ -34,7 +34,7 @@ var Column = React.createClass({
   onScriptLoaded: function() {
     var self = this;
     var identifier = this.props.identifier;
-    var wysihtml5ParserRules = require('./advanced.js');
+    var wysihtml5ParserRules = require('../advanced.js');
     mainEditor[self.props.identifier] = new wysihtml5.Editor('main-content-'+identifier, {
       toolbar:      "main-toolbar-"+identifier,
       stylesheets:  "/css/wysihtml5.css",
