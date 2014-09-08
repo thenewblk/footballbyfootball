@@ -4,7 +4,7 @@
 			<div class="row">
 				<% if (locals.column1 && locals.column2) { %>
 				<div class="col-md-6">
-					<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column1.main_image.image_url %>);">
+					<div class="big-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column1.main_image.image_url %>);">
 						<div class="overcast"></div>
 						<div class="headline">
 							<div class="white banner left">COLUMN:</div>
@@ -19,7 +19,9 @@
 							</div>
 						</div>
 					</div>
-					<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column2.main_image.image_url %>);">
+				</div>
+				<div class="col-md-6">
+					<div class="big-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column2.main_image.image_url %>);">
 						<div class="overcast"></div>
 						<div class="headline">
 							<div class="white banner left">COLUMN:</div>
@@ -36,6 +38,8 @@
 					</div>
 				</div>
 				<% } %>
+			</div>
+			<div class="row">
 				<div class="col-md-6">
 					<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev/columns/col-sage-sept8.jpg);">
 						<div class="overcast"></div>
@@ -52,6 +56,8 @@
 							</div>
 						</div>
 					</div>
+				</div>
+				<div class="col-md-6">
 					<a href="/wwkjd/week-1"><img class="image-links" src="https://s3.amazonaws.com/footballbyfootball-dev/columns/col-wwkjd-w1.jpg" alt=""></a>
 				</div>
 			</div>
