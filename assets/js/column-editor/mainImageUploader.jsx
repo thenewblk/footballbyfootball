@@ -52,14 +52,6 @@ var imageUploader = React.createClass({
       self.setState({ active: true });
     });
   },
-
-  componentDidUpdate: function() {
-    console.log('componentDidMount');
-    if (!this.props.image){
-      console.log('!this.props.image');
-      myDropzone[self.props.identifier] = new Dropzone(".uploader-"+self.props.identifier, { url: "/upload", paramName: "file", maxFiles: 1});
-    }
-  },
  
   onScriptError: function() {
       alert('Script Load Error');
@@ -79,14 +71,13 @@ var imageUploader = React.createClass({
           </div> 
         : 
           <div className='image-container'>
-            <div className="image-uploader-label">
-              <p className="fa fa-image upload-icon"><br />Upload Image</p>
-            </div>
             <div className={"image-uploader uploader-"+this.props.identifier}>
+              <p className="fa fa-image upload-icon"></p>
+              <p>Upload Image</p>
             </div>
           </div>
         }
-        <input className='caption-input' type="text" placeholder="Caption" value={caption} onChange={this.handleCaptionChange} />
+        <input className='column-title-tag' type="text" placeholder="Caption" value={caption} onChange={this.handleCaptionChange} />
         <a className="close-link" onClick={this.handleClose}>×</a>
       </div> )
   }

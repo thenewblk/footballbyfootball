@@ -214,9 +214,26 @@ body.column {
   border: 2px solid #202b2a;
 }
 
+.image-uploader-label {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	color: #bbb;
+	height: 100%;
+	display: table;
+	.upload-icon {
+		display: table-cell;
+		width: 100%;
+		vertical-align: middle;	
+	}
+}
+
 .image-uploader {
-	min-height: 100px;
-	background: #eee;
+	min-height: 300px;
+	text-align: center;
+	position: relative;
+	border: #eee solid 2px;
+	z-index: 1;
 	.dz-progress{ 
 		height: 10px;
 		background: transparent;
@@ -363,6 +380,10 @@ body.column {
 			overflow: scroll;
 		}
 	}
+}
+
+.content-container {
+	position: relative;
 }
 
 .column-content {
@@ -1077,6 +1098,13 @@ img {
 		}
 		.date {
 			color: #999;
+		}
+		.caption-input {
+			border: none;
+			-webkit-appearance: none;
+			outline: none;
+			border-bottom: 1px solid #ddd;
+			width: 100%;
 		}
 	}
 }

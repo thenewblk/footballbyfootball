@@ -129,13 +129,10 @@ var ColumnList = React.createClass({
     this.setState({mainImage: main_image });
   },
 
-  // removeMainImage: function(content){
-  //   var new_data = this.state.data;
-  //   console.log('removeImage: before new_data: '+ JSON.stringify(new_data));
-  //   new_data.splice(content.id,1);
-  //   this.setState({data: new_data});
-  //   console.log('removeImage: after new_data: '+ JSON.stringify(new_data));
-  // },
+  removeMainImage: function(content){
+    console.log('removed mainImage');
+    this.setState({mainImage: {} });
+  },
 
 
 
@@ -177,7 +174,7 @@ var ColumnList = React.createClass({
                 image={main_image.image_url}
                 caption_content={self.handleMainImageCaption} 
                 content={self.handleMainImage} 
-                removed={self.removeImage} />
+                removed={self.removeMainImage} />
             </div>
             <div className="column-content">
               {columns}

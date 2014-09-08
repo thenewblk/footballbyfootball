@@ -803,13 +803,10 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
     this.setState({mainImage: main_image });
   },
 
-  // removeMainImage: function(content){
-  //   var new_data = this.state.data;
-  //   console.log('removeImage: before new_data: '+ JSON.stringify(new_data));
-  //   new_data.splice(content.id,1);
-  //   this.setState({data: new_data});
-  //   console.log('removeImage: after new_data: '+ JSON.stringify(new_data));
-  // },
+  removeMainImage: function(content){
+    console.log('removed mainImage');
+    this.setState({mainImage: {} });
+  },
 
 
 
@@ -851,7 +848,7 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
                 image: main_image.image_url, 
                 caption_content: self.handleMainImageCaption, 
                 content: self.handleMainImage, 
-                removed: self.removeImage})
+                removed: self.removeMainImage})
             ), 
             React.DOM.div({className: "column-content"}, 
               columns
@@ -1073,6 +1070,14 @@ var imageUploader = React.createClass({displayName: 'imageUploader',
       self.setState({ active: true });
     });
   },
+
+  componentDidUpdate: function() {
+    console.log('componentDidMount');
+    if (!this.props.image){
+      console.log('!this.props.image');
+      myDropzone[self.props.identifier] = new Dropzone(".uploader-"+self.props.identifier, { url: "/upload", paramName: "file", maxFiles: 1});
+    }
+  },
  
   onScriptError: function() {
       alert('Script Load Error');
@@ -1086,20 +1091,20 @@ var imageUploader = React.createClass({displayName: 'imageUploader',
     var className = this.state.active ? 'content-container active' : 'content-container';
     return ( 
       React.DOM.div({className: className, ref: "contentwrapper"}, 
-
-        React.DOM.h2(null, "Image"), 
         this.props.image ?  
           React.DOM.div({className: "uploaded-image"}, 
             React.DOM.img({src: "https://s3.amazonaws.com/footballbyfootball-dev"+this.props.image})
           ) 
         : 
           React.DOM.div({className: "image-container"}, 
-            React.DOM.div({className: "image-uploader uploader-"+this.props.identifier}, 
-              React.DOM.p(null, React.DOM.span({className: "fa fa-image"})), "Upload Images"
+            React.DOM.div({className: "image-uploader-label"}, 
+              React.DOM.p({className: "fa fa-image upload-icon"}, React.DOM.br(null), "Upload Image")
+            ), 
+            React.DOM.div({className: "image-uploader uploader-"+this.props.identifier}
             )
           ), 
         
-        React.DOM.input({className: "column-title-tag", type: "text", placeholder: "Caption", value: caption, onChange: this.handleCaptionChange}), 
+        React.DOM.input({className: "caption-input", type: "text", placeholder: "Caption", value: caption, onChange: this.handleCaptionChange}), 
         React.DOM.a({className: "close-link", onClick: this.handleClose}, "×")
       ) )
   }
