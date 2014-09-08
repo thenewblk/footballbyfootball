@@ -1,5 +1,7 @@
 <%= include ../header %>	
 
+<script>window.Players = <%- JSON.stringify(players) %>;</script>
+
 <div id='react-content'></div>
 
 <script src='/js/column-editor/column-new.compiled.js' ></script>

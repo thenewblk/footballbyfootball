@@ -57,16 +57,16 @@ body.column {
 }
 
 .content-container.active .toolbar {
-	display: inline-block;
+	// display: inline-block;
 }
 
 .post-form{
 	.toolbar {
-		display: none;
 		line-height: 40px;
-		background: #ddd;
+		background: white;
 		position: relative;
 		margin-bottom: 10px;
+		border-bottom: #eee solid 1px;
 	  .section {
 		  padding: 0 10px;
 		  line-height: 40px;
@@ -105,17 +105,17 @@ body.column {
 			}
 		}
 	}
-	.toolbar:after {
-		content: '';
-		border: 10px solid #ddd;
-		border-bottom: none;
-		border-left-color: transparent;
-		border-right-color: transparent;
-		position: absolute;
-		top: 100%;
-		left: 50%;
-		margin-left: -10px;
-	}
+	// .toolbar:after {
+	// 	content: '';
+	// 	border: 10px solid #ddd;
+	// 	border-bottom: none;
+	// 	border-left-color: transparent;
+	// 	border-right-color: transparent;
+	// 	position: absolute;
+	// 	top: 100%;
+	// 	left: 50%;
+	// 	margin-left: -10px;
+	// }
 	
 	.title {
 	  width: 100%;
@@ -129,7 +129,7 @@ body.column {
 		line-height: 20px;
 	  width: 100%;
 	  margin: 0;
-	  padding: 0;
+	  padding: 0 15px;
 	  border-color: transparent;
 	  border: none;
 	}
@@ -151,6 +151,20 @@ body.column {
 	.submit:hover {
 	  opacity: 1;
 	}
+
+	input {
+		float: none;
+		padding: 0 15px;
+	}
+}
+
+input[type="submit"] {
+	padding: 0;
+}
+
+.player-editor-wrapper {
+	border: #ccc solid 1px;
+	margin: 20px 0;
 }
 
 .content-wrap {
@@ -166,6 +180,8 @@ body.column {
 	line-height: 40px;
 	font-size: 30px;
 	cursor: pointer;
+	background: white;
+	color: black;
 }
 
 .article-submit {
@@ -188,7 +204,8 @@ body.column {
 }
 
 .close-link:hover {
-	opacity: 0.8;
+	color: #ad1a19; 
+	text-decoration: none;
 }
 
 .contentbar {
@@ -215,34 +232,41 @@ body.column {
 }
 
 .image-uploader-label {
-	position: absolute;
-	width: 100%;
-	text-align: center;
 	color: #bbb;
-	height: 100%;
-	display: table;
+	text-align: center;
 	.upload-icon {
-		display: table-cell;
-		width: 100%;
-		vertical-align: middle;	
+		font-size: 50px;
 	}
 }
 
 .image-uploader {
-	min-height: 300px;
 	text-align: center;
 	position: relative;
-	border: #eee solid 2px;
 	z-index: 1;
+	padding: 75px 0;
 	.dz-progress{ 
-		height: 10px;
+		height: 2px;
 		background: transparent;
-		width: 100%;
+		width: 60%;
+		margin: 10px auto;
+		background: #eee;
+		display: block;
 		.dz-upload {
-			height: 10px;
-			background: blue;
-			display: inline-block;
+			height: 2px;
+			background: #aaa;
+			display: block;
 		}
+	}
+	.label-copy {
+		position: relative;
+		z-index: -1;
+		display: inline-block;
+	}
+}
+
+.image-uploader.dz-started {
+	.label-copy {
+		display: none;
 	}
 }
 
@@ -407,21 +431,35 @@ body.column {
 	}
 	.content-container {
 		background: white;
-		padding: 15px;
 		border-bottom: #ccc solid 1px;
 		margin: 15px 0;
 		position: relative;
+		border: #eee solid 2px;
 
 		.instagrams, .posts {
 			display: none;
 		} 
 		.instagrams.active, .posts.active {
 			display: block;
-
 		}
+
 		.instagrams {
 			max-height: 400px;
 			overflow: scroll;
+		}
+
+		.caption-input {
+			border: none;
+			-webkit-appearance: none;
+			outline: none;
+			padding: 5px;
+			background: #eee;
+			font-size: 0.8em;
+			width: 100%;
+		}
+		.close-link {
+			top: 0px;
+			z-index: 1;
 		}
 	}
 }
@@ -675,7 +713,6 @@ img {
 }
 
 .column .topbar {
-	margin-top: 20px;
 }
 
 .lockerroom .topbar {
@@ -1094,10 +1131,14 @@ img {
 				-webkit-appearance: none;
 				outline: none;
 				border-bottom: 1px solid #ddd;
+				width: 100%;
 			}
 		}
 		.date {
 			color: #999;
+		}
+		.image-uploader {
+			background: #eee;
 		}
 		.caption-input {
 			border: none;
@@ -1105,9 +1146,18 @@ img {
 			outline: none;
 			border-bottom: 1px solid #ddd;
 			width: 100%;
+			line-height: 2;
+		}
+		.close-link {
+			display: none;
+		}
+		.active .close-link {
+			display: block;
 		}
 	}
 }
+
+
 
 hr.bottom{
 	margin: 40px 0 20px;
@@ -1358,6 +1408,16 @@ a:hover {
 
 .full-width {
 	margin: 30px 0;
+}
+
+.adminbar {
+	background: red;
+	a { 
+		padding: 0 15px;
+		line-height: 50px;
+		color: white;
+		display: inline-block;
+	}
 }
 
 @media (max-width: 480px) {

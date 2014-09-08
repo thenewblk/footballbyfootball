@@ -2,13 +2,25 @@
 
 <div class="main-articles">
 	<div class="container">
-		<h1>Admin Page</h1>
-		<% columns.forEach(function(column){ %>
-	    <div class="thing">
-	    	<a href="/column/<%= column.id %>"><%= column.title %></a>
-	    </div>
-	  <% }) %>
-	  <a href="/column/new">New Column</a>
+		<div class="row">
+			<div class="col-md-6">
+				<h2>Columns</h2>
+				<% columns.forEach(function(column){ %>
+			    <div class="thing">
+			    	<a href="/column/<%= column.slug %>"><%= column.title %></a>
+			    </div>
+			  <% }) %>
+			  <p><a href="/column/new"><span class="fa fa-plus"></span> New Column</a></p>	
+		  </div>
+
+			<div class="col-md-6">
+				<h2>Players</h2>
+				<% players.forEach(function(player){ %>
+			    <p><a href="/player/<%= player.id %>"><%= player.name %></a></p>
+			  <% }) %>
+			  <p><a href="/player/new"><span class="fa fa-plus"></span> New Player</a></p>	
+		  </div>
+		</div>
 	</div>
 </div>
 

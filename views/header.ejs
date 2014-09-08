@@ -19,6 +19,18 @@
 		<img src="/img/logo-masthead.png" alt="" class="big-logo">
 	</div>
 	<%} %>
+
+	<% if (locals.user) { %>
+
+	<div class="adminbar">
+		<div class="container">
+			<a href="/admin">Admin</a>
+			<a href="/column/new">New Column</a>
+			<a href="/player/new">New Player</a>
+		</div>
+	</div>
+
+	<% } %>
 	<div class="topbar">
 		<div class="container cf">
 		<% if (locals.page_type && page_type =='home') {%>

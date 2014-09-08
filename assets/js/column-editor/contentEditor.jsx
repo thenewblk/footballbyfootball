@@ -39,24 +39,7 @@ var Column = React.createClass({
       toolbar:      "main-toolbar-"+identifier,
       stylesheets:  "/css/wysihtml5.css",
       parserRules:  wysihtml5ParserRules,
-      cleanUp:              false
-    });
-
-    mainEditor[self.props.identifier].on("load", function () {     
-      var $iframe = $(this.composer.iframe);
-      var $body = $(this.composer.element);
-      
-      $body
-        .css({
-          'min-height': 0,
-          'line-height': '20px',
-          'overflow': 'hidden',
-        })
-        .bind('keypress keyup keydown paste change focus blur', function(e) {
-          var height = Math.min($body[0].scrollHeight, $body.height());
-          var extra = 20 ;
-          $iframe.height(height + extra);
-        });
+      cleanUp:      false
     });
 
     mainEditor[self.props.identifier].observe("load", function () {     
@@ -69,12 +52,29 @@ var Column = React.createClass({
           'line-height': '20px',
           'overflow': 'hidden',
         })
-        .bind('keypress keyup keydown paste change focus blur', function(e) {
+        .bind('keypress keyup keydown paste change focus blur load', function(e) {
           var height = Math.min($body[0].scrollHeight, $body.height());
-          var extra = 20 ;
+          var extra = 25 ;
           $iframe.height(height + extra);
         });
     });
+
+    // mainEditor[self.props.identifier].observe("load", function () {     
+    //   var $iframe = $(this.composer.iframe);
+    //   var $body = $(this.composer.element);
+      
+    //   $body
+    //     .css({
+    //       'min-height': 0,
+    //       'line-height': '20px',
+    //       'overflow': 'hidden',
+    //     })
+    //     .bind('keypress keyup keydown paste change focus blur', function(e) {
+    //       var height = Math.min($body[0].scrollHeight, $body.height());
+    //       var extra = 50 ;
+    //       $iframe.height(height + extra);
+    //     });
+    // });
 
     function onFocus() { 
       self.setState({active: true});
@@ -91,7 +91,23 @@ var Column = React.createClass({
     function onChange() { 
       self.props.content({id: self.props.identifier, content: mainEditor[self.props.identifier].getValue()});
     };
+
     mainEditor[self.props.identifier].on("change", onChange);
+
+    function onLoad() { 
+
+      mainEditor[self.props.identifier].on("load", function () {     
+        var $iframe = $(this.composer.iframe);
+        var $body = $(this.composer.element);
+        
+        var height = Math.min($body[0].scrollHeight, $body.height());
+        var extra = 25 ;
+        $iframe.height(height + extra);
+      });
+
+    };
+
+    mainEditor[self.props.identifier].on("load", onLoad);
 
   },
  

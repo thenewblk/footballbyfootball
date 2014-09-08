@@ -13,24 +13,17 @@ var Image = require('./imageUploader.jsx');
 
 var Content = window.Content || {};
 
+var Players = window.Players || {};
+
 var ColumnList = React.createClass({  
   getInitialState: function() {
-    return { data: [], title: '', mainImage: {} };
+    return { data: [], title: '', mainImage: {}, player: '' };
   },
 
   componentDidMount: function(){
-    console.log('mounted');
   },
 
   componentWillMount: function(){
-    if(this.props.title) {
-      this.setState({title: this.props.title});
-    }
-
-    if(this.props.data) {
-      this.setState({data: this.props.data});
-    }
-
   },
 
   addImage: function(){
@@ -43,23 +36,19 @@ var ColumnList = React.createClass({
   handleImage: function(image){
     var old_data = this.state.data;
     old_data[image.id].image_url = image.image_url;
-    console.log('old_data: '+ JSON.stringify(old_data));
     this.setState({data: old_data});
   },
 
   handleImageCaption: function(image){
     var old_data = this.state.data;
     old_data[image.id].caption = image.caption;
-    console.log('old_data: '+ JSON.stringify(old_data));
     this.setState({data: old_data});
   },
 
   removeImage: function(content){
     var new_data = this.state.data;
-    console.log('removeImage: before new_data: '+ JSON.stringify(new_data));
     new_data.splice(content.id,1);
     this.setState({data: new_data});
-    console.log('removeImage: after new_data: '+ JSON.stringify(new_data));
   },
 
   addContent: function(){
@@ -77,14 +66,32 @@ var ColumnList = React.createClass({
 
   removeContent: function(content){
     var new_data = this.state.data;
-    console.log('removeContent: before new_data: '+ JSON.stringify(new_data));
     new_data.splice(content.id,1);
     this.setState({data: new_data});
-    console.log('removeContent: after new_data: '+ JSON.stringify(new_data));
   },
 
   handleTitleChange: function(event) {
     this.setState({title: event.target.value});
+  },
+
+  handlePlayer: function(event) {
+    this.setState({player: event.target.value});
+  },
+
+  handleMainImage: function(image){
+     var main_image = this.state.mainImage;
+    main_image.image_url = image.image_url;
+    this.setState({mainImage: main_image });
+  },
+
+  handleMainImageCaption: function(image){
+    var main_image = this.state.mainImage;
+    main_image.caption = image.caption;
+    this.setState({mainImage: main_image });
+  },
+
+  removeMainImage: function(content){
+    this.setState({mainImage: {} });
   },
 
   testContent: function(){
@@ -108,7 +115,7 @@ var ColumnList = React.createClass({
 
     request
       .post('/column/new')
-      .send({ title: self.state.title, data: self.state.data, main_image: self.state.mainImage })
+      .send({ title: self.state.title, data: self.state.data, main_image: self.state.mainImage, player: self.state.player  })
       .end(function(res) {
         console.log(res)
         if (res.text) {
@@ -117,30 +124,10 @@ var ColumnList = React.createClass({
       }.bind(self));
   },
 
-  handleMainImage: function(image){
-     var main_image = this.state.mainImage;
-    main_image.image_url = image.image_url;
-    this.setState({mainImage: main_image });
-  },
-
-  handleMainImageCaption: function(image){
-    var main_image = this.state.mainImage;
-    main_image.caption = image.caption;
-    this.setState({mainImage: main_image });
-  },
-
-  removeMainImage: function(content){
-    console.log('removed mainImage');
-    this.setState({mainImage: {} });
-  },
-
-
-
   render: function() {
     var self = this;
     var title = this.state.title;
     var today_date = moment().format("MMMM Do, YYYY");
-
     var main_image= this.state.mainImage;
 
     var columns = this.state.data.map(function(object, i) {
@@ -162,6 +149,11 @@ var ColumnList = React.createClass({
           removed={self.removeImage} />;
       }
     });
+
+    var player_options = Players.map(function(option) {
+      return <option value={option._id} >{option.name}</option>
+    });
+
     return (
       <div className="container">
         <div className="row"> 
@@ -184,7 +176,17 @@ var ColumnList = React.createClass({
               <p className="content-link" onClick={this.addImage}>Add Image</p>
             </div>
             <a className='article-submit' onClick={this.submitContent}>submit</a>
-            <a className='article-submit' onClick={this.testContent}>test</a>
+          </div>
+          <div className="col-md-4">
+            <div className="author-badge">
+              <div className="black banner right">Select Author</div>
+              <div className="content">
+                <select onChange={self.handlePlayer}>
+                  <option value="">Select a Player</option>
+                  {player_options}
+                </select>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -7,15 +7,16 @@ var request = require('superagent');
 var moment = require('moment');
 
 
-var Column = require('./contentEditor.jsx');
-
-var Image = require('./imageUploader.jsx');
+var Column = require('./contentEditor.jsx'),
+    Image = require('./imageUploader.jsx');
 
 var Content = window.Content || {};
 
+var Players = window.Players || {};
+
 var ColumnList = React.createClass({  
   getInitialState: function() {
-    return { id: '', data: [], title: '' };
+    return { id: '', data: [], title: '', mainImage: {}, player: '' };
   },
 
   componentDidMount: function(){
@@ -33,6 +34,14 @@ var ColumnList = React.createClass({
 
     if(this.props.id) {
       this.setState({id: this.props.id});
+    }
+
+    if(this.props.mainImage) {
+      this.setState({mainImage: this.props.mainImage});
+    }
+
+    if(this.props.player) {
+      this.setState({player: this.props.player});
     }
 
   },
@@ -91,9 +100,32 @@ var ColumnList = React.createClass({
     this.setState({title: event.target.value});
   },
 
+  handlePlayer: function(event) {
+    this.setState({player: event.target.value});
+  },
+
+  handleMainImage: function(image){
+    var main_image = this.state.mainImage;
+    main_image.image_url = image.image_url;
+    this.setState({mainImage: main_image });
+  },
+
+  handleMainImageCaption: function(image){
+    var main_image = this.state.mainImage;
+    main_image.caption = image.caption;
+    this.setState({mainImage: main_image });
+  },
+
+  removeMainImage: function(content){
+    this.setState({mainImage: {} });
+  },
+
+
   testContent: function(){
     var self = this;
     console.log( 'title: '+ self.state.title );
+    console.log( 'mainImage: '+ JSON.stringify(self.state.mainImage) );
+    console.log( 'player: '+ JSON.stringify(self.state.player) );
     console.log('children: '+ self.state.data.length);
     for (var i = 0; i < self.state.data.length; i++) {
       console.log( 'content #: '+ i );
@@ -111,7 +143,7 @@ var ColumnList = React.createClass({
 
     request
       .post('/column/'+this.state.id+'/edit')
-      .send({ title: self.state.title, data: self.state.data })
+      .send({ title: self.state.title, data: self.state.data, main_image: self.state.mainImage, player: self.state.player })
       .end(function(res) {
         console.log(res)
         if (res.text) {
@@ -123,6 +155,7 @@ var ColumnList = React.createClass({
     var self = this;
     var title = this.state.title;
     var today_date = moment().format("MMMM Do, YYYY");
+    var main_image= this.state.mainImage;
 
     var columns = this.state.data.map(function(object, i) {
       if ( object.type == 'content' ) {
@@ -143,6 +176,12 @@ var ColumnList = React.createClass({
           removed={self.removeImage} />;
       }
     });
+
+    var player_options = Players.map(function(option) {
+      return <option value={option._id} >{option.name}</option>
+    });
+
+    var default_player = this.state.player;
     return (
       <div className="container">
         <div className="row"> 
@@ -150,6 +189,13 @@ var ColumnList = React.createClass({
             <div className="column-header">
               <h2 className="title"><input className='column-title-tag' type="text" value={title} onChange={this.handleTitleChange} placeholder="Title" /></h2>
               <p className="date">{ today_date }</p>
+              <Image 
+                identifier='main'
+                image={main_image.image_url}
+                caption={main_image.caption}
+                caption_content={self.handleMainImageCaption} 
+                content={self.handleMainImage} 
+                removed={self.removeMainImage} />
             </div>
             <div className="column-content">
               {columns}
@@ -159,8 +205,17 @@ var ColumnList = React.createClass({
               <p className="content-link" onClick={this.addImage}>Add Image</p>
             </div>
             <a className='article-submit' onClick={this.submitContent}>submit</a>
-
-            <a className='article-submit' onClick={this.testContent}>test</a>
+          </div>
+          <div className="col-md-4">
+            <div className="author-badge">
+              <div className="black banner right">Select Author</div>
+              <div className="content">
+                <select onChange={self.handlePlayer} value={default_player}>
+                  <option value="">Select a Player</option>
+                  {player_options}
+                </select>
+              </div>
+            </div>
           </div>
         </div>
       </div>

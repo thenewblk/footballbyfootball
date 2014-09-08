@@ -7,13 +7,13 @@
 				<div class="column-header">
 					<h2 class="title"><%= column.title %>
 						<% if (locals.user) { %>
-							<a href="/column/<%= column.id %>/edit"> Edit</a>
+							<a href="/column/<%= column.slug %>/edit"> Edit</a>
 						<% } %>
 
 					 </h2>
 					<p class="date"><%= column.updated_at %></p>
 					<img src="https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url%>" alt="">
-					<p class="ap-image"><%= column.main_image.caption %></p>
+					<% if (column.main_image.caption) { %><p class="ap-image"><%= column.main_image.caption %></p><% } %>
 				</div>
 
 				<div class="column-content-wrapper">
@@ -24,7 +24,7 @@
 						<% if (item.type == 'image') { %>
 							<div class="caption-image">
 								<img src="https://s3.amazonaws.com/footballbyfootball-dev<%= item.image_url %>" />
-								<p><%= item.caption %></p>
+								<% if (item.caption) { %><p class="ap-image"><%= item.caption %></p><% } %>
 							</div>
 						<%}%>
 					<% }); %>
@@ -33,11 +33,10 @@
 			</div>
 			<div class="col-md-4">
 				<div class="author-badge">
-					<div class="black banner right">Football <span class="by">by</span> Sage Rosenfels</div>
-					<div class="author-square" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev/Headshots/pro_sagerosenfels.jpg)"></div>
+					<div class="black banner right">Football <span class="by">by</span> <%= column.player.name %></div>
+					<div class="author-square" style="background-image: url(<%= column.player.image_url %>)"></div>
 					<div class="content">
-						<p class="item">Quarterback</p>
-						<p class="item">12 years in NFL</p>
+						<%- column.player.description %>
 					</div>
 				</div>
 			</div>

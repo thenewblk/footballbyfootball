@@ -1,5 +1,14 @@
 <%= include ../header %>	
-<script>window.Content = { id: <%- JSON.stringify(column.id) %>, title: <%- JSON.stringify(column.title) %>, data: <%- JSON.stringify(column.data) %> }</script>
+<script>
+	window.Content = { 
+		id: <%- JSON.stringify(column.id) %>, 
+		title: <%- JSON.stringify(column.title) %>, 
+		data: <%- JSON.stringify(column.data) %>, 
+		mainImage: <%- JSON.stringify(column.main_image) %>, 
+		player: <%- JSON.stringify(column.player._id) %> };
+	window.Players = <%- JSON.stringify(players) %>;
+</script>
+
 <div id='react-content'></div>
 
 <script src='/js/column-editor/column-edit.compiled.js' ></script>

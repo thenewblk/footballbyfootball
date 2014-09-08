@@ -681,15 +681,16 @@ var request = require('superagent');
 var moment = require('moment');
 
 
-var Column = require('./contentEditor.jsx');
-
-var Image = require('./imageUploader.jsx');
+var Column = require('./contentEditor.jsx'),
+    Image = require('./imageUploader.jsx');
 
 var Content = window.Content || {};
 
+var Players = window.Players || {};
+
 var ColumnList = React.createClass({displayName: 'ColumnList',  
   getInitialState: function() {
-    return { id: '', data: [], title: '' };
+    return { id: '', data: [], title: '', mainImage: {}, player: '' };
   },
 
   componentDidMount: function(){
@@ -707,6 +708,14 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
 
     if(this.props.id) {
       this.setState({id: this.props.id});
+    }
+
+    if(this.props.mainImage) {
+      this.setState({mainImage: this.props.mainImage});
+    }
+
+    if(this.props.player) {
+      this.setState({player: this.props.player});
     }
 
   },
@@ -765,9 +774,32 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
     this.setState({title: event.target.value});
   },
 
+  handlePlayer: function(event) {
+    this.setState({player: event.target.value});
+  },
+
+  handleMainImage: function(image){
+    var main_image = this.state.mainImage;
+    main_image.image_url = image.image_url;
+    this.setState({mainImage: main_image });
+  },
+
+  handleMainImageCaption: function(image){
+    var main_image = this.state.mainImage;
+    main_image.caption = image.caption;
+    this.setState({mainImage: main_image });
+  },
+
+  removeMainImage: function(content){
+    this.setState({mainImage: {} });
+  },
+
+
   testContent: function(){
     var self = this;
     console.log( 'title: '+ self.state.title );
+    console.log( 'mainImage: '+ JSON.stringify(self.state.mainImage) );
+    console.log( 'player: '+ JSON.stringify(self.state.player) );
     console.log('children: '+ self.state.data.length);
     for (var i = 0; i < self.state.data.length; i++) {
       console.log( 'content #: '+ i );
@@ -785,7 +817,7 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
 
     request
       .post('/column/'+this.state.id+'/edit')
-      .send({ title: self.state.title, data: self.state.data })
+      .send({ title: self.state.title, data: self.state.data, main_image: self.state.mainImage, player: self.state.player })
       .end(function(res) {
         console.log(res)
         if (res.text) {
@@ -797,6 +829,7 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
     var self = this;
     var title = this.state.title;
     var today_date = moment().format("MMMM Do, YYYY");
+    var main_image= this.state.mainImage;
 
     var columns = this.state.data.map(function(object, i) {
       if ( object.type == 'content' ) {
@@ -817,13 +850,26 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
           removed: self.removeImage});
       }
     });
+
+    var player_options = Players.map(function(option) {
+      return React.DOM.option({value: option._id}, option.name)
+    });
+
+    var default_player = this.state.player;
     return (
       React.DOM.div({className: "container"}, 
         React.DOM.div({className: "row"}, 
           React.DOM.div({className: "col-md-8"}, 
             React.DOM.div({className: "column-header"}, 
               React.DOM.h2({className: "title"}, React.DOM.input({className: "column-title-tag", type: "text", value: title, onChange: this.handleTitleChange, placeholder: "Title"})), 
-              React.DOM.p({className: "date"}, today_date )
+              React.DOM.p({className: "date"}, today_date ), 
+              Image({
+                identifier: "main", 
+                image: main_image.image_url, 
+                caption: main_image.caption, 
+                caption_content: self.handleMainImageCaption, 
+                content: self.handleMainImage, 
+                removed: self.removeMainImage})
             ), 
             React.DOM.div({className: "column-content"}, 
               columns
@@ -832,9 +878,18 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
               React.DOM.p({className: "content-link", onClick: this.addContent}, "Add Text"), 
               React.DOM.p({className: "content-link", onClick: this.addImage}, "Add Image")
             ), 
-            React.DOM.a({className: "article-submit", onClick: this.submitContent}, "submit"), 
-
-            React.DOM.a({className: "article-submit", onClick: this.testContent}, "test")
+            React.DOM.a({className: "article-submit", onClick: this.submitContent}, "submit")
+          ), 
+          React.DOM.div({className: "col-md-4"}, 
+            React.DOM.div({className: "author-badge"}, 
+              React.DOM.div({className: "black banner right"}, "Select Author"), 
+              React.DOM.div({className: "content"}, 
+                React.DOM.select({onChange: self.handlePlayer, value: default_player}, 
+                  React.DOM.option({value: ""}, "Select a Player"), 
+                  player_options
+                )
+              )
+            )
           )
         )
       )
@@ -889,24 +944,7 @@ var Column = React.createClass({displayName: 'Column',
       toolbar:      "main-toolbar-"+identifier,
       stylesheets:  "/css/wysihtml5.css",
       parserRules:  wysihtml5ParserRules,
-      cleanUp:              false
-    });
-
-    mainEditor[self.props.identifier].on("load", function () {     
-      var $iframe = $(this.composer.iframe);
-      var $body = $(this.composer.element);
-      
-      $body
-        .css({
-          'min-height': 0,
-          'line-height': '20px',
-          'overflow': 'hidden',
-        })
-        .bind('keypress keyup keydown paste change focus blur', function(e) {
-          var height = Math.min($body[0].scrollHeight, $body.height());
-          var extra = 20 ;
-          $iframe.height(height + extra);
-        });
+      cleanUp:      false
     });
 
     mainEditor[self.props.identifier].observe("load", function () {     
@@ -919,12 +957,29 @@ var Column = React.createClass({displayName: 'Column',
           'line-height': '20px',
           'overflow': 'hidden',
         })
-        .bind('keypress keyup keydown paste change focus blur', function(e) {
+        .bind('keypress keyup keydown paste change focus blur load', function(e) {
           var height = Math.min($body[0].scrollHeight, $body.height());
-          var extra = 20 ;
+          var extra = 25 ;
           $iframe.height(height + extra);
         });
     });
+
+    // mainEditor[self.props.identifier].observe("load", function () {     
+    //   var $iframe = $(this.composer.iframe);
+    //   var $body = $(this.composer.element);
+      
+    //   $body
+    //     .css({
+    //       'min-height': 0,
+    //       'line-height': '20px',
+    //       'overflow': 'hidden',
+    //     })
+    //     .bind('keypress keyup keydown paste change focus blur', function(e) {
+    //       var height = Math.min($body[0].scrollHeight, $body.height());
+    //       var extra = 50 ;
+    //       $iframe.height(height + extra);
+    //     });
+    // });
 
     function onFocus() { 
       self.setState({active: true});
@@ -941,7 +996,23 @@ var Column = React.createClass({displayName: 'Column',
     function onChange() { 
       self.props.content({id: self.props.identifier, content: mainEditor[self.props.identifier].getValue()});
     };
+
     mainEditor[self.props.identifier].on("change", onChange);
+
+    function onLoad() { 
+
+      mainEditor[self.props.identifier].on("load", function () {     
+        var $iframe = $(this.composer.iframe);
+        var $body = $(this.composer.element);
+        
+        var height = Math.min($body[0].scrollHeight, $body.height());
+        var extra = 25 ;
+        $iframe.height(height + extra);
+      });
+
+    };
+
+    mainEditor[self.props.identifier].on("load", onLoad);
 
   },
  
@@ -1036,15 +1107,40 @@ var imageUploader = React.createClass({displayName: 'imageUploader',
 
   onScriptLoaded: function() {
     var self = this;
-    myDropzone[self.props.identifier] = new Dropzone(".uploader-"+self.props.identifier, { url: "/upload", paramName: "file", maxFiles: 1});
+    var image = this.props.image || {};
+    if (!image.length) {
+      console.log('onScriptLoaded: '+ self.props.identifier);
 
-    myDropzone[self.props.identifier].on("success", function(file) {
-      /* Maybe display some more file information on your page */
-      var thing = JSON.parse(file.xhr.response);
-      console.log('success: ' + thing.saved);
-      self.props.content({id: self.props.identifier, image_url: thing.saved  });
-      self.setState({ active: true });
-    });
+      Dropzone.autoDiscover = false;
+
+      myDropzone[self.props.identifier] = new Dropzone(".uploader-"+self.props.identifier, { url: "/upload", paramName: "file", maxFiles: 1, autoDiscover: false});
+
+      myDropzone[self.props.identifier].on("success", function(file) {
+        /* Maybe display some more file information on your page */
+        var thing = JSON.parse(file.xhr.response);
+        console.log('success: ' + thing.saved);
+        self.props.content({id: self.props.identifier, image_url: thing.saved  });
+        self.setState({ active: true });
+      });
+    }
+  },
+
+  componentDidUpdate: function() {
+    var self = this;
+    var image = this.props.image || {};
+    if (!image.length && self.props.identifier == 'main') {
+      console.log('componentDidUpdate: '+ self.props.identifier);
+
+      myDropzone[self.props.identifier] = new Dropzone(".uploader-"+self.props.identifier, { url: "/upload", paramName: "file", maxFiles: 1, autoDiscover: false});      
+
+      myDropzone[self.props.identifier].on("success", function(file) {
+        /* Maybe display some more file information on your page */
+        var thing = JSON.parse(file.xhr.response);
+        console.log('success: ' + thing.saved);
+        self.props.content({id: self.props.identifier, image_url: thing.saved  });
+        self.setState({ active: true });
+      });
+    }
   },
  
   onScriptError: function() {
@@ -1056,23 +1152,23 @@ var imageUploader = React.createClass({displayName: 'imageUploader',
 
   render: function() {
     var caption = this.props.caption;
-    var className = this.state.active ? 'content-container active' : 'content-container';
+    var className = this.props.image || this.state.active ? 'content-container active' : 'content-container';
     return ( 
       React.DOM.div({className: className, ref: "contentwrapper"}, 
-
-        React.DOM.h2(null, "Image"), 
         this.props.image ?  
           React.DOM.div({className: "uploaded-image"}, 
             React.DOM.img({src: "https://s3.amazonaws.com/footballbyfootball-dev"+this.props.image})
           ) 
         : 
           React.DOM.div({className: "image-container"}, 
-            React.DOM.div({className: "image-uploader uploader-"+this.props.identifier}, 
-              React.DOM.p(null, React.DOM.span({className: "fa fa-image"})), "Upload Images"
+            React.DOM.div({className: "image-uploader-label image-uploader uploader-"+this.props.identifier}, 
+              React.DOM.p({className: "fa fa-image upload-icon label-copy"}), 
+              React.DOM.br(null), 
+              React.DOM.p({className: "label-copy"}, "Upload Image")
             )
           ), 
         
-        React.DOM.input({className: "column-title-tag", type: "text", placeholder: "Caption", value: caption, onChange: this.handleCaptionChange}), 
+        React.DOM.input({className: "caption-input", type: "text", placeholder: "Caption", value: caption, onChange: this.handleCaptionChange}), 
         React.DOM.a({className: "close-link", onClick: this.handleClose}, "×")
       ) )
   }

@@ -1,0 +1,18 @@
+<%= include header %>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<div class="author-badge" style="position: relative; margin: 50px 0;">
+				<div class="black banner right">Football <span class="by">by</span> <%= player.name %></div>
+				<div class="author-square" style="background-image: url(<%= player.image_url %>)"></div>
+				<div class="content">
+					<p><a href="/player/<%= player._id %>/edit">Edit <%= player.name %></a></p>
+					<%- player.description %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%= include footer %>

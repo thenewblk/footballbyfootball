@@ -42,22 +42,39 @@ var imageUploader = React.createClass({
 
   onScriptLoaded: function() {
     var self = this;
-    myDropzone[self.props.identifier] = new Dropzone(".uploader-"+self.props.identifier, { url: "/upload", paramName: "file", maxFiles: 1});
+    var image = this.props.image || {};
+    if (!image.length) {
+      console.log('onScriptLoaded: '+ self.props.identifier);
 
-    myDropzone[self.props.identifier].on("success", function(file) {
-      /* Maybe display some more file information on your page */
-      var thing = JSON.parse(file.xhr.response);
-      console.log('success: ' + thing.saved);
-      self.props.content({id: self.props.identifier, image_url: thing.saved  });
-      self.setState({ active: true });
-    });
+      Dropzone.autoDiscover = false;
+
+      myDropzone[self.props.identifier] = new Dropzone(".uploader-"+self.props.identifier, { url: "/upload", paramName: "file", maxFiles: 1, autoDiscover: false});
+
+      myDropzone[self.props.identifier].on("success", function(file) {
+        /* Maybe display some more file information on your page */
+        var thing = JSON.parse(file.xhr.response);
+        console.log('success: ' + thing.saved);
+        self.props.content({id: self.props.identifier, image_url: thing.saved  });
+        self.setState({ active: true });
+      });
+    }
   },
 
   componentDidUpdate: function() {
-    console.log('componentDidMount');
-    if (!this.props.image){
-      console.log('!this.props.image');
-      myDropzone[self.props.identifier] = new Dropzone(".uploader-"+self.props.identifier, { url: "/upload", paramName: "file", maxFiles: 1});
+    var self = this;
+    var image = this.props.image || {};
+    if (!image.length && self.props.identifier == 'main') {
+      console.log('componentDidUpdate: '+ self.props.identifier);
+
+      myDropzone[self.props.identifier] = new Dropzone(".uploader-"+self.props.identifier, { url: "/upload", paramName: "file", maxFiles: 1, autoDiscover: false});      
+
+      myDropzone[self.props.identifier].on("success", function(file) {
+        /* Maybe display some more file information on your page */
+        var thing = JSON.parse(file.xhr.response);
+        console.log('success: ' + thing.saved);
+        self.props.content({id: self.props.identifier, image_url: thing.saved  });
+        self.setState({ active: true });
+      });
     }
   },
  
@@ -70,7 +87,7 @@ var imageUploader = React.createClass({
 
   render: function() {
     var caption = this.props.caption;
-    var className = this.state.active ? 'content-container active' : 'content-container';
+    var className = this.props.image || this.state.active ? 'content-container active' : 'content-container';
     return ( 
       <div className={className} ref='contentwrapper'>
         {this.props.image ?  
@@ -79,10 +96,10 @@ var imageUploader = React.createClass({
           </div> 
         : 
           <div className='image-container'>
-            <div className="image-uploader-label">
-              <p className="fa fa-image upload-icon"><br />Upload Image</p>
-            </div>
-            <div className={"image-uploader uploader-"+this.props.identifier}>
+            <div className={"image-uploader-label image-uploader uploader-"+this.props.identifier}>
+              <p className="fa fa-image upload-icon label-copy"></p>
+              <br />
+              <p className="label-copy">Upload Image</p>
             </div>
           </div>
         }
