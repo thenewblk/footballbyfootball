@@ -4,7 +4,7 @@
 			<div class="row">
 				<% if (locals.column1) { %>
 				<div class="col-md-6">
-					<div class="big-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev/columns/col-sage-sept8.jpg<%= column1.main_image.image_url %>);">
+					<div class="big-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column1.main_image.image_url %>);">
 						<div class="overcast"></div>
 						<div class="headline">
 							<div class="white banner left">COLUMN:</div>
@@ -14,7 +14,7 @@
 								</a></div>
 								<div class="byline">
 									<%= column1.player.name %>
-									<div class="author-image" style="background-image: url(<%= column1.player.iamge_url %>)"></div>
+									<div class="author-image" style="background-image: url(<%= column1.player.image_url %>)"></div>
 								</div>
 							</div>
 						</div>
