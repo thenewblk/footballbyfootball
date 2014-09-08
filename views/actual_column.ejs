@@ -12,8 +12,8 @@
 
 					 </h2>
 					<p class="date"><%= column.updated_at %></p>
-					<img src="https://s3.amazonaws.com/footballbyfootball-dev/columns/manziel_hoyer.jpg" alt="">
-					<p class="ap-image">AP Image</p>
+					<img src="https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url%>" alt="">
+					<p class="ap-image"><%= column.main_image.caption %></p>
 				</div>
 
 				<div class="column-content-wrapper">

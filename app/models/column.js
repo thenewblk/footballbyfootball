@@ -18,7 +18,11 @@ var columnSchema = mongoose.Schema({
     updated_date : String,
     updated_at : String,
     approved	 : Boolean,
-    data: [ ]
+    data: [ ],
+    main_image: { 
+      image_url: String,
+      caption: String
+    }
 });
 
 columnSchema.pre('save', function (next) {

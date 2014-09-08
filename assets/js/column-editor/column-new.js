@@ -15,7 +15,7 @@ var Content = window.Content || {};
 
 var ColumnList = React.createClass({  
   getInitialState: function() {
-    return { data: [], title: '' };
+    return { data: [], title: '', mainImage: {} };
   },
 
   componentDidMount: function(){
@@ -90,6 +90,7 @@ var ColumnList = React.createClass({
   testContent: function(){
     var self = this;
     console.log( 'title: '+ self.state.title );
+    console.log( 'mainImage: '+ JSON.stringify(self.state.mainImage) );
     console.log('children: '+ self.state.data.length);
     for (var i = 0; i < self.state.data.length; i++) {
       console.log( 'content #: '+ i );
@@ -107,7 +108,7 @@ var ColumnList = React.createClass({
 
     request
       .post('/column/new')
-      .send({ title: self.state.title, data: self.state.data })
+      .send({ title: self.state.title, data: self.state.data, main_image: self.state.mainImage })
       .end(function(res) {
         console.log(res)
         if (res.text) {
@@ -115,10 +116,35 @@ var ColumnList = React.createClass({
         }
       }.bind(self));
   },
+
+  handleMainImage: function(image){
+     var main_image = this.state.mainImage;
+    main_image.image_url = image.image_url;
+    this.setState({mainImage: main_image });
+  },
+
+  handleMainImageCaption: function(image){
+    var main_image = this.state.mainImage;
+    main_image.caption = image.caption;
+    this.setState({mainImage: main_image });
+  },
+
+  // removeMainImage: function(content){
+  //   var new_data = this.state.data;
+  //   console.log('removeImage: before new_data: '+ JSON.stringify(new_data));
+  //   new_data.splice(content.id,1);
+  //   this.setState({data: new_data});
+  //   console.log('removeImage: after new_data: '+ JSON.stringify(new_data));
+  // },
+
+
+
   render: function() {
     var self = this;
     var title = this.state.title;
     var today_date = moment().format("MMMM Do, YYYY");
+
+    var main_image= this.state.mainImage;
 
     var columns = this.state.data.map(function(object, i) {
       if ( object.type == 'content' ) {
@@ -146,6 +172,12 @@ var ColumnList = React.createClass({
             <div className="column-header">
               <h2 className="title"><input className='column-title-tag' type="text" value={title} onChange={this.handleTitleChange} placeholder="Title" /></h2>
               <p className="date">{ today_date }</p>
+              <Image 
+                identifier='main'
+                image={main_image.image_url}
+                caption_content={self.handleMainImageCaption} 
+                content={self.handleMainImage} 
+                removed={self.removeImage} />
             </div>
             <div className="column-content">
               {columns}
@@ -155,7 +187,6 @@ var ColumnList = React.createClass({
               <p className="content-link" onClick={this.addImage}>Add Image</p>
             </div>
             <a className='article-submit' onClick={this.submitContent}>submit</a>
-
             <a className='article-submit' onClick={this.testContent}>test</a>
           </div>
         </div>

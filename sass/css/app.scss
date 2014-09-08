@@ -178,6 +178,7 @@ body.column {
 	text-align: center;
 	transition: 0.15s ease-in-out;
 	cursor: pointer;
+	margin-bottom: 25px;
 }
 
 .article-submit:hover {
@@ -1067,6 +1068,12 @@ img {
 	.column-header {
 		.title {
 			font-size: 60px;
+			input {
+				border: none;
+				-webkit-appearance: none;
+				outline: none;
+				border-bottom: 1px solid #ddd;
+			}
 		}
 		.date {
 			color: #999;
