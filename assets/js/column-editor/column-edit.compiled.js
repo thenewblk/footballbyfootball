@@ -689,7 +689,7 @@ var Content = window.Content || {};
 
 var ColumnList = React.createClass({displayName: 'ColumnList',  
   getInitialState: function() {
-    return { data: [], title: '' };
+    return { id: '', data: [], title: '' };
   },
 
   componentDidMount: function(){
@@ -703,6 +703,10 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
 
     if(this.props.data) {
       this.setState({data: this.props.data});
+    }
+
+    if(this.props.id) {
+      this.setState({id: this.props.id});
     }
 
   },
@@ -780,7 +784,7 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
     var self = this;
 
     request
-      .post('/column/new')
+      .post('/column/'+this.state.id+'/edit')
       .send({ title: self.state.title, data: self.state.data })
       .end(function(res) {
         console.log(res)

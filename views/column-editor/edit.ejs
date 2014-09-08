@@ -1,7 +1,7 @@
 <%= include ../header %>	
-<script>window.Content = { title: 'Hello', data: [{type: 'content', content: 'Hello' },{type: 'content', content: '<h1>World</h1>' }] }</script>
+<script>window.Content = { id: <%- JSON.stringify(column.id) %>, title: <%- JSON.stringify(column.title) %>, data: <%- JSON.stringify(column.data) %> }</script>
 <div id='react-content'></div>
 
-<script src='/js/column-editor/column-new.compiled.js' ></script>
+<script src='/js/column-editor/column-edit.compiled.js' ></script>
 
 <%= include ../footer %>

@@ -5,7 +5,12 @@
 		<div class="row">
 			<div class="col-md-8">
 				<div class="column-header">
-					<h2 class="title"><%= column.title %></h2>
+					<h2 class="title"><%= column.title %>
+						<% if (locals.user) { %>
+							<a href="/column/<%= column.id %>/edit"> Edit</a>
+						<% } %>
+
+					 </h2>
 					<p class="date"><%= column.updated_at %></p>
 					<img src="https://s3.amazonaws.com/footballbyfootball-dev/columns/manziel_hoyer.jpg" alt="">
 					<p class="ap-image">AP Image</p>
