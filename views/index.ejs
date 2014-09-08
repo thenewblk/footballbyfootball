@@ -2,9 +2,9 @@
 	<div class="main-articles">
 		<div class="container">
 			<div class="row">
-				<% if (locals.column1) { %>
+				<% if (locals.column1 && locals.column2) { %>
 				<div class="col-md-6">
-					<div class="big-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column1.main_image.image_url %>);">
+					<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column1.main_image.image_url %>);">
 						<div class="overcast"></div>
 						<div class="headline">
 							<div class="white banner left">COLUMN:</div>
@@ -15,6 +15,23 @@
 								<div class="byline">
 									<%= column1.player.name %>
 									<div class="author-image" style="background-image: url(<%= column1.player.image_url %>)"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column2.main_image.image_url %>);">
+						<div class="overcast"></div>
+						<div class="headline">
+							<div class="white banner left">COLUMN:</div>
+							<div class="inner-content">
+								<div class="copy"><a href="/column/<%= column2.slug %>">
+									<h3><%= column2.title %></h3>
+								</a></div>
+								<div class="byline">
+									<%= column2.player.name %>
+									<div class="author-image" style="background-image: url(<%= column2.player.image_url %>)"></div>
 								</div>
 							</div>
 						</div>
