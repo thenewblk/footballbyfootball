@@ -1,13 +1,26 @@
 	<%= include header %>
 	<div class="main-articles">
-
-
-
-
-
 		<div class="container">
-			
 			<div class="row">
+				<% if (locals.column1) { %>
+				<div class="col-md-6">
+					<div class="medium-article" style="background-image: url(<%= column1.main_image %>);">
+						<div class="overcast"></div>
+						<div class="headline">
+							<div class="white banner left">COLUMN:</div>
+							<div class="inner-content">
+								<div class="copy"><a href="/column/<%= column1.slug %>">
+									<h3><%= column1.title %></h3>
+								</a></div>
+								<div class="byline">
+									<%= column1.player.name %>
+									<div class="author-image" style="background-image: url(<%= column1.player.iamge_url %>)"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<% } %>
 				<div class="col-md-6">
 					<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev/columns/col-sage-sept8.jpg);">
 						<div class="overcast"></div>
@@ -24,8 +37,6 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-md-6">
 					<a href="/wwkjd/week-1"><img class="image-links" src="https://s3.amazonaws.com/footballbyfootball-dev/columns/col-wwkjd-w1.jpg" alt=""></a>
 				</div>
 			</div>

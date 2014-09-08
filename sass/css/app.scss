@@ -1279,10 +1279,10 @@ form {
 .image-links {
 	height: 250px;
 	display: table;
-	margin: auto;
+	margin: 15px auto;
 }
 
-.pull-quote {
+.pull-quote, blockquote {
 	border: 5px solid red;
 	border-right: none;
 	border-left: none;

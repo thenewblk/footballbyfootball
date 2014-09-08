@@ -148,6 +148,10 @@ var Column = React.createClass({
               <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red" className="color red"></a> 
               <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="dark" className="color dark"></a> 
             </span>
+            <span className="section">
+              <a className="fa fa-minus" data-wysihtml5-command="insertHTML" data-wysihtml5-command-value="<hr>"></a>
+              <a className="fa fa-quote-right" data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="blockquote"></a>
+            </span>
           </div>
           <a className="close-link" onClick={this.handleClose}>×</a>
           <textarea ref='content' id={'main-content-'+this.props.identifier} className="main content" name="content" placeholder='Type New Content Here...' value={value} readOnly></textarea>

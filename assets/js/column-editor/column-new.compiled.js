@@ -1023,6 +1023,10 @@ var Column = React.createClass({displayName: 'Column',
             React.DOM.span({className: "section"}, 
               React.DOM.a({'data-wysihtml5-command': "foreColor", 'data-wysihtml5-command-value': "red", className: "color red"}), 
               React.DOM.a({'data-wysihtml5-command': "foreColor", 'data-wysihtml5-command-value': "dark", className: "color dark"})
+            ), 
+            React.DOM.span({className: "section"}, 
+              React.DOM.a({className: "fa fa-minus", 'data-wysihtml5-command': "insertHTML", 'data-wysihtml5-command-value': "<hr>"}), 
+              React.DOM.a({className: "fa fa-quote-right", 'data-wysihtml5-command': "formatBlock", 'data-wysihtml5-command-value': "blockquote"})
             )
           ), 
           React.DOM.a({className: "close-link", onClick: this.handleClose}, "×"), 
