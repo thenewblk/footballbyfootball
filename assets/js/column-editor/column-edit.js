@@ -198,6 +198,7 @@ var ColumnList = React.createClass({
     var checkbox_value = this.state.approved;
 
     var default_player = this.state.player;
+    
     return (
       <div className="container">
         <div className="row"> 

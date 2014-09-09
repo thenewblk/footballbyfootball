@@ -3,28 +3,51 @@
 		<div class="container">
 			<div class="row">
 				<% columns.forEach(function(column, index){ %>
-					<% if (index < 2 ) { %>
-
-				<div class="col-md-6">
-					<div class="big-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
-						<div class="overcast"></div>
-						<div class="headline">
-							<div class="white banner left">COLUMN:</div>
-							<div class="inner-content">
-								<div class="copy"><a href="/column/<%= column.slug %>">
-									<h3><%= column.title %></h3>
-								</a></div>
-								<div class="byline">
-									<%= column.player.name %>
-									<div class="author-image" style="background-image: url(<%= column.player.image_url %>)"></div>
+					<% if (index = 0 ) { %>
+						<div class="col-md-6">
+							<div class="big-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
+								<div class="overcast"></div>
+								<div class="headline">
+									<div class="white banner left">COLUMN:</div>
+									<div class="inner-content">
+										<div class="copy"><a href="/column/<%= column.slug %>">
+											<h3><%= column.title %></h3>
+										</a></div>
+										<div class="byline">
+											<%= column.player.name %>
+											<div class="author-image" style="background-image: url(<%= column.player.image_url %>)"></div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
+					<% } %>
+				<% }); %>
+
+			<div class="col-md-6">
+				<% columns.forEach(function(column, index){ %>
+					<% if (1 < index < 3 ) { %>
+							<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
+								<div class="overcast"></div>
+								<div class="headline">
+									<div class="white banner left">COLUMN:</div>
+									<div class="inner-content">
+										<div class="copy"><a href="/column/<%= column.slug %>">
+											<h3><%= column.title %></h3>
+										</a></div>
+										<div class="byline">
+											<%= column.player.name %>
+											<div class="author-image" style="background-image: url(<%= column.player.image_url %>)"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 
 					<% } %>
 				<% }); %>
+			</div>
+
 			</div>
 
 			<div class="row">
@@ -32,7 +55,7 @@
 				<p class="date">September 8, 2014</p>
 
 				<% columns.forEach(function(column, index){ %>
-					<% if (index == 2 ) { %>
+					<% if (index == 3 ) { %>
 
 				<div class="col-md-12">
 					<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
