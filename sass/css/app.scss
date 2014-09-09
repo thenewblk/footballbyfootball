@@ -871,6 +871,11 @@ img {
 	left: 0;
 }
 
+.under-author {
+	position: fixed;
+	top: 300px;
+}
+
 .medium-article {
 	height: 240px;
 	background: #eee;
@@ -878,7 +883,7 @@ img {
 	background-size: cover;
 	background-position: center;
 	margin-top: 15px;
-	
+
 	a {
 		color: white;
 		text-decoration: none;
@@ -1423,6 +1428,10 @@ a:hover {
 
 @media (max-width: 480px) {
 	.author-badge {
+		position: relative;
+		margin-bottom: 25px;
+	}
+	.under-author {
 		position: relative;
 		margin-bottom: 25px;
 	}
