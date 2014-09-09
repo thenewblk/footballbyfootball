@@ -796,6 +796,7 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
 
   removeMainImage: function(content){
     this.setState({mainImage: {} });
+    console.log('main image: '+this.state.mainImage);
   },
 
   handleCheckbox: function() {
@@ -872,6 +873,7 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
     var checkbox_value = this.state.approved;
 
     var default_player = this.state.player;
+
     return (
       React.DOM.div({className: "container"}, 
         React.DOM.div({className: "row"}, 
@@ -1104,14 +1106,10 @@ var imageUploader = React.createClass({displayName: 'imageUploader',
   mixins: [ReactScriptLoaderMixin],
 
   getInitialState: function() {
-    return {active: false };
-  },
-
-  componentWillMount: function() {
+    return {active: false, image_removed: false };
   },
 
   handleChange: function(event) {
-
   },
 
   handleCaptionChange: function(event) {
@@ -1119,7 +1117,12 @@ var imageUploader = React.createClass({displayName: 'imageUploader',
   },
 
   handleClose: function() {
-    this.props.removed({id: this.props.identifier});
+    
+    var self = this;
+    self.props.removed({id: self.props.identifier});
+
+    self.setState({active: false});
+
   },
 
   getScriptURL: function() {
@@ -1128,31 +1131,13 @@ var imageUploader = React.createClass({displayName: 'imageUploader',
 
   onScriptLoaded: function() {
     var self = this;
-    var image = this.props.image || {};
-    if (!image.length) {
+    var image = this.props.image;
+    if (!image) {
       console.log('onScriptLoaded: '+ self.props.identifier);
 
       Dropzone.autoDiscover = false;
 
       myDropzone[self.props.identifier] = new Dropzone(".uploader-"+self.props.identifier, { url: "/upload", paramName: "file", maxFiles: 1, autoDiscover: false});
-
-      myDropzone[self.props.identifier].on("success", function(file) {
-        /* Maybe display some more file information on your page */
-        var thing = JSON.parse(file.xhr.response);
-        console.log('success: ' + thing.saved);
-        self.props.content({id: self.props.identifier, image_url: thing.saved  });
-        self.setState({ active: true });
-      });
-    }
-  },
-
-  componentDidUpdate: function() {
-    var self = this;
-    var image = this.props.image || {};
-    if (!image.length && self.props.identifier == 'main') {
-      console.log('componentDidUpdate: '+ self.props.identifier);
-
-      myDropzone[self.props.identifier] = new Dropzone(".uploader-"+self.props.identifier, { url: "/upload", paramName: "file", maxFiles: 1, autoDiscover: false});      
 
       myDropzone[self.props.identifier].on("success", function(file) {
         /* Maybe display some more file information on your page */
@@ -1172,25 +1157,35 @@ var imageUploader = React.createClass({displayName: 'imageUploader',
   },
 
   render: function() {
-    var caption = this.props.caption;
-    var className = this.props.image || this.state.active ? 'content-container active' : 'content-container';
+
+
+
+    var self = this;
+    var image = self.props.image,
+        active = self.state.active,
+        caption = self.props.caption;
+
+    console.log('main image: '+JSON.stringify(image));
+
+    var className = image || active ? 'content-container active' : 'content-container';
+
     return ( 
       React.DOM.div({className: className, ref: "contentwrapper"}, 
-        this.props.image ?  
+        self.props.image ?  
           React.DOM.div({className: "uploaded-image"}, 
-            React.DOM.img({src: "https://s3.amazonaws.com/footballbyfootball-dev"+this.props.image})
+            React.DOM.img({src: "https://s3.amazonaws.com/footballbyfootball-dev"+self.props.image})
           ) 
         : 
           React.DOM.div({className: "image-container"}, 
-            React.DOM.div({className: "image-uploader-label image-uploader uploader-"+this.props.identifier}, 
+            React.DOM.div({className: "image-uploader-label image-uploader uploader-"+self.props.identifier}, 
               React.DOM.p({className: "fa fa-image upload-icon label-copy"}), 
               React.DOM.br(null), 
               React.DOM.p({className: "label-copy"}, "Upload Image")
             )
           ), 
         
-        React.DOM.input({className: "caption-input", type: "text", placeholder: "Caption", value: caption, onChange: this.handleCaptionChange}), 
-        React.DOM.a({className: "close-link", onClick: this.handleClose}, "×")
+        React.DOM.input({className: "caption-input", type: "text", placeholder: "Caption", value: caption, onChange: self.handleCaptionChange}), 
+        React.DOM.a({className: "close-link", onClick: self.handleClose}, "×")
       ) )
   }
 });

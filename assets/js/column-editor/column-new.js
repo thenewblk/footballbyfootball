@@ -79,7 +79,7 @@ var ColumnList = React.createClass({
   },
 
   handleMainImage: function(image){
-     var main_image = this.state.mainImage;
+    var main_image = this.state.mainImage;
     main_image.image_url = image.image_url;
     this.setState({mainImage: main_image });
   },
@@ -91,7 +91,8 @@ var ColumnList = React.createClass({
   },
 
   removeMainImage: function(content){
-    this.setState({mainImage: {} });
+    this.setState({mainImage: {image_url: ''} });
+    console.log('main image: '+JSON.stringify(this.state.mainImage));
   },
 
   handleCheckbox: function() {

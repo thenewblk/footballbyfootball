@@ -122,6 +122,7 @@ var ColumnList = React.createClass({
 
   removeMainImage: function(content){
     this.setState({mainImage: {} });
+    console.log('main image: '+this.state.mainImage);
   },
 
   handleCheckbox: function() {
@@ -198,7 +199,7 @@ var ColumnList = React.createClass({
     var checkbox_value = this.state.approved;
 
     var default_player = this.state.player;
-    
+
     return (
       <div className="container">
         <div className="row"> 
