@@ -16,7 +16,7 @@ var Players = window.Players || {};
 
 var ColumnList = React.createClass({  
   getInitialState: function() {
-    return { id: '', data: [], title: '', mainImage: {}, player: '' };
+    return { id: '', data: [], title: '', mainImage: {}, player: '', approved: false };
   },
 
   componentDidMount: function(){
@@ -42,6 +42,10 @@ var ColumnList = React.createClass({
 
     if(this.props.player) {
       this.setState({player: this.props.player});
+    }
+
+    if(this.props.approved) {
+      this.setState({approved: this.props.approved});
     }
 
   },
@@ -120,6 +124,16 @@ var ColumnList = React.createClass({
     this.setState({mainImage: {} });
   },
 
+  handleCheckbox: function() {
+    var self = this;
+    var cur_approved = self.state.approved;
+    if (cur_approved == true) {
+      self.setState({approved: false});
+    } else {
+      self.setState({approved: true});
+    }
+  },
+
 
   testContent: function(){
     var self = this;
@@ -143,7 +157,7 @@ var ColumnList = React.createClass({
 
     request
       .post('/column/'+this.state.id+'/edit')
-      .send({ title: self.state.title, data: self.state.data, main_image: self.state.mainImage, player: self.state.player })
+      .send({ title: self.state.title, data: self.state.data, main_image: self.state.mainImage, player: self.state.player, approved: self.state.approved })
       .end(function(res) {
         console.log(res)
         if (res.text) {
@@ -181,6 +195,8 @@ var ColumnList = React.createClass({
       return <option value={option._id} >{option.name}</option>
     });
 
+    var checkbox_value = this.state.approved;
+
     var default_player = this.state.player;
     return (
       <div className="container">
@@ -189,6 +205,7 @@ var ColumnList = React.createClass({
             <div className="column-header">
               <h2 className="title"><input className='column-title-tag' type="text" value={title} onChange={this.handleTitleChange} placeholder="Title" /></h2>
               <p className="date">{ today_date }</p>
+              <p className="approved-check"><input type="checkbox" checked={checkbox_value} onChange={this.handleCheckbox} /> Approved</p>
               <Image 
                 identifier='main'
                 image={main_image.image_url}

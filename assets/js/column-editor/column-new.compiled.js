@@ -691,7 +691,7 @@ var Players = window.Players || {};
 
 var ColumnList = React.createClass({displayName: 'ColumnList',  
   getInitialState: function() {
-    return { data: [], title: '', mainImage: {}, player: '' };
+    return { data: [], title: '', mainImage: {}, player: '', approved: false };
   },
 
   componentDidMount: function(){
@@ -768,6 +768,16 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
     this.setState({mainImage: {} });
   },
 
+  handleCheckbox: function() {
+    var self = this;
+    var cur_approved = self.state.approved;
+    if (cur_approved == true) {
+      self.setState({approved: false});
+    } else {
+      self.setState({approved: true});
+    }
+  },
+
   testContent: function(){
     var self = this;
     console.log( 'title: '+ self.state.title );
@@ -789,7 +799,7 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
 
     request
       .post('/column/new')
-      .send({ title: self.state.title, data: self.state.data, main_image: self.state.mainImage, player: self.state.player  })
+      .send({ title: self.state.title, data: self.state.data, main_image: self.state.mainImage, player: self.state.player, approved: self.state.approved  })
       .end(function(res) {
         console.log(res)
         if (res.text) {
@@ -828,6 +838,8 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
       return React.DOM.option({value: option._id}, option.name)
     });
 
+    var checkbox_value = this.state.approved;
+
     return (
       React.DOM.div({className: "container"}, 
         React.DOM.div({className: "row"}, 
@@ -835,6 +847,7 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
             React.DOM.div({className: "column-header"}, 
               React.DOM.h2({className: "title"}, React.DOM.input({className: "column-title-tag", type: "text", value: title, onChange: this.handleTitleChange, placeholder: "Title"})), 
               React.DOM.p({className: "date"}, today_date ), 
+              React.DOM.p({className: "approved-check"}, React.DOM.input({type: "checkbox", checked: checkbox_value, onChange: this.handleCheckbox}), " Approved"), 
               Image({
                 identifier: "main", 
                 image: main_image.image_url, 
