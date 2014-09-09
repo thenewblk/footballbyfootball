@@ -26,7 +26,7 @@
 
 			<div class="col-md-6">
 				<% columns.forEach(function(column, index){ %>
-					<% if (1 < index < 3 ) { %>
+					<% if (index == 1 || index == 2 ) { %>
 							<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
 								<div class="overcast"></div>
 								<div class="headline">
