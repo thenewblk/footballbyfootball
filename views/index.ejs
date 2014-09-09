@@ -3,7 +3,7 @@
 		<div class="container">
 			<div class="row">
 				<% columns.forEach(function(column, index){ %>
-					<% if (index = 0 ) { %>
+					<% if (index == 0 ) { %>
 						<div class="col-md-6">
 							<div class="big-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
 								<div class="overcast"></div>
