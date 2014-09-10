@@ -12,6 +12,8 @@ var util = require('util');
 
 var myDropzone = [];
 
+var Types =  ['full-width', 'left-aligned', 'right-aligned']
+
 var imageUploader = React.createClass({
   
 
@@ -21,18 +23,18 @@ var imageUploader = React.createClass({
     return {active: false, image_removed: false };
   },
 
-  handleChange: function(event) {
-  },
-
   handleCaptionChange: function(event) {
     this.props.caption_content({id: this.props.identifier, caption: event.target.value });
+  },
+
+  handleTypeChange: function(event) {
+    this.props.type_content({id: this.props.identifier, image_type: event.target.value });
   },
 
   handleClose: function() {
     
     var self = this;
     self.props.removed({id: self.props.identifier});
-
     self.setState({active: false});
 
   },
@@ -77,9 +79,11 @@ var imageUploader = React.createClass({
         active = self.state.active,
         caption = self.props.caption;
 
-    console.log('main image: '+JSON.stringify(image));
-
     var className = image || active ? 'content-container active' : 'content-container';
+
+    var type_options = Types.map(function(option) {
+      return <option value={option} >{option}</option>
+    });
 
     return ( 
       <div className={className} ref='contentwrapper'>
@@ -97,6 +101,12 @@ var imageUploader = React.createClass({
           </div>
         }
         <input className='caption-input' type="text" placeholder="Caption" value={caption} onChange={self.handleCaptionChange} />
+        {self.props.identifier != 'main' ? 
+        <select onChange={self.handleTypeChange}> 
+          <option value="">Image Type</option>
+          {type_options}
+        </select> 
+        : ''}
         <a className="close-link" onClick={self.handleClose}>×</a>
       </div> )
   }

@@ -22,7 +22,7 @@
 							<%- item.content %>
 						<%}%>
 						<% if (item.type == 'image') { %>
-							<div class="caption-image">
+							<div class="caption-image <%= item.image_type %>">
 								<img src="https://s3.amazonaws.com/footballbyfootball-dev<%= item.image_url %>" />
 								<% if (item.caption) { %><p class="ap-image"><%= item.caption %></p><% } %>
 							</div>

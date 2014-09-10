@@ -679,6 +679,7 @@ module.exports = wysihtml5ParserRules;
 var React = require('react');
 var request = require('superagent');
 var moment = require('moment');
+var util = require('util');
 
 
 var Column = require('./contentEditor.jsx');
@@ -691,7 +692,7 @@ var Players = window.Players || {};
 
 var ColumnList = React.createClass({displayName: 'ColumnList',  
   getInitialState: function() {
-    return { data: [], title: '', mainImage: {}, player: '', approved: false };
+    return { data: [], title: '', main_image: {active: true}, player: '', approved: false };
   },
 
   componentDidMount: function(){
@@ -699,6 +700,10 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
 
   componentWillMount: function(){
   },
+
+  // 
+  // Image Content Events
+  // 
 
   addImage: function(){
     var current_data = this.state.data;
@@ -719,11 +724,21 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
     this.setState({data: old_data});
   },
 
+  handleImageType: function(image){
+    var old_data = this.state.data;
+    old_data[image.id].image_type = image.image_type;
+    this.setState({data: old_data});
+  },
+
   removeImage: function(content){
     var new_data = this.state.data;
     new_data.splice(content.id,1);
     this.setState({data: new_data});
   },
+
+  // 
+  // Text Content Events
+  // 
 
   addContent: function(){
     var current_data = this.state.data;
@@ -752,22 +767,35 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
     this.setState({player: event.target.value});
   },
 
+  // 
+  // Main Image Events
+  // 
+
   handleMainImage: function(image){
-    var main_image = this.state.mainImage;
+    var main_image = this.state.main_image;
     main_image.image_url = image.image_url;
     this.setState({mainImage: main_image });
   },
 
   handleMainImageCaption: function(image){
-    var main_image = this.state.mainImage;
+    var main_image = this.state.main_image;
     main_image.caption = image.caption;
     this.setState({mainImage: main_image });
   },
 
   removeMainImage: function(content){
-    this.setState({mainImage: {image_url: ''} });
-    console.log('main image: '+JSON.stringify(this.state.mainImage));
+    var tmp = {image_url: '', caption: '', active: false}
+    this.setState({mainImage: tmp });
+    console.log('main image: '+JSON.stringify(this.state.main_image));
   },
+
+  addMainImage: function(content){
+    this.setState({mainImage: {active: true} });
+  },
+
+  // 
+  // Approved Check Box Events
+  // 
 
   handleCheckbox: function() {
     var self = this;
@@ -779,28 +807,26 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
     }
   },
 
+  // 
+  // Test Content
+  // 
+
   testContent: function(){
     var self = this;
-    console.log( 'title: '+ self.state.title );
-    console.log( 'mainImage: '+ JSON.stringify(self.state.mainImage) );
-    console.log('children: '+ self.state.data.length);
-    for (var i = 0; i < self.state.data.length; i++) {
-      console.log( 'content #: '+ i );
-      if ( self.state.data[i].type == 'content' ) {
-        console.log( ' data.content: '+ self.state.data[i].content );
-      } else if ( self.state.data[i].type == 'image' ) {
-        console.log( ' data.image_url: '+ self.state.data[i].image_url );
-        console.log( ' data.caption: '+ self.state.data[i].caption );
-      }
-    }
+
+    console.log('self: '+ util.inspect(self.state));
   },
+
+  // 
+  // Submit Form
+  // 
 
   submitContent: function(){
     var self = this;
-
+    // .send({ title: self.state.title, data: self.state.data, main_image: self.state.main_image, player: self.state.player, approved: self.state.approved  })
     request
       .post('/column/new')
-      .send({ title: self.state.title, data: self.state.data, main_image: self.state.mainImage, player: self.state.player, approved: self.state.approved  })
+      .send(self.state)
       .end(function(res) {
         console.log(res)
         if (res.text) {
@@ -813,7 +839,7 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
     var self = this;
     var title = this.state.title;
     var today_date = moment().format("MMMM Do, YYYY");
-    var main_image= this.state.mainImage;
+    var main_image= this.state.main_image;
 
     var columns = this.state.data.map(function(object, i) {
       if ( object.type == 'content' ) {
@@ -830,6 +856,7 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
           identifier: i, 
           image: object.image_url, 
           caption_content: self.handleImageCaption, 
+          type_content: self.handleImageType, 
           content: self.handleImage, 
           removed: self.removeImage});
       }
@@ -849,12 +876,15 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
               React.DOM.h2({className: "title"}, React.DOM.input({className: "column-title-tag", type: "text", value: title, onChange: this.handleTitleChange, placeholder: "Title"})), 
               React.DOM.p({className: "date"}, today_date ), 
               React.DOM.p({className: "approved-check"}, React.DOM.input({type: "checkbox", checked: checkbox_value, onChange: this.handleCheckbox}), " Approved"), 
-              Image({
+               this.state.main_image.active ? 
+                Image({
                 identifier: "main", 
                 image: main_image.image_url, 
                 caption_content: self.handleMainImageCaption, 
                 content: self.handleMainImage, 
                 removed: self.removeMainImage})
+                : React.DOM.p({onClick: this.addMainImage}, React.DOM.span({className: "fa fa-plus"}), " Add Main Image")
+              
             ), 
             React.DOM.div({className: "column-content"}, 
               columns
@@ -863,7 +893,7 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
               React.DOM.p({className: "content-link", onClick: this.addContent}, "Add Text"), 
               React.DOM.p({className: "content-link", onClick: this.addImage}, "Add Image")
             ), 
-            React.DOM.a({className: "article-submit", onClick: this.submitContent}, "submit")
+            React.DOM.a({className: "article-submit", onClick: this.testContent}, "test")
           ), 
           React.DOM.div({className: "col-md-4"}, 
             React.DOM.div({className: "author-badge"}, 
@@ -887,7 +917,7 @@ React.renderComponent(
   ColumnList(Content),
   document.getElementById('react-content')
 )
-},{"./contentEditor.jsx":4,"./imageUploader.jsx":5,"moment":6,"react":150,"superagent":151}],4:[function(require,module,exports){
+},{"./contentEditor.jsx":4,"./imageUploader.jsx":5,"moment":6,"react":150,"superagent":151,"util":157}],4:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -1066,6 +1096,8 @@ var util = require('util');
 
 var myDropzone = [];
 
+var Types =  ['full-width', 'left-aligned', 'right-aligned']
+
 var imageUploader = React.createClass({displayName: 'imageUploader',
   
 
@@ -1075,11 +1107,12 @@ var imageUploader = React.createClass({displayName: 'imageUploader',
     return {active: false, image_removed: false };
   },
 
-  handleChange: function(event) {
-  },
-
   handleCaptionChange: function(event) {
     this.props.caption_content({id: this.props.identifier, caption: event.target.value });
+  },
+
+  handleTypeChange: function(event) {
+    this.props.type_content({id: this.props.identifier, image_type: event.target.value });
   },
 
   handleClose: function() {
@@ -1131,9 +1164,11 @@ var imageUploader = React.createClass({displayName: 'imageUploader',
         active = self.state.active,
         caption = self.props.caption;
 
-    console.log('main image: '+JSON.stringify(image));
-
     var className = image || active ? 'content-container active' : 'content-container';
+
+    var type_options = Types.map(function(option) {
+      return React.DOM.option({value: option}, option)
+    });
 
     return ( 
       React.DOM.div({className: className, ref: "contentwrapper"}, 
@@ -1151,6 +1186,12 @@ var imageUploader = React.createClass({displayName: 'imageUploader',
           ), 
         
         React.DOM.input({className: "caption-input", type: "text", placeholder: "Caption", value: caption, onChange: self.handleCaptionChange}), 
+        self.props.identifier != 'main' ? 
+        React.DOM.select({onChange: self.handleTypeChange}, 
+          React.DOM.option({value: ""}, "Image Type"), 
+          type_options
+        ) 
+        : '', 
         React.DOM.a({className: "close-link", onClick: self.handleClose}, "×")
       ) )
   }

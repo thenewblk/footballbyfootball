@@ -1,14 +1,11 @@
 <%= include ../header %>	
 <script>
-	window.Content = { 
-		id: <%- JSON.stringify(column.id) %>, 
-		title: <%- JSON.stringify(column.title) %>, 
-		data: <%- JSON.stringify(column.data) %>, 
-		mainImage: <%- JSON.stringify(column.main_image) %>, 
-		player: <%- JSON.stringify(column.player._id) %>,
-		approved: <%- JSON.stringify(column.approved) %> };
+	window.Content = <%- JSON.stringify(column) %>;
 	window.Players = <%- JSON.stringify(players) %>;
+
 </script>
+
+
 
 <div id='react-content'></div>
 
