@@ -45,7 +45,7 @@ var imageUploader = React.createClass({
 
   onScriptLoaded: function() {
     var self = this;
-    var image = this.props.image;
+    var image = this.props.image.image_url;
     if (!image) {
       console.log('onScriptLoaded: '+ self.props.identifier);
 
@@ -79,6 +79,7 @@ var imageUploader = React.createClass({
         active = self.state.active,
         caption = self.props.caption;
 
+
     var className = image || active ? 'content-container active' : 'content-container';
 
     var type_options = Types.map(function(option) {
@@ -87,9 +88,9 @@ var imageUploader = React.createClass({
 
     return ( 
       <div className={className} ref='contentwrapper'>
-        {self.props.image ?  
+        {image.image_url ?  
           <div className='uploaded-image'>
-            <img src={"https://s3.amazonaws.com/footballbyfootball-dev"+self.props.image} />
+            <img src={"https://s3.amazonaws.com/footballbyfootball-dev"+image.image_url} />
           </div> 
         : 
           <div className='image-container'>
@@ -102,7 +103,7 @@ var imageUploader = React.createClass({
         }
         <input className='caption-input' type="text" placeholder="Caption" value={caption} onChange={self.handleCaptionChange} />
         {self.props.identifier != 'main' ? 
-        <select onChange={self.handleTypeChange}> 
+        <select onChange={self.handleTypeChange} value={image.image_type}> 
           <option value="">Image Type</option>
           {type_options}
         </select> 

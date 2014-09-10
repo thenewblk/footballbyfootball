@@ -16,7 +16,7 @@
 					<% if (column.main_image.caption) { %><p class="ap-image"><%= column.main_image.caption %></p><% } %>
 				</div>
 
-				<div class="column-content-wrapper">
+				<div class="column-content-wrapper cf">
 					<% column.data.forEach(function(item){ %>
 						<% if (item.type == 'content') { %>
 							<%- item.content %>

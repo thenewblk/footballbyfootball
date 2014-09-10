@@ -210,7 +210,7 @@ var ColumnList = React.createClass({
         return <Image 
           ref={'image-'+i} 
           identifier={i} 
-          image={object.image_url} 
+          image={object} 
           caption_content={self.handleImageCaption} 
           type_content={self.handleImageType}  
           content={self.handleImage} 
@@ -237,7 +237,7 @@ var ColumnList = React.createClass({
               { this.state.main_image.image_url || this.state.main_image.active ? 
                 <Image 
                 identifier='main'
-                image={main_image.image_url}
+                image={main_image}
                 caption_content={self.handleMainImageCaption}
                 content={self.handleMainImage} 
                 removed={self.removeMainImage} />
