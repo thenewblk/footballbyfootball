@@ -21,24 +21,23 @@
 	<%} %>
 
 	<% if (locals.user) { %>
-
-	<div class="adminbar">
-		<div class="container">
-			<a href="/admin">Admin</a>
-			<a href="/column/new">New Column</a>
-			<a href="/player/new">New Player</a>
+		<div class="adminbar">
+			<div class="container">
+				<a href="/admin">Admin</a>
+				<a href="/column/new">New Column</a>
+				<a href="/player/new">New Player</a>
+			</div>
 		</div>
-	</div>
-
 	<% } %>
+
 	<div class="topbar">
 		<div class="container cf">
 		<% if (locals.page_type && page_type =='home') {%>
-			<p class="today">Today, September 9, 2014</p>
-		<% } else if (locals.page_type && page_type =='column') { %>
-			<div class="logo"><a href="/"><img src="/img/logo-blackbanner.png" alt=""></a></div>
+			<p class="today">Today, <%= today %></p>
 		<% } else if (locals.page_type && page_type =='lockerroom') { %>
 			<div class="logo"><a href="/"><img src="/img/logo-whitebanner.png" alt=""></a></div>
+		<% } else { %>
+			<div class="logo"><a href="/"><img src="/img/logo-blackbanner.png" alt=""></a></div>
 		<% } %>
 			<div class="right-side">
 				<a href="https://twitter.com/FBbyFB" target="_blank" class="article-links"><span class="fa fa-twitter"> Twitter</span></a>
