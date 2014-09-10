@@ -925,7 +925,7 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
               React.DOM.p({className: "content-link", onClick: this.addContent}, "Add Text"), 
               React.DOM.p({className: "content-link", onClick: this.addImage}, "Add Image")
             ), 
-            React.DOM.a({className: "article-submit", onClick: this.testContent}, "test")
+            React.DOM.a({className: "article-submit", onClick: this.submitContent}, "submit")
           ), 
           React.DOM.div({className: "col-md-4"}, 
             React.DOM.div({className: "author-badge"}, 

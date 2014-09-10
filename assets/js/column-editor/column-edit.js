@@ -251,7 +251,7 @@ var ColumnList = React.createClass({
               <p className="content-link" onClick={this.addContent}>Add Text</p>
               <p className="content-link" onClick={this.addImage}>Add Image</p>
             </div>
-            <a className='article-submit' onClick={this.testContent}>test</a>
+            <a className='article-submit' onClick={this.submitContent}>submit</a>
           </div>
           <div className="col-md-4">
             <div className="author-badge">
