@@ -871,11 +871,6 @@ img {
 	left: 0;
 }
 
-.under-author {
-	position: fixed;
-	top: 300px;
-}
-
 .medium-article {
 	height: 240px;
 	background: #eee;
@@ -1198,10 +1193,13 @@ hr.bottom{
 		margin-bottom: 20px;
 	}
 }
+.column-sidebar {
+	position: fixed;
+	width: 100%;
+}
 
 .author-badge {
 	background: #ddd;
-	position: fixed;
 	width: 100%;
 	padding: 15px 0 0;
 
@@ -1247,6 +1245,10 @@ hr.bottom{
 	}
 }
 
+.under-author {
+	margin-top: 20px;
+}
+
 form {
 	label {
 		display: inline-block;
@@ -1267,7 +1269,6 @@ form {
 		font-size: inherit;
 		border: #ccc solid 1px;
 		line-height: 38px;
-		float: left;
 		width: 100%;
 		padding-left: 85px;
 	}
@@ -1310,6 +1311,11 @@ form {
 	float: left; 
 }
 
+.caption-image.left-logo {
+	float: left;
+	width: 180px; 
+}
+
 .caption-image.full-width {
 	float: none; 
 	width: 100%;
@@ -1317,7 +1323,7 @@ form {
 
 
 .image-links {
-	height: 250px;
+	max-height: 250px;
 	display: table;
 	margin: 15px auto;
 }
@@ -1465,10 +1471,6 @@ a:hover {
 }
 
 @media (max-width: 991px) {
-	.author-badge {
-		position: relative;
-		margin-bottom: 25px;
-	}
 	.medium-article.lockerroom {
 		margin-top: 20px;
 	}
@@ -1486,19 +1488,14 @@ a:hover {
 			}
 		}
 	}
+	.column-sidebar {
+		position: relative;
+	}
 }
 
 
 
 @media (max-width: 480px) {
-	.author-badge {
-		position: relative;
-		margin-bottom: 25px;
-	}
-	.under-author {
-		position: relative;
-		margin-bottom: 25px;
-	}
 	.medium-article.lockerroom {
 		margin-top: 20px;
 	}
@@ -1516,5 +1513,9 @@ a:hover {
 				position: absolute;
 			}
 		}
+	}
+	.author-image {
+		height: 30px;
+		width: 30px;
 	}
 }

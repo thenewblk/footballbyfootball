@@ -957,17 +957,19 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
             React.DOM.a({className: "article-submit", onClick: this.submitContent}, "submit")
           ), 
           React.DOM.div({className: "col-md-4"}, 
-            React.DOM.div({className: "author-badge"}, 
-              React.DOM.div({className: "black banner right"}, "Select Author"), 
-              React.DOM.div({className: "content"}, 
-                React.DOM.select({onChange: self.handlePlayer, value: default_player}, 
-                  player_options
+            React.DOM.div({className: "column-sidebar"}, 
+              React.DOM.div({className: "author-badge"}, 
+                React.DOM.div({className: "black banner right"}, "Select Author"), 
+                React.DOM.div({className: "content"}, 
+                  React.DOM.select({onChange: self.handlePlayer, value: default_player}, 
+                    player_options
+                  )
                 )
               ), 
-              React.DOM.div(null, 
-                React.DOM.p({className: "control-link", onClick: this.handleDelete}, React.DOM.span({className: "fa fa-trash"}), "Delete"), 
-                React.DOM.p({className: "control-link"}, React.DOM.input({type: "checkbox", checked: checkbox_value, onChange: this.handleCheckbox}), " Approved")
-              )
+              React.DOM.div({className: "column-controls"}, 
+                  React.DOM.p({className: "control-link", onClick: this.handleDelete}, React.DOM.span({className: "fa fa-trash"}), "Delete"), 
+                  React.DOM.p({className: "control-link"}, React.DOM.input({type: "checkbox", checked: checkbox_value, onChange: this.handleCheckbox}), " Approved")
+                )
             )
           )
         )

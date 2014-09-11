@@ -283,17 +283,19 @@ var ColumnList = React.createClass({
             <a className='article-submit' onClick={this.submitContent}>submit</a>
           </div>
           <div className="col-md-4">
-            <div className="author-badge">
-              <div className="black banner right">Select Author</div>
-              <div className="content">
-                <select onChange={self.handlePlayer} value={default_player}>
-                  {player_options}
-                </select>
+            <div className="column-sidebar">
+              <div className="author-badge">
+                <div className="black banner right">Select Author</div>
+                <div className="content">
+                  <select onChange={self.handlePlayer} value={default_player}>
+                    {player_options}
+                  </select>
+                </div>
               </div>
-              <div>
-                <p className="control-link" onClick={this.handleDelete}><span className="fa fa-trash"></span>Delete</p>
-                <p className="control-link"><input type="checkbox" checked={checkbox_value} onChange={this.handleCheckbox} /> Approved</p>
-              </div>
+              <div className="column-controls">
+                  <p className="control-link" onClick={this.handleDelete}><span className="fa fa-trash"></span>Delete</p>
+                  <p className="control-link"><input type="checkbox" checked={checkbox_value} onChange={this.handleCheckbox} /> Approved</p>
+                </div>
             </div>
           </div>
         </div>
