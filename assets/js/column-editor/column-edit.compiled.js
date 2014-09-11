@@ -1146,7 +1146,7 @@ var util = require('util');
 
 var myDropzone = [];
 
-var Types =  ['full-width', 'left-aligned', 'right-aligned']
+var Types =  ['full-width', 'left-aligned', 'right-aligned', 'left-logo']
 
 var imageUploader = React.createClass({displayName: 'imageUploader',
   
