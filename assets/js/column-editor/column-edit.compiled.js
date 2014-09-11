@@ -688,6 +688,14 @@ var Content = window.Content || {};
 
 var Players = window.Players || {};
 
+var formatDate = function(date) {
+    var output = '';
+    output+=date.getMonth()+1+'/';
+    output+=date.getDate()+'/';
+    output+=date.getFullYear();
+    return output;
+}
+
 var ColumnList = React.createClass({displayName: 'ColumnList',  
   getInitialState: function() {
     return { id: '', data: [], title: '', main_image: {active: true}, player: '', approved: false };
@@ -813,7 +821,7 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
   },
 
   removeMainImage: function(content){
-    var tmp = {active: false}
+    var tmp = {active: false, image_url: ''}
     this.setState({main_image: tmp });
     console.log('main image: '+JSON.stringify(this.state.main_image));
   },
@@ -836,6 +844,24 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
     }
   },
 
+
+  // 
+  // Handle Delete Events
+  // 
+
+  handleDelete: function() {
+    var self = this;
+    request
+      .del('/column/'+self.props.slug+'/delete')
+      .send(self.state)
+      .end(function(res) {
+        console.log(res)
+        if (res == true) {
+          window.location = '/admin';
+        }
+      }.bind(self));
+  }, 
+
   // 
   // Test Content
   // 
@@ -850,6 +876,10 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
   // 
   // Submit Form
   // 
+
+  formatDate: function(stuff){
+    console.log('stuff: ' + util.inspect(stuff));
+  },
 
   submitContent: function(){
     var self = this;
@@ -907,6 +937,7 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
             React.DOM.div({className: "column-header"}, 
               React.DOM.h2({className: "title"}, React.DOM.input({className: "column-title-tag", type: "text", value: title, onChange: this.handleTitleChange, placeholder: "Title"})), 
               React.DOM.p({className: "date"}, today_date ), 
+              React.DOM.p({className: "delete-link", onClick: this.handleDelete}, React.DOM.span({className: "fa fa-trash"}), "Delete"), 
               React.DOM.p({className: "approved-check"}, React.DOM.input({type: "checkbox", checked: checkbox_value, onChange: this.handleCheckbox}), " Approved"), 
                this.state.main_image.image_url || this.state.main_image.active ? 
                 Image({
@@ -944,6 +975,8 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
     )
   }
 });
+
+
 
 React.renderComponent(
   ColumnList(Content),
