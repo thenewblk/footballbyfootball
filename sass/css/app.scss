@@ -1460,6 +1460,35 @@ a:hover {
 	}
 }
 
+.lockerroom-sidebar {
+	text-align: center;
+	color: white;
+	margin: 20px 0;
+	padding: 5px 15px 0;
+	background: #222;
+	a, a:hover {
+		color: white;
+	}
+
+	.lr-sidebar-title {
+		line-height: 3;
+		border-bottom: solid 1px #999;
+		margin: 0;
+	}
+	.lr-sidebar-link {
+		border-bottom: dashed 1px #999;
+		padding: 10px 15px;
+		line-height: 1.5;
+		margin: 0;
+	}
+
+	.lr-sidebar-link:last-child {
+		border: none;
+	}
+
+}
+
+
 @media (max-width: 480px) {
 	.author-badge {
 		position: relative;

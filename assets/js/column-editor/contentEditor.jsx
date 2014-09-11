@@ -49,7 +49,6 @@ var Column = React.createClass({
       $body
         .css({
           'min-height': 0,
-          'line-height': '20px',
           'overflow': 'hidden',
         })
         .bind('keypress keyup keydown paste change focus blur load', function(e) {
@@ -58,23 +57,6 @@ var Column = React.createClass({
           $iframe.height(height + extra);
         });
     });
-
-    // mainEditor[self.props.identifier].observe("load", function () {     
-    //   var $iframe = $(this.composer.iframe);
-    //   var $body = $(this.composer.element);
-      
-    //   $body
-    //     .css({
-    //       'min-height': 0,
-    //       'line-height': '20px',
-    //       'overflow': 'hidden',
-    //     })
-    //     .bind('keypress keyup keydown paste change focus blur', function(e) {
-    //       var height = Math.min($body[0].scrollHeight, $body.height());
-    //       var extra = 50 ;
-    //       $iframe.height(height + extra);
-    //     });
-    // });
 
     function onFocus() { 
       self.setState({active: true});

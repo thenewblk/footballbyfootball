@@ -856,9 +856,7 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
       .send(self.state)
       .end(function(res) {
         console.log(res)
-        if (res == true) {
-          window.location = '/admin';
-        }
+        window.location = '/admin';
       }.bind(self));
   }, 
 
@@ -883,7 +881,9 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
 
   submitContent: function(){
     var self = this;
+    if (self.state.player) {
 
+    }
     request
       .post(window.location.pathname)
       .send(self.state)
@@ -937,8 +937,6 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
             React.DOM.div({className: "column-header"}, 
               React.DOM.h2({className: "title"}, React.DOM.input({className: "column-title-tag", type: "text", value: title, onChange: this.handleTitleChange, placeholder: "Title"})), 
               React.DOM.p({className: "date"}, today_date ), 
-              React.DOM.p({className: "delete-link", onClick: this.handleDelete}, React.DOM.span({className: "fa fa-trash"}), "Delete"), 
-              React.DOM.p({className: "approved-check"}, React.DOM.input({type: "checkbox", checked: checkbox_value, onChange: this.handleCheckbox}), " Approved"), 
                this.state.main_image.image_url || this.state.main_image.active ? 
                 Image({
                 identifier: "main", 
@@ -963,9 +961,12 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
               React.DOM.div({className: "black banner right"}, "Select Author"), 
               React.DOM.div({className: "content"}, 
                 React.DOM.select({onChange: self.handlePlayer, value: default_player}, 
-                  React.DOM.option({value: ""}, "Select a Player"), 
                   player_options
                 )
+              ), 
+              React.DOM.div(null, 
+                React.DOM.p({className: "control-link", onClick: this.handleDelete}, React.DOM.span({className: "fa fa-trash"}), "Delete"), 
+                React.DOM.p({className: "control-link"}, React.DOM.input({type: "checkbox", checked: checkbox_value, onChange: this.handleCheckbox}), " Approved")
               )
             )
           )
@@ -1034,7 +1035,6 @@ var Column = React.createClass({displayName: 'Column',
       $body
         .css({
           'min-height': 0,
-          'line-height': '20px',
           'overflow': 'hidden',
         })
         .bind('keypress keyup keydown paste change focus blur load', function(e) {
@@ -1043,23 +1043,6 @@ var Column = React.createClass({displayName: 'Column',
           $iframe.height(height + extra);
         });
     });
-
-    // mainEditor[self.props.identifier].observe("load", function () {     
-    //   var $iframe = $(this.composer.iframe);
-    //   var $body = $(this.composer.element);
-      
-    //   $body
-    //     .css({
-    //       'min-height': 0,
-    //       'line-height': '20px',
-    //       'overflow': 'hidden',
-    //     })
-    //     .bind('keypress keyup keydown paste change focus blur', function(e) {
-    //       var height = Math.min($body[0].scrollHeight, $body.height());
-    //       var extra = 50 ;
-    //       $iframe.height(height + extra);
-    //     });
-    // });
 
     function onFocus() { 
       self.setState({active: true});

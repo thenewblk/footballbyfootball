@@ -182,9 +182,7 @@ var ColumnList = React.createClass({
       .send(self.state)
       .end(function(res) {
         console.log(res)
-        if (res == true) {
-          window.location = '/admin';
-        }
+        window.location = '/admin';
       }.bind(self));
   }, 
 
@@ -209,7 +207,9 @@ var ColumnList = React.createClass({
 
   submitContent: function(){
     var self = this;
+    if (self.state.player) {
 
+    }
     request
       .post(window.location.pathname)
       .send(self.state)
@@ -263,8 +263,6 @@ var ColumnList = React.createClass({
             <div className="column-header">
               <h2 className="title"><input className='column-title-tag' type="text" value={title} onChange={this.handleTitleChange} placeholder="Title" /></h2>
               <p className="date">{ today_date }</p>
-              <p className="delete-link" onClick={this.handleDelete}><span className="fa fa-trash"></span>Delete</p>
-              <p className="approved-check"><input type="checkbox" checked={checkbox_value} onChange={this.handleCheckbox} /> Approved</p>
               { this.state.main_image.image_url || this.state.main_image.active ? 
                 <Image 
                 identifier='main'
@@ -289,9 +287,12 @@ var ColumnList = React.createClass({
               <div className="black banner right">Select Author</div>
               <div className="content">
                 <select onChange={self.handlePlayer} value={default_player}>
-                  <option value="">Select a Player</option>
                   {player_options}
                 </select>
+              </div>
+              <div>
+                <p className="control-link" onClick={this.handleDelete}><span className="fa fa-trash"></span>Delete</p>
+                <p className="control-link"><input type="checkbox" checked={checkbox_value} onChange={this.handleCheckbox} /> Approved</p>
               </div>
             </div>
           </div>
