@@ -49,6 +49,7 @@ var Column = React.createClass({
       $body
         .css({
           'min-height': 0,
+          'line-height': 2,
           'overflow': 'hidden',
         })
         .bind('keypress keyup keydown paste change focus blur load', function(e) {

@@ -2,10 +2,10 @@
  * @jsx React.DOM
  */
 
-var React = require('react');
-var request = require('superagent');
-var moment = require('moment');
-var util = require('util');
+var React = require('react'),
+    request = require('superagent'),
+    moment = require('moment'),
+    util = require('util');
 
 var Column = require('./contentEditor.jsx'),
     Image = require('./imageUploader.jsx');
@@ -14,52 +14,20 @@ var Content = window.Content || {};
 
 var Players = window.Players || {};
 
-var formatDate = function(date) {
-    var output = '';
-    output+=date.getMonth()+1+'/';
-    output+=date.getDate()+'/';
-    output+=date.getFullYear();
-    return output;
-}
-
 var ColumnList = React.createClass({  
   getInitialState: function() {
-    return { id: '', data: [], title: '', main_image: {active: true}, player: '', approved: false, submitted: false };
+    return { id: '', data: [], title: '', player: '', approved: false, submitted: false };
   },
 
   componentDidMount: function(){
-    console.log('mounted');
+    console.log('Column Editor Mounted');
   },
 
   componentWillMount: function(){
-    // if(this.props.title) {
-    //   this.setState({title: this.props.title});
-    // }
-
-    // if(this.props.data) {
-    //   this.setState({data: this.props.data});
-    // }
-
-    // if(this.props.id) {
-    //   this.setState({id: this.props.id});
-    // }
-
-    // if(this.props.main_image) {
-    //   this.setState({main_image: this.props.main_image});
-    // }
-
-    // if(this.props.player) {
-    //   this.setState({player: this.props.player});
-    // }
-
-    // if(this.props.approved) {
-    //   this.setState({approved: this.props.approved});
-    // }
 
     if(this.props) {
       this.setState(this.props);
     }
-
 
   },
 
@@ -133,32 +101,6 @@ var ColumnList = React.createClass({
 
   handlePlayer: function(event) {
     this.setState({player: event.target.value});
-  },
-
-  // 
-  // Main Image Events
-  // 
-
-  handleMainImage: function(image){
-    var main_image = this.state.main_image;
-    main_image.image_url = image.image_url;
-    this.setState({main_image: main_image });
-  },
-
-  handleMainImageCaption: function(image){
-    var main_image = this.state.main_image;
-    main_image.caption = image.caption;
-    this.setState({main_image: main_image });
-  },
-
-  removeMainImage: function(content){
-    var tmp = {active: false, image_url: ''}
-    this.setState({main_image: tmp });
-    console.log('main image: '+JSON.stringify(this.state.main_image));
-  },
-
-  addMainImage: function(content){
-    this.setState({main_image: {active: true} });
   },
 
   // 
@@ -264,48 +206,25 @@ var ColumnList = React.createClass({
     var default_player = this.state.player._id;
 
     return (
-      <div className="container">
-        <div className="row"> 
-          <div className="col-md-8">
-            <div className="column-header">
-              <h2 className="title"><input className='column-title-tag' type="text" value={title} onChange={this.handleTitleChange} placeholder="Title" /></h2>
-              <p className="date">{ today_date }</p>
-              { this.state.main_image.image_url || this.state.main_image.active ? 
-                <Image 
-                identifier='main'
-                image={main_image}
-                caption_content={self.handleMainImageCaption}
-                content={self.handleMainImage} 
-                removed={self.removeMainImage} />
-                : <p className="add-main-image" onClick={this.addMainImage}><span className="fa fa-plus"></span> Add Main Image</p> 
-              }
-            </div>
-            <div className="column-content">
-              {columns}
-            </div>
-            <div className="contentbar">
-              <p className="content-link" onClick={this.addContent}>Add Text</p>
-              <p className="content-link" onClick={this.addImage}>Add Image</p>
-            </div>
-            {this.state.submitted ? <a className='article-submit'><span className="fa fa-circle-o-notch fa-spin"></span></a> : <a className='article-submit' onClick={this.submitContent}>submit</a> }
-          </div>
-          <div className="col-md-4">
-            <div className="column-sidebar">
-              <div className="author-badge">
-                <div className="black banner right">Select Author</div>
-                <div className="content">
-                  <select onChange={self.handlePlayer} value={default_player}>
-                    {player_options}
-                  </select>
-                </div>
-              </div>
-              <div className="column-controls">
-                  <p className="control-link" onClick={this.handleDelete}><span className="fa fa-trash"></span>Delete</p>
-                  <p className="control-link"><input type="checkbox" checked={checkbox_value} onChange={this.handleCheckbox} /> Approved</p>
-                </div>
-            </div>
-          </div>
+
+      <div className="lockerroom-entry">
+        <div className="lockerrooom-entry-title">
+          <select onChange={self.handlePlayer} value={default_player}>
+            {player_options}
+          </select>
         </div>
+        <div className="column-content">
+          {columns}
+        </div>
+        <div className="contentbar">
+          <p className="content-link" onClick={this.addContent}>Add Text</p>
+          <p className="content-link" onClick={this.addImage}>Add Image</p>
+        </div>
+        <div className="controlbar">
+          <p className="control-link" onClick={this.handleDelete}><span className="fa fa-trash"></span>Delete</p>
+          <p className="control-link"><input type="checkbox" checked={checkbox_value} onChange={this.handleCheckbox} /> Approved</p>
+        </div>
+        {this.state.submitted ? <a className='article-submit'><span className="fa fa-circle-o-notch fa-spin"></span></a> : <a className='article-submit' onClick={this.testContent}>test</a> }
       </div>
       
     )
