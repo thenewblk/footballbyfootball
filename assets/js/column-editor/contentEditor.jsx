@@ -113,7 +113,6 @@ var Column = React.createClass({
               <a className="fa fa-italic" data-wysihtml5-command="italic" title="CTRL+I"></a>
             </span>
             <span className="section">
-              <a className="fa fa-link" data-wysihtml5-command="createLink"></a> 
               <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">h1</a> 
               <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2">h2</a> 
             </span>

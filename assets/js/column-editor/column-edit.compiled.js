@@ -676,10 +676,10 @@ module.exports = wysihtml5ParserRules;
  * @jsx React.DOM
  */
 
-var React = require('react');
-var request = require('superagent');
-var moment = require('moment');
-var util = require('util');
+var React = require('react'),
+    request = require('superagent'),
+    moment = require('moment'),
+    util = require('util');
 
 var Column = require('./contentEditor.jsx'),
     Image = require('./imageUploader.jsx');
@@ -688,46 +688,19 @@ var Content = window.Content || {};
 
 var Players = window.Players || {};
 
-var formatDate = function(date) {
-    var output = '';
-    output+=date.getMonth()+1+'/';
-    output+=date.getDate()+'/';
-    output+=date.getFullYear();
-    return output;
-}
-
 var ColumnList = React.createClass({displayName: 'ColumnList',  
   getInitialState: function() {
-    return { id: '', data: [], title: '', main_image: {active: true}, player: '', approved: false };
+    return { id: '', data: [], title: '', main_image: {active: true}, player: '', approved: false, submitted: false };
   },
 
   componentDidMount: function(){
-    console.log('mounted');
+    console.log('Column Editor Mounted');
   },
 
   componentWillMount: function(){
-    if(this.props.title) {
-      this.setState({title: this.props.title});
-    }
 
-    if(this.props.data) {
-      this.setState({data: this.props.data});
-    }
-
-    if(this.props.id) {
-      this.setState({id: this.props.id});
-    }
-
-    if(this.props.main_image) {
-      this.setState({main_image: this.props.main_image});
-    }
-
-    if(this.props.player) {
-      this.setState({player: this.props.player});
-    }
-
-    if(this.props.approved) {
-      this.setState({approved: this.props.approved});
+    if(this.props) {
+      this.setState(this.props);
     }
 
   },
@@ -882,17 +855,19 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
   submitContent: function(){
     var self = this;
     if (self.state.player) {
-
+      self.setState({submitted: true});
+      request
+        .post(window.location.pathname)
+        .send(self.state)
+        .end(function(res) {
+          console.log(res)
+          if (res.text) {
+            window.location = "/column/"+res.text;
+          }
+        }.bind(self));
+    } else {
+      alert('Enter a Player');
     }
-    request
-      .post(window.location.pathname)
-      .send(self.state)
-      .end(function(res) {
-        console.log(res)
-        if (res.text) {
-          window.location = "/column/"+res.text;
-        }
-      }.bind(self));
   },
 
   render: function() {
@@ -954,7 +929,7 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
               React.DOM.p({className: "content-link", onClick: this.addContent}, "Add Text"), 
               React.DOM.p({className: "content-link", onClick: this.addImage}, "Add Image")
             ), 
-            React.DOM.a({className: "article-submit", onClick: this.submitContent}, "submit")
+            this.state.submitted ? React.DOM.a({className: "article-submit"}, React.DOM.span({className: "fa fa-circle-o-notch fa-spin"})) : React.DOM.a({className: "article-submit", onClick: this.submitContent}, "submit")
           ), 
           React.DOM.div({className: "col-md-4"}, 
             React.DOM.div({className: "column-sidebar"}, 
@@ -1101,7 +1076,6 @@ var Column = React.createClass({displayName: 'Column',
               React.DOM.a({className: "fa fa-italic", 'data-wysihtml5-command': "italic", title: "CTRL+I"})
             ), 
             React.DOM.span({className: "section"}, 
-              React.DOM.a({className: "fa fa-link", 'data-wysihtml5-command': "createLink"}), 
               React.DOM.a({'data-wysihtml5-command': "formatBlock", 'data-wysihtml5-command-value': "h1"}, "h1"), 
               React.DOM.a({'data-wysihtml5-command': "formatBlock", 'data-wysihtml5-command-value': "h2"}, "h2")
             ), 

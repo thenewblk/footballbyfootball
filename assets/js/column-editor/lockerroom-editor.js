@@ -7,24 +7,60 @@ var request = require('superagent');
 var moment = require('moment');
 var util = require('util');
 
-
-var Column = require('./contentEditor.jsx');
-
-var Image = require('./imageUploader.jsx');
+var Column = require('./contentEditor.jsx'),
+    Image = require('./imageUploader.jsx');
 
 var Content = window.Content || {};
 
 var Players = window.Players || {};
 
+var formatDate = function(date) {
+    var output = '';
+    output+=date.getMonth()+1+'/';
+    output+=date.getDate()+'/';
+    output+=date.getFullYear();
+    return output;
+}
+
 var ColumnList = React.createClass({  
   getInitialState: function() {
-    return { data: [], title: '', main_image: {active: true}, player: '', approved: false };
+    return { id: '', data: [], title: '', main_image: {active: true}, player: '', approved: false, submitted: false };
   },
 
   componentDidMount: function(){
+    console.log('mounted');
   },
 
   componentWillMount: function(){
+    // if(this.props.title) {
+    //   this.setState({title: this.props.title});
+    // }
+
+    // if(this.props.data) {
+    //   this.setState({data: this.props.data});
+    // }
+
+    // if(this.props.id) {
+    //   this.setState({id: this.props.id});
+    // }
+
+    // if(this.props.main_image) {
+    //   this.setState({main_image: this.props.main_image});
+    // }
+
+    // if(this.props.player) {
+    //   this.setState({player: this.props.player});
+    // }
+
+    // if(this.props.approved) {
+    //   this.setState({approved: this.props.approved});
+    // }
+
+    if(this.props) {
+      this.setState(this.props);
+    }
+
+
   },
 
   // 
@@ -41,12 +77,14 @@ var ColumnList = React.createClass({
   handleImage: function(image){
     var old_data = this.state.data;
     old_data[image.id].image_url = image.image_url;
+    console.log('old_data: '+ JSON.stringify(old_data));
     this.setState({data: old_data});
   },
 
   handleImageCaption: function(image){
     var old_data = this.state.data;
     old_data[image.id].caption = image.caption;
+    console.log('old_data: '+ JSON.stringify(old_data));
     this.setState({data: old_data});
   },
 
@@ -58,8 +96,10 @@ var ColumnList = React.createClass({
 
   removeImage: function(content){
     var new_data = this.state.data;
+    console.log('removeImage: before new_data: '+ JSON.stringify(new_data));
     new_data.splice(content.id,1);
     this.setState({data: new_data});
+    console.log('removeImage: after new_data: '+ JSON.stringify(new_data));
   },
 
   // 
@@ -81,8 +121,10 @@ var ColumnList = React.createClass({
 
   removeContent: function(content){
     var new_data = this.state.data;
+    console.log('removeContent: before new_data: '+ JSON.stringify(new_data));
     new_data.splice(content.id,1);
     this.setState({data: new_data});
+    console.log('removeContent: after new_data: '+ JSON.stringify(new_data));
   },
 
   handleTitleChange: function(event) {
@@ -100,23 +142,23 @@ var ColumnList = React.createClass({
   handleMainImage: function(image){
     var main_image = this.state.main_image;
     main_image.image_url = image.image_url;
-    this.setState({mainImage: main_image });
+    this.setState({main_image: main_image });
   },
 
   handleMainImageCaption: function(image){
     var main_image = this.state.main_image;
     main_image.caption = image.caption;
-    this.setState({mainImage: main_image });
+    this.setState({main_image: main_image });
   },
 
   removeMainImage: function(content){
-    var tmp = {image_url: '', caption: '', active: false}
-    this.setState({mainImage: tmp });
+    var tmp = {active: false, image_url: ''}
+    this.setState({main_image: tmp });
     console.log('main image: '+JSON.stringify(this.state.main_image));
   },
 
   addMainImage: function(content){
-    this.setState({mainImage: {active: true} });
+    this.setState({main_image: {active: true} });
   },
 
   // 
@@ -133,6 +175,22 @@ var ColumnList = React.createClass({
     }
   },
 
+
+  // 
+  // Handle Delete Events
+  // 
+
+  handleDelete: function() {
+    var self = this;
+    request
+      .del('/column/'+self.props.slug+'/delete')
+      .send(self.state)
+      .end(function(res) {
+        console.log(res)
+        window.location = '/admin';
+      }.bind(self));
+  }, 
+
   // 
   // Test Content
   // 
@@ -148,18 +206,26 @@ var ColumnList = React.createClass({
   // Submit Form
   // 
 
+  formatDate: function(stuff){
+    console.log('stuff: ' + util.inspect(stuff));
+  },
+
   submitContent: function(){
     var self = this;
-    // .send({ title: self.state.title, data: self.state.data, main_image: self.state.main_image, player: self.state.player, approved: self.state.approved  })
-    request
-      .post(window.location.pathname)
-      .send(self.state)
-      .end(function(res) {
-        console.log(res)
-        if (res.text) {
-          window.location = "/column/"+res.text;
-        }
-      }.bind(self));
+    if (self.state.player) {
+      self.setState({submitted: true});
+      request
+        .post(window.location.pathname)
+        .send(self.state)
+        .end(function(res) {
+          console.log(res)
+          if (res.text) {
+            window.location = "/column/"+res.text;
+          }
+        }.bind(self));
+    } else {
+      alert('Enter a Player');
+    }
   },
 
   render: function() {
@@ -181,7 +247,7 @@ var ColumnList = React.createClass({
         return <Image 
           ref={'image-'+i} 
           identifier={i} 
-          image={object.image_url} 
+          image={object} 
           caption_content={self.handleImageCaption} 
           type_content={self.handleImageType}  
           content={self.handleImage} 
@@ -190,10 +256,12 @@ var ColumnList = React.createClass({
     });
 
     var player_options = Players.map(function(option) {
-      return <option value={option._id} >{option.name}</option>
+      return <option value={option._id}>{option.name}</option>
     });
 
     var checkbox_value = this.state.approved;
+
+    var default_player = this.state.player._id;
 
     return (
       <div className="container">
@@ -202,15 +270,14 @@ var ColumnList = React.createClass({
             <div className="column-header">
               <h2 className="title"><input className='column-title-tag' type="text" value={title} onChange={this.handleTitleChange} placeholder="Title" /></h2>
               <p className="date">{ today_date }</p>
-              <p className="approved-check"><input type="checkbox" checked={checkbox_value} onChange={this.handleCheckbox} /> Approved</p>
-              { this.state.main_image.active ? 
+              { this.state.main_image.image_url || this.state.main_image.active ? 
                 <Image 
                 identifier='main'
-                image={main_image.image_url}
-                caption_content={self.handleMainImageCaption} 
+                image={main_image}
+                caption_content={self.handleMainImageCaption}
                 content={self.handleMainImage} 
                 removed={self.removeMainImage} />
-                : <p onClick={this.addMainImage}><span className="fa fa-plus"></span> Add Main Image</p> 
+                : <p className="add-main-image" onClick={this.addMainImage}><span className="fa fa-plus"></span> Add Main Image</p> 
               }
             </div>
             <div className="column-content">
@@ -220,17 +287,22 @@ var ColumnList = React.createClass({
               <p className="content-link" onClick={this.addContent}>Add Text</p>
               <p className="content-link" onClick={this.addImage}>Add Image</p>
             </div>
-            <a className='article-submit' onClick={this.testContent}>test</a>
+            {this.state.submitted ? <a className='article-submit'><span className="fa fa-circle-o-notch fa-spin"></span></a> : <a className='article-submit' onClick={this.submitContent}>submit</a> }
           </div>
           <div className="col-md-4">
-            <div className="author-badge">
-              <div className="black banner right">Select Author</div>
-              <div className="content">
-                <select onChange={self.handlePlayer}>
-                  <option value="">Select a Player</option>
-                  {player_options}
-                </select>
+            <div className="column-sidebar">
+              <div className="author-badge">
+                <div className="black banner right">Select Author</div>
+                <div className="content">
+                  <select onChange={self.handlePlayer} value={default_player}>
+                    {player_options}
+                  </select>
+                </div>
               </div>
+              <div className="column-controls">
+                  <p className="control-link" onClick={this.handleDelete}><span className="fa fa-trash"></span>Delete</p>
+                  <p className="control-link"><input type="checkbox" checked={checkbox_value} onChange={this.handleCheckbox} /> Approved</p>
+                </div>
             </div>
           </div>
         </div>
@@ -239,6 +311,8 @@ var ColumnList = React.createClass({
     )
   }
 });
+
+
 
 React.renderComponent(
   ColumnList(Content),
