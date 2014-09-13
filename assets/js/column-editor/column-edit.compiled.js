@@ -1012,6 +1012,7 @@ var Column = React.createClass({displayName: 'Column',
       $body
         .css({
           'min-height': 0,
+          'line-height': 2,
           'overflow': 'hidden',
         })
         .bind('keypress keyup keydown paste change focus blur load', function(e) {
@@ -1120,7 +1121,7 @@ var util = require('util');
 
 var myDropzone = [];
 
-var Types =  ['full-width', 'left-aligned', 'right-aligned', 'left-logo']
+var Types =  ['full-width', 'left-aligned', 'right-aligned', 'left-logo'];
 
 var imageUploader = React.createClass({displayName: 'imageUploader',
   

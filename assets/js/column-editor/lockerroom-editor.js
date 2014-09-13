@@ -14,13 +14,13 @@ var Content = window.Content || {};
 
 var Players = window.Players || {};
 
-var ColumnList = React.createClass({  
+var LockerEntry = React.createClass({  
   getInitialState: function() {
     return { id: '', data: [], title: '', player: '', approved: false, submitted: false };
   },
 
   componentDidMount: function(){
-    console.log('Column Editor Mounted');
+    console.log('Locker Room Entry Editor Mounted');
   },
 
   componentWillMount: function(){
@@ -29,6 +29,10 @@ var ColumnList = React.createClass({
       this.setState(this.props);
     }
 
+  },
+
+  handleChangeBig: function(){
+    this.props.stuff(this.state);
   },
 
   // 
@@ -45,14 +49,12 @@ var ColumnList = React.createClass({
   handleImage: function(image){
     var old_data = this.state.data;
     old_data[image.id].image_url = image.image_url;
-    console.log('old_data: '+ JSON.stringify(old_data));
     this.setState({data: old_data});
   },
 
   handleImageCaption: function(image){
     var old_data = this.state.data;
     old_data[image.id].caption = image.caption;
-    console.log('old_data: '+ JSON.stringify(old_data));
     this.setState({data: old_data});
   },
 
@@ -64,10 +66,8 @@ var ColumnList = React.createClass({
 
   removeImage: function(content){
     var new_data = this.state.data;
-    console.log('removeImage: before new_data: '+ JSON.stringify(new_data));
-    new_data.splice(content.id,1);
+    new_data.splice(content.id, 1);
     this.setState({data: new_data});
-    console.log('removeImage: after new_data: '+ JSON.stringify(new_data));
   },
 
   // 
@@ -82,9 +82,11 @@ var ColumnList = React.createClass({
   },
 
   handleContent: function(content){
-    var old_data = this.state.data;
+    var self = this;
+    console.log(self.state);
+    var old_data = self.state.data;
     old_data[content.id].content = content.content;
-    this.setState({data: old_data});
+    self.setState({data: old_data});
   },
 
   removeContent: function(content){
@@ -139,7 +141,6 @@ var ColumnList = React.createClass({
 
   testContent: function(){
     var self = this;
-
     console.log('self: '+ util.inspect(self.state));
     console.log('window.location.pathname'+window.location.pathname);
   },
@@ -160,7 +161,7 @@ var ColumnList = React.createClass({
         .post(window.location.pathname)
         .send(self.state)
         .end(function(res) {
-          console.log(res)
+          console.log(res);
           if (res.text) {
             window.location = "/column/"+res.text;
           }
@@ -206,34 +207,142 @@ var ColumnList = React.createClass({
     var default_player = this.state.player._id;
 
     return (
-
-      <div className="lockerroom-entry">
-        <div className="lockerrooom-entry-title">
-          <select onChange={self.handlePlayer} value={default_player}>
-            {player_options}
-          </select>
+      <div className="row" onChange={this.handleChangeBig}>
+        <div className="lockerroom-entry">
+          <div className="lockerrooom-entry-title">
+            <select onChange={self.handlePlayer} value={default_player}>
+              {player_options}
+            </select>
+          </div>
+          <div className="column-content">
+            {columns}
+          </div>
+          <div className="contentbar">
+            <p className="content-link" onClick={this.addContent}>Add Text</p>
+            <p className="content-link" onClick={this.addImage}>Add Image</p>
+          </div>
+          <div className="controlbar">
+            <p className="control-link" onClick={this.handleDelete}><span className="fa fa-trash"></span>Delete</p>
+            <p className="control-link"><input type="checkbox" checked={checkbox_value} onChange={this.handleCheckbox} /> Approved</p>
+          </div>
+          {this.state.submitted ? <a className='article-submit'><span className="fa fa-circle-o-notch fa-spin"></span></a> : <a className='article-submit' onClick={this.handleChangeBig}>test</a> }
         </div>
-        <div className="column-content">
-          {columns}
-        </div>
-        <div className="contentbar">
-          <p className="content-link" onClick={this.addContent}>Add Text</p>
-          <p className="content-link" onClick={this.addImage}>Add Image</p>
-        </div>
-        <div className="controlbar">
-          <p className="control-link" onClick={this.handleDelete}><span className="fa fa-trash"></span>Delete</p>
-          <p className="control-link"><input type="checkbox" checked={checkbox_value} onChange={this.handleCheckbox} /> Approved</p>
-        </div>
-        {this.state.submitted ? <a className='article-submit'><span className="fa fa-circle-o-notch fa-spin"></span></a> : <a className='article-submit' onClick={this.testContent}>test</a> }
       </div>
-      
+    )
+  }
+});
+
+var LockerList = React.createClass({ 
+  getInitialState: function() {
+    return { id: '', lockerentries: [], title: '', approved: false, submitted: false };
+  },
+
+  addEntry: function(){
+    var current_data = this.state.lockerentries;
+    var tmp_content = {};
+    var new_data = current_data.concat(tmp_content);
+    this.setState({lockerentries: new_data});
+  },
+
+  handleTitleChange: function(event) {
+    this.setState({title: event.target.value});
+  },
+
+  selfState: function(){
+    var self = this;
+
+    console.log('self.state: '+ util.inspect(self.state));
+
+  },
+
+  selfProps: function(){
+    var self = this;
+
+    console.log('self.props: '+ util.inspect(self.props));
+
+  },
+
+  selfFindChildren: function(){
+    var self = this;
+
+    console.log('self.props.children: '+ util.inspect(self.props.children));
+
+  },
+
+  selfPropsChildren: function(){
+    var self = this;
+
+    console.log('self._renderedComponent.props.children: '+ util.inspect( self._renderedComponent.props.children ));
+
+  },
+
+  getSelf: function(){
+    var self = this;
+
+    console.log('self: '+ util.inspect(self));
+
+  },
+
+
+
+  handleStuff: function(content) {
+    console.log('handleStuff: '+util.inspect(content));
+    var old_lockerentries = this.state.lockerentries;
+    old_lockerentries[content.id] = content;
+    console.log('old_lockerentries: '+ JSON.stringify(old_lockerentries));
+    this.setState({lockerentries: old_lockerentries});
+  },
+
+  handleContentChange: function(content) {
+    console.log('handleContentChange: '+util.inspect(content));
+    var old_lockerentries = this.state.lockerentries;
+    old_lockerentries[content.id] = content;
+    console.log('old_lockerentries: '+ JSON.stringify(old_lockerentries));
+    this.setState({lockerentries: old_lockerentries}); 
+  },
+
+  render: function() {
+    var self = this;
+    var title = self.state.title;
+    var lockers = this.state.lockerentries.map(function(object, i) {
+      return <LockerEntry title="Hello" id={i} stuff={self.handleStuff} content_change={this.handleContentChange} />;
+    });
+    var divStyle = {
+      backgroundImage: 'url(https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer.jpg)'
+    };
+    return (
+      <div className="lockerroom editor">
+        <div className="lockerroom-header" style={divStyle}>
+          <div className="container">
+            <h1 className="title"><input className='column-title-tag' type="text" value={title} onChange={this.handleTitleChange} placeholder="Title" /></h1>
+          </div>
+        </div>
+
+        <div className="lockerroom-content">
+          <div className="container">
+            <div className="col-md-8">
+              {lockers}
+              <div className="contentbar">
+                <p className="content-link" onClick={this.addEntry}>Add Locker Entry</p>
+              </div>
+              <div className="contentbar">
+                <p className="content-link" onClick={this.getSelf}>self</p>
+                <p className="content-link" onClick={this.selfState}>self.state</p>
+                <p className="content-link" onClick={this.selfProps}>self.props</p>
+                <p className="content-link" onClick={this.selfPropsChildren}>self.props.children</p>
+              </div>
+
+              {this.state.submitted ? <a className='article-submit'><span className="fa fa-circle-o-notch fa-spin"></span></a> : <a className='article-submit' onClick={this.testContent}>test</a> }
+            </div>
+          </div>
+        </div>
+      </div>
     )
   }
 });
 
 
-
 React.renderComponent(
-  ColumnList(Content),
+  LockerList(),
   document.getElementById('react-content')
 )
