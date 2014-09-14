@@ -4,9 +4,9 @@
 
 			<div class="row">
 				<% columns.forEach(function(column, index){ %>
-					<% if (index == 0 ) { %>
-						<div class="col-md-6">
-							<div class="big-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
+					<div class="col-md-6">
+						<% if (index == 0 || index == 1 ) { %>
+							<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
 								<div class="overcast"></div>
 								<div class="headline">
 									<div class="white banner left">COLUMN:</div>
@@ -21,11 +21,11 @@
 									</div>
 								</div>
 							</div>
+							<% } %>
 						</div>
-					<% } %>
 
 						<div class="col-md-6">
-						<% if (index == 1 || index == 2 ) { %>
+						<% if (index == 2 || index == 3 ) { %>
 							<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
 								<div class="overcast"></div>
 								<div class="headline">
@@ -50,7 +50,7 @@
 				<hr class="bottom">
 				<p class="date">September 13, 2014</p>
 				<% columns.forEach(function(column, index){ %>
-					<% if (index == 3 ) { %>
+					<% if (index == 4 ) { %>
 						<div class="col-md-12">
 							<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
 								<div class="overcast"></div>
@@ -76,7 +76,7 @@
 				<hr class="bottom">
 				<p class="date">September 12, 2014</p>
 				<% columns.forEach(function(column, index){ %>
-					<% if (index == 4 || index == 5  ) { %>
+					<% if (index == 5 || index == 6  ) { %>
 						<div class="col-md-6">
 							<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
 								<div class="overcast"></div>
@@ -103,7 +103,7 @@
 				<hr class="bottom">
 				<p class="date">September 11, 2014</p>
 				<% columns.forEach(function(column, index){ %>
-					<% if (index == 6 ) { %>
+					<% if (index == 7 ) { %>
 						<div class="col-md-6">
 							<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
 								<div class="overcast"></div>
@@ -194,7 +194,7 @@
 				<hr class="bottom">
 				<p class="date">September 9, 2014</p>
 				<% columns.forEach(function(column, index){ %>
-					<% if (index == 7 ) { %>
+					<% if (index == 8 ) { %>
 						<div class="col-md-6">
 							<div class="big-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
 								<div class="overcast"></div>
@@ -217,7 +217,7 @@
 
 				<div class="col-md-6">
 					<% columns.forEach(function(column, index){ %>
-						<% if (index == 8 || index == 9 ) { %>
+						<% if (index == 9 || index == 10 ) { %>
 								<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
 									<div class="overcast"></div>
 									<div class="headline">
@@ -244,7 +244,7 @@
 				<p class="date">September 8, 2014</p>
 
 				<% columns.forEach(function(column, index){ %>
-					<% if (index == 10 ) { %>
+					<% if (index == 11 ) { %>
 
 				<div class="col-md-12">
 					<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">

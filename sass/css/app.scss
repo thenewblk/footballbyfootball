@@ -883,7 +883,7 @@ img {
 	position: relative;
 	background-size: cover;
 	background-position: center;
-	margin-top: 15px;
+	margin-bottom: 20px;
 
 	a {
 		color: white;
@@ -943,6 +943,7 @@ img {
 	background-image: url(https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer-small.jpg);
 	background-size: cover;
 	background-position: center;
+	margin-bottom: 0;
 
 	.headline {
 		color: white;
@@ -1477,7 +1478,7 @@ a:hover {
 }
 
 @media (max-width: 991px) {
-	.medium-article.lockerroom {
+	.medium-article {
 		margin-top: 20px;
 	}
 	.lockerroom {
@@ -1502,7 +1503,7 @@ a:hover {
 
 
 @media (max-width: 480px) {
-	.medium-article.lockerroom {
+	.medium-article {
 		margin-top: 20px;
 	}
 	.lockerroom {
@@ -1517,6 +1518,13 @@ a:hover {
 			.author-image {
 				float: right;
 				position: absolute;
+			}
+		}
+	}
+	.column {
+		.column-header {
+			.title {
+				font-size: 30px;
 			}
 		}
 	}
