@@ -3,8 +3,9 @@
 		<div class="container">
 
 			<div class="row">
-				<% columns.forEach(function(column, index){ %>
+				
 					<div class="col-md-6">
+						<% columns.forEach(function(column, index){ %>
 						<% if (index == 0 || index == 1 ) { %>
 							<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
 								<div class="overcast"></div>
@@ -22,9 +23,11 @@
 								</div>
 							</div>
 							<% } %>
-						</div>
+						<% }); %>
+					</div>
 
 						<div class="col-md-6">
+						<% columns.forEach(function(column, index){ %>
 						<% if (index == 2 || index == 3 ) { %>
 							<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
 								<div class="overcast"></div>
@@ -42,8 +45,8 @@
 								</div>
 							</div>
 							<% } %>
+							<% }); %>
 						</div>
-					<% }); %>
 			</div>
 
 			<div class="row">
