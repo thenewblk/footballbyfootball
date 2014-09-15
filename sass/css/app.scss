@@ -735,6 +735,18 @@ img {
 	.lockerroom-entry {
 		background: white;
 	}
+	.column-content {
+		padding: 0 15px;
+	}
+	.lockerroom-entry {
+		.lockerroom-entry-delete {
+			display: inline-block;
+			text-align: right;
+			position: absolute;
+			right: 15px;
+			cursor: pointer;
+		}
+	}
 }
 
 .lockerroom {

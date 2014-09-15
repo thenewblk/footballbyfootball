@@ -1,13 +1,11 @@
 <%= include ../header %>	
+
 <script>
-	window.Content = <%- JSON.stringify(column) %>;
+	window.Locker = <%- JSON.stringify(lockerroom) %>;
 	window.Players = <%- JSON.stringify(players) %>;
 </script>
-
-
-
 <div id='react-content'></div>
 
-<script src='/js/column-editor/column-edit.compiled.js' ></script>
+<script src='/js/column-editor/lockerroom-editor.compiled.js' ></script>
 
 <%= include ../footer %>

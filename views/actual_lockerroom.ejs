@@ -1,0 +1,42 @@
+<%= include header %>
+<div class="lockerroom">
+	<div class="lockerroom-header" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer.jpg);">
+		<div class="container">
+			<h1 class="title"><%= lockerroom.title %>
+			<% if (locals.user) { %>
+				<a href="/lockerroom/<%= lockerroom.slug %>/edit"> Edit</a>
+			<% } %></h1>
+		</div>
+	</div>
+	<div class="lockerroom-content">
+		<div class="container">
+			<div class="col-md-8">
+				<% lockerroom.lockerentries.forEach(function(entry) { %>
+					<div class="row">
+						<div class="lockerroom-entry">
+							<div class="lockerrooom-entry-title">
+								Football <span class="by">by</span> <%= entry.player.name %>
+								<div class="author-image" style="background-image: url(<%= entry.player.image_url %>)"></div>
+							</div>
+							<div class="lockerrooom-entry-content cf">
+								<% entry.data.forEach(function(item){ %>
+									<% if (item.type == 'content') { %>
+										<%- item.content %>
+									<% } %>
+									<% if (item.type == 'image') { %>
+										<div class="caption-image <%= item.image_type %>">
+											<img src="https://s3.amazonaws.com/footballbyfootball-dev<%= item.image_url %>" />
+											<% if (item.caption) { %><p class="ap-image"><%= item.caption %></p><% } %>
+										</div>
+									<% } %>
+								<% }); %>
+							</div>
+						</div>
+					</div>
+				<% }); %>
+			</div>
+		</div>
+	</div>
+
+</div>
+<%= include footer %>

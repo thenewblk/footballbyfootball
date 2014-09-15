@@ -10,13 +10,13 @@ var React = require('react'),
 var Column = require('./contentEditor.jsx'),
     Image = require('./imageUploader.jsx');
 
-var Content = window.Content || {};
+var Locker = window.Locker || {};
 
 var Players = window.Players || {};
 
 var LockerEntry = React.createClass({  
   getInitialState: function() {
-    return { id: '', data: [], title: '', player: Players[0]._id, approved: false, submitted: false };
+    return { id: '', data: [], player: '', approved: false, submitted: false };
   },
 
   componentDidMount: function(){
@@ -24,9 +24,15 @@ var LockerEntry = React.createClass({
   },
 
   componentWillMount: function(){
-
+    
     if(this.props) {
       this.setState(this.props);
+    }
+    if (this.props.data){
+      this.setState({data: this.props.data});
+    }
+    if (this.props.player){
+      this.setState({player: this.props.player._id});
     }
 
   },
@@ -43,35 +49,41 @@ var LockerEntry = React.createClass({
     var current_data = this.state.data;
     var tmp_content = {type: 'image', caption: '' };
     var new_data = current_data.concat(tmp_content);
-    this.setState({data: new_data});
+    this.setState({data: new_data}, function(){
+      this.props.stuff(this.state);
+    });
   },
 
   handleImage: function(image){
     var old_data = this.state.data;
     old_data[image.id].image_url = image.image_url;
-    this.setState({data: old_data});
-    this.props.stuff(this.state);
+    this.setState({data: old_data}, function(){
+      this.props.stuff(this.state);
+    });
   },
 
   handleImageCaption: function(image){
     var old_data = this.state.data;
     old_data[image.id].caption = image.caption;
-    this.setState({data: old_data});
-    this.props.stuff(this.state);
+    this.setState({data: old_data}, function(){
+      this.props.stuff(this.state);
+    });
   },
 
   handleImageType: function(image){
     var old_data = this.state.data;
     old_data[image.id].image_type = image.image_type;
-    this.setState({data: old_data});
-    this.props.stuff(this.state);
+    this.setState({data: old_data}, function(){
+      this.props.stuff(this.state);
+    });
   },
 
   removeImage: function(content){
     var new_data = this.state.data;
     new_data.splice(content.id, 1);
-    this.setState({data: new_data});
-    this.props.stuff(this.state);
+    this.setState({data: new_data}, function(){
+      this.props.stuff(this.state);
+    });
   },
 
   // 
@@ -82,33 +94,42 @@ var LockerEntry = React.createClass({
     var current_data = this.state.data;
     var tmp_content = {type: 'content', content: '' };
     var new_data = current_data.concat(tmp_content);
-    this.setState({data: new_data});
+    this.setState({data: new_data}, function(){
+      this.props.stuff(this.state);
+    });
   },
 
   handleContent: function(content){
     var self = this;
     var old_data = self.state.data;
+
+console.log('handleContent:');
+console.log(' sent content:'+util.inspect(content));
+console.log(' sent id:'+content.id);
+console.log(' old_data[]:'+util.inspect(old_data[content.id]));
+
     old_data[content.id].content = content.content;
-    self.setState({data: old_data});
-    this.props.stuff(this.state);
+    self.setState({data: old_data}, function(){
+      this.props.stuff(this.state);
+    });
   },
 
   removeContent: function(content){
     var new_data = this.state.data;
-    console.log('removeContent: before new_data: '+ JSON.stringify(new_data));
     new_data.splice(content.id,1);
-    this.setState({data: new_data});
-    console.log('removeContent: after new_data: '+ JSON.stringify(new_data));
-    this.props.stuff(this.state);
+    this.setState({data: new_data}, function(){
+      this.props.stuff(this.state);
+    });
   },
 
 
-  handlePlayer: function(event) {
+  handlePlayer: function(value) {
     var self = this;
-    console.log('handlePlayer: ' + event.target.value);
-    self.setState({player: event.target.value});
-    console.log(' after: ' + self.state.player);
-    this.handleChangeBig();
+    var target_value = value;
+    self.setState({player: value.target.value}, function(){
+      this.props.stuff(this.state);
+    });
+    
   },
 
   // 
@@ -119,11 +140,14 @@ var LockerEntry = React.createClass({
     var self = this;
     var cur_approved = self.state.approved;
     if (cur_approved == true) {
-      self.setState({approved: false});
+      self.setState({approved: false}, function(){
+        this.props.stuff(this.state);
+      });
     } else {
-      self.setState({approved: true});
+      self.setState({approved: true}, function(){
+        this.props.stuff(this.state);
+      });
     }
-    self.props.stuff(this.state);
   },
 
 
@@ -148,29 +172,6 @@ var LockerEntry = React.createClass({
 
   testContent: function(){
     var self = this;
-    console.log('self: '+ util.inspect(self.state));
-  },
-
-  // 
-  // Submit Form
-  // 
-
-  submitContent: function(){
-    var self = this;
-    if (self.state.player) {
-      self.setState({submitted: true});
-      request
-        .post(window.location.pathname)
-        .send(self.state)
-        .end(function(res) {
-          console.log(res);
-          if (res.text) {
-            window.location = "/column/"+res.text;
-          }
-        }.bind(self));
-    } else {
-      alert('Enter a Player');
-    }
   },
 
   render: function() {
@@ -184,6 +185,7 @@ var LockerEntry = React.createClass({
         return <Column
           ref={'content-'+i}
           identifier={i}
+          entry={self.props.id}
           thing={object.content}
           content={self.handleContent}
           removed={self.removeContent} />;
@@ -206,7 +208,7 @@ var LockerEntry = React.createClass({
 
     var checkbox_value = this.state.approved;
 
-    var default_player = this.state.player._id;
+    var default_player = this.state.player;
 
     return (
       <div className="row">
@@ -215,6 +217,7 @@ var LockerEntry = React.createClass({
             <select onChange={self.handlePlayer} value={default_player}>
               {player_options}
             </select>
+            <p className="lockerroom-entry-delete" onClick={this.handleDelete}><span className="fa fa-trash"></span>Delete</p>
           </div>
           <div className="column-content">
             {columns}
@@ -223,11 +226,6 @@ var LockerEntry = React.createClass({
             <p className="content-link" onClick={this.addContent}>Add Text</p>
             <p className="content-link" onClick={this.addImage}>Add Image</p>
           </div>
-          <div className="controlbar">
-            <p className="control-link" onClick={this.handleDelete}><span className="fa fa-trash"></span>Delete</p>
-            <p className="control-link"><input type="checkbox" checked={checkbox_value} onChange={this.handleCheckbox} /> Approved</p>
-          </div>
-          {this.state.submitted ? <a className='article-submit'><span className="fa fa-circle-o-notch fa-spin"></span></a> : <a className='article-submit' onClick={this.handleChangeBig}>test</a> }
         </div>
       </div>
     )
@@ -239,9 +237,17 @@ var LockerList = React.createClass({
     return { id: '', lockerentries: [], title: '', approved: false, submitted: false };
   },
 
+  componentWillMount: function(){
+
+    if(this.props) {
+      this.setState(this.props);
+    }
+
+  },
+
   addEntry: function(){
     var current_data = this.state.lockerentries;
-    var tmp_content = {};
+    var tmp_content = {data: []};
     var new_data = current_data.concat(tmp_content);
     this.setState({lockerentries: new_data});
   },
@@ -254,7 +260,6 @@ var LockerList = React.createClass({
 
 
   handleStuff: function(content) {
-    console.log('handleStuff: '+util.inspect(content));
     var old_lockerentries = this.state.lockerentries;
     old_lockerentries[content.id] = content;
     this.setState({lockerentries: old_lockerentries});
@@ -266,14 +271,28 @@ var LockerList = React.createClass({
 
   testContent: function(){
     var self = this;
-    console.log('self: '+ util.inspect(self.state));
+  },
+  submitContent: function(){
+    var self = this;
+    request
+      .post(window.location.pathname)
+      .send(self.state)
+      .end(function(res) {
+        if (res.text) {
+          window.location = "/lockerroom/"+res.text;
+        }
+      }.bind(self));
   },
 
   render: function() {
     var self = this;
     var title = self.state.title;
     var lockers = this.state.lockerentries.map(function(object, i) {
-      return <LockerEntry title="Hello" id={i} stuff={self.handleStuff}  />;
+      return <LockerEntry 
+                id={i} 
+                data={object.data}
+                player={object.player}
+                stuff={self.handleStuff}  />;
     });
     var divStyle = {
       backgroundImage: 'url(https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer.jpg)'
@@ -294,7 +313,7 @@ var LockerList = React.createClass({
                 <p className="content-link" onClick={this.addEntry}>Add Locker Entry</p>
               </div>
 
-              {this.state.submitted ? <a className='article-submit'><span className="fa fa-circle-o-notch fa-spin"></span></a> : <a className='article-submit' onClick={this.testContent}>test</a> }
+              {this.state.submitted ? <a className='article-submit'><span className="fa fa-circle-o-notch fa-spin"></span></a> : <a className='article-submit' onClick={this.submitContent}>test</a> }
             </div>
           </div>
         </div>
@@ -305,6 +324,6 @@ var LockerList = React.createClass({
 
 
 React.renderComponent(
-  LockerList(),
+  LockerList(Locker),
   document.getElementById('react-content')
 )

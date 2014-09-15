@@ -33,16 +33,17 @@ var Column = React.createClass({
 
   onScriptLoaded: function() {
     var self = this;
+    var entry = this.props.entry;
     var identifier = this.props.identifier;
     var wysihtml5ParserRules = require('../advanced.js');
-    mainEditor[self.props.identifier] = new wysihtml5.Editor('main-content-'+identifier, {
-      toolbar:      "main-toolbar-"+identifier,
+    mainEditor[self.props.entry+'-'+self.props.identifier] = new wysihtml5.Editor('main-content-'+entry+identifier, {
+      toolbar:      "main-toolbar-"+entry+identifier,
       stylesheets:  "/css/wysihtml5.css",
       parserRules:  wysihtml5ParserRules,
       cleanUp:      false
     });
 
-    mainEditor[self.props.identifier].observe("load", function () {     
+    mainEditor[self.props.entry+'-'+self.props.identifier].observe("load", function () {     
       var $iframe = $(this.composer.iframe);
       var $body = $(this.composer.element);
       
@@ -63,23 +64,25 @@ var Column = React.createClass({
       self.setState({active: true});
     };
     
-    mainEditor[self.props.identifier].on("focus", onFocus);
+    mainEditor[self.props.entry+'-'+self.props.identifier].on("focus", onFocus);
 
     function onBlur() { 
       self.setState({active: false});
     };
 
-    mainEditor[self.props.identifier].on("blur", onBlur);
+    mainEditor[self.props.entry+'-'+self.props.identifier].on("blur", onBlur);
 
     function onChange() { 
-      self.props.content({id: self.props.identifier, content: mainEditor[self.props.identifier].getValue()});
+      console.log('self.props.entry+self.props.identifier: '+self.props.entry+self.props.identifier);
+      console.log('onChange() contentvalue: '+mainEditor[self.props.entry+'-'+self.props.identifier].getValue());
+      self.props.content({id: self.props.identifier, content: mainEditor[self.props.entry+'-'+self.props.identifier].getValue()});
     };
 
-    mainEditor[self.props.identifier].on("change", onChange);
+    mainEditor[self.props.entry+'-'+self.props.identifier].on("change", onChange);
 
     function onLoad() { 
 
-      mainEditor[self.props.identifier].on("load", function () {     
+      mainEditor[self.props.entry+'-'+self.props.identifier].on("load", function () {     
         var $iframe = $(this.composer.iframe);
         var $body = $(this.composer.element);
         
@@ -90,7 +93,7 @@ var Column = React.createClass({
 
     };
 
-    mainEditor[self.props.identifier].on("load", onLoad);
+    mainEditor[self.props.entry+'-'+self.props.identifier].on("load", onLoad);
 
   },
  
@@ -103,12 +106,13 @@ var Column = React.createClass({
   },
 
   render: function() {
+    var entry = this.props.entry;
     var value = this.props.thing; 
     var className = this.state.active ? 'content-container active' : 'content-container';
     return ( 
       <div className={className} ref='contentwrapper'>
         <div className="post-form">
-          <div id={'main-toolbar-'+this.props.identifier} className="toolbar">
+          <div id={'main-toolbar-'+entry+this.props.identifier} className="toolbar">
             <span className="section">
               <a className="fa fa-bold" data-wysihtml5-command="bold" title="CTRL+B"></a>
               <a className="fa fa-italic" data-wysihtml5-command="italic" title="CTRL+I"></a>
@@ -136,7 +140,7 @@ var Column = React.createClass({
             </span>
           </div>
           <a className="close-link" onClick={this.handleClose}>×</a>
-          <textarea ref='content' id={'main-content-'+this.props.identifier} className="main content" name="content" placeholder='Type New Content Here...' value={value} readOnly></textarea>
+          <textarea ref='content' id={'main-content-'+entry+this.props.identifier} className="main content" name="content" placeholder='Type New Content Here...' value={value} readOnly></textarea>
         </div>
       </div> )
   }

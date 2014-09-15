@@ -1,5 +1,6 @@
 var mongoose = require( 'mongoose' );
 var moment = require('moment');
+var columnSchema = require('./column');
 
 function slugify(text) {
   return text.toString().toLowerCase()
@@ -12,18 +13,20 @@ function slugify(text) {
 
 var lockerroomSchema = mongoose.Schema({
     user : { type: String, ref: 'User' },
-    player : { type: String, ref: 'Player' },
     title			 : String,
     slug       : String,
     excerpt    : String,
     updated_date : String,
     updated_at : String,
     approved	 : Boolean,
-    data: [ ],
-    main_image: { 
-      image_url: String,
-      caption: String
-    }
+    lockerentries: [{
+      player : { type: String, ref: 'Player' },
+      excerpt    : String,
+      updated_date : String,
+      updated_at : String,
+      approved   : Boolean,
+      data: [ ],
+    }],
 });
 
 lockerroomSchema.pre('save', function (next) {
