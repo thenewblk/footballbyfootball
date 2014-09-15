@@ -3,161 +3,216 @@
 		<div class="container">
 
 			<div class="row">
-				
-					
-					<% columns.forEach(function(column, index){ %>
-
-						<% if (index == 0 || index == 1 ) { %>
-						<div class="col-md-6">
-							<div class="big-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
-								<div class="overcast"></div>
-								<div class="headline">
-									<div class="white banner left">COLUMN:</div>
-									<div class="inner-content">
-										<div class="copy"><a href="/column/<%= column.slug %>">
-											<h3><%= column.title %></h3>
-										</a></div>
-										<div class="byline">
-											<%= column.player.name %>
-											<div class="author-image" style="background-image: url(<%= column.player.image_url %>)"></div>
-										</div>
-									</div>
+				<div class="col-md-6">
+					<div class="big-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column[14].main_image.image_url %>);">
+						<div class="overcast"></div>
+						<div class="headline">
+							<div class="white banner left">COLUMN:</div>
+							<div class="inner-content">
+								<div class="copy"><a href="/column/<%= column[14].slug %>">
+									<h3><%= column[14].title %></h3>
+								</a></div>
+								<div class="byline">
+									<%= column[14].player.name %>
+									<div class="author-image" style="background-image: url(<%= column[14].player.image_url %>)"></div>
 								</div>
 							</div>
 						</div>
-						<% } %>
-					<% }); %>
+					</div>
 				</div>
+				<div class="col-md-6">
+					<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column[13].main_image.image_url %>);">
+						<div class="overcast"></div>
+						<div class="headline">
+							<div class="white banner left">COLUMN:</div>
+							<div class="inner-content">
+								<div class="copy"><a href="/column/<%= column[13].slug %>">
+									<h3><%= column[13].title %></h3>
+								</a></div>
+								<div class="byline">
+									<%= column[13].player.name %>
+									<div class="author-image" style="background-image: url(<%= column[13].player.image_url %>)"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column[12].main_image.image_url %>);">
+						<div class="overcast"></div>
+						<div class="headline">
+							<div class="white banner left">COLUMN:</div>
+							<div class="inner-content">
+								<div class="copy"><a href="/column/<%= column[12].slug %>">
+									<h3><%= column[12].title %></h3>
+								</a></div>
+								<div class="byline">
+									<%= column[12].player.name %>
+									<div class="author-image" style="background-image: url(<%= column[12].player.image_url %>)"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
 			<div class="row">
-					<hr class="bottom">
-					<p class="date">September 14, 2014</p>
-					<div class="col-md-6">
-						<% columns.forEach(function(column, index){ %>
-						<% if (index == 2 || index == 3 ) { %>
-							<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
-								<div class="overcast"></div>
-								<div class="headline">
-									<div class="white banner left">COLUMN:</div>
-									<div class="inner-content">
-										<div class="copy"><a href="/column/<%= column.slug %>">
-											<h3><%= column.title %></h3>
-										</a></div>
-										<div class="byline">
-											<%= column.player.name %>
-											<div class="author-image" style="background-image: url(<%= column.player.image_url %>)"></div>
-										</div>
-									</div>
+				<hr class="bottom">
+				<p class="date">September 14, 2014</p>
+				<div class="col-md-6">
+					<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column[11].main_image.image_url %>);">
+						<div class="overcast"></div>
+						<div class="headline">
+							<div class="white banner left">COLUMN:</div>
+							<div class="inner-content">
+								<div class="copy"><a href="/column/<%= column[11].slug %>">
+									<h3><%= column[11].title %></h3>
+								</a></div>
+								<div class="byline">
+									<%= column[11].player.name %>
+									<div class="author-image" style="background-image: url(<%= column[11].player.image_url %>)"></div>
 								</div>
 							</div>
-							<% } %>
-						<% }); %>
-					</div>
-
-						<div class="col-md-6">
-						<% columns.forEach(function(column, index){ %>
-						<% if (index == 4 || index == 5 ) { %>
-							<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
-								<div class="overcast"></div>
-								<div class="headline">
-									<div class="white banner left">COLUMN:</div>
-									<div class="inner-content">
-										<div class="copy"><a href="/column/<%= column.slug %>">
-											<h3><%= column.title %></h3>
-										</a></div>
-										
-										<div class="byline">
-											<% if (column.slug != 'locks-nfl-week-2') { %>
-											<%= column.player.name %>
-											<div class="author-image" style="background-image: url(<%= column.player.image_url %>)"></div>
-											<% } %>
-										</div>
-										
-									</div>
-								</div>
-							</div>
-							<% } %>
-							<% }); %>
 						</div>
+					</div>
+					<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column[10].main_image.image_url %>);">
+						<div class="overcast"></div>
+						<div class="headline">
+							<div class="white banner left">COLUMN:</div>
+							<div class="inner-content">
+								<div class="copy"><a href="/column/<%= column[10].slug %>">
+									<h3><%= column[10].title %></h3>
+								</a></div>
+								<div class="byline">
+									<%= column[10].player.name %>
+									<div class="author-image" style="background-image: url(<%= column[10].player.image_url %>)"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column[9].main_image.image_url %>);">
+						<div class="overcast"></div>
+						<div class="headline">
+							<div class="white banner left">COLUMN:</div>
+							<div class="inner-content">
+								<div class="copy"><a href="/column/<%= column[9].slug %>">
+									<h3><%= column[9].title %></h3>
+								</a></div>
+								
+								<div class="byline">
+									<% if (column.slug != 'locks-nfl-week-2') { %>
+									<%= column[9].player.name %>
+									<div class="author-image" style="background-image: url(<%= column[9].player.image_url %>)"></div>
+									<% } %>
+								</div>
+								
+							</div>
+						</div></div>
+					<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column[8].main_image.image_url %>);">
+						<div class="overcast"></div>
+						<div class="headline">
+							<div class="white banner left">COLUMN:</div>
+							<div class="inner-content">
+								<div class="copy"><a href="/column/<%= column[8].slug %>">
+									<h3><%= column[8].title %></h3>
+								</a></div>
+								
+								<div class="byline">
+									<% if (column.slug != 'locks-nfl-week-2') { %>
+									<%= column[8].player.name %>
+									<div class="author-image" style="background-image: url(<%= column[8].player.image_url %>)"></div>
+									<% } %>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<div class="row">
 				<hr class="bottom">
 				<p class="date">September 13, 2014</p>
-				<% columns.forEach(function(column, index){ %>
-					<% if (index == 6 ) { %>
-						<div class="col-md-12">
-							<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
-								<div class="overcast"></div>
-								<div class="headline">
-									<div class="white banner left">COLUMN:</div>
-									<div class="inner-content">
-										<div class="copy"><a href="/column/<%= column.slug %>">
-											<h3><%= column.title %></h3>
-										</a></div>
-										<div class="byline">
-											<%= column.player.name %>
-											<div class="author-image" style="background-image: url(<%= column.player.image_url %>)"></div>
-										</div>
-									</div>
+				<div class="col-md-12">
+					<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column[7].main_image.image_url %>);">
+						<div class="overcast"></div>
+						<div class="headline">
+							<div class="white banner left">COLUMN:</div>
+							<div class="inner-content">
+								<div class="copy"><a href="/column/<%= column[7].slug %>">
+									<h3><%= column[7].title %></h3>
+								</a></div>
+								<div class="byline">
+									<%= column[7].player.name %>
+									<div class="author-image" style="background-image: url(<%= column[7].player.image_url %>)"></div>
 								</div>
 							</div>
 						</div>
-					<% } %>
-				<% }); %>
+					</div>
+				</div>
 			</div>
 
 			<div class="row">
 				<hr class="bottom">
 				<p class="date">September 12, 2014</p>
-				<% columns.forEach(function(column, index){ %>
-					<% if (index == 7 || index == 8  ) { %>
-						<div class="col-md-6">
-							<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
-								<div class="overcast"></div>
-								<div class="headline">
-									<div class="white banner left">COLUMN:</div>
-									<div class="inner-content">
-										<div class="copy"><a href="/column/<%= column.slug %>">
-											<h3><%= column.title %></h3>
-										</a></div>
-										<div class="byline">
-											<%= column.player.name %>
-											<div class="author-image" style="background-image: url(<%= column.player.image_url %>)"></div>
-										</div>
-									</div>
+				<div class="col-md-6">
+					<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column[6].main_image.image_url %>);">
+						<div class="overcast"></div>
+						<div class="headline">
+							<div class="white banner left">COLUMN:</div>
+							<div class="inner-content">
+								<div class="copy"><a href="/column/<%= column[6].slug %>">
+									<h3><%= column[6].title %></h3>
+								</a></div>
+								<div class="byline">
+									<%= column[6].player.name %>
+									<div class="author-image" style="background-image: url(<%= column[6].player.image_url %>)"></div>
 								</div>
 							</div>
 						</div>
-					<% } %>
-				<% }); %>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column[5].main_image.image_url %>);">
+						<div class="overcast"></div>
+						<div class="headline">
+							<div class="white banner left">COLUMN:</div>
+							<div class="inner-content">
+								<div class="copy"><a href="/column/<%= column[5].slug %>">
+									<h3><%= column[5].title %></h3>
+								</a></div>
+								<div class="byline">
+									<%= column[5].player.name %>
+									<div class="author-image" style="background-image: url(<%= column[5].player.image_url %>)"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 
 
 			<div class="row">
 				<hr class="bottom">
 				<p class="date">September 11, 2014</p>
-				<% columns.forEach(function(column, index){ %>
-					<% if (index == 9 ) { %>
-						<div class="col-md-6">
-							<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
-								<div class="overcast"></div>
-								<div class="headline">
-									<div class="white banner left">COLUMN:</div>
-									<div class="inner-content">
-										<div class="copy"><a href="/column/<%= column.slug %>">
-											<h3><%= column.title %></h3>
-										</a></div>
-										<div class="byline">
-											<%= column.player.name %>
-											<div class="author-image" style="background-image: url(<%= column.player.image_url %>)"></div>
-										</div>
-									</div>
+				<div class="col-md-6">
+					<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column[4].main_image.image_url %>);">
+						<div class="overcast"></div>
+						<div class="headline">
+							<div class="white banner left">COLUMN:</div>
+							<div class="inner-content">
+								<div class="copy"><a href="/column/<%= column[4].slug %>">
+									<h3><%= column[4].title %></h3>
+								</a></div>
+								<div class="byline">
+									<%= column[4].player.name %>
+									<div class="author-image" style="background-image: url(<%= column[4].player.image_url %>)"></div>
 								</div>
 							</div>
 						</div>
-					<% } %>
-				<% }); %>
+					</div>
+				</div>
 				<div class="col-md-6">
 					<div class="medium-article lockerroom">
 						<div class="white banner right big"><h5>LOCKER ROOM:</h5></div>
@@ -228,79 +283,78 @@
 			<div class="row">
 				<hr class="bottom">
 				<p class="date">September 9, 2014</p>
-				<% columns.forEach(function(column, index){ %>
-					<% if (index == 8 ) { %>
-						<div class="col-md-6">
-							<div class="big-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
-								<div class="overcast"></div>
-								<div class="headline">
-									<div class="white banner left">COLUMN:</div>
-									<div class="inner-content">
-										<div class="copy"><a href="/column/<%= column.slug %>">
-											<h3><%= column.title %></h3>
-										</a></div>
-										<div class="byline">
-											<%= column.player.name %>
-											<div class="author-image" style="background-image: url(<%= column.player.image_url %>)"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					<% } %>
-				<% }); %>
-
 				<div class="col-md-6">
-					<% columns.forEach(function(column, index){ %>
-						<% if (index == 10 || index == 11 ) { %>
-								<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
-									<div class="overcast"></div>
-									<div class="headline">
-										<div class="white banner left">COLUMN:</div>
-										<div class="inner-content">
-											<div class="copy"><a href="/column/<%= column.slug %>">
-												<h3><%= column.title %></h3>
-											</a></div>
-											<div class="byline">
-												<%= column.player.name %>
-												<div class="author-image" style="background-image: url(<%= column.player.image_url %>)"></div>
-											</div>
-										</div>
-									</div>
-								</div>
-						<% } %>
-					<% }); %>
-				</div>
-
-			</div>
-
-			<div class="row">
-				<hr class="bottom">
-				<p class="date">September 8, 2014</p>
-
-				<% columns.forEach(function(column, index){ %>
-					<% if (index == 12 ) { %>
-
-				<div class="col-md-12">
-					<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url %>);">
+					<div class="big-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column[3].main_image.image_url %>);">
 						<div class="overcast"></div>
 						<div class="headline">
 							<div class="white banner left">COLUMN:</div>
 							<div class="inner-content">
-								<div class="copy"><a href="/column/<%= column.slug %>">
-									<h3><%= column.title %></h3>
+								<div class="copy"><a href="/column/<%= column[3].slug %>">
+									<h3><%= column[3].title %></h3>
 								</a></div>
 								<div class="byline">
-									<%= column.player.name %>
-									<div class="author-image" style="background-image: url(<%= column.player.image_url %>)"></div>
+									<%= column[3].player.name %>
+									<div class="author-image" style="background-image: url(<%= column[3].player.image_url %>)"></div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
-					<% } %>
-				<% }); %>
+				<div class="col-md-6">
+					<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column[2].main_image.image_url %>);">
+						<div class="overcast"></div>
+						<div class="headline">
+							<div class="white banner left">COLUMN:</div>
+							<div class="inner-content">
+								<div class="copy"><a href="/column/<%= column[2].slug %>">
+									<h3><%= column[2].title %></h3>
+								</a></div>
+								<div class="byline">
+									<%= column[2].player.name %>
+									<div class="author-image" style="background-image: url(<%= column[2].player.image_url %>)"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column[1].main_image.image_url %>);">
+						<div class="overcast"></div>
+						<div class="headline">
+							<div class="white banner left">COLUMN:</div>
+							<div class="inner-content">
+								<div class="copy"><a href="/column/<%= column[1].slug %>">
+									<h3><%= column[1].title %></h3>
+								</a></div>
+								<div class="byline">
+									<%= column[1].player.name %>
+									<div class="author-image" style="background-image: url(<%= column[1].player.image_url %>)"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<hr class="bottom">
+				<p class="date">September 8, 2014</p>
+				<div class="col-md-12">
+					<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= column[0].main_image.image_url %>);">
+						<div class="overcast"></div>
+						<div class="headline">
+							<div class="white banner left">COLUMN:</div>
+							<div class="inner-content">
+								<div class="copy"><a href="/column/<%= column[0].slug %>">
+									<h3><%= column[0].title %></h3>
+								</a></div>
+								<div class="byline">
+									<%= column[0].player.name %>
+									<div class="author-image" style="background-image: url(<%= column[0].player.image_url %>)"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
 
 				<div class="col-md-6">

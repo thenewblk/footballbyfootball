@@ -953,7 +953,7 @@ var Players = window.Players || {};
 
 var LockerEntry = React.createClass({displayName: 'LockerEntry',  
   getInitialState: function() {
-    return { id: '', data: [], title: '', player: '', approved: false, submitted: false };
+    return { id: '', data: [], title: '', player: Players[0]._id, approved: false, submitted: false };
   },
 
   componentDidMount: function(){
@@ -987,24 +987,28 @@ var LockerEntry = React.createClass({displayName: 'LockerEntry',
     var old_data = this.state.data;
     old_data[image.id].image_url = image.image_url;
     this.setState({data: old_data});
+    this.props.stuff(this.state);
   },
 
   handleImageCaption: function(image){
     var old_data = this.state.data;
     old_data[image.id].caption = image.caption;
     this.setState({data: old_data});
+    this.props.stuff(this.state);
   },
 
   handleImageType: function(image){
     var old_data = this.state.data;
     old_data[image.id].image_type = image.image_type;
     this.setState({data: old_data});
+    this.props.stuff(this.state);
   },
 
   removeImage: function(content){
     var new_data = this.state.data;
     new_data.splice(content.id, 1);
     this.setState({data: new_data});
+    this.props.stuff(this.state);
   },
 
   // 
@@ -1023,7 +1027,7 @@ var LockerEntry = React.createClass({displayName: 'LockerEntry',
     var old_data = self.state.data;
     old_data[content.id].content = content.content;
     self.setState({data: old_data});
-    self.props.content_change(self.state);
+    this.props.stuff(this.state);
   },
 
   removeContent: function(content){
@@ -1032,14 +1036,16 @@ var LockerEntry = React.createClass({displayName: 'LockerEntry',
     new_data.splice(content.id,1);
     this.setState({data: new_data});
     console.log('removeContent: after new_data: '+ JSON.stringify(new_data));
+    this.props.stuff(this.state);
   },
 
-  handleTitleChange: function(event) {
-    this.setState({title: event.target.value});
-  },
 
   handlePlayer: function(event) {
-    this.setState({player: event.target.value});
+    var self = this;
+    console.log('handlePlayer: ' + event.target.value);
+    self.setState({player: event.target.value});
+    console.log(' after: ' + self.state.player);
+    this.handleChangeBig();
   },
 
   // 
@@ -1054,6 +1060,7 @@ var LockerEntry = React.createClass({displayName: 'LockerEntry',
     } else {
       self.setState({approved: true});
     }
+    self.props.stuff(this.state);
   },
 
 
@@ -1062,14 +1069,14 @@ var LockerEntry = React.createClass({displayName: 'LockerEntry',
   // 
 
   handleDelete: function() {
-    var self = this;
-    request
-      .del('/column/'+self.props.slug+'/delete')
-      .send(self.state)
-      .end(function(res) {
-        console.log(res)
-        window.location = '/admin';
-      }.bind(self));
+    // var self = this;
+    // request
+    //   .del('/column/'+self.props.slug+'/delete')
+    //   .send(self.state)
+    //   .end(function(res) {
+    //     console.log(res)
+    //     window.location = '/admin';
+    //   }.bind(self));
   }, 
 
   // 
@@ -1079,16 +1086,11 @@ var LockerEntry = React.createClass({displayName: 'LockerEntry',
   testContent: function(){
     var self = this;
     console.log('self: '+ util.inspect(self.state));
-    console.log('window.location.pathname'+window.location.pathname);
   },
 
   // 
   // Submit Form
   // 
-
-  formatDate: function(stuff){
-    console.log('stuff: ' + util.inspect(stuff));
-  },
 
   submitContent: function(){
     var self = this;
@@ -1144,7 +1146,7 @@ var LockerEntry = React.createClass({displayName: 'LockerEntry',
     var default_player = this.state.player._id;
 
     return (
-      React.DOM.div({className: "row", onChange: this.handleChangeBig}, 
+      React.DOM.div({className: "row"}, 
         React.DOM.div({className: "lockerroom-entry"}, 
           React.DOM.div({className: "lockerrooom-entry-title"}, 
             React.DOM.select({onChange: self.handlePlayer, value: default_player}, 
@@ -1185,40 +1187,6 @@ var LockerList = React.createClass({displayName: 'LockerList',
     this.setState({title: event.target.value});
   },
 
-  selfState: function(){
-    var self = this;
-
-    console.log('self.state: '+ util.inspect(self.state));
-
-  },
-
-  selfProps: function(){
-    var self = this;
-
-    console.log('self.props: '+ util.inspect(self.props));
-
-  },
-
-  selfFindChildren: function(){
-    var self = this;
-
-    console.log('self.props.children: '+ util.inspect(self.props.children));
-
-  },
-
-  selfPropsChildren: function(){
-    var self = this;
-
-    console.log('self._renderedComponent.props.children: '+ util.inspect( self._renderedComponent.props.children ));
-
-  },
-
-  getSelf: function(){
-    var self = this;
-
-    console.log('self: '+ util.inspect(self));
-
-  },
 
 
 
@@ -1226,23 +1194,23 @@ var LockerList = React.createClass({displayName: 'LockerList',
     console.log('handleStuff: '+util.inspect(content));
     var old_lockerentries = this.state.lockerentries;
     old_lockerentries[content.id] = content;
-    console.log('old_lockerentries: '+ JSON.stringify(old_lockerentries));
     this.setState({lockerentries: old_lockerentries});
   },
 
-  handleContentChange: function(content) {
-    console.log('handleContentChange: '+util.inspect(content));
-    var old_lockerentries = this.state.lockerentries;
-    old_lockerentries[content.id] = content;
-    console.log('old_lockerentries: '+ JSON.stringify(old_lockerentries));
-    this.setState({lockerentries: old_lockerentries}); 
+  // 
+  // Test Content
+  // 
+
+  testContent: function(){
+    var self = this;
+    console.log('self: '+ util.inspect(self.state));
   },
 
   render: function() {
     var self = this;
     var title = self.state.title;
     var lockers = this.state.lockerentries.map(function(object, i) {
-      return LockerEntry({title: "Hello", id: i, stuff: self.handleStuff, content_change: this.handleContentChange});
+      return LockerEntry({title: "Hello", id: i, stuff: self.handleStuff});
     });
     var divStyle = {
       backgroundImage: 'url(https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer.jpg)'
@@ -1261,12 +1229,6 @@ var LockerList = React.createClass({displayName: 'LockerList',
               lockers, 
               React.DOM.div({className: "contentbar"}, 
                 React.DOM.p({className: "content-link", onClick: this.addEntry}, "Add Locker Entry")
-              ), 
-              React.DOM.div({className: "contentbar"}, 
-                React.DOM.p({className: "content-link", onClick: this.getSelf}, "self"), 
-                React.DOM.p({className: "content-link", onClick: this.selfState}, "self.state"), 
-                React.DOM.p({className: "content-link", onClick: this.selfProps}, "self.props"), 
-                React.DOM.p({className: "content-link", onClick: this.selfPropsChildren}, "self.props.children")
               ), 
 
               this.state.submitted ? React.DOM.a({className: "article-submit"}, React.DOM.span({className: "fa fa-circle-o-notch fa-spin"})) : React.DOM.a({className: "article-submit", onClick: this.testContent}, "test")
