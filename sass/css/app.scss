@@ -1478,9 +1478,20 @@ a:hover {
 
 }
 
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+	line-height: 1.5;
+}
+
+.medium-article .headline .inner-content .copy h3 {
+	margin-top: 0;
+}
+
 @media (max-width: 991px) {
 	.medium-article {
 		margin-top: 20px;
+	}
+	.big-article {
+		margin-bottom: 20px;
 	}
 	.lockerroom {
 		.lockerroom-header {
@@ -1504,9 +1515,6 @@ a:hover {
 
 
 @media (max-width: 480px) {
-	.medium-article {
-		margin-top: 20px;
-	}
 	.lockerroom {
 		.lockerroom-header {
 			height: auto;
@@ -1528,6 +1536,9 @@ a:hover {
 				font-size: 30px;
 			}
 		}
+	}
+	.medium-article .headline .inner-content .copy h3 {
+		font-size: 18px;
 	}
 	.author-image {
 		height: 30px;
