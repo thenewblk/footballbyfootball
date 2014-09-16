@@ -1,3 +1,8 @@
+<% if (entry.type == 'wwkjd') { %>
+	<a href="/column/<%= entry.slug %>">
+		<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= entry.main_image.image_url %>);"></div>
+	</a>
+<% } else { %>
 <div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= entry.main_image.image_url %>);">
 	<div class="overcast"></div>
 	<div class="headline">
@@ -8,12 +13,12 @@
 			</a></div>
 			
 			<div class="byline">
-				<% if (entry.slug != 'locks-nfl-week-2') { %>
+				<% if (entry.type == 'column' || entry.type == 'fantasy') { %>
 				<%= entry.player.name %>
 				<div class="author-image" style="background-image: url(<%= entry.player.image_url %>)"></div>
 				<% } %>
 			</div>
-			
 		</div>
 	</div>
 </div>
+<% } %>
