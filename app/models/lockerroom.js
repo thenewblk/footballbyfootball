@@ -14,6 +14,7 @@ function slugify(text) {
 var lockerroomSchema = mongoose.Schema({
     user : { type: String, ref: 'User' },
     title			 : String,
+    type       : String,
     slug       : String,
     excerpt    : String,
     updated_date : String,

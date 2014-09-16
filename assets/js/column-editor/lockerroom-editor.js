@@ -228,7 +228,7 @@ var LockerEntry = React.createClass({
 
 var LockerList = React.createClass({ 
   getInitialState: function() {
-    return { id: '', lockerentries: [], title: '', approved: false, submitted: false };
+    return { id: '', lockerentries: [], title: '', approved: false, submitted: false, type: 'lockerroom' };
   },
 
   componentWillMount: function(){

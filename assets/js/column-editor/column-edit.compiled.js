@@ -996,16 +996,17 @@ var Column = React.createClass({displayName: 'Column',
 
   onScriptLoaded: function() {
     var self = this;
+    var entry = this.props.entry;
     var identifier = this.props.identifier;
     var wysihtml5ParserRules = require('../advanced.js');
-    mainEditor[self.props.identifier] = new wysihtml5.Editor('main-content-'+identifier, {
-      toolbar:      "main-toolbar-"+identifier,
+    mainEditor[self.props.entry+'-'+self.props.identifier] = new wysihtml5.Editor('main-content-'+entry+identifier, {
+      toolbar:      "main-toolbar-"+entry+identifier,
       stylesheets:  "/css/wysihtml5.css",
       parserRules:  wysihtml5ParserRules,
       cleanUp:      false
     });
 
-    mainEditor[self.props.identifier].observe("load", function () {     
+    mainEditor[self.props.entry+'-'+self.props.identifier].observe("load", function () {     
       var $iframe = $(this.composer.iframe);
       var $body = $(this.composer.element);
       
@@ -1026,23 +1027,25 @@ var Column = React.createClass({displayName: 'Column',
       self.setState({active: true});
     };
     
-    mainEditor[self.props.identifier].on("focus", onFocus);
+    mainEditor[self.props.entry+'-'+self.props.identifier].on("focus", onFocus);
 
     function onBlur() { 
       self.setState({active: false});
     };
 
-    mainEditor[self.props.identifier].on("blur", onBlur);
+    mainEditor[self.props.entry+'-'+self.props.identifier].on("blur", onBlur);
 
     function onChange() { 
-      self.props.content({id: self.props.identifier, content: mainEditor[self.props.identifier].getValue()});
+      console.log('self.props.entry+self.props.identifier: '+self.props.entry+self.props.identifier);
+      console.log('onChange() contentvalue: '+mainEditor[self.props.entry+'-'+self.props.identifier].getValue());
+      self.props.content({id: self.props.identifier, content: mainEditor[self.props.entry+'-'+self.props.identifier].getValue()});
     };
 
-    mainEditor[self.props.identifier].on("change", onChange);
+    mainEditor[self.props.entry+'-'+self.props.identifier].on("change", onChange);
 
     function onLoad() { 
 
-      mainEditor[self.props.identifier].on("load", function () {     
+      mainEditor[self.props.entry+'-'+self.props.identifier].on("load", function () {     
         var $iframe = $(this.composer.iframe);
         var $body = $(this.composer.element);
         
@@ -1053,7 +1056,7 @@ var Column = React.createClass({displayName: 'Column',
 
     };
 
-    mainEditor[self.props.identifier].on("load", onLoad);
+    mainEditor[self.props.entry+'-'+self.props.identifier].on("load", onLoad);
 
   },
  
@@ -1066,12 +1069,13 @@ var Column = React.createClass({displayName: 'Column',
   },
 
   render: function() {
+    var entry = this.props.entry;
     var value = this.props.thing; 
     var className = this.state.active ? 'content-container active' : 'content-container';
     return ( 
       React.DOM.div({className: className, ref: "contentwrapper"}, 
         React.DOM.div({className: "post-form"}, 
-          React.DOM.div({id: 'main-toolbar-'+this.props.identifier, className: "toolbar"}, 
+          React.DOM.div({id: 'main-toolbar-'+entry+this.props.identifier, className: "toolbar"}, 
             React.DOM.span({className: "section"}, 
               React.DOM.a({className: "fa fa-bold", 'data-wysihtml5-command': "bold", title: "CTRL+B"}), 
               React.DOM.a({className: "fa fa-italic", 'data-wysihtml5-command': "italic", title: "CTRL+I"})
@@ -1099,7 +1103,7 @@ var Column = React.createClass({displayName: 'Column',
             )
           ), 
           React.DOM.a({className: "close-link", onClick: this.handleClose}, "×"), 
-          React.DOM.textarea({ref: "content", id: 'main-content-'+this.props.identifier, className: "main content", name: "content", placeholder: "Type New Content Here...", value: value, readOnly: true})
+          React.DOM.textarea({ref: "content", id: 'main-content-'+entry+this.props.identifier, className: "main content", name: "content", placeholder: "Type New Content Here...", value: value, readOnly: true})
         )
       ) )
   }

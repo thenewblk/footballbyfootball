@@ -1,0 +1,98 @@
+<% if (!first) { %>
+<div class="thing">
+ 	<hr class="bottom">
+	<p class="date"><%= tmp_date %></p>
+</div>
+<% } %>
+
+<% if (tmp_day_entries.length == 1) { %>
+	<% var entry = tmp_day_entries[0]; %>
+	<% if (entry.type != 'lockerroom') { %> 
+		<div class="col-md-12">
+			<%= include medium-article %>
+		</div>
+	<% } else { %>
+	<div class="col-md-12">
+		<%= include lockerroom %>
+	</div>
+	<% } %>
+
+<% } else if (tmp_day_entries.length == 2)  { %>
+
+	<% tmp_day_entries.forEach(function(entry, index){ %>
+		<% if (entry.type == 'lockerroom') { %> 
+			<div class="col-md-6">
+				<%= include lockerroom %>
+			</div>
+		<% } else { %>
+		<div class="col-md-6">
+			<% if (!first) { %>
+				<%= include medium-article %>
+			<% } else { %>
+				<%= include big-article %>
+			<% } %>
+		</div>
+		<% } %>
+	<% }); %>
+
+<% } else if (tmp_day_entries.length == 3)  { %>
+
+		<% var entry = tmp_day_entries[0]; %> 
+		<% if (entry.type == 'lockerroom') { %> 
+			<div class="col-md-6">
+				<%= include lockerroom %>
+			</div>
+		<% } else { %>
+		<div class="col-md-6">
+			<%= include big-article %>
+		</div>
+		<% } %>
+		<div class="col-md-6">
+			<% var entry = tmp_day_entries[1]; %> 
+			<% if (entry.type == 'lockerroom') { %> 
+				<%= include lockerroom %>
+			<% } else { %>
+				<%= include medium-article %>
+			<% } %>
+			<% var entry = tmp_day_entries[2]; %> 
+			<% if (entry.type == 'lockerroom') { %> 
+				<%= include lockerroom %>
+			<% } else { %>
+				<%= include medium-article %>
+			<% } %>
+		</div>
+
+<% } else if (tmp_day_entries.length == 4)  { %>
+
+		<div class="col-md-6">
+			<% var entry = tmp_day_entries[0]; %> 
+			<% if (entry.type == 'lockerroom') { %> 
+				<%= include lockerroom %>
+			<% } else { %>
+				<%= include medium-article %>
+			<% } %>
+			<% var entry = tmp_day_entries[1]; %> 
+			<% if (entry.type == 'lockerroom') { %> 
+				<%= include lockerroom %>
+			<% } else { %>
+				<%= include medium-article %>
+			<% } %>
+		</div>
+
+		<div class="col-md-6">
+			<% var entry = tmp_day_entries[2]; %> 
+			<% if (entry.type == 'lockerroom') { %> 
+				<%= include lockerroom %>
+			<% } else { %>
+				<%= include medium-article %>
+			<% } %>
+			<% var entry = tmp_day_entries[3]; %> 
+			<% if (entry.type == 'lockerroom') { %> 
+				<%= include lockerroom %>
+			<% } else { %>
+				<%= include medium-article %>
+			<% } %>
+		</div>
+
+<% } %>
+

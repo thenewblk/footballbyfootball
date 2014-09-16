@@ -13,6 +13,7 @@ function slugify(text) {
 var columnSchema = mongoose.Schema({
     user : { type: String, ref: 'User' },
     player : { type: String, ref: 'Player' },
+    type       : String,
     title			 : String,
     slug       : String,
     excerpt    : String,
