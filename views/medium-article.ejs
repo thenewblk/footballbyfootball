@@ -3,14 +3,15 @@
 		<div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= entry.main_image.image_url %>);"></div>
 	</a>
 <% } else { %>
+<a href="/column/<%= entry.slug %>">
 <div class="medium-article" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= entry.main_image.image_url %>);">
 	<div class="overcast"></div>
 	<div class="headline">
 		<div class="white banner left uppercase"><%= entry.type %>:</div>
 		<div class="inner-content">
-			<div class="copy"><a href="/column/<%= entry.slug %>">
+			<div class="copy">
 				<h3><%= entry.title %></h3>
-			</a></div>
+			</div>
 			
 			<div class="byline">
 				<% if (entry.type == 'column' || entry.type == 'fantasy') { %>
@@ -21,4 +22,5 @@
 		</div>
 	</div>
 </div>
+</a>
 <% } %>

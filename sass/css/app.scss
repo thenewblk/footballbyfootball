@@ -1204,7 +1204,7 @@ img {
 .column {
 	margin: 25px 0 0;
 	.column-content-wrapper {
-		margin: 25px 0 50px;
+		margin: 0 0 50px;
 	}
 
 	.column-header {
@@ -1585,6 +1585,44 @@ a:hover {
 	}
 
 }
+.social-share {
+	display: table;
+	margin: auto;
+}
+
+.social-share.big {
+	.social-button {
+		padding: 23px;
+		margin: 50px 0 50px;
+		display: inline-block;
+		font-size: 18px;
+	}
+}
+
+.social-button {
+	color: #222;
+	background: #ddd;
+	line-height: 1;
+	transition: 0.15s ease-in-out;
+	padding: 10px;
+	margin: 10px 0;
+	display: inline-block;
+	&:hover {
+		color: white;
+		text-decoration: none;
+	}
+}
+.social-button.facebook {
+	&:hover {
+		background: #43609C;
+	}
+}
+
+.social-button.twitter {
+	&:hover {
+		background: #55ACEE;
+	}
+}
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	line-height: 1.5;
@@ -1636,6 +1674,18 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 				float: right;
 				position: absolute;
 			}
+		}
+	}
+	.social-share.big {
+		.social-button {
+			padding: 23px;
+			margin: 10px 0;
+			display: inline-block;
+			font-size: 18px;
+			margin: auto;
+			display: inline-block;
+			width: 100%;
+			text-align: center;
 		}
 	}
 
