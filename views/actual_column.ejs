@@ -12,7 +12,9 @@
 
 					 </h2>
 					<p class="date"><%= column.updated_at %></p>
+					<% if ( column.main_image.image_url ) { %>
 					<img src="https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url%>" alt="">
+					<% } %>
 					<% if (column.main_image.caption) { %><p class="ap-image"><%= column.main_image.caption %></p><% } %>
 				</div>
 

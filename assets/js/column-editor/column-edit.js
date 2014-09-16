@@ -14,11 +14,11 @@ var Content = window.Content || {};
 
 var Players = window.Players || {};
 
-var Types =  ['locks', 'fantasy', 'wwkjd', 'column'];
+var Types =  ['locks', 'fantasy', 'wwkjd', 'column', 'breakdown'];
 
 var ColumnList = React.createClass({  
   getInitialState: function() {
-    return { id: '', data: [], title: '', main_image: {active: true}, player: '', approved: false, submitted: false, type: 'column' };
+    return { id: '', data: [], title: '', main_image: {active: true}, player: Players[0]._id, approved: false, submitted: false, type: 'column' };
   },
 
   componentDidMount: function(){
@@ -186,7 +186,6 @@ var ColumnList = React.createClass({
 
   submitContent: function(){
     var self = this;
-    if (self.state.player) {
       self.setState({submitted: true});
       request
         .post(window.location.pathname)
@@ -197,9 +196,6 @@ var ColumnList = React.createClass({
             window.location = "/column/"+res.text;
           }
         }.bind(self));
-    } else {
-      alert('Enter a Player');
-    }
   },
 
   render: function() {

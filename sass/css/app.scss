@@ -771,6 +771,7 @@ img {
 }
 
 .lockerroom {
+	background: red;
 	.lockerroom-header {
 		height: 600px;
 		background-position: center;
@@ -878,6 +879,29 @@ img {
 	background-position: center;
 	display: inline-block;
 	vertical-align: middle;
+}
+.lockerroom-controls {
+	margin-top: -50px;
+	position: relative;
+
+	.locker-author-wrap {
+		display: table;
+		width: 100%;
+	}
+	.author-image-wrap {
+		display: table-cell;
+		.author-image {
+			display: table;
+			margin: 5px auto;
+			box-shadow: 0 0 5px black;
+			transition: 0.15s ease-in-out;
+			&:hover {
+				z-index: 1000;
+				box-shadow: 0 5px 20px black;
+			}
+		}
+
+	}
 }
 
 .locker-authors {
@@ -1346,6 +1370,31 @@ form {
 	}
 }
 
+form .form-group {
+	input {
+		font-family: inherit;
+		font-size: inherit;
+		border: #333 solid 1px;
+		line-height: 38px;
+		width: 100%;
+		padding: 0 15px;
+	}
+	label {
+		display: inline-block;
+		margin-bottom: 0;
+		font-weight: bold;
+		background: #333;
+		color: white;
+		float: left;
+		text-align: center;
+		padding: 0 15px;
+		line-height: 2;
+		position: relative;
+		width: auto;
+		border: none;
+	}
+}
+
 .caption-image {
 	float: right; 
 	width: 50%; 
@@ -1526,6 +1575,9 @@ a:hover {
 		padding: 10px 15px;
 		line-height: 1.5;
 		margin: 0;
+		span {
+			cursor:pointer;
+		}
 	}
 
 	.lr-sidebar-link:last-child {
@@ -1558,7 +1610,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 			.title {
 				color: white;
 				position: absolute;
-				bottom: 20px;
+				bottom: 30px;
 				font-size: 40px;
 			}
 		}
@@ -1586,6 +1638,20 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 			}
 		}
 	}
+
+	.lockerroom-controls {
+		margin-top: -25px;
+	}
+
+	.lockerroom .lockerroom-entry .lockerrooom-entry-title .author-image {
+		height: 50px;
+		width: 50px;
+		position: absolute;
+		right: 10px;
+		top: -10px;
+		margin: 0;
+	}
+
 	.column {
 		.column-header {
 			.title {

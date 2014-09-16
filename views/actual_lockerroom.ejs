@@ -8,11 +8,21 @@
 			<% } %></h1>
 		</div>
 	</div>
+	<div class="lockerroom-controls">
+		<div class="locker-author-wrap">
+			<% lockerroom.lockerentries.forEach(function(entry) { %>
+				<div class="author-image-wrap">
+					<a href="#<%= entry.player._id %>"><div class="author-image" style="background-image: url(<%= entry.player.image_url %>)"></div></a>
+				</div>
+			<% });%>
+		</div>		
+	</div>
+
 	<div class="lockerroom-content">
 		<div class="container">
 			<div class="col-md-8">
 				<% lockerroom.lockerentries.forEach(function(entry) { %>
-					<div class="row">
+					<div class="row" id="<%= entry.player._id %>">
 						<div class="lockerroom-entry">
 							<div class="lockerrooom-entry-title">
 								Football <span class="by">by</span> <%= entry.player.name %>
