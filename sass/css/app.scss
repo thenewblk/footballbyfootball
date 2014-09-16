@@ -994,6 +994,14 @@ img {
 	}
 }
 
+.uppercase {
+	text-transform: uppercase;
+}
+
+.banner {
+	font-family: "museo-slab",serif;
+}
+
 .banner.white.left {
 	background: white;
 	color: black;
@@ -1481,6 +1489,11 @@ a:hover {
 		color: white;
 		display: inline-block;
 	}
+}
+
+.select-label {
+	display: inline-block;
+	float: left;
 }
 
 .lockerroom-sidebar {

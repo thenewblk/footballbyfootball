@@ -1,10 +1,15 @@
 <div class="lockerroom-sidebar">
-	<h2 class="lr-sidebar-title">Locker Rooms</h2>
+<!-- 	<h2 class="lr-sidebar-title">Locker Rooms</h2>
 	<h5 class="lr-sidebar-link"><a href="/lockerroom/locker-room-whos-the-best-player-you-ever-played-with">Who's The Best Player You Ever Played With?</a></h5>
 	<h5 class="lr-sidebar-link"><a href="/lockerroom/favorite-friday-food-in-the-nfl">Favorite Friday Food in the NFL</a></h5>
 	<h5 class="lr-sidebar-link"><a href="/lockerroom/what-do-you-make-of-the-new-illegal-contact-emphasis">What Do You Make of the New Illegal Contact "Emphasis"?</a></h5>
 	<h5 class="lr-sidebar-link"><a href="/lockerroom/best-day-one-memory">Best Week One NFL Memory</a></h5>
-	<h5 class="lr-sidebar-link"><a href="/lockerroom/making-it-through-final-roster-cuts">Making it Through Final Roster Cuts</a></h5>
+	<h5 class="lr-sidebar-link"><a href="/lockerroom/making-it-through-final-roster-cuts">Making it Through Final Roster Cuts</a></h5> -->
+	<h2 class="lr-sidebar-title">Locker Rooms</h2>
+	<% recent_lockers.forEach(function(entry, index){ %>
+		<h5 class="lr-sidebar-link"><a href="/lockerroom/<%= entry.slug %>"><%= entry.title %></a></h5>
+	<% }); %>
+
 </div>
 
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>

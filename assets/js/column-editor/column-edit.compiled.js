@@ -688,9 +688,11 @@ var Content = window.Content || {};
 
 var Players = window.Players || {};
 
+var Types =  ['locks', 'fantasy', 'wwkjd', 'column'];
+
 var ColumnList = React.createClass({displayName: 'ColumnList',  
   getInitialState: function() {
-    return { id: '', data: [], title: '', main_image: {active: true}, player: '', approved: false, submitted: false };
+    return { id: '', data: [], title: '', main_image: {active: true}, player: '', approved: false, submitted: false, type: 'column' };
   },
 
   componentDidMount: function(){
@@ -775,6 +777,10 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
 
   handlePlayer: function(event) {
     this.setState({player: event.target.value});
+  },
+
+  handleType: function(event) {
+    this.setState({type: event.target.value});
   },
 
   // 
@@ -901,9 +907,15 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
       return React.DOM.option({value: option._id}, option.name)
     });
 
+    var type_options = Types.map(function(option) {
+      return React.DOM.option({value: option}, option)
+    });
+
     var checkbox_value = this.state.approved;
 
     var default_player = this.state.player._id;
+
+    var default_type = this.state.type;
 
     return (
       React.DOM.div({className: "container"}, 
@@ -932,19 +944,22 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
             this.state.submitted ? React.DOM.a({className: "article-submit"}, React.DOM.span({className: "fa fa-circle-o-notch fa-spin"})) : React.DOM.a({className: "article-submit", onClick: this.submitContent}, "submit")
           ), 
           React.DOM.div({className: "col-md-4"}, 
-            React.DOM.div({className: "column-sidebar"}, 
-              React.DOM.div({className: "author-badge"}, 
-                React.DOM.div({className: "black banner right"}, "Select Author"), 
-                React.DOM.div({className: "content"}, 
-                  React.DOM.select({onChange: self.handlePlayer, value: default_player}, 
-                    player_options
-                  )
+            React.DOM.div({className: "lockerroom-sidebar"}, 
+              React.DOM.h2({className: "lr-sidebar-title"}, "Controls"), 
+              React.DOM.div({className: "lr-sidebar-link"}, 
+                React.DOM.p({className: "select-label"}, "Author:"), 
+                React.DOM.select({onChange: self.handlePlayer, value: default_player}, 
+                  player_options
                 )
               ), 
-              React.DOM.div({className: "column-controls"}, 
-                  React.DOM.p({className: "control-link", onClick: this.handleDelete}, React.DOM.span({className: "fa fa-trash"}), "Delete"), 
-                  React.DOM.p({className: "control-link"}, React.DOM.input({type: "checkbox", checked: checkbox_value, onChange: this.handleCheckbox}), " Approved")
+              React.DOM.div({className: "lr-sidebar-link"}, 
+                React.DOM.p({className: "select-label"}, "Column Type:"), 
+                React.DOM.select({onChange: self.handleType, value: default_type}, 
+                  type_options
                 )
+              ), 
+              React.DOM.p({className: "lr-sidebar-link", onClick: this.handleDelete}, React.DOM.span({className: "fa fa-trash"}), "Delete"), 
+              React.DOM.p({className: "lr-sidebar-link"}, React.DOM.input({type: "checkbox", checked: checkbox_value, onChange: this.handleCheckbox}), " Approved")
             )
           )
         )

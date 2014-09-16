@@ -14,9 +14,11 @@ var Content = window.Content || {};
 
 var Players = window.Players || {};
 
+var Types =  ['locks', 'fantasy', 'wwkjd', 'column'];
+
 var ColumnList = React.createClass({  
   getInitialState: function() {
-    return { id: '', data: [], title: '', main_image: {active: true}, player: '', approved: false, submitted: false };
+    return { id: '', data: [], title: '', main_image: {active: true}, player: '', approved: false, submitted: false, type: 'column' };
   },
 
   componentDidMount: function(){
@@ -101,6 +103,10 @@ var ColumnList = React.createClass({
 
   handlePlayer: function(event) {
     this.setState({player: event.target.value});
+  },
+
+  handleType: function(event) {
+    this.setState({type: event.target.value});
   },
 
   // 
@@ -227,9 +233,15 @@ var ColumnList = React.createClass({
       return <option value={option._id}>{option.name}</option>
     });
 
+    var type_options = Types.map(function(option) {
+      return <option value={option} >{option}</option>
+    });
+
     var checkbox_value = this.state.approved;
 
     var default_player = this.state.player._id;
+
+    var default_type = this.state.type;
 
     return (
       <div className="container">
@@ -258,19 +270,22 @@ var ColumnList = React.createClass({
             {this.state.submitted ? <a className='article-submit'><span className="fa fa-circle-o-notch fa-spin"></span></a> : <a className='article-submit' onClick={this.submitContent}>submit</a> }
           </div>
           <div className="col-md-4">
-            <div className="column-sidebar">
-              <div className="author-badge">
-                <div className="black banner right">Select Author</div>
-                <div className="content">
-                  <select onChange={self.handlePlayer} value={default_player}>
-                    {player_options}
-                  </select>
-                </div>
+            <div className="lockerroom-sidebar">
+              <h2 className="lr-sidebar-title">Controls</h2>
+              <div className="lr-sidebar-link">
+                <p className="select-label">Author:</p>
+                <select onChange={self.handlePlayer} value={default_player}>
+                  {player_options}
+                </select>
               </div>
-              <div className="column-controls">
-                  <p className="control-link" onClick={this.handleDelete}><span className="fa fa-trash"></span>Delete</p>
-                  <p className="control-link"><input type="checkbox" checked={checkbox_value} onChange={this.handleCheckbox} /> Approved</p>
-                </div>
+              <div className="lr-sidebar-link">
+                <p className="select-label">Column Type:</p>
+                <select onChange={self.handleType} value={default_type}>
+                  {type_options}
+                </select>
+              </div>
+              <p className="lr-sidebar-link" onClick={this.handleDelete}><span className="fa fa-trash"></span>Delete</p>
+              <p className="lr-sidebar-link"><input type="checkbox" checked={checkbox_value} onChange={this.handleCheckbox} /> Approved</p>
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@
 <div class="column">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-8">
+			<div class="col-md-8 <% if (column.type == 'locks' || column.type == 'wwkjd') { %> col-md-offset-2<%} %>">
 				<div class="column-header">
 					<h2 class="title"><%= column.title %>
 						<% if (locals.user) { %>
@@ -31,7 +31,7 @@
 
 				</div>				
 			</div>
-			<% if (column.slug != 'locks-nfl-week-2') { %>
+			<% if (column.type != 'locks' || column.type != 'wwkjd') { %>
 			<div class="col-md-4">
 				<div class="column-sidebar">
 					<div class="author-badge">
