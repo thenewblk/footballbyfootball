@@ -973,7 +973,7 @@ var LockerEntry = React.createClass({displayName: 'LockerEntry',
       this.setState({data: this.props.data});
     }
     if (this.props.player){
-      this.setState({player: this.props.player._id});
+      this.setState({player: this.props.player});
     }
 
   },
@@ -1044,10 +1044,10 @@ var LockerEntry = React.createClass({displayName: 'LockerEntry',
     var self = this;
     var old_data = self.state.data;
 
-console.log('handleContent:');
-console.log(' sent content:'+util.inspect(content));
-console.log(' sent id:'+content.id);
-console.log(' old_data[]:'+util.inspect(old_data[content.id]));
+    console.log('handleContent:');
+    console.log(' sent content:'+util.inspect(content));
+    console.log(' sent id:'+content.id);
+    console.log(' old_data[]:'+util.inspect(old_data[content.id]));
 
     old_data[content.id].content = content.content;
     self.setState({data: old_data}, function(){
@@ -1097,14 +1097,8 @@ console.log(' old_data[]:'+util.inspect(old_data[content.id]));
   // 
 
   handleDelete: function() {
-    // var self = this;
-    // request
-    //   .del('/column/'+self.props.slug+'/delete')
-    //   .send(self.state)
-    //   .end(function(res) {
-    //     console.log(res)
-    //     window.location = '/admin';
-    //   }.bind(self));
+    console.log('handleDelete #'+this.props.id);
+    this.props.removed ({id: this.props.id});
   }, 
 
   // 
@@ -1188,8 +1182,16 @@ var LockerList = React.createClass({displayName: 'LockerList',
 
   addEntry: function(){
     var current_data = this.state.lockerentries;
-    var tmp_content = {data: []};
+    console.log('Players[0]._id: ' + Players[0]._id);
+    var tmp_content = {data: [], player: Players[0]};
     var new_data = current_data.concat(tmp_content);
+    this.setState({lockerentries: new_data});
+  },
+
+  removeEntry: function(content){
+    console.log('removeEntry: '+util.inspect(content));
+    var new_data = this.state.lockerentries;
+    new_data.splice(content.id,1);
     this.setState({lockerentries: new_data});
   },
 
@@ -1197,8 +1199,25 @@ var LockerList = React.createClass({displayName: 'LockerList',
     this.setState({title: event.target.value});
   },
 
+  handleCheckbox: function() {
+    var self = this;
+    var cur_approved = self.state.approved;
+    if (cur_approved == true) {
+      self.setState({approved: false});
+    } else {
+      self.setState({approved: true});
+    }
+  },
 
-
+  removeLockerroom: function(){
+    var self = this;
+    request
+      .del("/lockerroom/"+self.props.slug+'/delete')
+      .send(self.state)
+      .end(function(res) {
+        window.location = "/admin";
+      }.bind(self));
+  },
 
   handleStuff: function(content) {
     var old_lockerentries = this.state.lockerentries;
@@ -1212,9 +1231,12 @@ var LockerList = React.createClass({displayName: 'LockerList',
 
   testContent: function(){
     var self = this;
+    console.log('self: '+util.inspect(this.state));
   },
+
   submitContent: function(){
     var self = this;
+    self.setState({submitted: true});
     request
       .post(window.location.pathname)
       .send(self.state)
@@ -1229,15 +1251,19 @@ var LockerList = React.createClass({displayName: 'LockerList',
     var self = this;
     var title = self.state.title;
     var lockers = this.state.lockerentries.map(function(object, i) {
+      console.log('object.player: ' + util.inspect(object.player));
+      var player_id = object.player._id;
       return LockerEntry({
                 id: i, 
                 data: object.data, 
-                player: object.player, 
-                stuff: self.handleStuff});
+                player: player_id, 
+                stuff: self.handleStuff, 
+                removed: self.removeEntry});
     });
     var divStyle = {
       backgroundImage: 'url(https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer.jpg)'
     };
+    var checkbox_value = this.state.approved;
     return (
       React.DOM.div({className: "lockerroom editor"}, 
         React.DOM.div({className: "lockerroom-header", style: divStyle}, 
@@ -1254,7 +1280,14 @@ var LockerList = React.createClass({displayName: 'LockerList',
                 React.DOM.p({className: "content-link", onClick: this.addEntry}, "Add Locker Entry")
               ), 
 
-              this.state.submitted ? React.DOM.a({className: "article-submit"}, React.DOM.span({className: "fa fa-circle-o-notch fa-spin"})) : React.DOM.a({className: "article-submit", onClick: this.submitContent}, "test")
+              this.state.submitted ? React.DOM.a({className: "article-submit"}, React.DOM.span({className: "fa fa-circle-o-notch fa-spin"})) : React.DOM.a({className: "article-submit", onClick: this.submitContent}, "Submit")
+            ), 
+            React.DOM.div({className: "col-md-4"}, 
+              React.DOM.div({className: "lockerroom-sidebar"}, 
+                React.DOM.h2({className: "lr-sidebar-title"}, "Controls"), 
+                React.DOM.p({className: "lr-sidebar-link", onClick: this.removeLockerroom}, React.DOM.span({className: "fa fa-trash"}), " Delete"), 
+                React.DOM.p({className: "lr-sidebar-link"}, React.DOM.input({type: "checkbox", checked: checkbox_value, onChange: this.handleCheckbox}), " Approved")
+              )
             )
           )
         )

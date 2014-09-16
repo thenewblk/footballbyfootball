@@ -734,6 +734,7 @@ img {
 .lockerroom.editor {
 	.lockerroom-entry {
 		background: white;
+		padding-bottom: 15px;
 	}
 	.column-content {
 		padding: 0 15px;
@@ -745,6 +746,26 @@ img {
 			position: absolute;
 			right: 15px;
 			cursor: pointer;
+		}
+	}
+	.lockerroom-header {
+		.title {
+			input {
+				background: transparent;
+				border: none;
+				border-bottom: #666 solid 1px;
+				color: white;
+				outline: none;
+			}
+		}
+	}
+	.lr-sidebar-link {
+		cursor: pointer;
+	}
+	.article-submit {
+		background: #222;
+		&:hover {
+			background: #666;
 		}
 	}
 }

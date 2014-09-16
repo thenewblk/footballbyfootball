@@ -5,6 +5,7 @@
 		<div class="row">
 			<div class="col-md-6">
 				<h2>Columns</h2>
+				<p><a class="article-submit" href="/column/new"><span class="fa fa-plus"></span> New Column</a></p>	
 				<% var tmp_date = ''; %>
 				<% columns.forEach(function(column){ %>
 					<% if (column.updated_at == tmp_date) { %>
@@ -24,10 +25,10 @@
 				    </div>
 				   <% } %>
 			  <% }) %>
-			  <p><a href="/column/new"><span class="fa fa-plus"></span> New Column</a></p>	
 		  </div>
 			<div class="col-md-6">
 				<h2>Locker Rooms</h2>
+				<p><a class="article-submit" href="/lockerroom/new"><span class="fa fa-plus"></span> New Locker Room</a></p>	
 				<% var tmp_date = ''; %>
 				<% lockerrooms.forEach(function(lockerroom){ %>
 					<% if (lockerroom.updated_at == tmp_date) { %>
@@ -47,9 +48,9 @@
 				    </div>
 				   <% } %>
 			  <% }) %>
-			  <p><a href="/lockerroom/new"><span class="fa fa-plus"></span> New Column</a></p>	
 		  </div>
-
+		</div>
+		<div class="row">
 			<div class="col-md-6">
 				<h2>Players</h2>
 				<% players.forEach(function(player){ %>
