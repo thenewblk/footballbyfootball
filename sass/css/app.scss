@@ -964,7 +964,14 @@ img {
 		background: -webkit-radial-gradient(top, rgba(20,20,20,0.25) 0%, rgba(20,20,20,0.75) 71%, rgba(20,20,20,1) 100%);
 		background: -o-radial-gradient(top, rgba(20,20,20,0.25) 0%, rgba(20,20,20,0.75) 71%, rgba(20,20,20,1) 100%);
 		background: -ms-radial-gradient(top, rgba(20,20,20,0.25) 0%, rgba(20,20,20,0.75) 71%, rgba(20,20,20,1) 100%);
-		
+		transition: 0.25s ease-in-out;
+		opacity: 1;
+	}
+
+	&:hover {
+		.overcast {
+			opacity: 0.7;
+		}	
 	}
 }
 
