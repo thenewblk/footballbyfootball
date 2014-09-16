@@ -12,6 +12,24 @@
 	<script type="text/javascript" src="//use.typekit.net/vnz8awm.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
+	<meta property="fb:app_id"          content="832186156805952" /> 
+
+	<% if (locals.column) { %>
+		<meta property="og:type"            content="article" /> 
+		<meta property="og:url"             content="http://www.footballbyfootball.com/column/<%=column.slug %>" /> 
+		<meta content="<%= column.title %>" property="og:title" />
+		<% if ( column.main_image.image_url ) { %>
+			<meta property="og:image"         content="https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url%>" /> 
+		<% } %>
+	<% } else if (locals.lockerroom) { %>
+		<meta property="og:type"            content="article" /> 
+		<meta property="og:url"             content="http://www.footballbyfootball.com/lockerroom/<%=lockerroom.slug %>" /> 
+		<meta content="<%= lockerroom.title %>" property="og:title" />
+		<% if ( lockerroom.main_image.image_url ) { %>
+			<meta property="og:image"         content="https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer.jpg" /> 
+		<% } %>
+	<% } %>
+
 </head>
 <body class="<% if (locals.page_type) {%><%= page_type %><%} %>" >
 	<% if (locals.page_type && page_type =='home') {%>

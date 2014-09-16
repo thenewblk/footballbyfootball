@@ -714,7 +714,7 @@ var Column = React.createClass({displayName: 'Column',
       toolbar:      "main-toolbar-"+entry+identifier,
       stylesheets:  "/css/wysihtml5.css",
       parserRules:  wysihtml5ParserRules,
-      cleanUp:      false
+      cleanUp:      true
     });
 
     mainEditor[self.props.entry+'-'+self.props.identifier].observe("load", function () {     
@@ -1169,7 +1169,7 @@ var LockerEntry = React.createClass({displayName: 'LockerEntry',
 
 var LockerList = React.createClass({displayName: 'LockerList', 
   getInitialState: function() {
-    return { id: '', lockerentries: [], title: '', approved: false, submitted: false };
+    return { id: '', lockerentries: [], title: '', approved: false, submitted: false, type: 'lockerroom' };
   },
 
   componentWillMount: function(){

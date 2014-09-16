@@ -1014,7 +1014,7 @@ var Column = React.createClass({displayName: 'Column',
       toolbar:      "main-toolbar-"+entry+identifier,
       stylesheets:  "/css/wysihtml5.css",
       parserRules:  wysihtml5ParserRules,
-      cleanUp:      false
+      cleanUp:      true
     });
 
     mainEditor[self.props.entry+'-'+self.props.identifier].observe("load", function () {     
