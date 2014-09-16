@@ -14,23 +14,30 @@
 				<% tmp_day_entries.push(entry); %>
 
 		  <% } else { %> 
-
 				<% if (tmp_day_entries.length > 0) { %>
 
 					<div class="row">
 						<%= include day-container %> 
 					</div>
 
-					<% 	first = false; %>
+					<%first = false; %>	
 				<% } %>
 
 				<% tmp_date = entry.updated_at %>
-				<% 	tmp_day_entries = []; 
-						tmp_day_entries.push(entry); %>
+				<% 	tmp_day_entries = []; tmp_day_entries.push(entry); %>
 
 		  <% } %>
 
-	  <% }) %>
+	  <% }); %>
+
+		<% if (tmp_day_entries.length > 0) { %>
+
+			<div class="row">
+				<%= include day-container %> 
+			</div>
+			<% 	tmp_day_entries = []; %>
+
+		<% } %>
 		</div>
 
 	</div>
