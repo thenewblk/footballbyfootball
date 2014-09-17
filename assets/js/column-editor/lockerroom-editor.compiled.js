@@ -967,6 +967,9 @@ var LockerEntry = React.createClass({displayName: 'LockerEntry',
     if(this.props) {
       this.setState(this.props);
     }
+    if(this.props.key) {
+      this.setState({key: this.props.key});
+    }
     if (this.props.data){
       this.setState({data: this.props.data});
     }
@@ -1241,10 +1244,11 @@ var LockerList = React.createClass({displayName: 'LockerList',
     var title = self.state.title;
 
     var lockers = self.state.lockerentries.map(function(object, i) {
-      var key = object.key || Math.random();
+      var key = object._id || Math.random();
       return LockerEntry({
                 ref: 'lockerentry-'+i, 
                 key: key, 
+                _id: key, 
                 id: i, 
                 player: object.player._id, 
                 data: object.data, 
@@ -1271,7 +1275,6 @@ var LockerList = React.createClass({displayName: 'LockerList',
                 React.DOM.p({className: "content-link", onClick: self.addEntry}, "Add Locker Entry")
               ), 
               self.state.submitted ? React.DOM.a({className: "article-submit"}, React.DOM.span({className: "fa fa-circle-o-notch fa-spin"})) : React.DOM.a({className: "article-submit", onClick: self.submitContent}, "Submit")
-            
             ), 
             React.DOM.div({className: "col-md-4"}, 
               React.DOM.div({className: "lockerroom-sidebar"}, 
