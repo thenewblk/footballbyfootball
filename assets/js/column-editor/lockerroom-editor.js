@@ -16,7 +16,7 @@ var Players = window.Players || {};
 
 var LockerEntry = React.createClass({  
   getInitialState: function() {
-    return { id: '', data: [], player: '', approved: false, submitted: false };
+    return { id: '', data: [], player: '', approved: false, submitted: false, key: '' };
   },
 
   componentDidMount: function(){
@@ -102,12 +102,6 @@ var LockerEntry = React.createClass({
   handleContent: function(content){
     var self = this;
     var old_data = self.state.data;
-
-    console.log('handleContent:');
-    console.log(' sent content:'+util.inspect(content));
-    console.log(' sent id:'+content.id);
-    console.log(' old_data[]:'+util.inspect(old_data[content.id]));
-
     old_data[content.id].content = content.content;
     self.setState({data: old_data}, function(){
       this.props.stuff(this.state);
@@ -156,8 +150,7 @@ var LockerEntry = React.createClass({
   // 
 
   handleDelete: function() {
-    console.log('handleDelete #'+this.props.id);
-    this.props.removed ({id: this.props.id});
+    this.props.removed({id: this.state.id});
   }, 
 
   // 
@@ -166,6 +159,7 @@ var LockerEntry = React.createClass({
 
   testContent: function(){
     var self = this;
+    console.log('lockerentry: '+util.inspect(this.state));
   },
 
   render: function() {
@@ -220,7 +214,7 @@ var LockerEntry = React.createClass({
             <p className="content-link" onClick={this.addContent}>Add Text</p>
             <p className="content-link" onClick={this.addImage}>Add Image</p>
           </div>
-        </div>
+         </div>
       </div>
     )
   }
@@ -236,22 +230,19 @@ var LockerList = React.createClass({
     if(this.props) {
       this.setState(this.props);
     }
-
   },
 
   addEntry: function(){
     var current_data = this.state.lockerentries;
-    console.log('Players[0]._id: ' + Players[0]._id);
     var tmp_content = {data: [], player: Players[0]};
     var new_data = current_data.concat(tmp_content);
     this.setState({lockerentries: new_data});
   },
 
   removeEntry: function(content){
-    console.log('removeEntry: '+util.inspect(content));
-    var new_data = this.state.lockerentries;
-    new_data.splice(content.id,1);
-    this.setState({lockerentries: new_data});
+    var new_lockerentries = this.state.lockerentries;
+    new_lockerentries.splice(content.id,1);
+    this.setState({lockerentries: new_lockerentries});
   },
 
   handleTitleChange: function(event) {
@@ -309,25 +300,25 @@ var LockerList = React.createClass({
   render: function() {
     var self = this;
     var title = self.state.title;
-    var lockers = this.state.lockerentries.map(function(object, i) {
-      console.log('object.player: ' + util.inspect(object.player));
-      var player_id = object.player._id;
-      return <LockerEntry 
+    var lockers = self.state.lockerentries.map(function(object, i) {
+      return <LockerEntry
+                ref={'lockerentry-'+i} 
+                key={object.key || Math.random()}
                 id={i} 
+                player={object.player._id}
                 data={object.data}
-                player={player_id}
                 stuff={self.handleStuff}
                 removed={self.removeEntry}  />;
     });
     var divStyle = {
       backgroundImage: 'url(https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer.jpg)'
     };
-    var checkbox_value = this.state.approved;
+    var checkbox_value = self.state.approved;
     return (
       <div className="lockerroom editor">
         <div className="lockerroom-header" style={divStyle}>
           <div className="container">
-            <h1 className="title"><input className='column-title-tag' type="text" value={title} onChange={this.handleTitleChange} placeholder="Title" /></h1>
+            <h1 className="title"><input className='column-title-tag' type="text" value={title} onChange={self.handleTitleChange} placeholder="Title" /></h1>
           </div>
         </div>
 
@@ -336,16 +327,17 @@ var LockerList = React.createClass({
             <div className="col-md-8">
               {lockers}
               <div className="contentbar">
-                <p className="content-link" onClick={this.addEntry}>Add Locker Entry</p>
+                <p className="content-link" onClick={self.addEntry}>Add Locker Entry</p>
               </div>
 
-              {this.state.submitted ? <a className='article-submit'><span className="fa fa-circle-o-notch fa-spin"></span></a> : <a className='article-submit' onClick={this.submitContent}>Submit</a> }
+              {self.state.submitted ? <a className='article-submit'><span className="fa fa-circle-o-notch fa-spin"></span></a> : <a className='article-submit' onClick={self.submitContent}>Submit</a> }
+            
             </div>
             <div className="col-md-4">
               <div className="lockerroom-sidebar">
                 <h2 className="lr-sidebar-title">Controls</h2>
-                <p className="lr-sidebar-link" onClick={this.removeLockerroom}><span className="fa fa-trash"></span> Delete</p>
-                <p className="lr-sidebar-link"><input type="checkbox" checked={checkbox_value} onChange={this.handleCheckbox} /> Approved</p>
+                <p className="lr-sidebar-link" onClick={self.removeLockerroom}><span className="fa fa-trash"></span> Delete</p>
+                <p className="lr-sidebar-link"><input type="checkbox" checked={checkbox_value} onChange={self.handleCheckbox} /> Approved</p>
               </div>
             </div>
           </div>

@@ -727,7 +727,7 @@ var Column = React.createClass({displayName: 'Column',
           'line-height': 2,
           'overflow': 'hidden',
         })
-        .bind('keypress keyup keydown paste change focus blur load', function(e) {
+        .bind('keypress keyup keydown paste change focus blur', function(e) {
           var height = Math.min($body[0].scrollHeight, $body.height());
           var extra = 25 ;
           $iframe.height(height + extra);
@@ -747,8 +747,6 @@ var Column = React.createClass({displayName: 'Column',
     mainEditor[self.props.entry+'-'+self.props.identifier].on("blur", onBlur);
 
     function onChange() { 
-      console.log('self.props.entry+self.props.identifier: '+self.props.entry+self.props.identifier);
-      console.log('onChange() contentvalue: '+mainEditor[self.props.entry+'-'+self.props.identifier].getValue());
       self.props.content({id: self.props.identifier, content: mainEditor[self.props.entry+'-'+self.props.identifier].getValue()});
     };
 
@@ -957,7 +955,7 @@ var Players = window.Players || {};
 
 var LockerEntry = React.createClass({displayName: 'LockerEntry',  
   getInitialState: function() {
-    return { id: '', data: [], player: '', approved: false, submitted: false };
+    return { id: '', data: [], player: '', approved: false, submitted: false, key: '' };
   },
 
   componentDidMount: function(){
@@ -1043,12 +1041,6 @@ var LockerEntry = React.createClass({displayName: 'LockerEntry',
   handleContent: function(content){
     var self = this;
     var old_data = self.state.data;
-
-    console.log('handleContent:');
-    console.log(' sent content:'+util.inspect(content));
-    console.log(' sent id:'+content.id);
-    console.log(' old_data[]:'+util.inspect(old_data[content.id]));
-
     old_data[content.id].content = content.content;
     self.setState({data: old_data}, function(){
       this.props.stuff(this.state);
@@ -1097,8 +1089,7 @@ var LockerEntry = React.createClass({displayName: 'LockerEntry',
   // 
 
   handleDelete: function() {
-    console.log('handleDelete #'+this.props.id);
-    this.props.removed ({id: this.props.id});
+    this.props.removed({id: this.state.id});
   }, 
 
   // 
@@ -1107,6 +1098,7 @@ var LockerEntry = React.createClass({displayName: 'LockerEntry',
 
   testContent: function(){
     var self = this;
+    console.log('lockerentry: '+util.inspect(this.state));
   },
 
   render: function() {
@@ -1161,7 +1153,7 @@ var LockerEntry = React.createClass({displayName: 'LockerEntry',
             React.DOM.p({className: "content-link", onClick: this.addContent}, "Add Text"), 
             React.DOM.p({className: "content-link", onClick: this.addImage}, "Add Image")
           )
-        )
+         )
       )
     )
   }
@@ -1177,22 +1169,19 @@ var LockerList = React.createClass({displayName: 'LockerList',
     if(this.props) {
       this.setState(this.props);
     }
-
   },
 
   addEntry: function(){
     var current_data = this.state.lockerentries;
-    console.log('Players[0]._id: ' + Players[0]._id);
     var tmp_content = {data: [], player: Players[0]};
     var new_data = current_data.concat(tmp_content);
     this.setState({lockerentries: new_data});
   },
 
   removeEntry: function(content){
-    console.log('removeEntry: '+util.inspect(content));
-    var new_data = this.state.lockerentries;
-    new_data.splice(content.id,1);
-    this.setState({lockerentries: new_data});
+    var new_lockerentries = this.state.lockerentries;
+    new_lockerentries.splice(content.id,1);
+    this.setState({lockerentries: new_lockerentries});
   },
 
   handleTitleChange: function(event) {
@@ -1250,25 +1239,25 @@ var LockerList = React.createClass({displayName: 'LockerList',
   render: function() {
     var self = this;
     var title = self.state.title;
-    var lockers = this.state.lockerentries.map(function(object, i) {
-      console.log('object.player: ' + util.inspect(object.player));
-      var player_id = object.player._id;
+    var lockers = self.state.lockerentries.map(function(object, i) {
       return LockerEntry({
+                ref: 'lockerentry-'+i, 
+                key: object.key || Math.random(), 
                 id: i, 
+                player: object.player._id, 
                 data: object.data, 
-                player: player_id, 
                 stuff: self.handleStuff, 
                 removed: self.removeEntry});
     });
     var divStyle = {
       backgroundImage: 'url(https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer.jpg)'
     };
-    var checkbox_value = this.state.approved;
+    var checkbox_value = self.state.approved;
     return (
       React.DOM.div({className: "lockerroom editor"}, 
         React.DOM.div({className: "lockerroom-header", style: divStyle}, 
           React.DOM.div({className: "container"}, 
-            React.DOM.h1({className: "title"}, React.DOM.input({className: "column-title-tag", type: "text", value: title, onChange: this.handleTitleChange, placeholder: "Title"}))
+            React.DOM.h1({className: "title"}, React.DOM.input({className: "column-title-tag", type: "text", value: title, onChange: self.handleTitleChange, placeholder: "Title"}))
           )
         ), 
 
@@ -1277,16 +1266,17 @@ var LockerList = React.createClass({displayName: 'LockerList',
             React.DOM.div({className: "col-md-8"}, 
               lockers, 
               React.DOM.div({className: "contentbar"}, 
-                React.DOM.p({className: "content-link", onClick: this.addEntry}, "Add Locker Entry")
+                React.DOM.p({className: "content-link", onClick: self.addEntry}, "Add Locker Entry")
               ), 
 
-              this.state.submitted ? React.DOM.a({className: "article-submit"}, React.DOM.span({className: "fa fa-circle-o-notch fa-spin"})) : React.DOM.a({className: "article-submit", onClick: this.submitContent}, "Submit")
+              self.state.submitted ? React.DOM.a({className: "article-submit"}, React.DOM.span({className: "fa fa-circle-o-notch fa-spin"})) : React.DOM.a({className: "article-submit", onClick: self.submitContent}, "Submit")
+            
             ), 
             React.DOM.div({className: "col-md-4"}, 
               React.DOM.div({className: "lockerroom-sidebar"}, 
                 React.DOM.h2({className: "lr-sidebar-title"}, "Controls"), 
-                React.DOM.p({className: "lr-sidebar-link", onClick: this.removeLockerroom}, React.DOM.span({className: "fa fa-trash"}), " Delete"), 
-                React.DOM.p({className: "lr-sidebar-link"}, React.DOM.input({type: "checkbox", checked: checkbox_value, onChange: this.handleCheckbox}), " Approved")
+                React.DOM.p({className: "lr-sidebar-link", onClick: self.removeLockerroom}, React.DOM.span({className: "fa fa-trash"}), " Delete"), 
+                React.DOM.p({className: "lr-sidebar-link"}, React.DOM.input({type: "checkbox", checked: checkbox_value, onChange: self.handleCheckbox}), " Approved")
               )
             )
           )

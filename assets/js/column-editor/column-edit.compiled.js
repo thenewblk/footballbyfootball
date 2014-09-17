@@ -1027,7 +1027,7 @@ var Column = React.createClass({displayName: 'Column',
           'line-height': 2,
           'overflow': 'hidden',
         })
-        .bind('keypress keyup keydown paste change focus blur load', function(e) {
+        .bind('keypress keyup keydown paste change focus blur', function(e) {
           var height = Math.min($body[0].scrollHeight, $body.height());
           var extra = 25 ;
           $iframe.height(height + extra);
@@ -1047,8 +1047,6 @@ var Column = React.createClass({displayName: 'Column',
     mainEditor[self.props.entry+'-'+self.props.identifier].on("blur", onBlur);
 
     function onChange() { 
-      console.log('self.props.entry+self.props.identifier: '+self.props.entry+self.props.identifier);
-      console.log('onChange() contentvalue: '+mainEditor[self.props.entry+'-'+self.props.identifier].getValue());
       self.props.content({id: self.props.identifier, content: mainEditor[self.props.entry+'-'+self.props.identifier].getValue()});
     };
 
