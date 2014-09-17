@@ -24,7 +24,7 @@ var LockerEntry = React.createClass({
   },
 
   componentWillMount: function(){
-    
+  
     if(this.props) {
       this.setState(this.props);
     }
@@ -37,8 +37,10 @@ var LockerEntry = React.createClass({
     if (this.props.player){
       this.setState({player: this.props.player});
     }
-
   },
+  // componentDidMount: function(){
+  //   this.props.stuff(this.state);
+  // },
 
   handleChangeBig: function(){
     this.props.stuff(this.state);
@@ -153,7 +155,7 @@ var LockerEntry = React.createClass({
   // 
 
   handleDelete: function() {
-    this.props.removed({id: this.props.id});
+    this.props.removed({id: this.state.id});
   }, 
 
   // 
@@ -201,6 +203,8 @@ var LockerEntry = React.createClass({
 
     var default_player = this.state.player;
 
+    console.log('Entry ID: '+this.state.id);
+
     return (
       <div className="row">
         <div className="lockerroom-entry">
@@ -237,13 +241,14 @@ var LockerList = React.createClass({
 
   addEntry: function(){
     var current_data = this.state.lockerentries;
-    var tmp_content = {data: [], player: Players[0]};
+    var tmp_content = {data: [], player: Players[0], key: Math.random()};
     var new_data = current_data.concat(tmp_content);
     this.setState({lockerentries: new_data});
   },
 
   removeEntry: function(content){
     var new_lockerentries = this.state.lockerentries;
+    console.log
     new_lockerentries.splice(content.id,1);
     this.setState({lockerentries: new_lockerentries});
   },
@@ -274,7 +279,11 @@ var LockerList = React.createClass({
 
   handleStuff: function(content) {
     var old_lockerentries = this.state.lockerentries;
-    old_lockerentries[content.id] = content;
+    for (var i=0; i<old_lockerentries.length;i++){
+      if (old_lockerentries[i].key == content.key) {
+        old_lockerentries[i] = content;
+      }
+    }
     this.setState({lockerentries: old_lockerentries});
   },
 
@@ -305,11 +314,12 @@ var LockerList = React.createClass({
     var title = self.state.title;
 
     var lockers = self.state.lockerentries.map(function(object, i) {
-      var key = object._id || Math.random();
+
+      var key = object._id || object.key || Math.random();
+      console.log('key: '+key);
       return <LockerEntry
                 ref={'lockerentry-'+i} 
                 key={key}
-                _id={key}
                 id={i} 
                 player={object.player._id}
                 data={object.data}
@@ -324,7 +334,7 @@ var LockerList = React.createClass({
       <div className="lockerroom editor">
         <div className="lockerroom-header" style={divStyle}>
           <div className="container">
-            <h1 className="title"><input className='column-title-tag' type="text" value={title} onChange={self.handleTitleChange} placeholder="Title" /></h1>
+                <h1 className="title"><input className='column-title-tag' type="text" value={title} onChange={self.handleTitleChange} placeholder="Title" /></h1>
           </div>
         </div>
 
@@ -336,6 +346,7 @@ var LockerList = React.createClass({
                 <p className="content-link" onClick={self.addEntry}>Add Locker Entry</p>
               </div>
               {self.state.submitted ? <a className='article-submit'><span className="fa fa-circle-o-notch fa-spin"></span></a> : <a className='article-submit' onClick={self.submitContent}>Submit</a> }
+            
             </div>
             <div className="col-md-4">
               <div className="lockerroom-sidebar">
