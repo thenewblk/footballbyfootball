@@ -150,7 +150,7 @@ var LockerEntry = React.createClass({
   // 
 
   handleDelete: function() {
-    this.props.removed({id: this.state.id});
+    this.props.removed({id: this.props.id});
   }, 
 
   // 
@@ -214,6 +214,7 @@ var LockerEntry = React.createClass({
             <p className="content-link" onClick={this.addContent}>Add Text</p>
             <p className="content-link" onClick={this.addImage}>Add Image</p>
           </div>
+          {self.state.submitted ? <a className='article-submit'><span className="fa fa-circle-o-notch fa-spin"></span></a> : <a className='article-submit' onClick={self.testContent}>test</a> }
          </div>
       </div>
     )
@@ -300,10 +301,12 @@ var LockerList = React.createClass({
   render: function() {
     var self = this;
     var title = self.state.title;
+
     var lockers = self.state.lockerentries.map(function(object, i) {
+      var key = object.key || Math.random();
       return <LockerEntry
                 ref={'lockerentry-'+i} 
-                key={object.key || Math.random()}
+                key={key}
                 id={i} 
                 player={object.player._id}
                 data={object.data}
@@ -329,6 +332,8 @@ var LockerList = React.createClass({
               <div className="contentbar">
                 <p className="content-link" onClick={self.addEntry}>Add Locker Entry</p>
               </div>
+
+              {self.state.submitted ? <a className='article-submit'><span className="fa fa-circle-o-notch fa-spin"></span></a> : <a className='article-submit' onClick={self.testContent}>test</a> }
 
               {self.state.submitted ? <a className='article-submit'><span className="fa fa-circle-o-notch fa-spin"></span></a> : <a className='article-submit' onClick={self.submitContent}>Submit</a> }
             

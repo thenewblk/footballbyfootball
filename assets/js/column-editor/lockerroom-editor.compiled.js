@@ -1089,7 +1089,7 @@ var LockerEntry = React.createClass({displayName: 'LockerEntry',
   // 
 
   handleDelete: function() {
-    this.props.removed({id: this.state.id});
+    this.props.removed({id: this.props.id});
   }, 
 
   // 
@@ -1152,7 +1152,8 @@ var LockerEntry = React.createClass({displayName: 'LockerEntry',
           React.DOM.div({className: "contentbar"}, 
             React.DOM.p({className: "content-link", onClick: this.addContent}, "Add Text"), 
             React.DOM.p({className: "content-link", onClick: this.addImage}, "Add Image")
-          )
+          ), 
+          self.state.submitted ? React.DOM.a({className: "article-submit"}, React.DOM.span({className: "fa fa-circle-o-notch fa-spin"})) : React.DOM.a({className: "article-submit", onClick: self.testContent}, "test")
          )
       )
     )
@@ -1239,10 +1240,12 @@ var LockerList = React.createClass({displayName: 'LockerList',
   render: function() {
     var self = this;
     var title = self.state.title;
+
     var lockers = self.state.lockerentries.map(function(object, i) {
+      var key = object.key || Math.random();
       return LockerEntry({
                 ref: 'lockerentry-'+i, 
-                key: object.key || Math.random(), 
+                key: key, 
                 id: i, 
                 player: object.player._id, 
                 data: object.data, 
@@ -1268,6 +1271,8 @@ var LockerList = React.createClass({displayName: 'LockerList',
               React.DOM.div({className: "contentbar"}, 
                 React.DOM.p({className: "content-link", onClick: self.addEntry}, "Add Locker Entry")
               ), 
+
+              self.state.submitted ? React.DOM.a({className: "article-submit"}, React.DOM.span({className: "fa fa-circle-o-notch fa-spin"})) : React.DOM.a({className: "article-submit", onClick: self.testContent}, "test"), 
 
               self.state.submitted ? React.DOM.a({className: "article-submit"}, React.DOM.span({className: "fa fa-circle-o-notch fa-spin"})) : React.DOM.a({className: "article-submit", onClick: self.submitContent}, "Submit")
             
