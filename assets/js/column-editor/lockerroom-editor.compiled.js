@@ -1272,8 +1272,10 @@ var LockerList = React.createClass({displayName: 'LockerList',
     return (
       React.DOM.div({className: "lockerroom editor"}, 
         React.DOM.div({className: "lockerroom-header", style: divStyle}, 
-          React.DOM.div({className: "container"}, 
-                React.DOM.h1({className: "title"}, React.DOM.input({className: "column-title-tag", type: "text", value: title, onChange: self.handleTitleChange, placeholder: "Title"}))
+          React.DOM.div({className: "title"}, 
+            React.DOM.div({className: "container"}, 
+              React.DOM.h1({className: "title"}, React.DOM.input({className: "column-title-tag", type: "text", value: title, onChange: self.handleTitleChange, placeholder: "Title"}))
+            )
           )
         ), 
 

@@ -333,8 +333,10 @@ var LockerList = React.createClass({
     return (
       <div className="lockerroom editor">
         <div className="lockerroom-header" style={divStyle}>
-          <div className="container">
-                <h1 className="title"><input className='column-title-tag' type="text" value={title} onChange={self.handleTitleChange} placeholder="Title" /></h1>
+          <div className="title">
+            <div className="container">
+              <h1 className="title"><input className='column-title-tag' type="text" value={title} onChange={self.handleTitleChange} placeholder="Title" /></h1>
+            </div>
           </div>
         </div>
 
