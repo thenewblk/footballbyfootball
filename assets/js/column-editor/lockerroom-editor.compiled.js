@@ -1152,9 +1152,8 @@ var LockerEntry = React.createClass({displayName: 'LockerEntry',
           React.DOM.div({className: "contentbar"}, 
             React.DOM.p({className: "content-link", onClick: this.addContent}, "Add Text"), 
             React.DOM.p({className: "content-link", onClick: this.addImage}, "Add Image")
-          ), 
-          self.state.submitted ? React.DOM.a({className: "article-submit"}, React.DOM.span({className: "fa fa-circle-o-notch fa-spin"})) : React.DOM.a({className: "article-submit", onClick: self.testContent}, "test")
-         )
+          )
+        )
       )
     )
   }
@@ -1271,9 +1270,6 @@ var LockerList = React.createClass({displayName: 'LockerList',
               React.DOM.div({className: "contentbar"}, 
                 React.DOM.p({className: "content-link", onClick: self.addEntry}, "Add Locker Entry")
               ), 
-
-              self.state.submitted ? React.DOM.a({className: "article-submit"}, React.DOM.span({className: "fa fa-circle-o-notch fa-spin"})) : React.DOM.a({className: "article-submit", onClick: self.testContent}, "test"), 
-
               self.state.submitted ? React.DOM.a({className: "article-submit"}, React.DOM.span({className: "fa fa-circle-o-notch fa-spin"})) : React.DOM.a({className: "article-submit", onClick: self.submitContent}, "Submit")
             
             ), 

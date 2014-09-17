@@ -214,8 +214,7 @@ var LockerEntry = React.createClass({
             <p className="content-link" onClick={this.addContent}>Add Text</p>
             <p className="content-link" onClick={this.addImage}>Add Image</p>
           </div>
-          {self.state.submitted ? <a className='article-submit'><span className="fa fa-circle-o-notch fa-spin"></span></a> : <a className='article-submit' onClick={self.testContent}>test</a> }
-         </div>
+        </div>
       </div>
     )
   }
@@ -332,9 +331,6 @@ var LockerList = React.createClass({
               <div className="contentbar">
                 <p className="content-link" onClick={self.addEntry}>Add Locker Entry</p>
               </div>
-
-              {self.state.submitted ? <a className='article-submit'><span className="fa fa-circle-o-notch fa-spin"></span></a> : <a className='article-submit' onClick={self.testContent}>test</a> }
-
               {self.state.submitted ? <a className='article-submit'><span className="fa fa-circle-o-notch fa-spin"></span></a> : <a className='article-submit' onClick={self.submitContent}>Submit</a> }
             
             </div>
