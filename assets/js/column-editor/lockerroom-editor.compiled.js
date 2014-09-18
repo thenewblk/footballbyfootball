@@ -1142,8 +1142,6 @@ var LockerEntry = React.createClass({displayName: 'LockerEntry',
 
     var default_player = this.state.player;
 
-    console.log('Entry ID: '+this.state.id);
-
     return (
       React.DOM.div({className: "row"}, 
         React.DOM.div({className: "lockerroom-entry"}, 
@@ -1172,7 +1170,6 @@ var LockerList = React.createClass({displayName: 'LockerList',
   },
 
   componentWillMount: function(){
-
     if(this.props) {
       this.setState(this.props);
     }
@@ -1219,7 +1216,7 @@ var LockerList = React.createClass({displayName: 'LockerList',
   handleStuff: function(content) {
     var old_lockerentries = this.state.lockerentries;
     for (var i=0; i<old_lockerentries.length;i++){
-      if (old_lockerentries[i].key == content.key) {
+      if ((old_lockerentries[i].key || old_lockerentries[i]._id)  == (content.key || content._id)) {
         old_lockerentries[i] = content;
       }
     }
@@ -1255,7 +1252,7 @@ var LockerList = React.createClass({displayName: 'LockerList',
     var lockers = self.state.lockerentries.map(function(object, i) {
 
       var key = object._id || object.key || Math.random();
-      console.log('key: '+key);
+
       return LockerEntry({
                 ref: 'lockerentry-'+i, 
                 key: key, 
@@ -1287,7 +1284,6 @@ var LockerList = React.createClass({displayName: 'LockerList',
                 React.DOM.p({className: "content-link", onClick: self.addEntry}, "Add Locker Entry")
               ), 
               self.state.submitted ? React.DOM.a({className: "article-submit"}, React.DOM.span({className: "fa fa-circle-o-notch fa-spin"})) : React.DOM.a({className: "article-submit", onClick: self.submitContent}, "Submit")
-            
             ), 
             React.DOM.div({className: "col-md-4"}, 
               React.DOM.div({className: "lockerroom-sidebar"}, 
