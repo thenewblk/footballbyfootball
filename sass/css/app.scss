@@ -1333,6 +1333,10 @@ hr.bottom{
 	margin-top: 20px;
 }
 
+.under-author.mobile {
+	display: none;
+}
+
 form {
 	label {
 		display: inline-block;
@@ -1676,6 +1680,14 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 				position: absolute;
 			}
 		}
+	}
+
+	.under-author.mobile {
+		display: block;
+	}
+
+	.under-author.desktop {
+		display: none;
 	}
 	.social-share.big {
 		.social-button {
