@@ -70,20 +70,39 @@
 			<% } %>
 		</div>
 		<div class="row">
-			<div class="social-share big">
+			<div class="col-md-8">
+				<div class="social-share big">
 
-		    <a href="https://twitter.com/intent/tweet?text=<%= column.title %>&amp;url=http%3A%2F%2Fwww.footballbyfootball.com%2Fcolumn%2F<%= column.slug %>"  class="social-button twitter" target="_blank">
-				  <span class="fa fa-twitter"></span> Share on Twitter
-				</a>
+			    <a href="https://twitter.com/intent/tweet?text=<%= column.title %>&amp;url=http%3A%2F%2Fwww.footballbyfootball.com%2Fcolumn%2F<%= column.slug %>"  class="social-button twitter" target="_blank">
+					  <span class="fa fa-twitter"></span> Share on Twitter
+					</a>
 
-		    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.footballbyfootball.com%2Fcolumn%2F<%= column.slug %>" onclick="window.open(this.href, '', 'height=279,width=575'); return false;" class="social-button facebook">
-				  <span class="fa fa-facebook"></span> Share on Facebook
-				</a>
-
-			</div>
-		</div>
+			    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.footballbyfootball.com%2Fcolumn%2F<%= column.slug %>" onclick="window.open(this.href, '', 'height=279,width=575'); return false;" class="social-button facebook">
+					  <span class="fa fa-facebook"></span> Share on Facebook
+					</a>
+				</div>
+			</div>		
 	</div>
+	<div class="row">
+		<div class="col-md-8">
+			
+		  <div id="disqus_thread"></div>
+	    <script type="text/javascript">
+	        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+	        var disqus_shortname = 'footballbyfootball'; // required: replace example with your forum shortname
 
+	        /* * * DON'T EDIT BELOW THIS LINE * * */
+	        (function() {
+	            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	        })();
+	    </script>
+	    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+	</div>
+</div>
 </div>
 
 

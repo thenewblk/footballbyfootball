@@ -43,17 +43,16 @@ var Column = React.createClass({
       cleanUp:      true
     });
 
-    mainEditor[self.props.entry+'-'+self.props.identifier].observe("load", function () {     
+    mainEditor[self.props.entry+'-'+self.props.identifier].on("load", function () {     
       var $iframe = $(this.composer.iframe);
       var $body = $(this.composer.element);
       
       $body
         .css({
           'min-height': 0,
-          'line-height': 2,
           'overflow': 'hidden',
         })
-        .bind('keypress keyup keydown paste change focus blur', function(e) {
+        .bind('keypress keyup keydown paste change focus blur load', function(e) {
           var height = Math.min($body[0].scrollHeight, $body.height());
           var extra = 25 ;
           $iframe.height(height + extra);
