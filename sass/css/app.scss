@@ -783,6 +783,9 @@ img {
 			position: absolute;
 			bottom: 30px;
 			font-size: 80px;
+			word-break: normal;
+			width: 100%;
+			padding: 0 30px;
 		}
 	}
 	.lockerroom-content {
@@ -1336,6 +1339,12 @@ hr.bottom{
 
 .under-author.mobile {
 	display: none;
+}
+
+#disqus_thread {
+	background: white;
+	padding: 10px 20px;
+	margin-bottom: 25px;
 }
 
 form {

@@ -1,12 +1,12 @@
 <%= include header %>
 <div class="lockerroom">
 	<div class="lockerroom-header" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer.jpg);">
-		<div class="container">
-			<h1 class="title"><%= lockerroom.title %>
-			<% if (locals.user) { %>
-				<a href="/lockerroom/<%= lockerroom.slug %>/edit"> Edit</a>
-			<% } %></h1>
-		</div>
+
+				<h1 class="title"><%= lockerroom.title %>
+				<% if (locals.user) { %>
+					<a href="/lockerroom/<%= lockerroom.slug %>/edit"> Edit</a>
+				<% } %></h1>
+
 	</div>
 	<div class="lockerroom-controls">
 		<div class="locker-author-wrap">
@@ -45,6 +45,7 @@
 					</div>
 				<% }); %>
 				<div class="row">
+    			<div id="disqus_thread"></div>
 					<script type="text/javascript">
 			        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 			        var disqus_shortname = 'footballbyfootball'; // required: replace example with your forum shortname
