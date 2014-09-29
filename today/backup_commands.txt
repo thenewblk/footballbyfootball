@@ -1,0 +1,11 @@
+//  db.copyDatabase(app28493030, press-mute, kahana.mongohq.com:10084/, heroku, Q7ib1vpaMpbnEhfwUIAhmEWuJRPrR4dSV8q1pTn673q18BJZRB6Yktdgha-ChnqR9-aWMueqgwRvmXdPbuBQuw);
+// mongodump --host kahana.mongohq.com/app28493030 --port 10084 --username heroku --password Q7ib1vpaMpbnEhfwUIAhmEWuJRPrR4dSV8q1pTn673q18BJZRB6Yktdgha-ChnqR9-aWMueqgwRvmXdPbuBQuw --out /opt/backup/mongodump-2014-9-29
+
+// mongodump -h ds041160.mongolab.com:41160 -d heroku_app28493030 -u <user> -p <password> -o <output directory>
+
+// mongodump -h kahana.mongohq.com:10084 -d app28493030 -u heroku -p Q7ib1vpaMpbnEhfwUIAhmEWuJRPrR4dSV8q1pTn673q18BJZRB6Yktdgha-ChnqR9-aWMueqgwRvmXdPbuBQuw -o ./today
+
+// mongorestore -h ds041160.mongolab.com:41160 -d heroku_app28493030 -u heroku_app28493030 -p cs9nv5q2nehvs52vifsqlfcqcn ./today/app28493030/
+
+// MONGOHQ_URL:          mongodb://heroku:Q7ib1vpaMpbnEhfwUIAhmEWuJRPrR4dSV8q1pTn673q18BJZRB6Yktdgha-ChnqR9-aWMueqgwRvmXdPbuBQuw@kahana.mongohq.com:10084/app28493030
+// MONGOLAB_URI:         mongodb://heroku_app28493030:cs9nv5q2nehvs52vifsqlfcqcn@ds041160.mongolab.com:41160/heroku_app28493030

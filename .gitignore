@@ -7,6 +7,8 @@ lib-cov
 *.pid
 *.gz
 
+/today 
+
 pids
 logs
 results
