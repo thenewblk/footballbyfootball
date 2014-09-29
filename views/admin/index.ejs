@@ -52,6 +52,28 @@
 		</div>
 		<div class="row">
 			<div class="col-md-6">
+				<h2>Links</h2>
+				<p><a class="article-submit" href="/link/new"><span class="fa fa-plus"></span> New Link</a></p>
+				<% links.forEach(function(link){ %>
+					<% if (link.updated_at == tmp_date) { %>
+				    <div class="thing">
+				    	<p><a href="/link/<%= link.slug %>/edit"><%= link.title %></a>
+				    	<span style="float:right"><%= link.updated_at %></span></p>
+				    </div>
+				   <% } else { %> 
+				   	<% tmp_date = link.updated_at %>
+				   	<div class="thing">
+					   	<hr class="bottom">
+							<p class="date"><%= tmp_date %></p>
+						</div>
+						<div class="thing">
+				    	<p><a href="/link/<%= link.slug %>/edit">Edit <%= link.title %></a>
+				    	<span style="float:right"><%= link.updated_at %></span></p>
+				    </div>
+				   <% } %>
+			  <% }) %>	
+			</div>
+			<div class="col-md-6">
 				<h2>Players</h2>
 				<% players.forEach(function(player){ %>
 			    <p><a href="/player/<%= player.id %>"><%= player.name %></a></p>

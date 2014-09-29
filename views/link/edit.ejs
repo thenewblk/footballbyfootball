@@ -1,0 +1,28 @@
+<%= include ../header %>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<h2>Edit Player</h2>
+			<form action="/link/<%= link.slug %>/edit" method="post">
+        <div class="post-form">
+        	<p>
+        		<input type="text" name="title" placeholder="Title" value="<%= link.title %>">
+        	</p>
+        	
+					<p>
+						<input type="text" name="link" placeholder="Link URL" value="<%= link.link %>">
+					</p>
+
+					<p>
+						<input type="checkbox" name="approved" <% if (link.approved){ %>checked="true" <%}%>> Approved
+					</p>
+
+					<input type="submit" value="Submit">
+				</div>
+			</form>	
+		</div>
+	</div>
+</div>
+
+<%= include ../footer %>

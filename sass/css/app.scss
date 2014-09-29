@@ -703,7 +703,6 @@ img {
 		float: right;
 		.article-links {
 			color: white;
-			text-transform: uppercase;
 			margin: 0;
 			padding: 0 10px;
 			&:hover {
@@ -1007,6 +1006,30 @@ img {
 
 }
 
+.grey	{
+	color: #999;
+}
+
+.small-entry {
+	margin-bottom: 15px;
+	padding-bottom: 15px;
+	border-bottom: solid 1px #ddd;
+	.author-image {
+		height: 50px;
+		width: 50px;
+	}
+	img {
+		min-height: 175px;
+	}
+	h3 {
+		margin-top: 0;
+	}
+}
+
+.small-entry:last-child {
+	border: none;
+}
+
 .medium-article.lockerroom {
 	background: red;
 	text-align: center;
@@ -1268,6 +1291,12 @@ hr.bottom{
 	margin: 40px 0 20px;
 }
 
+.main-title {
+	text-align: center;
+	text-decoration: underline;
+	line-height: 3;
+}
+
 .main-articles {
 	.date {
 		background: white;
@@ -1370,6 +1399,9 @@ form {
 		width: 100%;
 		padding-left: 85px;
 	}
+	input[type="checkbox"] {
+		width: auto;
+	}
 	button {
 		width: 100%;
 		background: #aaa;
@@ -1394,6 +1426,7 @@ form .form-group {
 		width: 100%;
 		padding: 0 15px;
 	}
+
 	label {
 		display: inline-block;
 		margin-bottom: 0;
@@ -1570,23 +1603,24 @@ a:hover {
 	float: left;
 }
 
-.lockerroom-sidebar {
+.lockerroom-sidebar, .home-column-sidebar {
 	text-align: center;
 	color: white;
 	margin: 20px 0;
 	padding: 5px 15px 0;
 	background: #222;
+
 	a, a:hover {
 		color: white;
 	}
 
 	.lr-sidebar-title {
 		line-height: 3;
-		border-bottom: solid 1px #999;
+		border-bottom: solid 1px rgba(255,255,255,0.7);
 		margin: 0;
 	}
 	.lr-sidebar-link {
-		border-bottom: dashed 1px #999;
+		border-bottom: dashed 1px rgba(255,255,255,0.7);
 		padding: 10px 15px;
 		line-height: 1.5;
 		margin: 0;
@@ -1598,8 +1632,33 @@ a:hover {
 	.lr-sidebar-link:last-child {
 		border: none;
 	}
+}
+
+.home.lockerroom-sidebar, {
+	background: red;
+}
+
+.home-column-sidebar {
 
 }
+.home.lockerroom-sidebar.links {
+	background: transparent;
+	color: #222;
+	a, a:hover {
+		color: #222;
+	}
+
+	.lr-sidebar-title {
+		border-bottom: solid 1px rgba(0,0,0,0.7);
+	}
+	.lr-sidebar-link {
+		border-bottom: dashed 1px rgba(0,0,0,0.7);
+	}
+	.lr-sidebar-link:last-child {
+		border: none;
+	}
+}
+
 .social-share {
 	display: table;
 	margin: auto;
