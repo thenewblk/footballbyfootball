@@ -21,6 +21,19 @@ require('./config/passport')(passport); // pass passport for configuration
 
 var pub = __dirname + '/assets';
 
+
+if (process.env.REDISTOGO_URL) {
+  var rtg   = require("url").parse(process.env.REDISTOGO_URL);
+  var redis = require("redis").createClient(rtg.port, rtg.hostname);
+  redis.auth(rtg.auth.split(":")[1]);
+
+} else {
+    var redis = require("redis").createClient();
+}
+
+RedisStore = require('connect-redis')(express);
+
+
 app.configure(function() {
 
 	// set up our express application
@@ -30,7 +43,10 @@ app.configure(function() {
 	app.use(express.static(pub));
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'ejs'); // set up ejs for templating
-
+  app.use(express.session({ secret: "bangarang",
+    maxAge : new Date(Date.now() + 7200000),
+    store: new RedisStore({client: redis})
+  }));
 	// required for passport
 	app.use(express.session({ secret: 'bangarang' })); // session secret
 	app.use(passport.initialize());

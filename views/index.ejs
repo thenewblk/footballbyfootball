@@ -47,17 +47,8 @@
 					</div>
 				</div>
 
-		  	<div class="col-md-4">
-					<div class="home lockerroom-sidebar links">
-						<h2 class="lr-sidebar-title">Other News</h2>
-						<% links.forEach(function(link, index){ %>
-							<h5 class="lr-sidebar-link"><a href="<%= link.link %>" target="_blank"><%= link.title %></a></h5>
-						<% }); %>
-					</div>
-		  	</div>
-
 				<div class="col-md-4">
-					<div class="home-column-sidebar">
+					<div class="home lockerroom-sidebar links">
 						<h2 class="lr-sidebar-title">Columns</h2>
 						<%	entries.filter(function(item){
 									return item.type != "lockerroom" && item.updated_at != first_date;
@@ -65,6 +56,18 @@
 							<h5 class="lr-sidebar-link"><a href="/column/<%= entry.slug %>"><%= entry.title %></a></h5>
 						<% }); %>
 							<h5 class="lr-sidebar-link"><a href="/columns">All Columns</a></h5>
+					</div>
+		  	</div>
+
+		  	<div class="col-md-4">
+					<div class="home-column-sidebar">
+						<h2 class="lr-sidebar-title">Other News</h2>
+						<% links.forEach(function(link, index){ %>
+							<h5 class="lr-sidebar-link"><a href="<%= link.link %>" target="_blank"><%= link.title %></a></h5>
+						<% }); %>
+						<% if (links.length > 4 ) { %>
+						<h5 class="lr-sidebar-link"><a href="/links">All Links</a></h5>
+						<% } %>
 					</div>
 		  	</div>
 		  </div>

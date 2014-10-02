@@ -1,0 +1,30 @@
+<%= include header %>
+<div class="container">
+	<h1 class="main-title">Links</h1>
+</div>
+<div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8">
+					<%	links.forEach(function(link, index){ %>
+						<div class="thing">
+				    	<p><a href="<%= link.link %>" target="_blank"><%= link.title %></a>
+				    	<span style="float:right"><%= link.updated_at %></span></p>
+				    </div>
+					<% }); %>
+			</div>
+			<div class="col-md-4">
+				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+				<!-- Home and Archive Skyscraper -->
+				<ins class="adsbygoogle"
+				     style="display:inline-block;width:300px;height:600px"
+				     data-ad-client="ca-pub-2768251721679098"
+				     data-ad-slot="5577095568"></ins>
+				<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+				</script>
+			</div>
+		</div>
+	</div>
+</div>
+<%= include footer %>

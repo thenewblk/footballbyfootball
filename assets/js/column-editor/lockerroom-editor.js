@@ -295,15 +295,19 @@ var LockerList = React.createClass({
 
   submitContent: function(){
     var self = this;
-    self.setState({submitted: true});
-    request
-      .post(window.location.pathname)
-      .send(self.state)
-      .end(function(res) {
-        if (res.text) {
-          window.location = "/lockerroom/"+res.text;
-        }
-      }.bind(self));
+    if (self.state.title.length > 0){
+      self.setState({submitted: true});
+      request
+        .post(window.location.pathname)
+        .send(self.state)
+        .end(function(res) {
+          if (res.text) {
+            window.location = "/lockerroom/"+res.text;
+          }
+        }.bind(self));
+    } else {
+      alert("Please enter a title.");
+    }
   },
 
   render: function() {

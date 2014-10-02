@@ -186,6 +186,7 @@ var ColumnList = React.createClass({
 
   submitContent: function(){
     var self = this;
+    if (self.state.title.length > 0){
       self.setState({submitted: true});
       request
         .post(window.location.pathname)
@@ -196,6 +197,9 @@ var ColumnList = React.createClass({
             window.location = "/column/"+res.text;
           }
         }.bind(self));
+    } else {
+      alert("Please enter a title.");
+    }
   },
 
   render: function() {
