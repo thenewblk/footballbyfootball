@@ -676,10 +676,11 @@ img {
 	padding: 20px 0;
 
 	.big-logo {
-		width: 1000px;
+		width: 758px;
 		max-width: 100%;
 		display: table;
 		margin: auto;
+		padding: 0 15px;
 	}
 }
 
@@ -1603,10 +1604,16 @@ a:hover {
 	float: left;
 }
 
+.mini-image {
+	min-height: 200px;
+	background-size: cover;
+	background-position: center;
+}
+
 .lockerroom-sidebar, .home-column-sidebar {
 	text-align: center;
 	color: white;
-	margin: 20px 0;
+	margin: 0;
 	padding: 5px 15px 0;
 	background: #222;
 
@@ -1704,6 +1711,14 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .medium-article .headline .inner-content .copy h3 {
 	margin-top: 0;
+}
+
+.top-banner-container {
+	display: block;
+	margin: auto;
+	width: 728px;
+	max-width: 100%;
+	overflow: hidden;
 }
 
 @media (max-width: 991px) {

@@ -3,42 +3,156 @@
 
 		<div class="container">
 
-		<% var 	tmp_date = '',
-					 	tmp_day_entries = [];
-					 	first = true; %>
+			<% var 	tmp_date = '',
+							first_date = entries[0].updated_at,
+						 	tmp_day_entries = [];
+						 	first = true; %>
 
-		<% entries.forEach(function(entry){ %>
+			<% entries.forEach(function(entry){ %>
 
-			<% if (entry.updated_at == tmp_date) { %>
+				<% if (entry.updated_at == tmp_date) { %>
 
-				<% tmp_day_entries.push(entry); %>
+					<% tmp_day_entries.push(entry); %>
 
-		  <% } else { %> 
-				<% if (tmp_day_entries.length > 0) { %>
+			  <% } else { %> 
+					<% if (tmp_day_entries.length > 0 && first) { %>
 
-					<div class="row">
-						<%= include day-container %> 
-					</div>
+						<div class="row">
+							<%= include day-container %> 
+						</div>
 
-					<% first = false; %>	
-				<% } %>
+						<% first = false; %>	
+						
+					<% } %>
 
-				<% tmp_date = entry.updated_at %>
-				<% 	tmp_day_entries = []; tmp_day_entries.push(entry); %>
+					<% tmp_date = entry.updated_at %>
+					<% 	tmp_day_entries = []; tmp_day_entries.push(entry); %>
 
-		  <% } %>
-
-	  <% }); %>
-
-		<% if (tmp_day_entries.length > 0) { %>
-
-			<div class="row">
-				<%= include day-container %> 
+			  <% } %>
+		  <% }); %>
+	  	<div class="row">
+			 	<hr>
 			</div>
-			<% 	tmp_day_entries = []; %>
+			<% if (links.length){%>
+		  <div class="row">
+		  	<div class="col-md-4">
+					<div class="home lockerroom-sidebar">
+						<h2 class="lr-sidebar-title">Locker Rooms</h2>
+						<% 	entries.filter(function(item){
+									return item.type == "lockerroom" && item.updated_at != first_date;
+								}).splice(0,5).forEach(function(entry, index){ %>
+							<h5 class="lr-sidebar-link"><a href="/lockerroom/<%= entry.slug %>"><%= entry.title %></a></h5>
+						<% }); %>
+							<h5 class="lr-sidebar-link"><a href="/lockerrooms">All Locker Rooms</a></h5>
+					</div>
+				</div>
 
-		<% } %>
+				<div class="col-md-4">
+					<div class="home lockerroom-sidebar links">
+						<h2 class="lr-sidebar-title">Columns</h2>
+						<%	entries.filter(function(item){
+									return item.type != "lockerroom" && item.updated_at != first_date;
+								}).splice(0,5).forEach(function(entry, index){ %>
+							<h5 class="lr-sidebar-link"><a href="/column/<%= entry.slug %>"><%= entry.title %></a></h5>
+						<% }); %>
+							<h5 class="lr-sidebar-link"><a href="/columns">All Columns</a></h5>
+					</div>
+		  	</div>
+
+		  	<div class="col-md-4">
+					<div class="home-column-sidebar">
+						<h2 class="lr-sidebar-title">Other News</h2>
+						<% links.forEach(function(link, index){ %>
+							<h5 class="lr-sidebar-link"><a href="<%= link.link %>" target="_blank"><%= link.title %></a></h5>
+						<% }); %>
+						<% if (links.length > 4 ) { %>
+						<h5 class="lr-sidebar-link"><a href="/links">All Links</a></h5>
+						<% } %>
+					</div>
+		  	</div>
+		  </div>
+		  <% } else { %>
+		  <div class="row">
+		  	<div class="col-md-6">
+					<div class="home lockerroom-sidebar">
+						<h2 class="lr-sidebar-title">Locker Rooms</h2>
+						<% 	entries.filter(function(item){
+									return item.type == "lockerroom" && item.updated_at != first_date;
+								}).splice(0,5).forEach(function(entry, index){ %>
+							<h5 class="lr-sidebar-link"><a href="/lockerroom/<%= entry.slug %>"><%= entry.title %></a></h5>
+						<% }); %>
+							<h5 class="lr-sidebar-link"><a href="/lockerrooms">All Locker Rooms</a></h5>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="home-column-sidebar">
+						<h2 class="lr-sidebar-title">Columns</h2>
+						<% 	entries.filter(function(item){
+									return item.type != "lockerroom" && item.updated_at != first_date;
+								}).splice(0,5).forEach(function(entry, index){ %>
+							<h5 class="lr-sidebar-link"><a href="/column/<%= entry.slug %>"><%= entry.title %></a></h5>
+						<% }); %>
+							<h5 class="lr-sidebar-link"><a href="/columns">All Columns</a></h5>
+					</div>
+		  	</div>
+		  </div>
+		  <% } %>
+	  	<div class="row">
+			 	<hr>
+			</div>
+			<div class="row">
+				<div class="col-md-8">
+						<%	entries.filter(function(item){
+									return item.updated_at != first_date;
+								}).splice(0,10).forEach(function(entry, index){ %>
+							<% if (entry.type == 'lockerroom'){ %>
+								<div class="row small-entry">
+									<div class="col-md-4">
+										<img src="https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer-small.jpg" />
+									</div>
+									<div class="col-md-8">
+										<h3><a href="/lockerroom/<%= entry.slug %>"><%= entry.title %></a></h3>
+										<h5 class="grey"><%= entry.updated_at %></h5>
+										<% entry.lockerentries.forEach(function(lockerentry){ %>
+											<div class="author-image" style="background-image: url(<%= lockerentry.player.image_url %>)"></div>
+										<% }); %>
+									</div>
+								</div>
+							<% } else { %>
+								<div class="row small-entry">
+									<div class="col-md-4">
+										<img src="https://s3.amazonaws.com/footballbyfootball-dev<%= entry.main_image.image_url %>" />
+									</div>
+									<div class="col-md-8">
+										<h3><a href="/column/<%= entry.slug %>"><%= entry.title %></a></h3>
+										<h5 class="grey"><%= entry.updated_at %></h5>
+										<div class="byline">
+											<div class="author-image" style="background-image: url(<%= entry.player.image_url %>)"></div>
+											<%= entry.player.name %>
+										</div>
+									</div>
+								</div>
+							<% } %>	
+						<% }); %>
+				</div>
+				<div class="col-md-4">
+					<iframe id="yb_widget_83540" frameBorder="0" scrolling=no style="width: 300px; height: 484px; border: 0px;" src="http://www.yardbarker.com/widget/ybn/83540"></iframe>
+					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+					<!-- Home and Archive Skyscraper -->
+					<ins class="adsbygoogle"
+					     style="display:inline-block;width:300px;height:600px"
+					     data-ad-client="ca-pub-2768251721679098"
+					     data-ad-slot="5577095568"></ins>
+					<script>
+					(adsbygoogle = window.adsbygoogle || []).push({});
+					</script>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-9">
+						<h4><a class="article-submit" href="/archive">Archive</a></h4>	
+				</div>
+			</div>
 		</div>
-
 	</div>
 	<%= include footer %>

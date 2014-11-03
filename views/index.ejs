@@ -8,58 +8,49 @@
 						 	tmp_day_entries = [];
 						 	first = true; %>
 
-			<% entries.forEach(function(entry){ %>
-
-				<% if (entry.updated_at == tmp_date) { %>
-
-					<% tmp_day_entries.push(entry); %>
-
-			  <% } else { %> 
-					<% if (tmp_day_entries.length > 0 && first) { %>
-
-						<div class="row">
-							<%= include day-container %> 
+			<div class="row">
+				<div class="col-md-6">
+					<% entry = entries[0]%><%= include big-select %>
+				</div>
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-md-6">
+							<% entry = entries[2]%><%= include medium-select %>
 						</div>
-
-						<% first = false; %>	
-						
-					<% } %>
-
-					<% tmp_date = entry.updated_at %>
-					<% 	tmp_day_entries = []; tmp_day_entries.push(entry); %>
-
-			  <% } %>
-		  <% }); %>
-	  	<div class="row">
-			 	<hr>
-			</div>
-			<% if (links.length){%>
-		  <div class="row">
-		  	<div class="col-md-4">
-					<div class="home lockerroom-sidebar">
-						<h2 class="lr-sidebar-title">Locker Rooms</h2>
-						<% 	entries.filter(function(item){
-									return item.type == "lockerroom" && item.updated_at != first_date;
-								}).splice(0,5).forEach(function(entry, index){ %>
-							<h5 class="lr-sidebar-link"><a href="/lockerroom/<%= entry.slug %>"><%= entry.title %></a></h5>
-						<% }); %>
-							<h5 class="lr-sidebar-link"><a href="/lockerrooms">All Locker Rooms</a></h5>
+						<div class="col-md-6">
+							<!-- yb_Football_By_Football -->
+							<div id='div-gpt-ad-1415039200042-0'>
+							<script type='text/javascript'>
+							googletag.cmd.push(function() { googletag.display('div-gpt-ad-1415039200042-0'); });
+							</script>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6"><% entry = entries[3]%><%= include medium-select %></div>
+						<div class="col-md-6"><% entry = entries[4]%><%= include medium-select %></div>
 					</div>
 				</div>
+			</div>
 
-				<div class="col-md-4">
-					<div class="home lockerroom-sidebar links">
-						<h2 class="lr-sidebar-title">Columns</h2>
-						<%	entries.filter(function(item){
-									return item.type != "lockerroom" && item.updated_at != first_date;
-								}).splice(0,5).forEach(function(entry, index){ %>
-							<h5 class="lr-sidebar-link"><a href="/column/<%= entry.slug %>"><%= entry.title %></a></h5>
+			<div class="row">
+				<hr>
+				<div class="col-md-6">
+					<% entry = entries[1]%><%= include big-select %>
+				</div>
+				<div class="col-md-3">
+					<div class="home-column-sidebar">
+						<h2 class="lr-sidebar-title">Most Recent</h2>
+						<%	entries.splice(5,10).forEach(function(entry, index){ %>
+							<% if (entry.type != 'lockerroom') { %> 
+								<h5 class="lr-sidebar-link"><a href="/column/<%= entry.slug %>"><%= entry.title %></a></h5>
+							<% } else { %>
+								<h5 class="lr-sidebar-link"><a href="/lockerroom/<%= entry.slug %>"><%= entry.title %></a></h5>
+							<% } %>
 						<% }); %>
-							<h5 class="lr-sidebar-link"><a href="/columns">All Columns</a></h5>
 					</div>
-		  	</div>
-
-		  	<div class="col-md-4">
+				</div>
+				<div class="col-md-3">
 					<div class="home-column-sidebar">
 						<h2 class="lr-sidebar-title">Other News</h2>
 						<% links.forEach(function(link, index){ %>
@@ -69,34 +60,9 @@
 						<h5 class="lr-sidebar-link"><a href="/links">All Links</a></h5>
 						<% } %>
 					</div>
-		  	</div>
-		  </div>
-		  <% } else { %>
-		  <div class="row">
-		  	<div class="col-md-6">
-					<div class="home lockerroom-sidebar">
-						<h2 class="lr-sidebar-title">Locker Rooms</h2>
-						<% 	entries.filter(function(item){
-									return item.type == "lockerroom" && item.updated_at != first_date;
-								}).splice(0,5).forEach(function(entry, index){ %>
-							<h5 class="lr-sidebar-link"><a href="/lockerroom/<%= entry.slug %>"><%= entry.title %></a></h5>
-						<% }); %>
-							<h5 class="lr-sidebar-link"><a href="/lockerrooms">All Locker Rooms</a></h5>
-					</div>
 				</div>
-				<div class="col-md-6">
-					<div class="home-column-sidebar">
-						<h2 class="lr-sidebar-title">Columns</h2>
-						<% 	entries.filter(function(item){
-									return item.type != "lockerroom" && item.updated_at != first_date;
-								}).splice(0,5).forEach(function(entry, index){ %>
-							<h5 class="lr-sidebar-link"><a href="/column/<%= entry.slug %>"><%= entry.title %></a></h5>
-						<% }); %>
-							<h5 class="lr-sidebar-link"><a href="/columns">All Columns</a></h5>
-					</div>
-		  	</div>
-		  </div>
-		  <% } %>
+			</div>
+
 	  	<div class="row">
 			 	<hr>
 			</div>
@@ -120,8 +86,7 @@
 								</div>
 							<% } else { %>
 								<div class="row small-entry">
-									<div class="col-md-4">
-										<img src="https://s3.amazonaws.com/footballbyfootball-dev<%= entry.main_image.image_url %>" />
+									<div class="col-md-4 mini-image" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev<%= entry.main_image.image_url %>);">
 									</div>
 									<div class="col-md-8">
 										<h3><a href="/column/<%= entry.slug %>"><%= entry.title %></a></h3>
@@ -136,6 +101,7 @@
 						<% }); %>
 				</div>
 				<div class="col-md-4">
+					<iframe id="yb_widget_83540" frameBorder="0" scrolling=no style="width: 300px; height: 484px; border: 0px;" src="http://www.yardbarker.com/widget/ybn/83540"></iframe>
 					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 					<!-- Home and Archive Skyscraper -->
 					<ins class="adsbygoogle"
@@ -145,6 +111,14 @@
 					<script>
 					(adsbygoogle = window.adsbygoogle || []).push({});
 					</script>
+
+
+					<!-- yb_Football_By_Football -->
+					<div id='div-gpt-ad-1415039200042-2'>
+					<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('div-gpt-ad-1415039200042-2'); });
+					</script>
+					</div>
 				</div>
 			</div>
 			<div class="row">
