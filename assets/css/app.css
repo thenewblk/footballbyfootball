@@ -1336,6 +1336,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     position: relative; } }
 
 @media (max-width: 480px) {
+  body {
+    margin-top: 0 !important; }
+  body > iframe:first-child {
+    display: none; }
   .lockerroom .lockerroom-header {
     height: auto; }
     .lockerroom .lockerroom-header .title {
