@@ -1750,6 +1750,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 
 @media (max-width: 480px) {
+	.yardbarker-header {
+		display: none;
+	}
 	.lockerroom {
 		.lockerroom-header {
 			height: auto;
