@@ -6,7 +6,9 @@
     <description>Insight By Players</description>
     <language>en-us</language>
     <copyright>Copyright © 2014 Football by Football, LLC. All rights reserved</copyright>
-    <% posts.forEach(function(entry){ %><item>
+    <atom:link href="http://www.footballbyfootball.com/rss" rel="self" type="application/rss+xml" />
+  <% posts.forEach(function(entry){ %>
+    <item>
       <title><%= entry.title %></title>
       <% if (entry.type != 'lockerroom') { %>
         <yb:image>
@@ -14,12 +16,16 @@
           <yb:title><%= entry.main_image.caption %></yb:title>
           <yb:link><%= 'https://s3.amazonaws.com/footballbyfootball-dev' + entry.main_image.image_url %></yb:link>
         </yb:image>
+        <link><%= 'http://www.footballbyfootball.com/column/' + entry.slug %></link>
+        <guid><%= 'http://www.footballbyfootball.com/column/' + entry.slug %></guid>
       <% } else if (entry.type == 'lockerroom') { %>
         <yb:image>
           <yb:url><%= 'https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer-small.jpg' %></yb:url>
           <yb:title><%= entry.title %></yb:title>
           <yb:link><%= 'https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer-small.jpg'%></yb:link>
         </yb:image>
+        <link><%= 'http://www.footballbyfootball.com/lockerroom/' + entry.slug %></link>
+        <guid><%= 'http://www.footballbyfootball.com/lockerroom/' + entry.slug %></guid>
       <% } %>
       <description>
         <![CDATA[
@@ -51,9 +57,7 @@
         ]]>
       </description>
       <pubDate><%= new Date(entry.updated_date).toUTCString() %></pubDate>
-      <link><%= 'http://www.footballbyfootball.com/column/' + entry.slug %></link>
-      <guid><%= 'http://www.footballbyfootball.com/column/' + entry.slug %></guid>
-    </item><% }); %>
-    <atom:link href="http://www.footballbyfootball.com/rss" rel="self" type="application/rss+xml" />
+    </item>
+  <% }); %>
   </channel>
 </rss>
