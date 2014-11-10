@@ -9,21 +9,16 @@
     <image>
       <url>http://www.footballbyfootball.com/img/logo-masthead.png</url>
       <title>Football by Football</title>
-      <link>http://www.footballbyfootball.com/img/logo-masthead.png</link>
+      <link>http://www.footballbyfootball.com/rss</link>
     </image>
+    <atom:link href="http://www.footballbyfootball.com/rss" rel="self" type="application/rss+xml" />
     <% posts.forEach(function(entry){ %>
       <item>
         <title><%= entry.title %></title>
         <% if (entry.type != 'lockerroom') { %>
-          <img
-            src="<%= 'https://s3.amazonaws.com/footballbyfootball-dev' + entry.main_image.image_url %>"
-            alt="<%= entry.main_image.caption %>">
-          </img>
+          <enclosure url="<%= 'https://s3.amazonaws.com/footballbyfootball-dev' + entry.main_image.image_url %>" type="image/jpeg" />
         <% } else if (entry.type == 'lockerroom') { %>
-          <img
-            src="<%= 'https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer-small.jpg' %>"
-            alt="<%= entry.title %>">
-          </img>
+          <enclosure url="https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer-small.jpg" type="image/jpeg" />
         <% } %>
         <description type="html">
           <![CDATA[
