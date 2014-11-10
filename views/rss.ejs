@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+<rss version="2.0" xmlns:yb="http://www.yardbarker.com/rss/overview/">
   <channel>
     <title>Football by Football</title>
     <link>http://www.footballbyfootball.com/rss</link>
@@ -9,16 +9,22 @@
     <image>
       <url>http://www.footballbyfootball.com/img/logo-masthead.png</url>
       <title>Football by Football</title>
-      <link>http://www.footballbyfootball.com/rss</link>
     </image>
-    <atom:link href="http://www.footballbyfootball.com/rss" rel="self" type="application/rss+xml" />
     <% posts.forEach(function(entry){ %>
       <item>
         <title><%= entry.title %></title>
         <% if (entry.type != 'lockerroom') { %>
-          <enclosure url="<%= 'https://s3.amazonaws.com/footballbyfootball-dev' + entry.main_image.image_url %>" type="image/jpeg" />
+          <yb:image>
+            <yb:url><%= 'https://s3.amazonaws.com/footballbyfootball-dev' + entry.main_image.image_url %></yb:url>
+            <yb:title><%= entry.main_image.caption %></yb:title>
+            <yb:link><%= 'https://s3.amazonaws.com/footballbyfootball-dev' + entry.main_image.image_url %></yb:link>
+          </yb:image>
         <% } else if (entry.type == 'lockerroom') { %>
-          <enclosure url="https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer-small.jpg" type="image/jpeg" />
+          <yb:image>
+            <yb:url><%= 'https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer-small.jpg' %></yb:url>
+            <yb:title><%= entry.title %></yb:title>
+            <yb:link><%= 'https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer-small.jpg'%></yb:link>
+          </yb:image>
         <% } %>
         <description type="html">
           <![CDATA[
