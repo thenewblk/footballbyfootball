@@ -6,8 +6,7 @@
     <description>Insight By Players</description>
     <language>en-us</language>
     <copyright>Copyright © 2014 Football by Football, LLC. All rights reserved</copyright>
-  <% posts.forEach(function(entry){ %>
-    <item>
+    <% posts.forEach(function(entry){ %><item>
       <title><%= entry.title %></title>
       <% if (entry.type != 'lockerroom') { %>
         <yb:image>
@@ -54,8 +53,7 @@
       <pubDate><%= new Date(entry.updated_date).toUTCString() %></pubDate>
       <link><%= 'http://www.footballbyfootball.com/column/' + entry.slug %></link>
       <guid><%= 'http://www.footballbyfootball.com/column/' + entry.slug %></guid>
-    </item>
-  <% }); %>
+    </item><% }); %>
     <atom:link href="http://www.footballbyfootball.com/rss" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
