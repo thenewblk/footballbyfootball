@@ -6,26 +6,24 @@
     <description>Insight By Players</description>
     <language>en-us</language>
     <copyright>Copyright © 2014 Football by Football, LLC. All rights reserved</copyright>
-    <icon>http://www.footballbyfootball.com/img/logo-masthead.png</icon>
     <image>
       <url>http://www.footballbyfootball.com/img/logo-masthead.png</url>
       <title>Football by Football</title>
+      <link>http://www.footballbyfootball.com/img/logo-masthead.png</link>
     </image>
     <% posts.forEach(function(entry){ %>
       <item>
         <title><%= entry.title %></title>
         <% if (entry.type != 'lockerroom') { %>
-          <image>
-            <url><%= 'https://s3.amazonaws.com/footballbyfootball-dev' + entry.main_image.image_url %></url>
-            <title><%= entry.main_image.caption %></title>
-            <link><%= 'https://s3.amazonaws.com/footballbyfootball-dev' + entry.main_image.image_url %></link>
-          </image>
+          <img
+            src="<%= 'https://s3.amazonaws.com/footballbyfootball-dev' + entry.main_image.image_url %>"
+            alt="<%= entry.main_image.caption %>">
+          </img>
         <% } else if (entry.type == 'lockerroom') { %>
-          <image>
-            <url><%= 'https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer-small.jpg' %></url>
-            <title><%= entry.title %></title>
-            <link><%= 'https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer-small.jpg'%></link>
-          </image>
+          <img
+            src="<%= 'https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer-small.jpg' %>"
+            alt="<%= entry.title %>">
+          </img>
         <% } %>
         <description type="html">
           <![CDATA[
@@ -56,7 +54,7 @@
             <% } %>
           ]]>
         </description>
-        <pubDate><%= entry.updated_date %></pubDate>
+        <pubDate><%= new Date(entry.updated_date) %></pubDate>
         <link><%= 'http://www.footballbyfootball.com/column/' + entry.slug %></link>
         <guid><%= 'http://www.footballbyfootball.com/column/' + entry.slug %></guid>
       </item>
