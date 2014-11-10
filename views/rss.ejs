@@ -6,56 +6,56 @@
     <description>Insight By Players</description>
     <language>en-us</language>
     <copyright>Copyright © 2014 Football by Football, LLC. All rights reserved</copyright>
-    <% posts.forEach(function(entry){ %>
-      <item>
-        <title><%= entry.title %></title>
-        <% if (entry.type != 'lockerroom') { %>
-          <yb:image>
-            <yb:url><%= 'https://s3.amazonaws.com/footballbyfootball-dev' + entry.main_image.image_url %></yb:url>
-            <yb:title><%= entry.main_image.caption %></yb:title>
-            <yb:link><%= 'https://s3.amazonaws.com/footballbyfootball-dev' + entry.main_image.image_url %></yb:link>
-          </yb:image>
-        <% } else if (entry.type == 'lockerroom') { %>
-          <yb:image>
-            <yb:url><%= 'https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer-small.jpg' %></yb:url>
-            <yb:title><%= entry.title %></yb:title>
-            <yb:link><%= 'https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer-small.jpg'%></yb:link>
-          </yb:image>
-        <% } %>
-        <description>
-          <![CDATA[
-            <% if (entry.type != 'lockerroom') { %>
-              <% entry.data.forEach(function(content){ %>
+  <% posts.forEach(function(entry){ %>
+    <item>
+      <title><%= entry.title %></title>
+      <% if (entry.type != 'lockerroom') { %>
+        <yb:image>
+          <yb:url><%= 'https://s3.amazonaws.com/footballbyfootball-dev' + entry.main_image.image_url %></yb:url>
+          <yb:title><%= entry.main_image.caption %></yb:title>
+          <yb:link><%= 'https://s3.amazonaws.com/footballbyfootball-dev' + entry.main_image.image_url %></yb:link>
+        </yb:image>
+      <% } else if (entry.type == 'lockerroom') { %>
+        <yb:image>
+          <yb:url><%= 'https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer-small.jpg' %></yb:url>
+          <yb:title><%= entry.title %></yb:title>
+          <yb:link><%= 'https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer-small.jpg'%></yb:link>
+        </yb:image>
+      <% } %>
+      <description>
+        <![CDATA[
+          <% if (entry.type != 'lockerroom') { %>
+            <% entry.data.forEach(function(content){ %>
+              <% if (content.type == 'content') { %> 
+                <%- content.content %>
+              <% } else if (content.type == 'image') { %>
+                  <img
+                    src="<%= 'https://s3.amazonaws.com/footballbyfootball-dev' + content.image_url %>"
+                    alt="<%= content.caption %>">
+                  </img>
+              <% } %>
+            <% }); %>
+          <% } else if (entry.type == 'lockerroom') { %>
+            <% entry.lockerentries.forEach(function(lockerentry){ %>
+              <% lockerentry.data.forEach(function(content){ %>
                 <% if (content.type == 'content') { %> 
                   <%- content.content %>
                 <% } else if (content.type == 'image') { %>
-                    <img
-                      src="<%= 'https://s3.amazonaws.com/footballbyfootball-dev' + content.image_url %>"
-                      alt="<%= content.caption %>">
-                    </img>
+                  <img
+                    src="<%= 'https://s3.amazonaws.com/footballbyfootball-dev' + content.image_url %>"
+                    alt="<%= content.caption %>">
+                  </img>
                 <% } %>
               <% }); %>
-            <% } else if (entry.type == 'lockerroom') { %>
-              <% entry.lockerentries.forEach(function(lockerentry){ %>
-                <% lockerentry.data.forEach(function(content){ %>
-                  <% if (content.type == 'content') { %> 
-                    <%- content.content %>
-                  <% } else if (content.type == 'image') { %>
-                    <img
-                      src="<%= 'https://s3.amazonaws.com/footballbyfootball-dev' + content.image_url %>"
-                      alt="<%= content.caption %>">
-                    </img>
-                  <% } %>
-                <% }); %>
-              <% }); %>
-            <% } %>
-          ]]>
-        </description>
-        <pubDate><%= new Date(entry.updated_date).toUTCString() %></pubDate>
-        <link><%= 'http://www.footballbyfootball.com/column/' + entry.slug %></link>
-        <guid><%= 'http://www.footballbyfootball.com/column/' + entry.slug %></guid>
-      </item>
-    <% }); %>
+            <% }); %>
+          <% } %>
+        ]]>
+      </description>
+      <pubDate><%= new Date(entry.updated_date).toUTCString() %></pubDate>
+      <link><%= 'http://www.footballbyfootball.com/column/' + entry.slug %></link>
+      <guid><%= 'http://www.footballbyfootball.com/column/' + entry.slug %></guid>
+    </item>
+  <% }); %>
     <atom:link href="http://www.footballbyfootball.com/rss" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
