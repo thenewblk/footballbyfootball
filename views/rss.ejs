@@ -6,10 +6,6 @@
     <description>Insight By Players</description>
     <language>en-us</language>
     <copyright>Copyright © 2014 Football by Football, LLC. All rights reserved</copyright>
-    <image>
-      <url>http://www.footballbyfootball.com/img/logo-masthead.png</url>
-      <title>Football by Football</title>
-    </image>
     <% posts.forEach(function(entry){ %>
       <item>
         <title><%= entry.title %></title>
@@ -26,7 +22,7 @@
             <yb:link><%= 'https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer-small.jpg'%></yb:link>
           </yb:image>
         <% } %>
-        <description type="html">
+        <description>
           <![CDATA[
             <% if (entry.type != 'lockerroom') { %>
               <% entry.data.forEach(function(content){ %>
