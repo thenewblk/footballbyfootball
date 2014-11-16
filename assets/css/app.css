@@ -734,7 +734,7 @@ img {
       .medium-article .headline .inner-content .copy {
         font-size: 20px; }
         .medium-article .headline .inner-content .copy h3 {
-          font-size: 30px; }
+          font-size: 22px; }
       .medium-article .headline .inner-content .byline {
         text-align: right;
         font-size: 16px;
@@ -1331,7 +1331,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
       color: white;
       position: absolute;
       bottom: 30px;
-      font-size: 40px; }
+      font-size: 40px;
+      margin-top: 0; }
   .column-sidebar {
     position: relative; } }
 
@@ -1344,7 +1345,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     height: auto; }
     .lockerroom .lockerroom-header .title {
       position: relative;
-      padding-top: 85px; }
+      padding-top: 170px; }
   .lockerroom .lockerrooom-entry-title .author-image {
     float: right;
     position: absolute; }
