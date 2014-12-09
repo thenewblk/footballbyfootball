@@ -178,6 +178,7 @@ var wysihtml5ParserRules = {
         },
         "a": {
             "check_attributes": {
+                "target": "any",
                 "href": "url"
             },
             "set_attributes": {
