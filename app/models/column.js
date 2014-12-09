@@ -15,15 +15,16 @@ var columnSchema = mongoose.Schema({
     player : { type: String, ref: 'Player' },
     type       : String,
     title			 : String,
+    subtitle      : String,
     slug       : String,
     excerpt    : String,
     updated_date : String,
     updated_at : String,
     approved	 : Boolean,
-    data: [ ],
+    data: [],
     main_image: { 
-      image_url: String,
-      caption: String
+      image_url:    String,
+      caption:      String,
     }
 });
 

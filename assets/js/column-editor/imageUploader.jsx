@@ -39,6 +39,14 @@ var imageUploader = React.createClass({
 
   },
 
+  handleSwapPrevious: function() {
+    this.props.swap_previous({id: this.props.identifier});
+  },
+
+  handleSwapNext: function() {
+    this.props.swap_next({id: this.props.identifier});
+  },
+
   getScriptURL: function() {
     return '/js/dropzone.js';
   },
@@ -88,6 +96,10 @@ var imageUploader = React.createClass({
 
     return ( 
       <div className={className} ref='contentwrapper'>
+        <div className="position-control">
+          <span className="move up" onClick={this.handleSwapPrevious}></span>
+          <span className="move down" onClick={this.handleSwapNext}></span>
+        </div>
         {image.image_url ?  
           <div className='uploaded-image'>
             <img src={"https://s3.amazonaws.com/footballbyfootball-dev"+image.image_url} />

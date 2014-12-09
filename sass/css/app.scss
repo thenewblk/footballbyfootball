@@ -414,6 +414,59 @@ input[type="submit"] {
 .column-content {
 	display: block;
 	vertical-align: top;
+	
+	.position-control {
+		position: absolute;
+		z-index: 1;
+		color: white;
+		right: 50px;
+		text-align: center;
+		top: 0px;
+		border: 1px #eee solid;
+		border-top: none;
+		padding: 8px 10px 7px;
+		background: white;
+		border-bottom: none;
+
+		.move {
+			display: block;
+			cursor: pointer;
+			transition: 0.15s ease-in-out;
+		}
+
+		.move.up {
+			border: 10px solid #ccc;
+			border-top: none;
+			border-left: transparent 15px solid;
+			border-right: transparent 15px solid;
+			width: 0;
+			margin-bottom: 5px;
+		}
+
+		.move.up:hover {
+			border: 10px solid black;
+			border-top: none;
+			border-left: transparent 15px solid;
+			border-right: transparent 15px solid;
+		}
+
+		.move.down {
+			border: 10px solid #ccc;
+			border-bottom: none;
+			border-left: transparent 15px solid;
+			border-right: transparent 15px solid;
+			width: 0;
+		}
+
+		.move.down:hover {
+			border: 10px solid black;
+			border-bottom: none;
+			border-left: transparent 15px solid;
+			border-right: transparent 15px solid;
+		}
+
+
+	}
 
 	.content-controls {
 		.content-items {
@@ -859,11 +912,16 @@ img {
 
 			.copy {
 				font-size: 50px;
+				margin-bottom: 25px;
 			}
 			
 			.byline {
 				text-align: right;
 				font-size: 16px;
+				display: inline-block;
+				float: right;
+				margin-bottom: -18px;
+				margin-top: -45px;
 				.by {
 					color: red;
 				}
@@ -1235,6 +1293,16 @@ img {
 		margin: 0 0 50px;
 	}
 
+	.column-content-wrapper p:first-child:first-letter {
+		float: left;
+		display: block;
+		margin: .15em .15em 0 0;
+		font-weight: 900;
+		font-size: 75px;
+		line-height: 50px;
+		font-family: "museo-slab",serif;
+	}
+
 	.column-header {
 		border-bottom: 1px solid #ddd;
 		.title {
@@ -1246,6 +1314,14 @@ img {
 				width: 100%;
 				border-bottom: 1px solid #ddd;
 			}
+		}
+		.subtitle {
+			input {
+				width: 100%;
+				border: none;
+				outline: none;
+			}
+
 		}
 		.date {
 			color: #999;
@@ -1727,6 +1803,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	}
 	.big-article {
 		margin-bottom: 20px;
+		.headline .inner-content .copy {
+			margin-bottom: 50px;
+		}
 	}
 	.lockerroom {
 		.lockerroom-header {
@@ -1756,6 +1835,11 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	}
 	body > iframe:first-child {
 		display: none;
+	}
+
+	.caption-image.right-aligned, .caption-image.left-aligned, .caption-image.left-logo {
+		float: none; 
+		width: 100%;
 	}
 
 	.lockerroom {

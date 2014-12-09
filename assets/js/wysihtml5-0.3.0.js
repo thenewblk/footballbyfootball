@@ -8332,6 +8332,7 @@ wysihtml5.views.View = Base.extend(
         // Issue: http://code.google.com/p/betterpopupblocker/issues/detail?id=1
         win.scrollTo(originalScrollLeft, originalScrollTop);
       }
+
     }
   };
   

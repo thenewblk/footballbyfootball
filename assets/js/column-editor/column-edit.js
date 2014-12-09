@@ -16,6 +16,13 @@ var Players = window.Players || {};
 
 var Types =  ['locks', 'fantasy', 'wwkjd', 'column', 'breakdown'];
 
+var uniqueId;
+
+uniqId = function(thing) {
+  return thing.replace(/[^A-Za-z0-9\s!?]/g,'').replace(/ /g,'').substr(0, 15);
+};
+
+
 var ColumnList = React.createClass({  
   getInitialState: function() {
     return { id: '', data: [], title: '', main_image: {active: true}, player: Players[0]._id, approved: false, submitted: false, type: 'column' };
@@ -78,7 +85,7 @@ var ColumnList = React.createClass({
 
   addContent: function(){
     var current_data = this.state.data;
-    var tmp_content = {type: 'content', content: '' };
+    var tmp_content = {type: 'content', content: '',  };
     var new_data = current_data.concat(tmp_content);
     this.setState({data: new_data});
   },
@@ -99,6 +106,10 @@ var ColumnList = React.createClass({
 
   handleTitleChange: function(event) {
     this.setState({title: event.target.value});
+  },
+
+  handleSubTitleChange: function(event) {
+    this.setState({subtitle: event.target.value});
   },
 
   handlePlayer: function(event) {
@@ -176,6 +187,54 @@ var ColumnList = React.createClass({
     console.log('window.location.pathname'+window.location.pathname);
   },
 
+
+  // 
+  // Handle Swaps
+  // 
+
+  swapPreviousThing: function(content){
+
+    var new_data = this.state.data;
+
+    if (content.id > 0) {
+      var temp_thing_1 = new_data[ content.id ];
+      var temp_thing_2 = new_data[ content.id - 1 ];
+      new_data.splice( content.id - 1, 2, temp_thing_1, temp_thing_2);
+      this.setState({data: new_data});
+    } else {
+      alert("you fucked up");
+    }
+
+  },
+
+  swapNextThing: function(content){
+
+    var new_data = this.state.data;
+
+    if (content.id < ( new_data.length - 1 )) {
+      var temp_thing_1 = new_data[ content.id ];
+      var temp_thing_2 = new_data[ content.id + 1 ];
+      new_data.splice( content.id, 2, temp_thing_2, temp_thing_1);
+      this.setState({data: new_data});
+    } else {
+      alert("you fucked up");
+    }
+  }, 
+
+  // unMoved: function(content){
+  //   var new_data = this.state.data;
+
+  //   for( i =0; i < new_data.length; i++ ) {
+  //     if ( new_data[i].id == content.id) {
+  //       new_data[ i ].thing_moved = false;
+  //     }
+  //   }
+
+
+  //   this.setState({data: new_data});
+  // },
+
+
   // 
   // Submit Form
   // 
@@ -186,6 +245,13 @@ var ColumnList = React.createClass({
 
   submitContent: function(){
     var self = this;
+
+    for (i=0; i< self.state.data.length; i++){
+      delete self.state.data[i].id;
+      delete self.state.data[i].thing_moved;
+    }
+
+
     if (self.state.title.length > 0){
       self.setState({submitted: true});
       request
@@ -205,17 +271,33 @@ var ColumnList = React.createClass({
   render: function() {
     var self = this;
     var title = this.state.title;
+    var subtitle = this.state.subtitle;
     var today_date = moment().format("MMMM Do, YYYY");
     var main_image= this.state.main_image;
 
     var columns = this.state.data.map(function(object, i) {
       if ( object.type == 'content' ) {
+        if(object.id){
+
+        } else {
+          object.id = Math.floor(Math.random() * (999999 - 100000) + 100000);
+        }
+        var moved = object.thing_moved;
+
         return <Column
           ref={'content-'+i}
           identifier={i}
+          thing_id={object.id}
           thing={object.content}
           content={self.handleContent}
-          removed={self.removeContent} />;
+          removed={self.removeContent}
+          thing_moved={moved}
+
+          thing_un_moved={self.unMoved}
+
+          swap_previous={self.swapPreviousThing}
+          swap_next={self.swapNextThing}
+           />;
       }
       if ( object.type == 'image' ) {
         return <Image 
@@ -225,7 +307,10 @@ var ColumnList = React.createClass({
           caption_content={self.handleImageCaption} 
           type_content={self.handleImageType}  
           content={self.handleImage} 
-          removed={self.removeImage} />;
+          removed={self.removeImage}
+          swap_previous={self.swapPreviousThing}
+          swap_next={self.swapNextThing}
+           />;
       }
     });
 
@@ -248,18 +333,21 @@ var ColumnList = React.createClass({
         <div className="row"> 
           <div className="col-md-8">
             <div className="column-header">
-              <h2 className="title"><input className='column-title-tag' type="text" value={title} onChange={this.handleTitleChange} placeholder="Title" /></h2>
+              <h2 className="title"><input key={'title'} className='column-title-tag' type="text" value={title} onChange={this.handleTitleChange} placeholder="Title" /></h2>
               <p className="date">{ today_date }</p>
               { this.state.main_image.image_url || this.state.main_image.active ? 
                 <Image 
                 identifier='main'
                 image={main_image}
+                key={'main_image'}
                 caption_content={self.handleMainImageCaption}
                 content={self.handleMainImage} 
                 removed={self.removeMainImage} />
                 : <p className="add-main-image" onClick={this.addMainImage}><span className="fa fa-plus"></span> Add Main Image</p> 
               }
+              <h3 className="subtitle"><input key={'subtitle'} className='column-title-tag' type="text" value={subtitle} onChange={this.handleSubTitleChange} placeholder="Sub Title" /></h3>
             </div>
+
             <div className="column-content">
               {columns}
             </div>

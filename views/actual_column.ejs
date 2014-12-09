@@ -17,6 +17,9 @@
 					<% } %>
 					<% if (column.main_image.caption) { %><p class="ap-image"><%= column.main_image.caption %></p><% } %>
 				</div>
+				<% if ( column.subtitle ) { %>
+					<h3 class="subtitle"><%= column.subtitle %></h3>
+				<% } %>
 				<div class="social-share">
 
 			    <a href="https://twitter.com/intent/tweet?text=<%= column.title %>&amp;url=http%3A%2F%2Fwww.footballbyfootball.com%2Fcolumn%2F<%= column.slug %>"  class="social-button twitter" target="_blank">
@@ -32,7 +35,7 @@
 				<div class="column-content-wrapper cf">
 					<% column.data.forEach(function(item){ %>
 						<% if (item.type == 'content') { %>
-							<%- item.content %>
+							<p><%- item.content %></p>
 						<%}%>
 						<% if (item.type == 'image') { %>
 							<div class="caption-image <%= item.image_type %>">

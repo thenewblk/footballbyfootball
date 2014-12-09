@@ -690,6 +690,13 @@ var Players = window.Players || {};
 
 var Types =  ['locks', 'fantasy', 'wwkjd', 'column', 'breakdown'];
 
+var uniqueId;
+
+uniqId = function(thing) {
+  return thing.replace(/[^A-Za-z0-9\s!?]/g,'').replace(/ /g,'').substr(0, 15);
+};
+
+
 var ColumnList = React.createClass({displayName: 'ColumnList',  
   getInitialState: function() {
     return { id: '', data: [], title: '', main_image: {active: true}, player: Players[0]._id, approved: false, submitted: false, type: 'column' };
@@ -752,7 +759,7 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
 
   addContent: function(){
     var current_data = this.state.data;
-    var tmp_content = {type: 'content', content: '' };
+    var tmp_content = {type: 'content', content: '',  };
     var new_data = current_data.concat(tmp_content);
     this.setState({data: new_data});
   },
@@ -773,6 +780,10 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
 
   handleTitleChange: function(event) {
     this.setState({title: event.target.value});
+  },
+
+  handleSubTitleChange: function(event) {
+    this.setState({subtitle: event.target.value});
   },
 
   handlePlayer: function(event) {
@@ -850,6 +861,54 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
     console.log('window.location.pathname'+window.location.pathname);
   },
 
+
+  // 
+  // Handle Swaps
+  // 
+
+  swapPreviousThing: function(content){
+
+    var new_data = this.state.data;
+
+    if (content.id > 0) {
+      var temp_thing_1 = new_data[ content.id ];
+      var temp_thing_2 = new_data[ content.id - 1 ];
+      new_data.splice( content.id - 1, 2, temp_thing_1, temp_thing_2);
+      this.setState({data: new_data});
+    } else {
+      alert("you fucked up");
+    }
+
+  },
+
+  swapNextThing: function(content){
+
+    var new_data = this.state.data;
+
+    if (content.id < ( new_data.length - 1 )) {
+      var temp_thing_1 = new_data[ content.id ];
+      var temp_thing_2 = new_data[ content.id + 1 ];
+      new_data.splice( content.id, 2, temp_thing_2, temp_thing_1);
+      this.setState({data: new_data});
+    } else {
+      alert("you fucked up");
+    }
+  }, 
+
+  // unMoved: function(content){
+  //   var new_data = this.state.data;
+
+  //   for( i =0; i < new_data.length; i++ ) {
+  //     if ( new_data[i].id == content.id) {
+  //       new_data[ i ].thing_moved = false;
+  //     }
+  //   }
+
+
+  //   this.setState({data: new_data});
+  // },
+
+
   // 
   // Submit Form
   // 
@@ -860,6 +919,13 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
 
   submitContent: function(){
     var self = this;
+
+    for (i=0; i< self.state.data.length; i++){
+      delete self.state.data[i].id;
+      delete self.state.data[i].thing_moved;
+    }
+
+
     if (self.state.title.length > 0){
       self.setState({submitted: true});
       request
@@ -879,17 +945,33 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
   render: function() {
     var self = this;
     var title = this.state.title;
+    var subtitle = this.state.subtitle;
     var today_date = moment().format("MMMM Do, YYYY");
     var main_image= this.state.main_image;
 
     var columns = this.state.data.map(function(object, i) {
       if ( object.type == 'content' ) {
+        if(object.id){
+
+        } else {
+          object.id = Math.floor(Math.random() * (999999 - 100000) + 100000);
+        }
+        var moved = object.thing_moved;
+
         return Column({
           ref: 'content-'+i, 
           identifier: i, 
+          thing_id: object.id, 
           thing: object.content, 
           content: self.handleContent, 
-          removed: self.removeContent});
+          removed: self.removeContent, 
+          thing_moved: moved, 
+
+          thing_un_moved: self.unMoved, 
+
+          swap_previous: self.swapPreviousThing, 
+          swap_next: self.swapNextThing}
+           );
       }
       if ( object.type == 'image' ) {
         return Image({
@@ -899,7 +981,10 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
           caption_content: self.handleImageCaption, 
           type_content: self.handleImageType, 
           content: self.handleImage, 
-          removed: self.removeImage});
+          removed: self.removeImage, 
+          swap_previous: self.swapPreviousThing, 
+          swap_next: self.swapNextThing}
+           );
       }
     });
 
@@ -922,18 +1007,21 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
         React.DOM.div({className: "row"}, 
           React.DOM.div({className: "col-md-8"}, 
             React.DOM.div({className: "column-header"}, 
-              React.DOM.h2({className: "title"}, React.DOM.input({className: "column-title-tag", type: "text", value: title, onChange: this.handleTitleChange, placeholder: "Title"})), 
+              React.DOM.h2({className: "title"}, React.DOM.input({key: 'title', className: "column-title-tag", type: "text", value: title, onChange: this.handleTitleChange, placeholder: "Title"})), 
               React.DOM.p({className: "date"}, today_date ), 
                this.state.main_image.image_url || this.state.main_image.active ? 
                 Image({
                 identifier: "main", 
                 image: main_image, 
+                key: 'main_image', 
                 caption_content: self.handleMainImageCaption, 
                 content: self.handleMainImage, 
                 removed: self.removeMainImage})
-                : React.DOM.p({className: "add-main-image", onClick: this.addMainImage}, React.DOM.span({className: "fa fa-plus"}), " Add Main Image")
+                : React.DOM.p({className: "add-main-image", onClick: this.addMainImage}, React.DOM.span({className: "fa fa-plus"}), " Add Main Image"), 
               
+              React.DOM.h3({className: "subtitle"}, React.DOM.input({key: 'subtitle', className: "column-title-tag", type: "text", value: subtitle, onChange: this.handleSubTitleChange, placeholder: "Sub Title"}))
             ), 
+
             React.DOM.div({className: "column-content"}, 
               columns
             ), 
@@ -986,6 +1074,8 @@ var ReactScriptLoaderModule = require('../ReactScriptLoader.js');
 var ReactScriptLoaderMixin= ReactScriptLoaderModule.ReactScriptLoaderMixin;
 var ReactScriptLoader= ReactScriptLoaderModule.ReactScriptLoader;
 
+var util = require('util');
+
 var mainEditor = [];
 
 var Column = React.createClass({displayName: 'Column',
@@ -994,15 +1084,305 @@ var Column = React.createClass({displayName: 'Column',
   mixins: [ReactScriptLoaderMixin],
 
   getInitialState: function() {
-    return {active: false};
+    return {active: false, super_key: this.props.thing_id, editor: {}};
   },
 
   componentWillMount: function() {
-    mainEditor[this.props.identifier];
+    var self = this;
+    mainEditor[self.state.super_key];
+  },
+
+  // componentDidMount: function(){
+  //   var self = this;
+  //   var super_key = this.state.super_key;
+  //   self.props.thing_un_moved({id: super_key});
+  // },
+
+  // componentDidUpdate: function(){
+  //   var self = this;
+  //   var super_key = this.state.super_key;
+    
+  //   if (this.props.thing_moved) {
+
+
+  //     console.log('getValue: '+self.state.editor.getValue());
+
+  //   }
+      // var identifier = this.props.identifier;
+      // var wysihtml5ParserRules = require('../advanced.js');
+
+      // self.state.editor = new wysihtml5.Editor('main-content-'+super_key, {
+      //   toolbar:      "main-toolbar-" + super_key,
+      //   stylesheets:  "/css/wysihtml5.css",
+      //   parserRules:  wysihtml5ParserRules,
+      //   cleanUp:      true
+      // });
+
+      // self.state.editor.on("load", function () { 
+
+      //   var $iframe = $(this.composer.iframe);
+      //   var $body = $(this.composer.element);
+        
+      //   $body
+      //     .css({
+      //       'min-height': 0,
+      //       'overflow': 'hidden',
+      //     })
+      //     .bind('keypress keyup keydown paste change focus blur load', function(e) {
+      //       var height = Math.min($body[0].scrollHeight, $body.height());
+      //       var extra = 25 ;
+      //       $iframe.height(height + extra);
+      //     });
+      // });
+
+
+      // console.log('self.props.thing: '+self.props.thing);
+
+      // self.state.editor.setValue(self.props.thing);
+
+      // console.log('self.state.editor.getValue(): '+self.state.editor.getValue());
+      // if (this.props.thing_moved){
+      //   var super_key = this.state.super_key;
+      //   mainEditor[super_key].setValue(this.props.thing, true);
+      //   console.log(' (moved): '+this.state.super_key);
+
+      // } else {
+      //   var super_key = this.state.super_key;
+      //   mainEditor[super_key].setValue(this.props.thing, true);
+      //   console.log(" (didn't move): "+this.state.super_key);
+      // }
+
+
+
+      // this.handleDelete;
+      // var random = Math.floor(Math.random() * (999999 - 100000) + 100000);
+      // var self = this;
+      // var super_key = this.state.super_key;
+
+      // // self.props.editor.disable();
+
+      // console.log('self.props.editor: ' + self.state.editor);
+
+
+      // // $( "#main-content-"+super_key ).next('input[type=hidden]').remove();
+      // // $( "#main-content-"+super_key ).next('iframe.wysihtml5-sandbox').remove();
+
+      // // this.handleReRender;
+
+      // // console.log(mainEditor[super_key]);
+
+      // var entry = this.props.entry;
+      // var identifier = this.props.identifier;
+      // var wysihtml5ParserRules = require('../advanced.js');
+
+      // self.state.editor = new wysihtml5.Editor('main-content-'+super_key, {
+      //   toolbar:      "main-toolbar-" + super_key,
+      //   stylesheets:  "/css/wysihtml5.css",
+      //   parserRules:  wysihtml5ParserRules,
+      //   cleanUp:      true
+      // });
+
+      // self.state.editor.on("load", function () { 
+
+      //   var $iframe = $(this.composer.iframe);
+      //   var $body = $(this.composer.element);
+      //   console.log("mainEditor on load: "+ super_key + ' - ' + $iframe);
+      //   $iframe
+      //     .css({
+      //       'display':'inline-block'
+      //     });
+      //   $body
+      //     .css({
+      //       'min-height': 0,
+      //       'overflow': 'hidden',
+      //     })
+      //     .bind('keypress keyup keydown paste change focus blur load', function(e) {
+      //       var height = Math.min($body[0].scrollHeight, $body.height());
+      //       var extra = 25 ;
+      //       $iframe.height(height + extra);
+      //     });
+      //     // self.props.thing_un_moved({id: super_key});
+      // });
+
+      // function onFocus() { 
+      //   self.setState({active: true});
+      //   // self.props.thing_un_moved({id: super_key});
+      // };
+      
+      // self.state.editor.on("focus", onFocus);
+
+      // function onBlur() { 
+      //   self.setState({active: false});
+      //   // self.props.thing_un_moved({id: super_key});
+      // };
+
+      // self.state.editor.on("blur", onBlur);
+
+      // function onChange() { 
+      //   var stuff = self.state.editor.getValue();
+      //   self.props.content({id: self.props.identifier, content: self.state.editor.getValue()});
+      //   // self.props.thing_un_moved({id: super_key});
+      // };
+
+      // self.state.editor.on("change", onChange);
+
+      // function onLoad() { 
+      //   self.state.editor.on("load", function () {     
+      //     var $iframe = $(this.composer.iframe);
+      //     var $body = $(this.composer.element);
+          
+      //     var height = Math.min($body[0].scrollHeight, $body.height());
+      //     var extra = 25 ;
+      //     $iframe.height(height + extra);
+      //     // self.props.thing_un_moved({id: super_key});
+      //   });
+
+      //   // $( "#main-content-"+super_key ).next().next().css('display','inline-block');
+        
+        
+      // };
+
+      // self.state.editor.on("load", onLoad);
+
+
+      // // this.handleVisible;
+
+
+      // // $( "#main-content-"+super_key ).next().next().css('display','inline-block');
+
+      // // this.props.thing_un_moved({id: this.props.identifier});
+
+      // // self.state.editor = self.state.editor;
+
+      // self.props.thing_un_moved({id: super_key});
+    // }
+    
+
+  // },
+
+  setValue: function(){
+    var self = this;
+    self.state.editor.setValue(self.props.thing);
+
+    console.log('setValue to '+self.state.editor.getValue());
+
+  },
+
+  handleDelete: function(){
+    console.log('handleDelete');
+
+    var self = this;
+    var super_key = this.state.super_key;
+
+    $( "#main-content-"+super_key ).next('input[type=hidden]').remove();
+    $( "#main-content-"+super_key ).next('iframe.wysihtml5-sandbox').remove();
+  },
+
+  handleVisible: function(){
+    console.log('handleVisible');
+    var self = this;
+    var super_key = this.state.super_key;
+    $( "#main-content-"+super_key ).next().next().css('display','inline-block');
+  },
+
+  handleDup: function (){
+    console.log('handleDup');
+    var self = this;
+    var super_key = this.state.super_key;
+    mainEditor[super_key].setValue(this.props.thing, true);
+  },
+
+  handleReRender: function() {
+    console.log('rerender');
+
+
+
+    var self = this;
+    var entry = this.props.entry;
+    var identifier = this.props.identifier;
+    var super_key = this.state.super_key;
+    var wysihtml5ParserRules = require('../advanced.js');
+
+
+    mainEditor[super_key] = new wysihtml5.Editor('main-content-'+super_key, {
+      toolbar:      "main-toolbar-" + super_key,
+      stylesheets:  "/css/wysihtml5.css",
+      parserRules:  wysihtml5ParserRules,
+      cleanUp:      true
+    });
+
+    mainEditor[super_key].on("load", function () { 
+
+      var $iframe = $(this.composer.iframe);
+      var $body = $(this.composer.element);
+      
+      $body
+        .css({
+          'min-height': 0,
+          'overflow': 'hidden',
+        })
+        .bind('keypress keyup keydown paste change focus blur load', function(e) {
+          var height = Math.min($body[0].scrollHeight, $body.height());
+          var extra = 25 ;
+          $iframe.height(height + extra);
+        });
+        self.props.thing_un_moved({id: super_key});
+    });
+
+    function onFocus() { 
+      self.setState({active: true});
+      self.props.thing_un_moved({id: super_key});
+    };
+    
+    mainEditor[super_key].on("focus", onFocus);
+
+    function onBlur() { 
+      self.setState({active: false});
+      self.props.thing_un_moved({id: super_key});
+    };
+
+    mainEditor[super_key].on("blur", onBlur);
+
+    function onChange() { 
+      var stuff = mainEditor[super_key].getValue();
+      self.props.content({id: self.props.identifier, content: mainEditor[super_key].getValue()});
+      self.props.thing_un_moved({id: super_key});
+    };
+
+    mainEditor[super_key].on("change", onChange);
+
+    function onLoad() { 
+      console.log(' onLoad ' + self.props.identifier);
+      mainEditor[super_key].on("load", function () {     
+        var $iframe = $(this.composer.iframe);
+        var $body = $(this.composer.element);
+        
+        var height = Math.min($body[0].scrollHeight, $body.height());
+        var extra = 25 ;
+        $iframe.height(height + extra);
+        self.props.thing_un_moved({id: super_key});
+      });
+      
+
+    };
+
+    mainEditor[super_key].on("load", onLoad);
+
+    self.props.editor = mainEditor[super_key];
+
+    self.props.thing_un_moved({id: super_key});
   },
 
   handleClose: function() {
     this.props.removed({id: this.props.identifier});
+  },
+
+  handleSwapPrevious: function() {
+    this.props.swap_previous({id: this.props.identifier});
+  },
+
+  handleSwapNext: function() {
+    this.props.swap_next({id: this.props.identifier});
   },
 
   getScriptURL: function() {
@@ -1010,18 +1390,22 @@ var Column = React.createClass({displayName: 'Column',
   },
 
   onScriptLoaded: function() {
+
     var self = this;
     var entry = this.props.entry;
     var identifier = this.props.identifier;
+    var super_key = this.state.super_key;
     var wysihtml5ParserRules = require('../advanced.js');
-    mainEditor[self.props.entry+'-'+self.props.identifier] = new wysihtml5.Editor('main-content-'+entry+identifier, {
-      toolbar:      "main-toolbar-"+entry+identifier,
+
+    mainEditor[super_key] = new wysihtml5.Editor('main-content-'+super_key, {
+      toolbar:      "main-toolbar-" + super_key,
       stylesheets:  "/css/wysihtml5.css",
       parserRules:  wysihtml5ParserRules,
       cleanUp:      true
     });
 
-    mainEditor[self.props.entry+'-'+self.props.identifier].on("load", function () {     
+    mainEditor[super_key].on("load", function () { 
+
       var $iframe = $(this.composer.iframe);
       var $body = $(this.composer.element);
       
@@ -1041,23 +1425,23 @@ var Column = React.createClass({displayName: 'Column',
       self.setState({active: true});
     };
     
-    mainEditor[self.props.entry+'-'+self.props.identifier].on("focus", onFocus);
+    mainEditor[super_key].on("focus", onFocus);
 
     function onBlur() { 
       self.setState({active: false});
     };
 
-    mainEditor[self.props.entry+'-'+self.props.identifier].on("blur", onBlur);
+    mainEditor[super_key].on("blur", onBlur);
 
     function onChange() { 
-      self.props.content({id: self.props.identifier, content: mainEditor[self.props.entry+'-'+self.props.identifier].getValue()});
+      var stuff = mainEditor[super_key].getValue();
+      self.props.content({id: self.props.identifier, content: mainEditor[super_key].getValue()});
     };
 
-    mainEditor[self.props.entry+'-'+self.props.identifier].on("change", onChange);
+    mainEditor[super_key].on("change", onChange);
 
     function onLoad() { 
-
-      mainEditor[self.props.entry+'-'+self.props.identifier].on("load", function () {     
+      mainEditor[super_key].on("load", function () {     
         var $iframe = $(this.composer.iframe);
         var $body = $(this.composer.element);
         
@@ -1068,8 +1452,9 @@ var Column = React.createClass({displayName: 'Column',
 
     };
 
-    mainEditor[self.props.entry+'-'+self.props.identifier].on("load", onLoad);
+    mainEditor[super_key].on("load", onLoad);
 
+    self.setState({ editor: mainEditor[super_key] });
   },
  
   onScriptError: function() {
@@ -1081,13 +1466,27 @@ var Column = React.createClass({displayName: 'Column',
   },
 
   render: function() {
+    var self = this;
     var entry = this.props.entry;
     var value = this.props.thing; 
+    var super_key = this.state.super_key;
     var className = this.state.active ? 'content-container active' : 'content-container';
+
+    // console.log('self.state.editor: '+util.inspect(self.state.editor));
+    if (self.state.editor.setValue) {
+      self.state.editor.setValue(self.props.thing);
+        var $iframe = $(self.state.editor.composer.iframe);
+        var $body = $(self.state.editor.composer.element);
+        
+        var height = Math.min($body[0].scrollHeight, $body.height());
+        var extra = 25 ;
+        $iframe.height(height + extra);  
+    }
+
     return ( 
       React.DOM.div({className: className, ref: "contentwrapper"}, 
         React.DOM.div({className: "post-form"}, 
-          React.DOM.div({id: 'main-toolbar-'+entry+this.props.identifier, className: "toolbar"}, 
+          React.DOM.div({id: 'main-toolbar-'+super_key, className: "toolbar"}, 
             React.DOM.span({className: "section"}, 
               React.DOM.a({className: "fa fa-bold", 'data-wysihtml5-command': "bold", title: "CTRL+B"}), 
               React.DOM.a({className: "fa fa-italic", 'data-wysihtml5-command': "italic", title: "CTRL+I"})
@@ -1112,17 +1511,21 @@ var Column = React.createClass({displayName: 'Column',
             React.DOM.span({className: "section"}, 
               React.DOM.a({className: "fa fa-minus", 'data-wysihtml5-command': "insertHTML", 'data-wysihtml5-command-value': "<hr>"}), 
               React.DOM.a({className: "fa fa-quote-right", 'data-wysihtml5-command': "formatBlock", 'data-wysihtml5-command-value': "blockquote"})
+            ), 
+             React.DOM.div({className: "position-control"}, 
+              React.DOM.span({className: "move up", onClick: this.handleSwapPrevious}), 
+              React.DOM.span({className: "move down", onClick: this.handleSwapNext})
             )
           ), 
           React.DOM.a({className: "close-link", onClick: this.handleClose}, "×"), 
-          React.DOM.textarea({ref: "content", id: 'main-content-'+entry+this.props.identifier, className: "main content", name: "content", placeholder: "Type New Content Here...", value: value, readOnly: true})
+          React.DOM.textarea({ref: "content", id: 'main-content-'+this.state.super_key, className: "main content", name: "content", placeholder: "Type New Content Here...", value: value, readOnly: true})
         )
       ) )
   }
 });
 
 module.exports = Column;
-},{"../ReactScriptLoader.js":1,"../advanced.js":2,"react":150}],5:[function(require,module,exports){
+},{"../ReactScriptLoader.js":1,"../advanced.js":2,"react":150,"util":157}],5:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -1162,6 +1565,14 @@ var imageUploader = React.createClass({displayName: 'imageUploader',
     self.props.removed({id: self.props.identifier});
     self.setState({active: false});
 
+  },
+
+  handleSwapPrevious: function() {
+    this.props.swap_previous({id: this.props.identifier});
+  },
+
+  handleSwapNext: function() {
+    this.props.swap_next({id: this.props.identifier});
   },
 
   getScriptURL: function() {
@@ -1213,6 +1624,10 @@ var imageUploader = React.createClass({displayName: 'imageUploader',
 
     return ( 
       React.DOM.div({className: className, ref: "contentwrapper"}, 
+        React.DOM.div({className: "position-control"}, 
+          React.DOM.span({className: "move up", onClick: this.handleSwapPrevious}), 
+          React.DOM.span({className: "move down", onClick: this.handleSwapNext})
+        ), 
         image.image_url ?  
           React.DOM.div({className: "uploaded-image"}, 
             React.DOM.img({src: "https://s3.amazonaws.com/footballbyfootball-dev"+image.image_url})
