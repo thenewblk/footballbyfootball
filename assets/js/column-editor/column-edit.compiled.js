@@ -877,7 +877,7 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
       new_data.splice( content.id - 1, 2, temp_thing_1, temp_thing_2);
       this.setState({data: new_data});
     } else {
-      alert("you fucked up");
+      alert("You've reached the top.");
     }
 
   },
@@ -892,7 +892,7 @@ var ColumnList = React.createClass({displayName: 'ColumnList',
       new_data.splice( content.id, 2, temp_thing_2, temp_thing_1);
       this.setState({data: new_data});
     } else {
-      alert("you fucked up");
+      alert("You've reached the end.");
     }
   }, 
 
