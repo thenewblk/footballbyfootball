@@ -146,10 +146,6 @@ var Column = React.createClass({
               <a data-wysihtml5-dialog-action="save">OK</a>
               <a data-wysihtml5-dialog-action="cancel">Cancel</a>
             </div>
-             <div className="position-control">
-              <span className="move up" onClick={this.handleSwapPrevious}></span>
-              <span className="move down" onClick={this.handleSwapNext}></span>
-            </div>
           </div>
           <div ref='content' id={'main-content'} className="main content" name="content" placeholder='Type New Content Here...' value={value} readOnly></div>
         </div>

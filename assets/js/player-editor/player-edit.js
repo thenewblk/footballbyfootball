@@ -11,7 +11,7 @@ var Column = require('./contentEditor.jsx'),
 
 var Content = window.Content || {};
 
-var dz = require('../dropzone.js');
+// var dz = require('../dropzone.js');
 
 var ColumnList = React.createClass({  
   getInitialState: function() {
@@ -23,9 +23,19 @@ var ColumnList = React.createClass({
   },
 
   componentWillMount: function(){
+    var self = this;
 
-    if(this.props) {
-      this.setState(this.props);
+    if(self.props) {
+      self.setState(this.props);
+    }
+    console.log('self.state.image_url: '+self.props.image_url);
+    var tmp_image = self.props.image_url;
+    var s3_url = "https://s3.amazonaws.com/footballbyfootball-dev";
+    console.log( String(tmp_image).indexOf(s3_url, 0) === 0 );
+    if (String(tmp_image).indexOf(s3_url, 0) === 0) {
+      // self.setState({image_url: tmp_image});
+    } else {
+      self.setState({image_url: s3_url + tmp_image});
     }
 
     console.log(util.inspect(this.state));
@@ -105,8 +115,9 @@ var ColumnList = React.createClass({
     return (
       <div className="col-md-8 col-md-offset-2">
               <h2>Edit Player</h2>
-              <h3 className="subtitle"><input key={'subtitle'} className='column-title-tag' type="text" value={name} onChange={this.handleNameChange} placeholder="Name" /></h3>
+              <h3 className="subtitle"><input key={'subtitle'} className='player-title-tag' type="text" value={name} onChange={this.handleNameChange} placeholder="Name" /></h3>
               <Image 
+                key={Math.random()}
                 identifier='main'
                 image_url={image_url}
                 removed={self.removeImage}
@@ -117,7 +128,6 @@ var ColumnList = React.createClass({
                 content={self.handleDescription}
                  />
             {this.state.submitted ? <a className='article-submit'><span className="fa fa-circle-o-notch fa-spin"></span></a> : <a className='article-submit' onClick={this.submitContent}>submit</a> }
-            <a className='article-submit' onClick={this.testContent}>test</a>
       </div>
       
     )

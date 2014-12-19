@@ -61,6 +61,13 @@ body.column {
 	// display: inline-block;
 }
 
+input.player-title-tag {
+	border: #ccc solid 1px;
+	line-height: 38px;
+	width: 100%;
+	padding: 5px 15px;
+}
+
 .post-form{
 	.toolbar {
 		line-height: 40px;
@@ -106,6 +113,8 @@ body.column {
 			}
 		}
 	}
+
+
 	// .toolbar:after {
 	// 	content: '';
 	// 	border: 10px solid #ddd;
