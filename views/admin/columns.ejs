@@ -1,0 +1,33 @@
+<% include ../header %>
+
+<div class="main-articles">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2>Columns</h2>
+				<p><a class="article-submit" href="/column/new"><span class="fa fa-plus"></span> New Column</a></p>	
+				<% var tmp_date = ''; %>
+				<% columns.forEach(function(column){ %>
+					<% if (column.updated_at == tmp_date) { %>
+				    <div class="thing">
+				    	<p><a href="/column/<%= column.slug %>"><%= column.title %></a>
+				    	<span style="float:right"><%= column.updated_at %></span></p>
+				    </div>
+				   <% } else { %> 
+				   	<% tmp_date = column.updated_at %>
+				   	<div class="thing">
+					   	<hr class="bottom">
+							<p class="date"><%= tmp_date %></p>
+						</div>
+						<div class="thing">
+				    	<p><a href="/column/<%= column.slug %>"><%= column.title %></a>
+				    	<span style="float:right"><%= column.updated_at %></span></p>
+				    </div>
+				   <% } %>
+			  <% }) %>
+		  </div>
+		</div>
+	</div>
+</div>	
+
+<% include ../footer %>

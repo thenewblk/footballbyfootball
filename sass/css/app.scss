@@ -1,3 +1,7 @@
+html, body {
+	height: 100%;
+}
+
 body {
 	background: #222;
 	color: #000;
@@ -145,7 +149,7 @@ input.player-title-tag {
 		line-height: 20px;
 	  width: 100%;
 	  margin: 0;
-	  padding: 0 15px 15px;
+	  padding: 15px;
 	  border-color: transparent;
 	  border: none;
 	}
@@ -758,6 +762,7 @@ img {
 	padding: 5px 0;
 	line-height: 3;
 	margin: 0;
+	position: relative;
 
 	.today, .logo {
 		display: inline-block;
@@ -842,18 +847,21 @@ img {
 .lockerroom {
 	background: red;
 	.lockerroom-header {
-		height: 600px;
+		height: 100%;
+		width: 100%;
+		display: table;
 		background-position: center;
 		background-size: cover;
 		position: relative;
 		.title {
 			color: white;
-			position: absolute;
-			bottom: 30px;
 			font-size: 80px;
 			word-break: normal;
 			width: 100%;
 			padding: 0 30px;
+			text-align: center;
+			display: table-cell;
+			vertical-align: middle;
 		}
 	}
 	.lockerroom-content {
@@ -958,8 +966,10 @@ img {
 	vertical-align: middle;
 }
 .lockerroom-controls {
-	margin-top: -50px;
-	position: relative;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
 
 	.locker-author-wrap {
 		display: table;
@@ -967,11 +977,13 @@ img {
 	}
 	.author-image-wrap {
 		display: table-cell;
+		position: relative;
 		.author-image {
 			display: table;
 			margin: 5px auto;
 			box-shadow: 0 0 5px black;
 			transition: 0.15s ease-in-out;
+			background-color: white;
 			&:hover {
 				z-index: 1000;
 				box-shadow: 0 5px 20px black;
@@ -979,6 +991,123 @@ img {
 		}
 
 	}
+}
+.lockerroom-responses {
+	background: white;
+	position: absolute;
+	left: 15px;
+	z-index: 1;
+	display: none;
+	bottom: 100px;
+	top: 15px;
+	right: 15px;
+	overflow: scroll;
+	padding: 15px 0;
+}
+
+.row.response.active {
+	display: block;
+}
+
+.row.response {
+	display: none;
+}
+
+.lockerroom-responses-up {
+	.lockerroom-responses {
+		display: block;
+	}
+}
+
+.lockerroom-response-control {
+	cursor: pointer;
+}
+
+.lockerroom-response-control.active:before {
+	position: absolute;
+	content: '';
+	width: 0;
+	height: 0;
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;
+	border-top: 15px solid white;
+	left: 50%;
+	margin-left: -15px;
+	top: -20px;
+}
+
+.close-lockerroom-responses {
+	color: black;
+	font-size: 40px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 20px;
+	line-height: 15px;
+	cursor: pointer;
+	transition: .15s ease-in-out;
+	z-index: 10;
+}
+
+.close-lockerroom-responses:hover {
+	opacity: 0.7;
+}
+
+.next-lockerroom-response {
+	height: 20px;
+	width: 20px;
+	border: black solid 2px;
+	border-bottom: none;
+	border-left: none;
+	transform: rotate(45deg); 
+	-webkit-transform: rotate(45deg); 
+	position: absolute;
+	right: 20px;
+	top: 50%;
+	margin-top: -21px;
+	cursor: pointer;
+	transition: .15s ease-in-out;
+	z-index: 10;
+}
+
+.next-lockerroom-response:hover {
+	opacity: 0.7;
+}
+
+.prev-lockerroom-response {
+	height: 20px;
+	width: 20px;
+	border: black solid 2px;
+	border-top: none;
+	border-right: none;
+	transform: rotate(45deg); 
+	-webkit-transform: rotate(45deg); 
+	position: absolute;
+	left: 20px;
+	top: 50%;
+	margin-top: -21px;
+	cursor: pointer;
+	transition: .15s ease-in-out;
+	z-index: 10;
+}
+
+.prev-lockerroom-response:hover {
+	opacity: 0.7;
+}
+
+.lockerroom .title .subtitle {
+	font-size: 20px;
+	line-height: 1;
+	display: block;
+}
+
+.response-wrapper {
+	height: 100%;
+	overflow: scroll;
+}
+
+.lockerroom .lockerroom-responses .lockerroom-entry .lockerrooom-entry-content {
+	background: transparent;
 }
 
 .locker-authors {
@@ -996,6 +1125,7 @@ img {
 		.author-image {
 			display: table;
 			margin: 5px auto;
+			background-color: white;
 		}
 	}
 }
@@ -1812,6 +1942,22 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	overflow: hidden;
 }
 
+.lines-button {
+	display: none;
+}
+
+.article-links.social:hover {
+	opacity: 0.7;
+}
+
+.post-form .embed-area {
+	width: 100%;
+	margin-top: 40px;
+	border: none;
+	border-top: 1px solid #eee;
+	outline: none;
+}
+
 @media (max-width: 991px) {
 	.medium-article {
 		margin-top: 20px;
@@ -1824,16 +1970,11 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	}
 	.lockerroom {
 		.lockerroom-header {
-			height: 300px;
 			background-position: center;
 			background-size: cover;
 			position: relative;
 			.title {
-				color: white;
-				position: absolute;
-				bottom: 30px;
 				font-size: 40px;
-				margin-top: 0;
 			}
 		}
 	}
@@ -1842,9 +1983,118 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	}
 }
 
-
+.article-links.social {
+	font-size: 20px;
+	line-height: 0px;
+}
 
 @media (max-width: 480px) {
+	.lines-button {
+		display: inline-block;
+		cursor: pointer;
+		position: absolute;
+		right: 15px;
+		top: 7px;
+	}
+
+
+	$button-size: 30px;
+	$color: white;
+	$transition: 0.15s ease-in-out;
+
+	@mixin line {
+	  display: inline-block;
+	  width: 30px;
+	  height: 3px;
+	  background: white;
+	  transition: 0.15s ease-in-out;
+	  border-radius: 0;
+	}
+
+	.lockerroom {
+		.lines {
+	    //create middle line
+	    display: inline-block;
+		  width: 30px;
+		  height: 3px;
+		  background: black;
+		  transition: 0.15s ease-in-out;
+		  border-radius: 0;
+	    position: relative; 
+	    vertical-align: middle;
+	   
+	    /*create the upper and lower lines as pseudo-elements of the middle line*/
+	    &:before, &:after {
+	     
+	     	display: inline-block;
+			  width: 30px;
+			  height: 3px;
+			  background: black;
+			  transition: 0.15s ease-in-out;
+			  border-radius: 0;
+	      position: absolute;
+	      left:0;
+	      content: '';
+	      transform-origin: 5px center;
+	    }
+	    &:before { top: 8px; }
+	    &:after { top: -8px; }
+		}
+	}
+
+	.lines {
+	    //create middle line
+	    display: inline-block;
+		  width: 30px;
+		  height: 3px;
+		  background: white;
+		  transition: 0.15s ease-in-out;
+		  border-radius: 0;
+	    position: relative; 
+	    vertical-align: middle;
+	   
+	    /*create the upper and lower lines as pseudo-elements of the middle line*/
+	    &:before, &:after {
+	     
+	     	display: inline-block;
+			  width: 30px;
+			  height: 3px;
+			  background: white;
+			  transition: 0.15s ease-in-out;
+			  border-radius: 0;
+	      position: absolute;
+	      left:0;
+	      content: '';
+	      transform-origin: 5px center;
+	    }
+	    &:before { top: 8px; }
+	    &:after { top: -8px; }
+	}
+	.lines-button.x {
+
+	}
+
+	.lines-button.x .lines{
+	    /*hide the middle line*/
+	    background: transparent;
+	 
+	    /*overlay the lines by setting both their top values to 0*/
+	    &:before, &:after{
+	      transform-origin: 50% 50%;
+	      top:0;
+	      width: 30px;
+	    }
+	 
+	    // rotate the lines to form the x shape
+	    &:before{
+	      -webkit-transform: rotate3d(0, 0, 1, 45deg);
+	      transform: rotate3d(0,0,1,45deg); 
+	    }
+	    &:after{
+	      -webkit-transform: rotate3d(0, 0, 1, -45deg);
+	      transform: rotate3d(0,0,1,-45deg); 
+	    }
+	}
 	body {
 		margin-top: 0 !important;
 	}
@@ -1859,10 +2109,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 	.lockerroom {
 		.lockerroom-header {
-			height: auto;
 			.title {
-				position: relative;
-				padding-top: 170px;
 			}
 		}
 		.lockerrooom-entry-title {
@@ -1894,7 +2141,16 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	}
 
 	.lockerroom-controls {
-		margin-top: -25px;
+	}
+	.lockerroom-responses {
+		bottom: 55px;
+		top: 0;
+		left: 0;
+		right: 0;
+	}
+
+	.next-lockerroom-response, .prev-lockerroom-response {
+		display: none;
 	}
 
 	.lockerroom .lockerroom-entry .lockerrooom-entry-title .author-image {
@@ -1919,5 +2175,40 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	.author-image {
 		height: 30px;
 		width: 30px;
+	}
+
+	.topbar {
+		.right-side {
+			display: none;
+		}
+		.right-side.active {
+			display: block;
+			float: none;
+			text-align: center;
+			border-top: #eee solid 1px;
+			margin-top: 10px;
+			
+			.article-links {
+				display: block;
+				border-bottom: #eee solid 1px;
+			}
+
+			.article-links.social {
+				display: inline-block;
+				border-bottom: none;
+			}
+		}
+
+	}
+	.lockerroom-controls {
+
+		.author-image-wrap {
+			.author-image:hover {
+					z-index: auto;
+					box-shadow: none;
+				
+			}
+
+		}
 	}
 }

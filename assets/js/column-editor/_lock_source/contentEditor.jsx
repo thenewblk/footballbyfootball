@@ -91,11 +91,23 @@ var Column = React.createClass({
     function onChange() { 
       var stuff = mainEditor[super_key].getValue();
       self.props.content({id: self.props.identifier, content: mainEditor[super_key].getValue()});
-
-      console.log('selection: '+util.inspect(mainEditor[super_key]));
     };
 
     mainEditor[super_key].on("change", onChange);
+
+    // function onLoad() { 
+    //   mainEditor[super_key].on("load", function () {     
+    //     var $iframe = $(this.composer.iframe);
+    //     var $body = $(this.composer.element);
+        
+    //     var height = Math.min($body[0].scrollHeight, $body.height());
+    //     var extra = 25 ;
+    //     $iframe.height(height + extra);
+    //   });
+
+    // };
+
+    // mainEditor[super_key].on("load", onLoad);
 
     self.setState({ editor: mainEditor[super_key] });
   },
@@ -113,6 +125,7 @@ var Column = React.createClass({
     var entry = this.props.entry;
     var value = this.props.thing; 
     var super_key = this.state.super_key;
+    var className = this.state.active ? 'content-container active' : 'content-container';
 
     if (self.state.editor.setValue) {
       self.state.editor.setValue(self.props.thing);
@@ -122,7 +135,7 @@ var Column = React.createClass({
     }
 
     return ( 
-      <div className='content-container' ref='contentwrapper'>
+      <div className={className} ref='contentwrapper'>
         <div className="post-form">
           <div id={'main-toolbar-'+super_key} className="toolbar">
             <span className="section">
@@ -151,9 +164,10 @@ var Column = React.createClass({
               <a className="fa fa-minus" data-wysihtml5-command="insertHTML" data-wysihtml5-command-value="<hr>"></a>
               <a className="fa fa-quote-right" data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="blockquote"></a>
             </span>
-            <span className="section"> 
+            <span className="section">
               <a className="fa fa-link" data-wysihtml5-command="createLink"></a>
               <a className="fa fa-unlink" data-wysihtml5-command="removeLink"></a>
+              
             </span>
             <div className="link_dialog" data-wysihtml5-dialog="createLink" style={divStyle}>
               <span>Link:</span>
@@ -162,12 +176,12 @@ var Column = React.createClass({
               <a data-wysihtml5-dialog-action="cancel">Cancel</a>
             </div>
              <div className="position-control">
-              <span className="move up" onClick={self.handleSwapPrevious}></span>
-              <span className="move down" onClick={self.handleSwapNext}></span>
+              <span className="move up" onClick={this.handleSwapPrevious}></span>
+              <span className="move down" onClick={this.handleSwapNext}></span>
             </div>
           </div>
-          <a className="close-link" onClick={self.handleClose}>×</a>
-          <div id={'main-content-'+self.state.super_key} className="main content" name="content" placeholder='Type New Content Here...' value={value}></div>
+          <a className="close-link" onClick={this.handleClose}>×</a>
+          <div ref='content' id={'main-content-'+this.state.super_key} className="main content" name="content" placeholder='Type New Content Here...' value={value} readOnly></div>
         </div>
       </div> )
   }

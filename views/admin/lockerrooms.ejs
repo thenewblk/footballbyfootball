@@ -1,0 +1,33 @@
+<% include ../header %>
+
+<div class="main-articles">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2>Locker Rooms</h2>
+				<p><a class="article-submit" href="/lockerroom/new"><span class="fa fa-plus"></span> New Locker Room</a></p>	
+				<% var tmp_date = ''; %>
+				<% lockerrooms.forEach(function(lockerroom){ %>
+					<% if (lockerroom.updated_at == tmp_date) { %>
+				    <div class="thing">
+				    	<p><a href="/lockerroom/<%= lockerroom.slug %>"><%= lockerroom.title %></a>
+				    	<span style="float:right"><%= lockerroom.updated_at %></span></p>
+				    </div>
+				   <% } else { %> 
+				   	<% tmp_date = lockerroom.updated_at %>
+				   	<div class="thing">
+					   	<hr class="bottom">
+							<p class="date"><%= tmp_date %></p>
+						</div>
+						<div class="thing">
+				    	<p><a href="/lockerroom/<%= lockerroom.slug %>"><%= lockerroom.title %></a>
+				    	<span style="float:right"><%= lockerroom.updated_at %></span></p>
+				    </div>
+				   <% } %>
+			  <% }) %>
+		  </div>
+		</div>
+	</div>
+</div>	
+
+<% include ../footer %>

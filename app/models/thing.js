@@ -1,7 +1,7 @@
 var mongoose = require( 'mongoose' );
 
 var thingSchema = mongoose.Schema({
-		id: String,
+	id: String,
     url: String,
     title: String,
     content: String,

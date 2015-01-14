@@ -43,6 +43,9 @@
 								<% if (item.caption) { %><p class="ap-image"><%= item.caption %></p><% } %>
 							</div>
 						<%}%>
+						<% if (item.type == 'embed') { %>
+							<%- item.content %>
+						<%}%>
 					<% }); %>
 
 				</div>				

@@ -1,10 +1,8 @@
 <%= include ../header %>	
 <script>
-	window.Content = <%- JSON.stringify(column) %>;
+	window.slug = <%- JSON.stringify(column.slug) %>;
 	window.Players = <%- JSON.stringify(players) %>;
 </script>
-
-
 
 <div id='react-content'></div>
 

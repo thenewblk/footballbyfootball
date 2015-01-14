@@ -7,10 +7,11 @@ var React = require('react'),
     moment = require('moment'),
     util = require('util');
 
-var Column = require('./contentEditor.jsx'),
-    Image = require('./imageUploader.jsx');
+var Column = require('./trumboEditor.jsx'),
+    Image = require('./imageUploader.jsx'),
+    Embed = require('./embedEditor.jsx');
 
-var Content = window.Content || {};
+var Content = window.slug || {};
 
 var Players = window.Players || {};
 
@@ -34,9 +35,18 @@ var ColumnList = React.createClass({
 
   componentWillMount: function(){
 
-    if(this.props) {
-      this.setState(this.props);
-    }
+    // if(Content) {
+    //   this.setState({slug: Content});
+    // }
+
+    var self = this;
+    request
+      .get('/api/column/'+Content)
+      .end(function(res) {
+        console.log(res.text);
+        self.setState(JSON.parse(res.text));
+      }.bind(self));
+
 
   },
 
@@ -77,6 +87,31 @@ var ColumnList = React.createClass({
     new_data.splice(content.id,1);
     this.setState({data: new_data});
     console.log('removeImage: after new_data: '+ JSON.stringify(new_data));
+  },
+
+  // 
+  // Embed Events
+  // 
+
+  addEmbed: function(){
+    var current_data = this.state.data;
+    var tmp_content = {type: 'embed', content: '',  };
+    var new_data = current_data.concat(tmp_content);
+    this.setState({data: new_data});
+  },
+
+  handleEmbed: function(content){
+    var old_data = this.state.data;
+    old_data[content.id].content = content.content;
+    this.setState({data: old_data});
+  },
+
+  removeContent: function(content){
+    var new_data = this.state.data;
+    console.log('removeEmbed: before new_data: '+ JSON.stringify(new_data));
+    new_data.splice(content.id,1);
+    this.setState({data: new_data});
+    console.log('removeContent: after new_data: '+ JSON.stringify(new_data));
   },
 
   // 
@@ -296,8 +331,25 @@ var ColumnList = React.createClass({
           thing_un_moved={self.unMoved}
 
           swap_previous={self.swapPreviousThing}
-          swap_next={self.swapNextThing}
-           />;
+          swap_next={self.swapNextThing} />;
+      }
+      if ( object.type == 'embed' ) {
+        if(object.id){
+
+        } else {
+          object.id = Math.floor(Math.random() * (999999 - 100000) + 100000);
+        }
+        var moved = object.thing_moved;
+
+        return <Embed
+          ref={'content-'+i}
+          identifier={i}
+          thing={object.content}
+          content={self.handleContent}
+          removed={self.removeContent}
+
+          swap_previous={self.swapPreviousThing}
+          swap_next={self.swapNextThing} />;
       }
       if ( object.type == 'image' ) {
         return <Image 
@@ -309,8 +361,7 @@ var ColumnList = React.createClass({
           content={self.handleImage} 
           removed={self.removeImage}
           swap_previous={self.swapPreviousThing}
-          swap_next={self.swapNextThing}
-           />;
+          swap_next={self.swapNextThing} />;
       }
     });
 
@@ -354,6 +405,7 @@ var ColumnList = React.createClass({
             <div className="contentbar">
               <p className="content-link" onClick={this.addContent}>Add Text</p>
               <p className="content-link" onClick={this.addImage}>Add Image</p>
+              <p className="content-link" onClick={this.addEmbed}>Add Embed</p>
             </div>
             {this.state.submitted ? <a className='article-submit'><span className="fa fa-circle-o-notch fa-spin"></span></a> : <a className='article-submit' onClick={this.submitContent}>submit</a> }
           </div>
@@ -386,6 +438,6 @@ var ColumnList = React.createClass({
 
 
 React.renderComponent(
-  ColumnList(Content),
+  ColumnList(),
   document.getElementById('react-content')
 )

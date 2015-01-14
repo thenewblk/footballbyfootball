@@ -8,7 +8,10 @@ var jshint = require('gulp-jshint'),
 		concat = require('gulp-concat'),
 		uglify = require('gulp-uglify'),
 		rename = require('gulp-rename'),
-		nodemon = require('gulp-nodemon');
+		nodemon = require('gulp-nodemon'),
+        browserify = require('browserify'),
+        reactify = require('reactify'),
+        source = require('vinyl-source-stream');
 
 // Lint Task
 gulp.task('lint', function() {
@@ -24,6 +27,34 @@ gulp.task('sass', function() {
         .pipe(gulp.dest('assets/css'));
 });
 
+// // Compile Our React Stuff
+// gulp.task('react-column', function() {
+//     // Browserify/bundle the JS.
+//     browserify('./assets/js/column-editor/_col_source/column-edit.js')
+//         .transform(reactify)
+//         .bundle()
+//         .pipe(source('column-edit.compiled.js'))
+//         .pipe(gulp.dest('assets/js/column-editor/'));
+// });
+
+// // Compile Our React Stuff
+// gulp.task('react-lock', function() {
+//     // Browserify/bundle the JS.
+//     browserify('./assets/js/column-editor/_lock_source/lockerroom-edit.js')
+//         .transform(reactify)
+//         .bundle()
+//         .pipe(source('lockerroom-edit.compiled.js'))
+//         .pipe(gulp.dest('assets/js/column-editor/'));
+// });
+// // Compile Our React Stuff
+// gulp.task('react-player', function() {
+//     // Browserify/bundle the JS.
+//     browserify('./assets/js/player-editor/player-edit.js')
+//         .transform(reactify)
+//         .bundle()
+//         .pipe(source('player-edit.compiled.js'))
+//         .pipe(gulp.dest('assets/js/player-editor/'));
+// });
 // Concatenate & Minify JS
 // gulp.task('scripts', function() {
 //     return gulp.src('js/*.js')
@@ -36,7 +67,9 @@ gulp.task('sass', function() {
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-    // gulp.watch('js/*.js', ['lint', 'scripts']);
+//     gulp.watch('./assets/js/column-editor/_col_source/*.*', ['react-column']);
+//     gulp.watch('./assets/js/column-editor/_lock_source/*.*', ['react-lock']);
+//     gulp.watch('./assets/js/player-editor/_source/*.*', ['react-player']);
     gulp.watch('sass/css/*.scss', ['sass']);
 });
 

@@ -1,0 +1,13 @@
+<div class="main-articles">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2>Players</h2>
+				<% players.forEach(function(player){ %>
+			    <p><a href="/player/<%= player.id %>"><%= player.name %></a></p>
+			  <% }) %>
+			  <p><a href="/player/new"><span class="fa fa-plus"></span> New Player</a></p>	
+		  </div>
+		</div>
+	</div>
+</div>	

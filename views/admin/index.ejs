@@ -6,48 +6,29 @@
 			<div class="col-md-6">
 				<h2>Columns</h2>
 				<p><a class="article-submit" href="/column/new"><span class="fa fa-plus"></span> New Column</a></p>	
-				<% var tmp_date = ''; %>
 				<% columns.forEach(function(column){ %>
-					<% if (column.updated_at == tmp_date) { %>
 				    <div class="thing">
 				    	<p><a href="/column/<%= column.slug %>"><%= column.title %></a>
-				    	<span style="float:right"><%= column.updated_at %></span></p>
+				    	<span style="float:right"><a href="/column/<%= column.slug %>/edit">Edit</a></span></p>
 				    </div>
-				   <% } else { %> 
-				   	<% tmp_date = column.updated_at %>
-				   	<div class="thing">
-					   	<hr class="bottom">
-							<p class="date"><%= tmp_date %></p>
-						</div>
-						<div class="thing">
-				    	<p><a href="/column/<%= column.slug %>"><%= column.title %></a>
-				    	<span style="float:right"><%= column.updated_at %></span></p>
-				    </div>
-				   <% } %>
 			  <% }) %>
+			  <div class="thing">
+		    	<h5><a href="/admin/columns/">All Columns</a></h5>
+		    </div>
 		  </div>
 			<div class="col-md-6">
 				<h2>Locker Rooms</h2>
 				<p><a class="article-submit" href="/lockerroom/new"><span class="fa fa-plus"></span> New Locker Room</a></p>	
-				<% var tmp_date = ''; %>
+
 				<% lockerrooms.forEach(function(lockerroom){ %>
-					<% if (lockerroom.updated_at == tmp_date) { %>
-				    <div class="thing">
-				    	<p><a href="/lockerroom/<%= lockerroom.slug %>"><%= lockerroom.title %></a>
-				    	<span style="float:right"><%= lockerroom.updated_at %></span></p>
-				    </div>
-				   <% } else { %> 
-				   	<% tmp_date = lockerroom.updated_at %>
-				   	<div class="thing">
-					   	<hr class="bottom">
-							<p class="date"><%= tmp_date %></p>
-						</div>
-						<div class="thing">
-				    	<p><a href="/lockerroom/<%= lockerroom.slug %>"><%= lockerroom.title %></a>
-				    	<span style="float:right"><%= lockerroom.updated_at %></span></p>
-				    </div>
-				   <% } %>
+			    <div class="thing">
+			    	<p><a href="/lockerroom/<%= lockerroom.slug %>"><%= lockerroom.title %></a>
+			    	<span style="float:right"><a href="/lockerroom/<%= lockerroom.slug %>/edit">Edit</a></span></p>
+			    </div>
 			  <% }) %>
+			  <div class="thing">
+		    	<h5><a href="/admin/lockerrooms/">All Lockerrooms</a></h5>
+		    </div>
 		  </div>
 		</div>
 		<div class="row">
@@ -55,28 +36,23 @@
 				<h2>Links</h2>
 				<p><a class="article-submit" href="/link/new"><span class="fa fa-plus"></span> New Link</a></p>
 				<% links.forEach(function(link){ %>
-					<% if (link.updated_at == tmp_date) { %>
+
 				    <div class="thing">
 				    	<p><a href="/link/<%= link.slug %>/edit"><%= link.title %></a>
-				    	<span style="float:right"><%= link.updated_at %></span></p>
+				    	<span style="float:right"><a href="/link/<%= link.slug %>/edit">Edit</a></span></p>
 				    </div>
-				   <% } else { %> 
-				   	<% tmp_date = link.updated_at %>
-				   	<div class="thing">
-					   	<hr class="bottom">
-							<p class="date"><%= tmp_date %></p>
-						</div>
-						<div class="thing">
-				    	<p><a href="/link/<%= link.slug %>/edit">Edit <%= link.title %></a>
-				    	<span style="float:right"><%= link.updated_at %></span></p>
-				    </div>
-				   <% } %>
+
 			  <% }) %>	
+
+			  <div class="thing">
+		    	<h5><a href="/admin/links/">All Links</a></h5>
+		    </div>
 			</div>
 			<div class="col-md-6">
 				<h2>Players</h2>
 				<% players.forEach(function(player){ %>
-			    <p><a href="/player/<%= player.id %>"><%= player.name %></a></p>
+			    <p><a href="/player/<%= player.id %>"><%= player.name %></a>
+			    <span style="float:right"><a href="/player/<%= player.id %>/edit">Edit</a></span></p>
 			  <% }) %>
 			  <p><a href="/player/new"><span class="fa fa-plus"></span> New Player</a></p>	
 		  </div>
