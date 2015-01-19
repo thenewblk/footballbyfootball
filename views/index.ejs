@@ -39,6 +39,7 @@
 				</div>
 				<div class="col-md-3">
 					<div class="home-column-sidebar">
+						<div class="home-column-overlay"><span class="up_arrow"></span></div>
 						<h2 class="lr-sidebar-title">Most Recent</h2>
 						<%	entries.splice(5,10).forEach(function(entry, index){ %>
 							<% if (entry.type != 'lockerroom') { %> 
@@ -51,6 +52,7 @@
 				</div>
 				<div class="col-md-3">
 					<div class="home-column-sidebar">
+						<div class="home-column-overlay"><span class="up_arrow"></span></div>
 						<h2 class="lr-sidebar-title">Other News</h2>
 						<% links.forEach(function(link, index){ %>
 							<h5 class="lr-sidebar-link"><a href="<%= link.link %>" target="_blank"><%= link.title %></a></h5>

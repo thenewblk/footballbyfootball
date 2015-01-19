@@ -7,7 +7,7 @@ var React = require('react'),
     moment = require('moment'),
     util = require('util');
 
-var Column = require('./contentEditor.jsx'),
+var Column = require('./trumboEditor.jsx'),
     Image = require('./imageUploader.jsx');
 
 var Locker = window.Locker || {};
@@ -175,9 +175,15 @@ var LockerEntry = React.createClass({
 
     var columns = this.state.data.map(function(object, i) {
       if ( object.type == 'content' ) {
+        if(object.id){
+
+        } else {
+          object.id = Math.floor(Math.random() * (999999 - 100000) + 100000);
+        }
         return <Column
           ref={'content-'+i}
           identifier={i}
+          thing_id={object.id}
           entry={self.props.id}
           thing={object.content}
           content={self.handleContent}

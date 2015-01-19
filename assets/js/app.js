@@ -137,6 +137,7 @@ $(function() {
 
 
 
+
     $(".response-wrapper").swipe({
         swipeLeft: function(event, direction, distance, duration, fingerCount) {
             moveNext()
@@ -150,5 +151,9 @@ $(function() {
     $('.lines-button').click(function() {
         $(this).toggleClass('x');
         $('.topbar .right-side').toggleClass('active');
+    });
+
+    $('.home-column-overlay').click(function() {
+        $(this).parent().toggleClass('expanded');
     });
 });

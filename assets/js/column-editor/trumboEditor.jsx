@@ -2,32 +2,19 @@
  * @jsx React.DOM
  */
 
-var React = require('react');
+var React = require('react'),
+    util = require('util');
 
 require('../trumbowyg.js');
 require('../trumbowyg.colors.js');
 
-var ReactScriptLoaderModule = require('../ReactScriptLoader.js');
-var ReactScriptLoaderMixin= ReactScriptLoaderModule.ReactScriptLoaderMixin;
-var ReactScriptLoader= ReactScriptLoaderModule.ReactScriptLoader;
-
-var util = require('util');
-
-var mainEditor = [];
-
 var Column = React.createClass({
   
-
-  // mixins: [ReactScriptLoaderMixin],
-
   getInitialState: function() {
     return {active: false, super_key: this.props.thing_id, editor: {}};
   },
 
-  componentWillMount: function() {
-    var self = this;
-    mainEditor[self.state.super_key];
-  },
+  componentWillMount: function() { },
 
   componentDidMount: function(){
     var self = this;
@@ -42,8 +29,7 @@ var Column = React.createClass({
            '|', 'link',
            '|', jQuery.trumbowyg.btnsGrps.justify,
            '|', jQuery.trumbowyg.btnsGrps.lists,
-           '|', 'insertHorizontalRule',
-           '|', 'foreColor', 'backColor']
+           '|', 'horizontalRule', 'foreColor']
     });
     $('#main-content-'+super_key).trumbowyg('html', value);
 
@@ -67,8 +53,7 @@ var Column = React.createClass({
            '|', 'link',
            '|', jQuery.trumbowyg.btnsGrps.justify,
            '|', jQuery.trumbowyg.btnsGrps.lists,
-           '|', 'insertHorizontalRule',
-           '|', 'foreColor', 'backColor']
+           '|', 'horizontalRule', 'foreColor']
     });
     $('#main-content-'+super_key).trumbowyg('html', value);
 
@@ -91,94 +76,9 @@ var Column = React.createClass({
     this.props.swap_next({id: this.props.identifier});
   },
 
-  changeHandler: function(){
-    console.log('fuck you');
-  },
-
-  // getScriptURL: function() {
-  //   return '/js/trumbowyg.js';
-  // },
-
-  // onScriptLoaded: function() {
-
-  //   var self = this;
-  //   var entry = this.props.entry;
-  //   var identifier = this.props.identifier;
-  //   var super_key = this.state.super_key;
-
-  //   var value = this.props.thing; 
-    // require('../rangy.js');
-    // require('../wysihtml5x-toolbar.js');
-    // var wysihtml5ParserRules = require('../advanced.js');
-
-    // mainEditor[super_key] = new wysihtml5.Editor('main-content-'+super_key, {
-    //   toolbar:      "main-toolbar-" + super_key,
-    //   stylesheets:  "/css/wysihtml5.css",
-    //   parserRules:  wysihtml5ParserRules
-    // });
-
-    // mainEditor[super_key].on("load", function () { 
-
-    //   var $iframe = $(this.composer.iframe);
-    //   var $body = $(this.composer.element);
-      
-    //   $body
-    //     .css({
-    //       'min-height': 0,
-    //       'overflow': 'hidden',
-    //     })
-    //     // .bind('keypress keyup keydown paste change focus blur load', function(e) {
-    //     //   var height = Math.min($body[0].scrollHeight, $body.height());
-    //     //   var extra = 25 ;
-    //     //   $iframe.height(height + extra);
-    //     // })
-    //     ;
-    // });
-
-    // function onFocus() { 
-    //   self.setState({active: true});
-    // };
-    
-    // mainEditor[super_key].on("focus", onFocus);
-
-    // function onBlur() { 
-    //   self.setState({active: false});
-    // };
-
-    // mainEditor[super_key].on("blur", onBlur);
-
-    // function onChange() { 
-    //   var stuff = mainEditor[super_key].getValue();
-    //   self.props.content({id: self.props.identifier, content: mainEditor[super_key].getValue()});
-
-    //   console.log('selection: '+util.inspect(mainEditor[super_key]));
-    // };
-
-    // mainEditor[super_key].on("change", onChange);
-
-    // self.setState({ editor: mainEditor[super_key] });
-  // },
- 
-  // onScriptError: function() {
-  //     alert('Script Load Error');
-  // },
-
-  theValue: function (){
-    return this.refs.content.getDOMNode().value;
-  },
-
   render: function() {
-    var self = this;
-    var entry = this.props.entry;
-    var value = this.props.thing; 
+    var self = this; 
     var super_key = this.state.super_key;
-
-    if (self.state.editor.setValue) {
-      self.state.editor.setValue(self.props.thing);
-    }
-    var divStyle = {
-      display: 'none',
-    }
 
     return ( 
       <div className='content-container' ref='contentwrapper'>

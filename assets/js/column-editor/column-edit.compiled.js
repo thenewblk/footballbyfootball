@@ -754,32 +754,19 @@ module.exports = imageUploader;
  * @jsx React.DOM
  */
 
-var React = require('react');
+var React = require('react'),
+    util = require('util');
 
 require('../trumbowyg.js');
 require('../trumbowyg.colors.js');
 
-var ReactScriptLoaderModule = require('../ReactScriptLoader.js');
-var ReactScriptLoaderMixin= ReactScriptLoaderModule.ReactScriptLoaderMixin;
-var ReactScriptLoader= ReactScriptLoaderModule.ReactScriptLoader;
-
-var util = require('util');
-
-var mainEditor = [];
-
 var Column = React.createClass({displayName: "Column",
   
-
-  // mixins: [ReactScriptLoaderMixin],
-
   getInitialState: function() {
     return {active: false, super_key: this.props.thing_id, editor: {}};
   },
 
-  componentWillMount: function() {
-    var self = this;
-    mainEditor[self.state.super_key];
-  },
+  componentWillMount: function() { },
 
   componentDidMount: function(){
     var self = this;
@@ -794,8 +781,7 @@ var Column = React.createClass({displayName: "Column",
            '|', 'link',
            '|', jQuery.trumbowyg.btnsGrps.justify,
            '|', jQuery.trumbowyg.btnsGrps.lists,
-           '|', 'insertHorizontalRule',
-           '|', 'foreColor', 'backColor']
+           '|', 'horizontalRule', 'foreColor']
     });
     $('#main-content-'+super_key).trumbowyg('html', value);
 
@@ -819,8 +805,7 @@ var Column = React.createClass({displayName: "Column",
            '|', 'link',
            '|', jQuery.trumbowyg.btnsGrps.justify,
            '|', jQuery.trumbowyg.btnsGrps.lists,
-           '|', 'insertHorizontalRule',
-           '|', 'foreColor', 'backColor']
+           '|', 'horizontalRule', 'foreColor']
     });
     $('#main-content-'+super_key).trumbowyg('html', value);
 
@@ -843,94 +828,9 @@ var Column = React.createClass({displayName: "Column",
     this.props.swap_next({id: this.props.identifier});
   },
 
-  changeHandler: function(){
-    console.log('fuck you');
-  },
-
-  // getScriptURL: function() {
-  //   return '/js/trumbowyg.js';
-  // },
-
-  // onScriptLoaded: function() {
-
-  //   var self = this;
-  //   var entry = this.props.entry;
-  //   var identifier = this.props.identifier;
-  //   var super_key = this.state.super_key;
-
-  //   var value = this.props.thing; 
-    // require('../rangy.js');
-    // require('../wysihtml5x-toolbar.js');
-    // var wysihtml5ParserRules = require('../advanced.js');
-
-    // mainEditor[super_key] = new wysihtml5.Editor('main-content-'+super_key, {
-    //   toolbar:      "main-toolbar-" + super_key,
-    //   stylesheets:  "/css/wysihtml5.css",
-    //   parserRules:  wysihtml5ParserRules
-    // });
-
-    // mainEditor[super_key].on("load", function () { 
-
-    //   var $iframe = $(this.composer.iframe);
-    //   var $body = $(this.composer.element);
-      
-    //   $body
-    //     .css({
-    //       'min-height': 0,
-    //       'overflow': 'hidden',
-    //     })
-    //     // .bind('keypress keyup keydown paste change focus blur load', function(e) {
-    //     //   var height = Math.min($body[0].scrollHeight, $body.height());
-    //     //   var extra = 25 ;
-    //     //   $iframe.height(height + extra);
-    //     // })
-    //     ;
-    // });
-
-    // function onFocus() { 
-    //   self.setState({active: true});
-    // };
-    
-    // mainEditor[super_key].on("focus", onFocus);
-
-    // function onBlur() { 
-    //   self.setState({active: false});
-    // };
-
-    // mainEditor[super_key].on("blur", onBlur);
-
-    // function onChange() { 
-    //   var stuff = mainEditor[super_key].getValue();
-    //   self.props.content({id: self.props.identifier, content: mainEditor[super_key].getValue()});
-
-    //   console.log('selection: '+util.inspect(mainEditor[super_key]));
-    // };
-
-    // mainEditor[super_key].on("change", onChange);
-
-    // self.setState({ editor: mainEditor[super_key] });
-  // },
- 
-  // onScriptError: function() {
-  //     alert('Script Load Error');
-  // },
-
-  theValue: function (){
-    return this.refs.content.getDOMNode().value;
-  },
-
   render: function() {
-    var self = this;
-    var entry = this.props.entry;
-    var value = this.props.thing; 
+    var self = this; 
     var super_key = this.state.super_key;
-
-    if (self.state.editor.setValue) {
-      self.state.editor.setValue(self.props.thing);
-    }
-    var divStyle = {
-      display: 'none',
-    }
 
     return ( 
       React.createElement("div", {className: "content-container", ref: "contentwrapper"}, 
@@ -947,7 +847,7 @@ var Column = React.createClass({displayName: "Column",
 });
 
 module.exports = Column;
-},{"../ReactScriptLoader.js":1,"../trumbowyg.colors.js":6,"../trumbowyg.js":7,"react":156,"util":163}],6:[function(require,module,exports){
+},{"../trumbowyg.colors.js":6,"../trumbowyg.js":7,"react":156,"util":163}],6:[function(require,module,exports){
 /* ===========================================================
  * trumbowyg.colors.js v1.0
  * Colors picker plugin for Trumbowyg
@@ -983,7 +883,7 @@ module.exports = Column;
 
     // Set default colors
     if(!$.trumbowyg.opts.colors)
-        $.trumbowyg.opts.colors = ['ffffff', '000000', 'eeece1', '1f497d', '4f81bd', 'c0504d', '9bbb59', '8064a2', '4bacc6', 'f79646', 'ffff00', 'f2f2f2', '7f7f7f', 'ddd9c3', 'c6d9f0', 'dbe5f1', 'f2dcdb', 'ebf1dd', 'e5e0ec', 'dbeef3', 'fdeada', 'fff2ca', 'd8d8d8', '595959', 'c4bd97', '8db3e2', 'b8cce4', 'e5b9b7', 'd7e3bc', 'ccc1d9', 'b7dde8', 'fbd5b5', 'ffe694', 'bfbfbf', '3f3f3f', '938953', '548dd4', '95b3d7', 'd99694', 'c3d69b', 'b2a2c7', 'b7dde8', 'fac08f', 'f2c314', 'a5a5a5', '262626', '494429', '17365d', '366092', '953734', '76923c', '5f497a', '92cddc', 'e36c09', 'c09100', '7f7f7f', '0c0c0c', '1d1b10', '0f243e', '244061', '632423', '4f6128', '3f3151', '31859b', '974806', '7f6000'];
+        $.trumbowyg.opts.colors = ['000000', 'ad1a19'];
 
     // Add all colors in two dropdowns
     $.extend(true, $.trumbowyg, {

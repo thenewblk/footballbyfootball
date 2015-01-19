@@ -1831,12 +1831,41 @@ a:hover {
 	background-position: center;
 }
 
+.lockerroom-sidebar {
+	margin: 20px 0 0;
+}
+
+ .home-column-sidebar {
+ 	margin: 0;
+ 	max-height: 500px;
+ }
+
+ .home-column-sidebar.expanded {
+	max-height: inherit;
+	padding-bottom: 30px;
+	.home-column-overlay {
+		background: transparent;
+		height: 30px;
+		.up_arrow {
+			transform: rotate(45deg);
+			-webkit-transform: rotate(45deg);
+			bottom: 5px;
+		}
+	}
+ }
+	.home-column-overlay.expanded:hover{ 
+		.up_arrow {
+			opacity: 0.8;
+		}
+	}
+
+
 .lockerroom-sidebar, .home-column-sidebar {
 	text-align: center;
 	color: white;
-	margin: 0;
 	padding: 5px 15px 0;
 	background: #222;
+	position: relative;
 
 	a, a:hover {
 		color: white;
@@ -1849,7 +1878,7 @@ a:hover {
 	}
 	.lr-sidebar-link {
 		border-bottom: dashed 1px rgba(255,255,255,0.7);
-		padding: 10px 15px;
+		padding: 10px 0;
 		line-height: 1.5;
 		margin: 0;
 		span {
@@ -1860,6 +1889,46 @@ a:hover {
 	.lr-sidebar-link:last-child {
 		border: none;
 	}
+	.home-column-overlay { 
+		display: block;
+		overflow: hidden;
+		height: 100px;
+		background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, #222 100%);
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #222));
+		background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, #222 100%);
+		background: -o-linear-gradient(top, rgba(255, 255, 255, 0) 0%, #222 100%);
+		background: -ms-linear-gradient(top, rgba(255, 255, 255, 0) 0%, #222 100%);
+		background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #222 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#222',GradientType=0 );
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		cursor: pointer;
+		.up_arrow {
+			width: 20px;
+			height: 20px;
+			border-top: 2px solid white;
+			border-left: 2px solid white;
+			transform: rotate(225deg);
+			-webkit-transform: rotate(225deg);
+			position: absolute;
+			bottom: 15px;
+			left: 50%;
+			margin-left: -20px;
+			transition: 0.15s ease-out;
+			outline: none;
+		}
+		.up_arrow:hover {
+			opacity: 0.8;
+		}
+	}
+	.home-column-overlay:hover{ 
+		.up_arrow {
+			opacity: 0.8;
+		}
+	}
+
 }
 
 .home.lockerroom-sidebar, {
