@@ -16,5 +16,7 @@ results
 npm-debug.log
 node_modules
 
-config/secretDatabase.js
-config/secretAuth.js
+.git.bfg-report
+
+.env
+Procfile
