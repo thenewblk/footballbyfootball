@@ -854,6 +854,10 @@ img {
 		background-size: cover;
 		position: relative;
 		.title {
+			img {
+				display: table;
+				margin: auto;
+			}
 			color: white;
 			font-size: 80px;
 			word-break: normal;
@@ -889,6 +893,8 @@ img {
 		.lockerrooom-entry-content {
 			background: #fff;
 			padding: 30px;
+			padding-top: 85px;
+
 		}
 		
 	}
@@ -1002,7 +1008,7 @@ img {
 	top: 15px;
 	right: 15px;
 	overflow: scroll;
-	padding: 15px 0;
+	padding: 15px 0 32px;
 }
 
 .row.response.active {
@@ -1035,6 +1041,45 @@ img {
 	margin-left: -15px;
 	top: -20px;
 }
+
+.lockerroom-response-player {
+	margin: 0 30px;
+	position: absolute;
+	width: 100%;
+	background: white;
+	z-index: 9;
+	padding-bottom: 5px;
+	.author-image {
+		border-radius: 0;
+		float: left;
+	}
+	.player-name {
+		padding: 0 15px;
+		float: left;
+		font-weight: bold;
+		display: inline-block;
+		line-height: 75px;
+		font-size: 30px;
+	}
+}
+
+// .lockerroom-response-control.active {
+// 	.lockerroom-response-player {
+// 		display: block;
+// 		position: absolute;
+// 		top: -47px;
+// 		left: 50%;
+// 		margin-left: -100px;
+// 		width: 200px;
+// 		background: red;
+// 		z-index: 1;
+// 		text-align: center;
+// 		font-weight: bold;
+// 		color: white;
+// 		padding: 5px 15px;
+// 	}
+// }
+
 
 .close-lockerroom-responses {
 	color: black;
@@ -2027,6 +2072,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	outline: none;
 }
 
+.error {
+	text-align: center;
+}
+
 @media (max-width: 991px) {
 	.medium-article {
 		margin-top: 20px;
@@ -2078,6 +2127,30 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	  background: white;
 	  transition: 0.15s ease-in-out;
 	  border-radius: 0;
+	}
+	.lockerroom-response-player {
+		margin: 0 30px;
+		position: absolute;
+		width: 100%;
+		background: white;
+		z-index: 9;
+		padding-bottom: 5px;
+		.author-image {
+			border-radius: 0;
+			float: left;
+		}
+		.player-name {
+			padding: 4px 15px;
+			float: left;
+			font-weight: bold;
+			display: inline-block;
+			font-size: 14px;
+			line-height: inherit;
+		}
+	}
+
+	.lockerroom .lockerroom-entry .lockerrooom-entry-content {
+		padding: 30px;
 	}
 
 	.lockerroom {

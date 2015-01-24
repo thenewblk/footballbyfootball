@@ -28,6 +28,10 @@ var lockerroomSchema = mongoose.Schema({
       approved   : Boolean,
       data: [ ],
     }],
+    main_image: { 
+      image_url:    String,
+      caption:      String,
+    }
 });
 
 lockerroomSchema.pre('save', function (next) {

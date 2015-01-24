@@ -265,7 +265,7 @@ var Players = window.Players || {};
 
 var LockerEntry = React.createClass({displayName: "LockerEntry",  
   getInitialState: function() {
-    return { id: '', data: [], player: '', approved: false, submitted: false, key: '' };
+    return { id: '', data: [],  player: '', approved: false, submitted: false, key: '' };
   },
 
   componentDidMount: function(){
@@ -275,10 +275,11 @@ var LockerEntry = React.createClass({displayName: "LockerEntry",
   componentWillMount: function(){
   
     if(this.props) {
+      console.log('this.props: '+util.inspect(this.props));
       this.setState(this.props);
     }
-    if(this.props.key) {
-      this.setState({key: this.props.key});
+    if(this.props.super_key) {
+      this.setState({key: this.props.super_key});
     }
     if (this.props.data){
       this.setState({data: this.props.data});
@@ -294,6 +295,7 @@ var LockerEntry = React.createClass({displayName: "LockerEntry",
   handleChangeBig: function(){
     this.props.stuff(this.state);
   },
+
 
   // 
   // Image Content Events
@@ -475,6 +477,7 @@ var LockerEntry = React.createClass({displayName: "LockerEntry",
             React.createElement("p", {className: "content-link", onClick: this.addImage}, "Add Image")
           )
         )
+
       )
     )
   }
@@ -482,13 +485,39 @@ var LockerEntry = React.createClass({displayName: "LockerEntry",
 
 var LockerList = React.createClass({displayName: "LockerList", 
   getInitialState: function() {
-    return { id: '', lockerentries: [], title: '', approved: false, submitted: false, type: 'lockerroom' };
+    return { id: '', lockerentries: [], main_image: {active: true}, title: '', approved: false, submitted: false, type: 'lockerroom' };
   },
 
   componentWillMount: function(){
     if(this.props) {
       this.setState(this.props);
     }
+  },
+
+  // 
+  // Main Image Events
+  // 
+
+  handleMainImage: function(image){
+    var main_image = this.state.main_image;
+    main_image.image_url = image.image_url;
+    this.setState({main_image: main_image });
+  },
+
+  handleMainImageCaption: function(image){
+    var main_image = this.state.main_image;
+    main_image.caption = image.caption;
+    this.setState({main_image: main_image });
+  },
+
+  removeMainImage: function(content){
+    var tmp = {active: false, image_url: ''}
+    this.setState({main_image: tmp });
+    console.log('main image: '+JSON.stringify(this.state.main_image));
+  },
+
+  addMainImage: function(content){
+    this.setState({main_image: {active: true} });
   },
 
   addEntry: function(){
@@ -532,6 +561,7 @@ var LockerList = React.createClass({displayName: "LockerList",
   handleStuff: function(content) {
     var old_lockerentries = this.state.lockerentries;
     for (var i=0; i<old_lockerentries.length;i++){
+
       if ((old_lockerentries[i].key || old_lockerentries[i]._id)  == (content.key || content._id)) {
         old_lockerentries[i] = content;
       }
@@ -568,6 +598,7 @@ var LockerList = React.createClass({displayName: "LockerList",
   render: function() {
     var self = this;
     var title = self.state.title;
+    var main_image = this.state.main_image;
 
     var lockers = self.state.lockerentries.map(function(object, i) {
 
@@ -576,6 +607,7 @@ var LockerList = React.createClass({displayName: "LockerList",
       return React.createElement(LockerEntry, {
                 ref: 'lockerentry-'+i, 
                 key: key, 
+                super_key: key, 
                 id: i, 
                 player: object.player._id, 
                 data: object.data, 
@@ -583,7 +615,9 @@ var LockerList = React.createClass({displayName: "LockerList",
                 removed: self.removeEntry});
     });
     var divStyle = {
-      backgroundImage: 'url(https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer.jpg)'
+      backgroundImage: 'url(https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer.jpg)',
+      padding: '100px 0 0'
+
     };
     var checkbox_value = self.state.approved;
     return (
@@ -597,8 +631,21 @@ var LockerList = React.createClass({displayName: "LockerList",
         ), 
 
         React.createElement("div", {className: "lockerroom-content"}, 
+
           React.createElement("div", {className: "container"}, 
             React.createElement("div", {className: "col-md-8"}, 
+              React.createElement("div", {className: "column-content"}, 
+               main_image.image_url || main_image.active ? 
+                React.createElement(Image, {
+                identifier: "main", 
+                image: main_image, 
+                key: 'main_image', 
+                caption_content: self.handleMainImageCaption, 
+                content: self.handleMainImage, 
+                removed: self.removeMainImage})
+                : React.createElement("p", {className: "add-main-image", onClick: this.addMainImage}, React.createElement("span", {className: "fa fa-plus"}), " Add Main Image")
+              
+              ), 
               lockers, 
               React.createElement("div", {className: "contentbar"}, 
                 React.createElement("p", {className: "content-link", onClick: self.addEntry}, "Add Locker Entry")
@@ -758,7 +805,7 @@ module.exports = Column;
 
     // Set default colors
     if(!$.trumbowyg.opts.colors)
-        $.trumbowyg.opts.colors = ['000000', 'ad1a19'];
+        $.trumbowyg.opts.colors = ['000000', '#ad1a19'];
 
     // Add all colors in two dropdowns
     $.extend(true, $.trumbowyg, {

@@ -661,6 +661,9 @@ img {
       text-align: center;
       display: table-cell;
       vertical-align: middle; }
+      .lockerroom .lockerroom-header .title img {
+        display: table;
+        margin: auto; }
   .lockerroom .lockerroom-content {
     background: red; }
   .lockerroom .lockerroom-entry {
@@ -680,7 +683,8 @@ img {
         margin: -20px 20px; }
     .lockerroom .lockerroom-entry .lockerrooom-entry-content {
       background: #fff;
-      padding: 30px; }
+      padding: 30px;
+      padding-top: 85px; }
 
 .big-article.really-big .headline .copy h3 {
   font-size: 40px;
@@ -761,7 +765,7 @@ img {
   top: 15px;
   right: 15px;
   overflow: scroll;
-  padding: 15px 0; }
+  padding: 15px 0 32px; }
 
 .row.response.active {
   display: block; }
@@ -786,6 +790,24 @@ img {
   left: 50%;
   margin-left: -15px;
   top: -20px; }
+
+.lockerroom-response-player {
+  margin: 0 30px;
+  position: absolute;
+  width: 100%;
+  background: white;
+  z-index: 9;
+  padding-bottom: 5px; }
+  .lockerroom-response-player .author-image {
+    border-radius: 0;
+    float: left; }
+  .lockerroom-response-player .player-name {
+    padding: 0 15px;
+    float: left;
+    font-weight: bold;
+    display: inline-block;
+    line-height: 75px;
+    font-size: 30px; }
 
 .close-lockerroom-responses {
   color: black;
@@ -1564,6 +1586,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   border-top: 1px solid #eee;
   outline: none; }
 
+.error {
+  text-align: center; }
+
 @media (max-width: 991px) {
   .medium-article {
     margin-top: 20px; }
@@ -1591,6 +1616,25 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     position: absolute;
     right: 15px;
     top: 7px; }
+  .lockerroom-response-player {
+    margin: 0 30px;
+    position: absolute;
+    width: 100%;
+    background: white;
+    z-index: 9;
+    padding-bottom: 5px; }
+    .lockerroom-response-player .author-image {
+      border-radius: 0;
+      float: left; }
+    .lockerroom-response-player .player-name {
+      padding: 4px 15px;
+      float: left;
+      font-weight: bold;
+      display: inline-block;
+      font-size: 14px;
+      line-height: inherit; }
+  .lockerroom .lockerroom-entry .lockerrooom-entry-content {
+    padding: 30px; }
   .lockerroom .lines {
     display: inline-block;
     width: 30px;

@@ -1,7 +1,6 @@
 <%= include header %>
 <div class="lockerroom">
 	<div class="lockerroom-header" style="background-image: url(https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer.jpg);">
-
 				<h1 class="title"><%= lockerroom.title %>
 				<% if (locals.user) { %>
 					<a href="/lockerroom/<%= lockerroom.slug %>/edit"> Edit</a>
