@@ -1,3 +1,4 @@
+
 /**
  * @jsx React.DOM
  */
@@ -43,7 +44,6 @@ var ColumnList = React.createClass({
     request
       .get('/api/column/'+Content)
       .end(function(res) {
-        console.log(res.text);
         self.setState(JSON.parse(res.text));
       }.bind(self));
 
@@ -342,9 +342,11 @@ var ColumnList = React.createClass({
         var moved = object.thing_moved;
 
         return <Embed
-          ref={'content-'+i}
+          ref={'embed-'+i}
           identifier={i}
+          key={object.id}
           thing={object.content}
+          thing_id={object.id}
           content={self.handleContent}
           removed={self.removeContent}
 

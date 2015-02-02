@@ -118,6 +118,7 @@ var ReactScriptLoaderMixin = {
 exports.ReactScriptLoaderMixin = ReactScriptLoaderMixin;
 exports.ReactScriptLoader = ReactScriptLoader;
 },{}],2:[function(require,module,exports){
+
 /**
  * @jsx React.DOM
  */
@@ -163,7 +164,6 @@ var ColumnList = React.createClass({displayName: "ColumnList",
     request
       .get('/api/column/'+Content)
       .end(function(res) {
-        console.log(res.text);
         self.setState(JSON.parse(res.text));
       }.bind(self));
 
@@ -462,9 +462,11 @@ var ColumnList = React.createClass({displayName: "ColumnList",
         var moved = object.thing_moved;
 
         return React.createElement(Embed, {
-          ref: 'content-'+i, 
+          ref: 'embed-'+i, 
           identifier: i, 
+          key: object.id, 
           thing: object.content, 
+          thing_id: object.id, 
           content: self.handleContent, 
           removed: self.removeContent, 
 
@@ -579,7 +581,29 @@ var Embed = React.createClass({displayName: "Embed",
   },
 
   componentWillMount: function() {
+    var self = this;
+    var value = this.props.thing; 
+
+    console.log('componentWillMount #' +self.props.identifier);
+
+    self.setState({content: value});
   },
+
+  // componentDidMount: function() {
+  //   var self = this;
+  //   var value = this.props.thing;   
+  //   console.log('componentDidMount #' +self.props.identifier);
+
+  //   self.setState({content: value});
+  // },
+
+  // componentDidUpdate: function() {
+  //   var self = this;
+  //   var value = this.props.thing;   
+  //   console.log('componentDidUpdate #' +self.props.identifier);
+
+  //   self.setState({content: value});
+  // },
 
   handleClose: function() {
     this.props.removed({id: this.props.identifier});
@@ -603,7 +627,7 @@ var Embed = React.createClass({displayName: "Embed",
 
   render: function() {
     var self = this;
-    var value = this.props.thing; 
+    var value = this.state.content; 
 
     return ( 
       React.createElement("div", {className: "content-container", ref: "contentwrapper"}, 
@@ -792,29 +816,29 @@ var Column = React.createClass({displayName: "Column",
     });
   },
 
-  componentDidUpdate: function(){
-    var self = this;
-    var super_key = this.state.super_key;
-    var value = this.props.thing; 
-    $('#main-content-'+super_key).trumbowyg({
-        autogrow: true,
-        fullscreenable: false,
-        btns: ['viewHTML',
-           '|', 'formatting',
-           '|', jQuery.trumbowyg.btnsGrps.semantic,
-           '|', 'link',
-           '|', jQuery.trumbowyg.btnsGrps.justify,
-           '|', jQuery.trumbowyg.btnsGrps.lists,
-           '|', 'horizontalRule', 'foreColor']
-    });
-    $('#main-content-'+super_key).trumbowyg('html', value);
+  // componentDidUpdate: function(){
+  //   var self = this;
+  //   var super_key = this.state.super_key;
+  //   var value = this.props.thing; 
+  //   $('#main-content-'+super_key).trumbowyg({
+  //       autogrow: true,
+  //       fullscreenable: false,
+  //       btns: ['viewHTML',
+  //          '|', 'formatting',
+  //          '|', jQuery.trumbowyg.btnsGrps.semantic,
+  //          '|', 'link',
+  //          '|', jQuery.trumbowyg.btnsGrps.justify,
+  //          '|', jQuery.trumbowyg.btnsGrps.lists,
+  //          '|', 'horizontalRule', 'foreColor']
+  //   });
+  //   $('#main-content-'+super_key).trumbowyg('html', value);
 
-    $('#main-content-'+super_key).trumbowyg().on('tbwfocus', function(){ console.log('Focus!'); });  
-    $('#main-content-'+super_key).trumbowyg().on('tbwblur', function(){ 
-      console.log('Blur!'); 
-      self.props.content({id: self.props.identifier, content: $('#main-content-'+super_key).trumbowyg('html')});
-    });
-  },
+  //   $('#main-content-'+super_key).trumbowyg().on('tbwfocus', function(){ console.log('Focus!'); });  
+  //   $('#main-content-'+super_key).trumbowyg().on('tbwblur', function(){ 
+  //     console.log('Blur!'); 
+  //     self.props.content({id: self.props.identifier, content: $('#main-content-'+super_key).trumbowyg('html')});
+  //   });
+  // },
 
   handleClose: function() {
     this.props.removed({id: this.props.identifier});
@@ -883,7 +907,7 @@ module.exports = Column;
 
     // Set default colors
     if(!$.trumbowyg.opts.colors)
-        $.trumbowyg.opts.colors = ['000000', 'ad1a19'];
+        $.trumbowyg.opts.colors = ['000000', '#ad1a19'];
 
     // Add all colors in two dropdowns
     $.extend(true, $.trumbowyg, {

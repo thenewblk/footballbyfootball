@@ -714,29 +714,29 @@ var Column = React.createClass({displayName: "Column",
     });
   },
 
-  componentDidUpdate: function(){
-    var self = this;
-    var super_key = this.state.super_key;
-    var value = this.props.thing; 
-    $('#main-content-'+super_key).trumbowyg({
-        autogrow: true,
-        fullscreenable: false,
-        btns: ['viewHTML',
-           '|', 'formatting',
-           '|', jQuery.trumbowyg.btnsGrps.semantic,
-           '|', 'link',
-           '|', jQuery.trumbowyg.btnsGrps.justify,
-           '|', jQuery.trumbowyg.btnsGrps.lists,
-           '|', 'horizontalRule', 'foreColor']
-    });
-    $('#main-content-'+super_key).trumbowyg('html', value);
+  // componentDidUpdate: function(){
+  //   var self = this;
+  //   var super_key = this.state.super_key;
+  //   var value = this.props.thing; 
+  //   $('#main-content-'+super_key).trumbowyg({
+  //       autogrow: true,
+  //       fullscreenable: false,
+  //       btns: ['viewHTML',
+  //          '|', 'formatting',
+  //          '|', jQuery.trumbowyg.btnsGrps.semantic,
+  //          '|', 'link',
+  //          '|', jQuery.trumbowyg.btnsGrps.justify,
+  //          '|', jQuery.trumbowyg.btnsGrps.lists,
+  //          '|', 'horizontalRule', 'foreColor']
+  //   });
+  //   $('#main-content-'+super_key).trumbowyg('html', value);
 
-    $('#main-content-'+super_key).trumbowyg().on('tbwfocus', function(){ console.log('Focus!'); });  
-    $('#main-content-'+super_key).trumbowyg().on('tbwblur', function(){ 
-      console.log('Blur!'); 
-      self.props.content({id: self.props.identifier, content: $('#main-content-'+super_key).trumbowyg('html')});
-    });
-  },
+  //   $('#main-content-'+super_key).trumbowyg().on('tbwfocus', function(){ console.log('Focus!'); });  
+  //   $('#main-content-'+super_key).trumbowyg().on('tbwblur', function(){ 
+  //     console.log('Blur!'); 
+  //     self.props.content({id: self.props.identifier, content: $('#main-content-'+super_key).trumbowyg('html')});
+  //   });
+  // },
 
   handleClose: function() {
     this.props.removed({id: this.props.identifier});

@@ -15,7 +15,29 @@ var Embed = React.createClass({
   },
 
   componentWillMount: function() {
+    var self = this;
+    var value = this.props.thing; 
+
+    console.log('componentWillMount #' +self.props.identifier);
+
+    self.setState({content: value});
   },
+
+  // componentDidMount: function() {
+  //   var self = this;
+  //   var value = this.props.thing;   
+  //   console.log('componentDidMount #' +self.props.identifier);
+
+  //   self.setState({content: value});
+  // },
+
+  // componentDidUpdate: function() {
+  //   var self = this;
+  //   var value = this.props.thing;   
+  //   console.log('componentDidUpdate #' +self.props.identifier);
+
+  //   self.setState({content: value});
+  // },
 
   handleClose: function() {
     this.props.removed({id: this.props.identifier});
@@ -39,7 +61,7 @@ var Embed = React.createClass({
 
   render: function() {
     var self = this;
-    var value = this.props.thing; 
+    var value = this.state.content; 
 
     return ( 
       <div className='content-container' ref='contentwrapper'>

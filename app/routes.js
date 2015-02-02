@@ -15,8 +15,9 @@ var Feed = require('rss');
 var  	async = require('async'),
 		mime = require('mime'),
     	fs = require('fs'),
-    	util = require('util');
-    	auth = require('../config/auth.js')
+    	util = require('util'),
+    	auth = require('../config/auth.js');
+    	
 function slugify(text) {
   return text.toString().toLowerCase()
     .replace(/\s+/g, '-')           // Replace spaces with -
@@ -888,9 +889,9 @@ module.exports = function(app, passport, knox) {
 
 
 	var s3 = knox.createClient({
-    key: auth.amazon.key,
-    secret: auth.amazon.secret,
-    bucket: auth.amazon.bucket
+	    key: auth.amazon.key,
+	    secret: auth.amazon.secret,
+	    bucket: auth.amazon.bucket
 	});
 
 	app.post('/image-upload', function(req, res, next) {
