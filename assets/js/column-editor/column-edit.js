@@ -328,6 +328,8 @@ var ColumnList = React.createClass({
           removed={self.removeContent}
           thing_moved={moved}
 
+          key={object.id}
+          
           thing_un_moved={self.unMoved}
 
           swap_previous={self.swapPreviousThing}

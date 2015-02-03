@@ -33,7 +33,7 @@
 
     // Set default colors
     if(!$.trumbowyg.opts.colors)
-        $.trumbowyg.opts.colors = ['000000', '#ad1a19'];
+        $.trumbowyg.opts.colors = ['000000', 'ad1a19'];
 
     // Add all colors in two dropdowns
     $.extend(true, $.trumbowyg, {

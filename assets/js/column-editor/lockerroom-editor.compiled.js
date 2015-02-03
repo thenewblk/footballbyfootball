@@ -682,19 +682,71 @@ var React = require('react'),
 require('../trumbowyg.js');
 require('../trumbowyg.colors.js');
 
+
+// removes MS Office generated guff
+// function cleanHTML(input) {
+//   // 1. remove line breaks / Mso classes
+//   var stringStripper = /(\n|\r| class=(")?Mso[a-zA-Z]+(")?)/g; 
+//   var output = input.replace(stringStripper, ' ');
+//   // 2. strip Word generated HTML comments
+//   var commentSripper = new RegExp('<!--(.*?)-->','g');
+//   var output = output.replace(commentSripper, '');
+//   var tagStripper = new RegExp('<(/)*(meta|link|span|\\?xml:|st1:|o:|font)(.*?)>','gi');
+//   // 3. remove tags leave content if any
+//   output = output.replace(tagStripper, '');
+//   // 4. Remove everything in between and including tags '<style(.)style(.)>'
+//   var badTags = ['style', 'script','applet','embed','noframes','noscript'];
+
+//   for (var i=0; i< badTags.length; i++) {
+//     tagStripper = new RegExp('<'+badTags[i]+'.*?'+badTags[i]+'(.*?)>', 'gi');
+//     output = output.replace(tagStripper, '');
+//   }
+//   // 5. remove attributes ' style="..."'
+//   var badAttributes = ['style', 'start'];
+//   for (var i=0; i< badAttributes.length; i++) {
+//     var attributeStripper = new RegExp(' ' + badAttributes[i] + '="(.*?)"','gi');
+//     output = output.replace(attributeStripper, '');
+//   }
+//   return output;
+// }
+
 var Column = React.createClass({displayName: "Column",
   
   getInitialState: function() {
     return {active: false, super_key: this.props.thing_id, editor: {}};
   },
 
-  componentWillMount: function() { },
+  componentWillMount: function() { 
+    var self = this;
+    var value = this.props.thing; 
+
+    self.setState({content: value });
+
+    // self.setState({content: cleanHTML(value) });
+
+    // self.props.content({ id: self.props.identifier, content: cleanHTML(value) });
+  },
+
+  // cleanHtml: function() { 
+  //   var self = this;
+  //   var super_key = this.state.super_key;
+
+  //   var tmp_content = $('#main-content-'+super_key).trumbowyg('html');
+  //   console.log('tmp_content: ' + tmp_content);
+  //   var cleaned_content = cleanHTML(tmp_content);
+  //   console.log('cleaned_content: ' + cleaned_content);
+
+  //   self.setState({content: cleaned_content });
+    
+  //   self.props.content({ id: self.props.identifier, content: cleaned_content });
+
+  // },
 
   componentDidMount: function(){
     var self = this;
     var super_key = this.state.super_key;
-    var value = this.props.thing; 
-    $('#main-content-'+super_key).trumbowyg({
+    var value = this.state.content; 
+    var editor = $('#main-content-'+super_key).trumbowyg({
         autogrow: true,
         fullscreenable: false,
         btns: ['viewHTML',
@@ -710,8 +762,14 @@ var Column = React.createClass({displayName: "Column",
     $('#main-content-'+super_key).trumbowyg().on('tbwfocus', function(){ console.log('Focus!'); });  
     $('#main-content-'+super_key).trumbowyg().on('tbwblur', function(){ 
       console.log('Blur!'); 
-      self.props.content({id: self.props.identifier, content: $('#main-content-'+super_key).trumbowyg('html')});
+      // var cleaned_html = cleanHTML($('#main-content-'+super_key).trumbowyg('html'));
+      // self.setState({ content: cleaned_html });
+      // self.props.content({ id: self.props.identifier, content: cleaned_html });
+
+      self.props.content({ id: self.props.identifier, content:  $('#main-content-'+super_key).trumbowyg('html') });
     });
+
+    self.setState({ editor: editor })
   },
 
   // componentDidUpdate: function(){
@@ -805,7 +863,7 @@ module.exports = Column;
 
     // Set default colors
     if(!$.trumbowyg.opts.colors)
-        $.trumbowyg.opts.colors = ['000000', '#ad1a19'];
+        $.trumbowyg.opts.colors = ['000000', 'ad1a19'];
 
     // Add all colors in two dropdowns
     $.extend(true, $.trumbowyg, {
