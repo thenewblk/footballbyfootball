@@ -971,6 +971,7 @@ img {
 	display: inline-block;
 	vertical-align: middle;
 }
+
 .lockerroom-controls {
 	position: absolute;
 	bottom: 0;
@@ -2076,6 +2077,16 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	text-align: center;
 }
 
+@media (min-width: 992px) {
+	.lockerroom .lockerroom-controls .author-image-wrap .author-image{
+		height: 100px;
+		width: 100px;
+	}
+	.lockerroom-responses {
+		bottom: 125px;
+	}
+}
+
 @media (max-width: 991px) {
 	.medium-article {
 		margin-top: 20px;
@@ -2310,6 +2321,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 				font-size: 30px;
 			}
 		}
+		.subtitle {
+			font-size: 18px;
+		}
 	}
 	.medium-article .headline .inner-content .copy h3 {
 		font-size: 18px;
@@ -2354,3 +2368,5 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 		}
 	}
 }
+
+@import "grab_video";

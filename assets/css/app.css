@@ -1589,6 +1589,13 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .error {
   text-align: center; }
 
+@media (min-width: 992px) {
+  .lockerroom .lockerroom-controls .author-image-wrap .author-image {
+    height: 100px;
+    width: 100px; }
+  .lockerroom-responses {
+    bottom: 125px; } }
+
 @media (max-width: 991px) {
   .medium-article {
     margin-top: 20px; }
@@ -1738,6 +1745,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     margin: 0; }
   .column .column-header .title {
     font-size: 30px; }
+  .column .subtitle {
+    font-size: 18px; }
   .medium-article .headline .inner-content .copy h3 {
     font-size: 18px; }
   .author-image {
@@ -1760,3 +1769,11 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   .lockerroom-controls .author-image-wrap .author-image:hover {
     z-index: auto;
     box-shadow: none; } }
+
+div[id^="grabDiv"] {
+  width: 100% !important;
+  height: auto !important;
+  padding-bottom: 56.25%; }
+  div[id^="grabDiv"] video[id^="GrabPlayer"], div[id^="grabDiv"] img[id^="grabPreview"], div[id^="grabDiv"] div[id^="grabPlayButton"], div[id^="grabDiv"] div[id^="grabSpinner"], div[id^="grabDiv"] div[id^="grabError"] {
+    height: 100% !important;
+    width: 100% !important; }

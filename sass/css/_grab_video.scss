@@ -1,0 +1,15 @@
+div[id^="grabDiv"] {
+	width: 100%!important;
+	height: auto!important; 
+	padding-bottom: 56.25%;
+
+	video[id^="GrabPlayer"],
+	img[id^="grabPreview"],
+	div[id^="grabPlayButton"],
+	div[id^="grabSpinner"],
+	div[id^="grabError"]
+		{
+			height: 100%!important;
+			width: 100%!important;	
+		}
+}
