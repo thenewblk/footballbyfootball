@@ -44,9 +44,9 @@
 		var node = document.getElementsByTagName('script')[0];
 		node.parentNode.insertBefore(gads, node);
 		})();
-		</script>
+	</script>
 
-		<script type='text/javascript'>
+	<script type='text/javascript'>
 		googletag.cmd.push(function() {
 		googletag.defineSlot('/5702/yb_Football_By_Football', [[300, 250]], 'div-gpt-ad-1415039200042-0').addService(googletag.pubads());
 		googletag.defineSlot('/5702/yb_Football_By_Football', [[728, 90]], 'div-gpt-ad-1415039200042-1').addService(googletag.pubads());
@@ -61,15 +61,11 @@
 	<% if (locals.page_type && page_type =='home') {%>
 	<div class="masthead">
 		<div class="top-banner-container">	
-			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-			<!-- FBF Home Top -->
-			<ins class="adsbygoogle"
-			     style="display:inline-block;width:728px;height:90px"
-			     data-ad-client="ca-pub-2768251721679098"
-			     data-ad-slot="3053837563"></ins>
-			<script>
-			(adsbygoogle = window.adsbygoogle || []).push({});
-			</script>
+		<script src="https://www.googletagservices.com/tag/js/gpt.js">
+			googletag.pubads().definePassback("/20893548/yb/
+			footballbyfootball",
+			[728,90]).setClickUrl("%%CLICK_URL_UNESC%%").display();
+		</script>
 		</div>
 		<img src="/img/logo-masthead.png" alt="" class="big-logo">
 	</div>
