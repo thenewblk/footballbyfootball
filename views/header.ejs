@@ -5,12 +5,16 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="/css/app.css">
-	<link rel="stylesheet" href="/css/trumbowyg.css">
-	<link rel="stylesheet" href="/css/ui/trumbowyg.colors.css">
+
+	<% if (locals.user) { %>
+		<link rel="stylesheet" href="/css/trumbowyg.css">
+		<link rel="stylesheet" href="/css/ui/trumbowyg.colors.css">
+	<% } %>
+
 	<meta name="viewport" content="width=device-width, user-scalable=no">
 
 	<script src="/js/jquery.1.9.min.js"></script>
-	<!-- <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script> -->
+
 	<script type="text/javascript" src="//use.typekit.net/vnz8awm.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
@@ -30,7 +34,7 @@
 		<meta property="og:image"         content="https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer.jpg" /> 
 
 	<% } %>
-
+	
 	<script type='text/javascript'>
 		var googletag = googletag || {};
 		googletag.cmd = googletag.cmd || [];
@@ -45,27 +49,17 @@
 		node.parentNode.insertBefore(gads, node);
 		})();
 	</script>
-
-	<script type='text/javascript'>
-		googletag.cmd.push(function() {
-		googletag.defineSlot('/5702/yb_Football_By_Football', [[300, 250]], 'div-gpt-ad-1415039200042-0').addService(googletag.pubads());
-		googletag.defineSlot('/5702/yb_Football_By_Football', [[728, 90]], 'div-gpt-ad-1415039200042-1').addService(googletag.pubads());
-		googletag.defineSlot('/5702/yb_Football_By_Football', [[160, 600]], 'div-gpt-ad-1415039200042-2').addService(googletag.pubads());
-		googletag.pubads().enableSingleRequest();
-		googletag.enableServices();
-		});
-	</script>
-
+	
 </head>
 <body class="<% if (locals.page_type) {%><%= page_type %><%} %>" >
 	<% if (locals.page_type && page_type =='home') {%>
 	<div class="masthead">
 		<div class="top-banner-container">	
-		<script src="https://www.googletagservices.com/tag/js/gpt.js">
-			googletag.pubads().definePassback("/20893548/yb/
-			footballbyfootball",
-			[728,90]).setClickUrl("%%CLICK_URL_UNESC%%").display();
-		</script>
+			<script src="https://www.googletagservices.com/tag/js/gpt.js">
+				googletag.pubads().definePassback("/20893548/yb/
+				footballbyfootball",
+				[728,90]).setClickUrl("%%CLICK_URL_UNESC%%").display();
+			</script>
 		</div>
 		<img src="/img/logo-masthead.png" alt="" class="big-logo">
 	</div>
