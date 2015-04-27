@@ -6,7 +6,7 @@ var React = require('react'),
     request = require('superagent'),
     util = require('util');
 
-var Column = require('./contentEditor.jsx'),
+var Column = require('../column-editor/trumboEditor.jsx'),
     Image = require('./imageUploader.jsx');
 
 var Content = window.Content || {};
@@ -15,7 +15,7 @@ var Content = window.Content || {};
 
 var ColumnList = React.createClass({  
   getInitialState: function() {
-    return { image_url: '', name: '', description: '' };
+    return { image_url: '', name: '', description: '', bio: '' };
   },
 
   componentDidMount: function(){
@@ -68,6 +68,10 @@ var ColumnList = React.createClass({
     this.setState({description: content.content});
   },
 
+  handleBio: function(content){
+    this.setState({bio: content.content});
+  },
+
   handleNameChange: function(event) {
     this.setState({name: event.target.value});
   },
@@ -110,6 +114,7 @@ var ColumnList = React.createClass({
     var self = this;
     var name = self.state.name;
     var description = self.state.description;
+    var bio = self.state.bio;
     var image_url= self.state.image_url;
 
     return (
@@ -122,11 +127,19 @@ var ColumnList = React.createClass({
                 image_url={image_url}
                 removed={self.removeImage}
                 content={self.handleImage}  />
+              <h3>Description:</h3>
               <Column
                 ref={'player-editor'}
+                thing_id={'player-editor'}
                 thing={description}
-                content={self.handleDescription}
-                 />
+                content={self.handleDescription} />
+              <h3>Bio:</h3>
+              <Column
+                ref={'bio-editor'}
+                thing_id={'bio-editor'}
+                thing={bio}
+                content={self.handleBio} />
+
             {this.state.submitted ? <a className='article-submit'><span className="fa fa-circle-o-notch fa-spin"></span></a> : <a className='article-submit' onClick={this.submitContent}>submit</a> }
       </div>
       

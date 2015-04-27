@@ -822,8 +822,9 @@ module.exports = function(app, passport, knox) {
 		var name = req.body.name;
 		var image_url = req.body.image_url;
 		var description = req.body.description;
+		var bio = req.body.bio;
 
-		Player.create({ name: name, image_url: image_url, description: description }, function (err, player) {
+		Player.create({ name: name, image_url: image_url, description: description, bio: bio }, function (err, player) {
 		  if (err) return console.log(err);
 		  res.send(player.id);
 		});
@@ -859,10 +860,28 @@ module.exports = function(app, passport, knox) {
 		var name = req.body.name;
 		var image_url = req.body.image_url;
 		var description = req.body.description;
+		var bio = req.body.bio;
 
-		Player.findByIdAndUpdate(req.params.id, { name: name, image_url: image_url, description: description }, function (err, player) {
+		Player.findByIdAndUpdate(req.params.id, { name: name, image_url: image_url, description: description, bio: bio }, function (err, player) {
 		  if (err) return console.log(err);
 		  res.send(player.id);
+		});
+	});
+
+	// Display Player
+	app.get('/writer/:slug', function(req, res) {
+		Player
+		.findOne({ slug: req.params.slug })
+		.exec( function (err, writer) {
+			Column.find({approved: true, type: 'column', player: writer._id }).sort({updated_date: -1}).exec(function(err, columns) {
+			  	if (err) return console.log(err);
+				res.render('writer.ejs', {
+					user : req.user,
+					writer : writer,
+					columns: columns,
+					page_type: 'column'
+				});
+			});
 		});
 	});
 
