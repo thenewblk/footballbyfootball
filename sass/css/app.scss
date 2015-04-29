@@ -759,7 +759,7 @@ img {
 .topbar {
 	background: black;
 	color: white;
-	padding: 5px 0;
+	padding: 5px 0 0;
 	line-height: 3;
 	margin: 0;
 	position: relative;
@@ -770,6 +770,12 @@ img {
 		img {
 
 		}
+	}
+
+	.podcast {
+		height: 50px;
+		background: red;
+		margin-top: 5px;
 	}
 
 	.right-side {

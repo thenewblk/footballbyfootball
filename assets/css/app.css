@@ -589,13 +589,17 @@ img {
 .topbar {
   background: black;
   color: white;
-  padding: 5px 0;
+  padding: 5px 0 0;
   line-height: 3;
   margin: 0;
   position: relative; }
   .topbar .today, .topbar .logo {
     display: inline-block;
     margin: 0; }
+  .topbar .podcast {
+    height: 50px;
+    background: red;
+    margin-top: 5px; }
   .topbar .right-side {
     display: inline-block;
     float: right; }
@@ -818,7 +822,7 @@ img {
   padding: 20px;
   line-height: 15px;
   cursor: pointer;
-  transition: 0.15s ease-in-out;
+  transition: .15s ease-in-out;
   z-index: 10; }
 
 .close-lockerroom-responses:hover {
@@ -837,7 +841,7 @@ img {
   top: 50%;
   margin-top: -21px;
   cursor: pointer;
-  transition: 0.15s ease-in-out;
+  transition: .15s ease-in-out;
   z-index: 10; }
 
 .next-lockerroom-response:hover {
@@ -856,7 +860,7 @@ img {
   top: 50%;
   margin-top: -21px;
   cursor: pointer;
-  transition: 0.15s ease-in-out;
+  transition: .15s ease-in-out;
   z-index: 10; }
 
 .prev-lockerroom-response:hover {
@@ -1142,7 +1146,7 @@ img {
   .column .column-content-wrapper p:first-child:first-letter {
     float: left;
     display: block;
-    margin: 0.15em 0.15em 0 0;
+    margin: .15em .15em 0 0;
     font-weight: 900;
     font-size: 75px;
     line-height: 50px;
