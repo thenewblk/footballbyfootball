@@ -1644,12 +1644,12 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   color: red;
   line-height: 50px;
   display: inline-block;
-  padding: 0 25px;
-  font-size: 20px;
+  padding: 0 18px;
+  font-size: 29px;
   vertical-align: middle;
   margin: 0;
   font-family: "museo-slab", serif;
-  text-shadow: 1px 1px 0px #a78039, 2px 2px 0px black;
+  text-shadow: -1px 1px 0px white, -2px 2px 0px black;
   float: left; }
 
 .podcast_progress {
@@ -1682,6 +1682,22 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   float: left;
   position: absolute;
   font-family: "museo-slab", serif; }
+
+.trumbowyg-box, .trumbowyg-editor {
+  border: none;
+  margin: 0;
+  width: auto; }
+
+.trumbowyg-button-pane {
+  background: white;
+  border-bottom: 1px solid #eee; }
+
+.trumbowyg-button-pane li.trumbowyg-separator {
+  background: #eee;
+  height: 41px; }
+
+.trumbowyg-button-pane li button {
+  margin: 3px 0; }
 
 @media (min-width: 992px) {
   .lockerroom .lockerroom-controls .author-image-wrap .author-image {

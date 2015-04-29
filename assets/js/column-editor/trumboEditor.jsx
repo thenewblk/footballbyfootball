@@ -5,8 +5,8 @@
 var React = require('react'),
     util = require('util');
 
-require('../trumbowyg.js');
-require('../trumbowyg.colors.js');
+require('../trumbowyg2.js');
+require('../trumbowyg2.colors.js');
 
 
 // removes MS Office generated guff
@@ -73,8 +73,11 @@ var Column = React.createClass({
     var super_key = this.state.super_key;
     var value = this.state.content; 
     var editor = $('#main-content-'+super_key).trumbowyg({
+        mobile: true,
+        tablet: true,
         autogrow: true,
         fullscreenable: false,
+        removeformatPasted: true,
         btns: ['viewHTML',
            '|', 'formatting',
            '|', jQuery.trumbowyg.btnsGrps.semantic,
@@ -146,7 +149,7 @@ var Column = React.createClass({
             <span className="move down" onClick={self.handleSwapNext}></span>
           </div>
           <a className="close-link" onClick={self.handleClose}>×</a>
-          <div id={'main-content-'+super_key} className="main content" placeholder='Type New Content Here...'></div>
+          <textarea id={'main-content-'+super_key} className="main content" placeholder='Type New Content Here...'></textarea>
         </div>
       </div> )
   }
