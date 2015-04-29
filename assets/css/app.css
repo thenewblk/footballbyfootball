@@ -1433,7 +1433,7 @@ a:hover {
   margin: 30px 0; }
 
 .adminbar {
-  background: red; }
+  background: #a78039; }
   .adminbar a {
     padding: 0 15px;
     line-height: 50px;
@@ -1879,6 +1879,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   .lockerroom-controls .author-image-wrap .author-image:hover {
     z-index: auto;
     box-shadow: none; }
+  .podcast_label {
+    font-size: 20px; }
   .podcast_progress, .podcast_title {
     display: none; } }
 
