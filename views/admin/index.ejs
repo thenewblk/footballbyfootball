@@ -42,20 +42,38 @@
 				    	<span style="float:right"><a href="/link/<%= link.slug %>/edit">Edit</a></span></p>
 				    </div>
 
-			  <% }) %>	
+			  	<% }) %>	
 
-			  <div class="thing">
-		    	<h5><a href="/admin/links/">All Links</a></h5>
-		    </div>
+			  	<div class="thing">
+		    		<h5><a href="/admin/links/">All Links</a></h5>
+		    	</div>
 			</div>
 			<div class="col-md-6">
+				<h2>Podcasts</h2>
+				<p><a class="article-submit" href="/podcast/new"><span class="fa fa-plus"></span> New Podcast</a></p>
+				<% podcasts.forEach(function(podcast){ %>
+
+				    <div class="thing">
+				    	<p><a href="/podcast/<%= podcast.slug %>/edit"><%= podcast.title %></a>
+				    	<span style="float:right"><a href="/podcast/<%= podcast.slug %>/edit">Edit</a></span></p>
+				    </div>
+
+			  	<% }) %>	
+
+<!-- 			  	<div class="thing">
+		    		<h5><a href="/admin/podcasts/">All Podcasts</a></h5>
+		    	</div> -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
 				<h2>Players</h2>
 				<% players.forEach(function(player){ %>
-			    <p><a href="/player/<%= player.id %>"><%= player.name %></a>
-			    <span style="float:right"><a href="/player/<%= player.id %>/edit">Edit</a></span></p>
-			  <% }) %>
-			  <p><a href="/player/new"><span class="fa fa-plus"></span> New Player</a></p>	
-		  </div>
+			    	<p><a href="/player/<%= player.id %>"><%= player.name %></a>
+			    	<span style="float:right"><a href="/player/<%= player.id %>/edit">Edit</a></span></p>
+			  	<% }) %>
+				<p><a href="/player/new"><span class="fa fa-plus"></span> New Player</a></p>	
+			</div>
 		</div>
 	</div>
 </div>

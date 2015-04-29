@@ -7,6 +7,7 @@ var User = require('./models/user'),
 		Player = require('./models/player'),
 		LockerRoom = require('./models/lockerroom'),
 		Link = require('./models/link'),
+		Podcast = require('./models/podcast'),
 		moment = require('moment');
 
 // Require module
@@ -28,7 +29,6 @@ function slugify(text) {
 }
 
 module.exports = function(app, passport, knox) {
-
 // normal routes ===============================================================
 	// Home Page
 	app.get('/', function(req, res) {
@@ -56,19 +56,21 @@ module.exports = function(app, passport, knox) {
 					});
 				});
 			});
-    });
+    	});
 	});
 
 		// PROFILE SECTION =========================
 	app.get('/admin', isLoggedIn, function(req, res) {
-	  Player.find().sort({name: 1}).exec(function(err, players) {
-	  	Column.find().sort({updated_date: -1}).limit(5).exec(function(err, columns) {
-	  		LockerRoom.find().sort({updated_date: -1}).limit(5).exec(function(err, lockerrooms) {
-	  			Link.find().sort({updated_date: -1}).limit(5).exec(function(err, links) {
+		Player.find().sort({name: 1}).exec(function(err, players) {
+			Column.find().sort({updated_date: -1}).limit(5).exec(function(err, columns) {
+				LockerRoom.find().sort({updated_date: -1}).limit(5).exec(function(err, lockerrooms) {
+					Link.find().sort({updated_date: -1}).limit(5).exec(function(err, links) {
+						Podcast.find().sort({updated_date: -1}).limit(5).exec(function(err, podcasts) {
 						res.render('admin/index.ejs', {
 							user : req.user,
 							players : players,
 							columns : columns,
+							podcasts : podcasts,
 							links : links,
 							lockerrooms : lockerrooms,
 							page_type: 'admin'
@@ -76,21 +78,22 @@ module.exports = function(app, passport, knox) {
 					});
 				});
 			});
-    });
+			});
+    	});
 	});
 
 	app.get('/admin/columns', isLoggedIn, function(req, res) {
-  	Column.find().sort({updated_date: -1}).exec(function(err, columns) {
-			res.render('admin/columns.ejs', {
-				user : req.user,
-				columns : columns,
-				page_type: 'admin'
-			});
+	  	Column.find().sort({updated_date: -1}).exec(function(err, columns) {
+				res.render('admin/columns.ejs', {
+					user : req.user,
+					columns : columns,
+					page_type: 'admin'
+				});
 		});
 	});
 	
 	app.get('/admin/lockerrooms', isLoggedIn, function(req, res) {
-  	LockerRoom.find().sort({updated_date: -1}).exec(function(err, lockerrooms) {
+	  	LockerRoom.find().sort({updated_date: -1}).exec(function(err, lockerrooms) {
 			res.render('admin/lockerrooms.ejs', {
 				user : req.user,
 				lockerrooms : lockerrooms,
@@ -100,7 +103,7 @@ module.exports = function(app, passport, knox) {
 	});
 
 	app.get('/admin/players', isLoggedIn, function(req, res) {
-  	Player.find().sort({updated_date: -1}).exec(function(err, players) {
+  		Player.find().sort({updated_date: -1}).exec(function(err, players) {
 			res.render('admin/players.ejs', {
 				user : req.user,
 				players : players,
@@ -110,7 +113,7 @@ module.exports = function(app, passport, knox) {
 	});
 
 	app.get('/admin/links', isLoggedIn, function(req, res) {
-  	Link.find().sort({updated_date: -1}).exec(function(err, links) {
+  		Link.find().sort({updated_date: -1}).exec(function(err, links) {
 			res.render('admin/links.ejs', {
 				user : req.user,
 				links : links,
@@ -758,10 +761,10 @@ module.exports = function(app, passport, knox) {
 	});
 
 		// Delete Locker Room
-	app.delete('/lockerroom/:slug/delete', function(req, res) {
-		LockerRoom
+	app.delete('/link/:slug/delete', function(req, res) {
+		Link
 			.findOne({ slug: req.params.slug })
-			.remove( function (err, lockerroom) {
+			.remove( function (err, link) {
 			  if (err) return console.log(err);
 				res.send(true);
 		});
@@ -807,6 +810,97 @@ module.exports = function(app, passport, knox) {
 			});
 	});
 
+
+		// Display New Link Form
+	app.get('/podcast/new', isLoggedIn, function(req, res) {
+		res.render('podcast/new.ejs', {
+			user: req.user,
+			page_type: 'column'
+		});
+	});
+
+	// Add New podcast
+	app.post('/podcast/new', isLoggedIn, function(req, res) {
+		var title = req.body.title;
+		var podcast = req.body.podcast;
+		var approved = req.body.approved;
+
+		Podcast.create({ title: title, podcast: podcast, approved: approved }, function (err, podcast) {
+		  if (err) return console.log(err);
+		  	res.redirect('/admin');
+		});
+	});
+
+	// Display podcast
+	app.get('/podcast/:slug', function(req, res) {
+		Podcast
+			.findOne({ slug: req.params.slug })
+			.exec( function (err, podcast) {
+			  if (err) return console.log(err);
+				res.render('podcast/show.ejs', {
+					user : req.user,
+					podcast : podcast,
+					page_type: 'column'
+				});
+		});
+	});
+
+		// Delete Locker Room
+	app.delete('/podcast/:slug/delete', function(req, res) {
+		Podcast
+			.findOne({ slug: req.params.slug })
+			.remove( function (err, podcast) {
+			  if (err) return console.log(err);
+				res.send(true);
+		});
+	});
+
+
+	// Display Edit podcast Form
+	app.get('/podcast/:slug/edit', isLoggedIn, function(req, res) {
+		Podcast
+			.findOne({ slug: req.params.slug })
+			.exec( function (err, podcast) {
+			  if (err) {
+			  	console.log(err);
+				}
+				res.render('podcast/edit.ejs', {
+					user : req.user,
+					podcast : podcast,
+					page_type: 'column'
+				});
+		});
+	});
+
+	// Edit podcast
+	app.post('/podcast/:slug/edit', isLoggedIn, function(req, res) {
+		console.log('/podcast/:slug/edit: '+util.inspect(req.body));
+		tmp_podcast = {};
+		tmp_podcast.title = req.body.title;
+		tmp_podcast.podcast = req.body.podcast;
+		tmp_podcast.approved = req.body.approved;
+
+		Podcast
+			.findOne({ slug: req.params.slug })
+			.exec(function (err, podcast) {
+			  if (err) return console.log(err);
+			  podcast.title = tmp_podcast.title;
+				podcast.podcast = tmp_podcast.podcast;
+				podcast.approved = tmp_podcast.approved;
+
+			  podcast.save(function (err) {
+	  			if (err) return console.log(err);
+			  	res.redirect('/admin');
+			  });
+			});
+	});
+
+	app.get('/latest-podcast', function(req, res) {
+		Podcast.find().where({approved: true}).sort({updated_date: -1}).limit(1).exec(function(err, podcast) {
+			 if (err) return console.log(err);
+			 res.json(podcast);
+		});
+	});
 
 
 	// Display New Player Form
