@@ -82,6 +82,36 @@ module.exports = function(app, passport, knox) {
     	});
 	});
 
+
+	app.get('/writers', function(req, res) {
+		Player.find({published: true}).sort({name: 1}).exec(function(err, writers) {
+
+			res.render('writers.ejs', {
+				user : req.user,
+				writers : writers,
+				page_type: 'home',
+				today: moment().format("MMMM Do, YYYY")
+			});
+
+    	});
+	});
+
+	app.get('/about', function(req, res) {
+		res.render('about.ejs', {
+			user : req.user,
+			page_type: 'home',
+			today: moment().format("MMMM Do, YYYY")
+		});
+	});
+
+	app.get('/privacyandterms', function(req, res) {
+		res.render('privacy.ejs', {
+			user : req.user,
+			page_type: 'home',
+			today: moment().format("MMMM Do, YYYY")
+		});
+	});
+
 	app.get('/admin/columns', isLoggedIn, function(req, res) {
 	  	Column.find().sort({updated_date: -1}).exec(function(err, columns) {
 				res.render('admin/columns.ejs', {
@@ -955,8 +985,9 @@ module.exports = function(app, passport, knox) {
 		var image_url = req.body.image_url;
 		var description = req.body.description;
 		var bio = req.body.bio;
+		var published = req.body.published;
 
-		Player.findByIdAndUpdate(req.params.id, { name: name, image_url: image_url, description: description, bio: bio }, function (err, player) {
+		Player.findByIdAndUpdate(req.params.id, { name: name, image_url: image_url, description: description, bio: bio, published: published }, function (err, player) {
 		  if (err) return console.log(err);
 		  res.send(player.id);
 		});

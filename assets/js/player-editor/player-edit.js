@@ -87,6 +87,15 @@ var ColumnList = React.createClass({
     console.log('window.location.pathname'+window.location.pathname);
   },
 
+  // 
+  // Approved Check Box Events
+  // 
+
+  handleCheckbox: function() {
+    var self = this;
+    self.setState({published: !self.state.published});
+  },
+
 
   // 
   // Submit Form
@@ -116,11 +125,13 @@ var ColumnList = React.createClass({
     var description = self.state.description;
     var bio = self.state.bio;
     var image_url= self.state.image_url;
+    var checkbox_value = this.state.published;
 
     return (
       <div className="col-md-8 col-md-offset-2">
               <h2>Edit Player</h2>
               <h3 className="subtitle"><input key={'subtitle'} className='player-title-tag' type="text" value={name} onChange={this.handleNameChange} placeholder="Name" /></h3>
+              <p><input type="checkbox" checked={checkbox_value} onChange={this.handleCheckbox} /> Published</p>
               <Image 
                 key={Math.random()}
                 identifier='main'

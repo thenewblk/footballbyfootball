@@ -14,6 +14,7 @@ var playerSchema = mongoose.Schema({
     slug: String,
     image_url: String,
     description: String,
+    published: Boolean,
     bio: String
 });
 

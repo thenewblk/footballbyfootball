@@ -1,0 +1,22 @@
+	<%= include header %>
+	<div class="main-articles">
+		<div class="container writers">
+			<div class="row">
+			<%	writers.forEach(function(writer, index){ %>
+				
+					<div class="col-md-6">
+						<div class="author-badge" style="position: relative; margin: 25px 0;">
+							<div class="black banner right">Football <span class="by">by</span> <%= writer.name %></div>
+							<div class="author-square" style="background-image: url(<%= writer.image_url %>)"></div>
+							<div class="content">
+								<%- writer.description %>
+							</div>
+							<p class="writer-link"><a href="/writer/<%= writer.slug %>">More by <%= writer.name %></a></p>
+						</div>
+					</div>
+				
+			<% }); %>
+			</div>
+		</div>
+	</div>
+	<%= include footer %>

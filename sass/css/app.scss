@@ -22,6 +22,14 @@ body.column {
 	background: #222;
 	padding: 50px 0;
 	color: #aaa;
+	.footer-links {
+		color: white;
+		font-weight: normal;
+	}
+	.copyright { 
+		text-align: center;
+	}
+
 }
 
 .instagram {
@@ -764,11 +772,9 @@ img {
 .topbar {
 	background: black;
 	color: white;
-	padding: 5px 0 0;
 	line-height: 3;
 	margin: 0;
 	position: relative;
-
 	.today, .logo {
 		display: inline-block;
 		margin: 0;
@@ -780,13 +786,14 @@ img {
 	.podcast {
 		height: 50px;
 		background: red;
-		margin-top: 5px;
 	}
 
 	.right-side {
 		display: inline-block;
+		font-size: 0;
 		float: right;
 		.article-links {
+			font-size: 15px;
 			color: white;
 			margin: 0;
 			padding: 0 10px;
@@ -1321,7 +1328,7 @@ img {
 }
 
 .banner {
-	font-family: "museo-slab",serif;
+	font-family: "abril-titling-condensed",sans-serif;
 }
 
 .banner.white.left {
@@ -1502,7 +1509,7 @@ img {
 		font-weight: 900;
 		font-size: 75px;
 		line-height: 50px;
-		font-family: "museo-slab",serif;
+		font-family: "abril-titling-condensed",sans-serif;
 	}
 
 	.column-header {
@@ -2072,6 +2079,28 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	display: none;
 }
 
+.article-links.social {
+	line-height: 50px;
+	display: inline-block;
+	width: 50px;
+	text-align: center;
+	.fa {
+		font-size: 20px;
+		vertical-align: middle;
+	}
+}
+
+.article-links.social.subscribe {
+	background: #aaa;
+}
+
+.article-links.social.twitter {
+	background: #00b0ed;
+}
+
+.article-links.social.facebook {
+	background: #3b5999;
+}
 .article-links.social:hover {
 	opacity: 0.7;
 }
@@ -2148,7 +2177,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	font-size: 29px;
 	vertical-align: middle;
 	margin: 0;
-	font-family: "museo-slab", serif;
+	font-family: "abril-titling-condensed",sans-serif;
 	text-shadow: -1px 1px 0px white, -2px 2px 0px black;
 	float: left;
 }
@@ -2187,7 +2216,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	vertical-align: middle;
 	float: left;
 	position: absolute;
-	font-family: "museo-slab", serif;
+	font-family: "abril-titling-condensed",sans-serif;
 }
 
 .trumbowyg-box, .trumbowyg-editor {
@@ -2208,6 +2237,34 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .trumbowyg-button-pane li button {
 	margin: 3px 0;
+}
+
+.writers {
+	.author-badge {
+		.author-square {
+			height: 150px;
+			width: 150px;
+		}
+		.banner.black.right:after, .banner.black.right:before {
+			display: none;
+		}
+		.content {
+			max-height: 110px;
+			overflow: scroll;
+		}
+	}
+	.writer-link {
+		display: table;
+		padding: 0px 30px;
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		font-weight: bold;
+	}
+}
+
+h1, h2, h3 {
+	font-weight: bold;
 }
 
 @media (min-width: 992px) {
@@ -2245,18 +2302,13 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	}
 }
 
-.article-links.social {
-	font-size: 20px;
-	line-height: 0px;
-}
-
 @media (max-width: 480px) {
 	.lines-button {
 		display: inline-block;
 		cursor: pointer;
 		position: absolute;
 		right: 15px;
-		top: 7px;
+		top: 0px;
 	}
 
 

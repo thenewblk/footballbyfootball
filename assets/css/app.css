@@ -18,6 +18,11 @@ body.column {
   background: #222;
   padding: 50px 0;
   color: #aaa; }
+  .footer .footer-links {
+    color: white;
+    font-weight: normal; }
+  .footer .copyright {
+    text-align: center; }
 
 .instagram {
   width: 200px;
@@ -593,7 +598,6 @@ img {
 .topbar {
   background: black;
   color: white;
-  padding: 5px 0 0;
   line-height: 3;
   margin: 0;
   position: relative; }
@@ -602,12 +606,13 @@ img {
     margin: 0; }
   .topbar .podcast {
     height: 50px;
-    background: red;
-    margin-top: 5px; }
+    background: red; }
   .topbar .right-side {
     display: inline-block;
+    font-size: 0;
     float: right; }
     .topbar .right-side .article-links {
+      font-size: 15px;
       color: white;
       margin: 0;
       padding: 0 10px; }
@@ -995,7 +1000,7 @@ img {
   text-transform: uppercase; }
 
 .banner {
-  font-family: "museo-slab", serif; }
+  font-family: "abril-titling-condensed", sans-serif; }
 
 .banner.white.left {
   background: white;
@@ -1154,7 +1159,7 @@ img {
     font-weight: 900;
     font-size: 75px;
     line-height: 50px;
-    font-family: "museo-slab", serif; }
+    font-family: "abril-titling-condensed", sans-serif; }
   .column .column-header {
     border-bottom: 1px solid #ddd; }
     .column .column-header .title {
@@ -1584,6 +1589,24 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .lines-button {
   display: none; }
 
+.article-links.social {
+  line-height: 50px;
+  display: inline-block;
+  width: 50px;
+  text-align: center; }
+  .article-links.social .fa {
+    font-size: 20px;
+    vertical-align: middle; }
+
+.article-links.social.subscribe {
+  background: #aaa; }
+
+.article-links.social.twitter {
+  background: #00b0ed; }
+
+.article-links.social.facebook {
+  background: #3b5999; }
+
 .article-links.social:hover {
   opacity: 0.7; }
 
@@ -1648,7 +1671,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-size: 29px;
   vertical-align: middle;
   margin: 0;
-  font-family: "museo-slab", serif;
+  font-family: "abril-titling-condensed", sans-serif;
   text-shadow: -1px 1px 0px white, -2px 2px 0px black;
   float: left; }
 
@@ -1681,7 +1704,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   vertical-align: middle;
   float: left;
   position: absolute;
-  font-family: "museo-slab", serif; }
+  font-family: "abril-titling-condensed", sans-serif; }
 
 .trumbowyg-box, .trumbowyg-editor {
   border: none;
@@ -1698,6 +1721,25 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .trumbowyg-button-pane li button {
   margin: 3px 0; }
+
+.writers .author-badge .author-square {
+  height: 150px;
+  width: 150px; }
+.writers .author-badge .banner.black.right:after, .writers .author-badge .banner.black.right:before {
+  display: none; }
+.writers .author-badge .content {
+  max-height: 110px;
+  overflow: scroll; }
+.writers .writer-link {
+  display: table;
+  padding: 0px 30px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-weight: bold; }
+
+h1, h2, h3 {
+  font-weight: bold; }
 
 @media (min-width: 992px) {
   .lockerroom .lockerroom-controls .author-image-wrap .author-image {
@@ -1722,17 +1764,13 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   .column-sidebar {
     position: relative; } }
 
-.article-links.social {
-  font-size: 20px;
-  line-height: 0px; }
-
 @media (max-width: 480px) {
   .lines-button {
     display: inline-block;
     cursor: pointer;
     position: absolute;
     right: 15px;
-    top: 7px; }
+    top: 0px; }
   .lockerroom-response-player {
     margin: 0 30px;
     position: absolute;

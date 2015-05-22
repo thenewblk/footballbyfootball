@@ -71,6 +71,7 @@
 				<% players.forEach(function(player){ %>
 			    	<p><a href="/player/<%= player.id %>"><%= player.name %></a>
 			    	<span style="float:right"><a href="/player/<%= player.id %>/edit">Edit</a></span></p>
+			    	<hr>
 			  	<% }) %>
 				<p><a href="/player/new"><span class="fa fa-plus"></span> New Player</a></p>	
 			</div>
