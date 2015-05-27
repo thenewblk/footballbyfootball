@@ -278,177 +278,6 @@ module.exports = function(app, passport, knox) {
 		});
 	});
 
-	// Column-1 Page
-	app.get('/columns/memo-to-johnny-rookie', function(req, res) {
-		res.render('col-1-memo-to-johnny-rookie.ejs', {
-			user: req.user,
-			page_type: 'column'
-		});
-	});
-
-	// Column-2 Page
-	app.get('/columns/nfl-stress-the-m-effers', function(req, res) {
-		res.render('col-2-nfl-stress-the-m-effers.ejs', {
-			user: req.user,
-			page_type: 'column'
-		});
-	});
-
-	// Column-3 Page
-	app.get('/columns/dont-call-me-maybe', function(req, res) {
-		res.render('col-3-dont-call-me-maybe.ejs', {
-			user: req.user,
-			page_type: 'column'
-		});
-	});
-
-	// Column-4 Page
-	app.get('/columns/start-the-carr-the-case-for-starting-rookie-quarterbacks', function(req, res) {
-		res.render('col-4-start-the-carr-the-case-for-starting-rookie-quarterbacks.ejs', {
-			user: req.user,
-			page_type: 'column'
-		});
-	});
-
-	// Column-5 Page
-	app.get('/columns/making-it-to-week-1-in-the-nfl', function(req, res) {
-		res.render('col-5-making-it-to-week-1-in-the-nfl.ejs', {
-			user: req.user,
-			page_type: 'column'
-		});
-	});
-
-	// Column-6 Page
-	app.get('/columns/reset-forgetting-the-preseason-in-the-nfl', function(req, res) {
-		res.render('col-6-reset-forgetting-the-preseason-in-the-nfl.ejs', {
-			user: req.user,
-			page_type: 'column'
-		});
-	});
-
-	// Column-7 Page
-	app.get('/columns/how-much-gronk-al-you-can-handle-bud', function(req, res) {
-		res.render('col-7-how-much-gronk-al-you-can-handle-bud.ejs', {
-			user: req.user,
-			page_type: 'column'
-		});
-	});
-
-	// Column-8 Page
-	app.get('/columns/slingin-from-the-pocket', function(req, res) {
-		res.render('col-8-slingin-from-the-pocket.ejs', {
-			user: req.user,
-			page_type: 'column'
-		});
-	});
-
-	// Column-9 Page
-	app.get('/columns/from-bad-to-badass', function(req, res) {
-		res.render('col-9-from-bad-to-badass.ejs', {
-			user: req.user,
-			page_type: 'column'
-		});
-	});
-
-	// LockerRoom-1 Page
-	app.get('/lockerrooms/making-it-through-final-roster-cuts', function(req, res) {
-		res.render('lr-1-making-it-through-final-roster-cuts.ejs', {
-			user: req.user,
-			page_type: 'lockerroom'
-		});
-	});
-
-	// LockerRoom-2 Page
-	app.get('/lockerrooms/best-day-one-memory', function(req, res) {
-		res.render('lr-2-best-day-one-memory.ejs', {
-			user: req.user,
-			page_type: 'lockerroom'
-		});
-	});
-
-	// LockerRoom-3 Page
-	app.get('/lockerrooms/what-do-you-make-of-the-new-illegal-contact-emphasis', function(req, res) {
-		res.render('lr-3-what-do-you-make-of-the-new-illegal-contact-emphasis.ejs', {
-			user: req.user,
-			page_type: 'lockerroom'
-		});
-	});
-
-	// LockerRoom-4 Page
-	app.get('/lockerrooms/favorite-friday-food-in-the-nfl', function(req, res) {
-		res.render('lr-4-favorite-friday-food-in-the-nfl.ejs', {
-			user: req.user,
-			page_type: 'lockerroom'
-		});
-	});
-
-	// LockerRoom-4-duplicate Page
-	app.get('/lockerrooms/favorite-locker-room-food-in-the-nfl', function(req, res) {
-		res.render('lr-4-favorite-friday-food-in-the-nfl.ejs', {
-			user: req.user,
-			page_type: 'lockerroom'
-		});
-	});
-
-	// LockerRoom-5 Page
-	app.get('/lockerrooms/locker-room-whos-the-best-player-you-ever-played-with', function(req, res) {
-		res.render('lr-5-locker-room-whos-the-best-player-you-ever-played-with.ejs', {
-			user: req.user,
-			page_type: 'lockerroom'
-		});
-	});
-
-	// Locks of the Week Page
-	app.get('/locks/nfl-week-1', function(req, res) {
-		res.render('lock-1-nfl-week-1.ejs', {
-			user: req.user,
-			page_type: 'column'
-		});
-	});
-
-	// Fantasy of the Week Page - 1 
-	app.get('/fantasy/week-1', function(req, res) {
-		res.render('fantasy-1-week-1.ejs', {
-			user: req.user,
-			page_type: 'column'
-		});
-	});
-
-	// Fantasy of the Week Page - 1 
-	app.get('/fantasy/week-1-the-fallout', function(req, res) {
-		res.render('fantasy-2-week-1-the-fallout.ejs', {
-			user: req.user,
-			page_type: 'column'
-		});
-	});
-
-	// Fantasy of the Week Page - 2 
-	app.get('/fantasy/week-2-the-wire', function(req, res) {
-		res.render('fantasy-3-week-2-the-wire.ejs', {
-			user: req.user,
-			page_type: 'column'
-		});
-	});
-
-	// WWKJD - Week 1
-	app.get('/wwkjd/week-1', function(req, res) {
-		res.render('wwkjd-1.ejs', {
-			user: req.user,
-			page_type: 'column'
-		});
-	});
-
-	// WWKJD - Week 1
-	app.get('/breakdown/percy-harvin-the-biggest-headache-for-seahawk-opponents', function(req, res) {
-		res.render('breakdown-1.ejs', {
-			user: req.user,
-			page_type: 'column'
-		});
-	});
-
-
-
-
 	// Saving User Profile Settings
 	app.post('/users/:user_id', function(req, res) {
 		User.findById( req.params.user_id, function(err, user) {
@@ -558,7 +387,7 @@ module.exports = function(app, passport, knox) {
 			.populate('player')
 			.exec( function (err, column) {
 			  if (err) return console.log(err);
-				res.render('actual_column.ejs', {
+				res.render('column.ejs', {
 					user : req.user,
 					column : column,
 					page_type: 'column'
@@ -682,7 +511,7 @@ module.exports = function(app, passport, knox) {
 				.populate('lockerentries.player')
 				.exec( function (err, lockerroom) {
 				  if (err) return console.log(err);
-					res.render('new_lockerroom.ejs', {
+					res.render('lockerroom.ejs', {
 						user : req.user,
 						lockerroom : lockerroom,
 						recent_lockers : recent_lockers,

@@ -5,13 +5,21 @@
 		<div class="row">
 			<div class="col-md-8 <% if (column.type == 'locks' || column.type == 'wwkjd') { %> col-md-offset-2<%} %>">
 				<div class="column-header">
-					<h2 class="title"><%= column.title %>
-						<% if (locals.user) { %>
-							<a href="/column/<%= column.slug %>/edit"> Edit</a>
-						<% } %>
+					<div class="top clearfix">
+						<h2 class="title"><%= column.title %>
+							<% if (locals.user) { %>
+								<a href="/column/<%= column.slug %>/edit"> Edit</a>
+							<% } %>
 
-					 </h2>
-					<p class="date"><%= column.updated_at %></p>
+						 </h2>
+						<p class="date"><%= column.updated_at %></p>
+						<div class="byline">
+							<% if (column.type == 'column' || column.type == 'fantasy') { %>
+							<%= column.player.name %>
+							<div class="author-image" style="background-image: url(<%= column.player.image_url %>)"></div>
+							<% } %>
+						</div>
+					</div>
 					<% if ( column.main_image.image_url ) { %>
 					<img src="https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url%>" alt="">
 					<% } %>

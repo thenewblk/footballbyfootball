@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Football by Football</title>
+	<link rel="icon" href="/img/favicon-logo.png">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -27,6 +28,7 @@
 		<% if ( column.main_image.image_url ) { %>
 			<meta property="og:image"         content="https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url%>" /> 
 		<% } %>
+		
 	<% } else if (locals.lockerroom) { %>
 		<meta property="og:type"            content="article" /> 
 		<meta property="og:url"             content="http://www.footballbyfootball.com/lockerroom/<%=lockerroom.slug %>" /> 
@@ -90,6 +92,7 @@
 				<a href="/columns" class="article-links">Columns</a>
 				<a href="/locks" class="article-links">Locks</a>
 				<a href="/fantasy" class="article-links">Fantasy</a>
+				<a href="/writers" class="article-links">Writers</a>
 				<a href="#footer" target="_blank" class="article-links social subscribe"><span class="fa fa-envelope"></span></a>
 				<a href="https://twitter.com/FBbyFB" target="_blank" class="article-links social twitter"><span class="fa fa-twitter"></span></a>
 				<a href="https://www.facebook.com/FootballByFootball"  target="_blank" class="article-links social facebook"><span class="fa fa-facebook"></span></a>

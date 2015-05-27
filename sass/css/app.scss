@@ -790,10 +790,11 @@ img {
 
 	.right-side {
 		display: inline-block;
+		font-family: "abril-titling-condensed",sans-serif;
 		font-size: 0;
 		float: right;
 		.article-links {
-			font-size: 15px;
+			font-size: 16px;
 			color: white;
 			margin: 0;
 			padding: 0 10px;
@@ -820,6 +821,12 @@ img {
 			text-decoration: underline;
 			color: black;
 		}
+		&.social {
+			color: white;
+		}
+	}
+	.podcast {
+		color: white;
 	}
 }
 
@@ -1497,7 +1504,6 @@ img {
 }
 
 .column {
-	margin: 25px 0 0;
 	.column-content-wrapper {
 		margin: 0 0 50px;
 	}
@@ -1512,10 +1518,37 @@ img {
 		font-family: "abril-titling-condensed",sans-serif;
 	}
 
+	.column-content-wrapper blockquote p:first-child:first-letter {
+		float: none;
+		display: inline;
+		margin: 0;
+		font-weight: normal;
+		font-size: inherit;
+		line-height: inherit;
+		font-family: inherit;
+	}
+
 	.column-header {
+		.top {
+			background: black;
+			padding: 15px;
+			.byline {
+				color: white;
+				.author-image {
+					height: 30px;
+					width: 30px;
+				}
+			}
+		}
+		
 		border-bottom: 1px solid #ddd;
 		.title {
-			font-size: 60px;
+			font-size: 30px;
+			line-height: 1.3;
+			color: white;
+			display: block;
+			margin-bottom: 10px;
+			margin-top: 0;
 			input {
 				border: none;
 				-webkit-appearance: none;
@@ -1523,6 +1556,9 @@ img {
 				width: 100%;
 				border-bottom: 1px solid #ddd;
 			}
+		}
+		.byline {
+			display: none;
 		}
 		.subtitle {
 			input {
@@ -1532,9 +1568,15 @@ img {
 			}
 
 		}
+		.ap-image {
+			background: white;
+			margin-bottom: 0;
+			padding-bottom: 0;
+		}
 		.date {
 			color: #999;
-			display: inline-block;
+			display: block;
+			margin-top: 15px;
 		}
 	
 		.approved-check {
@@ -1609,21 +1651,22 @@ hr.bottom{
 	.black.banner.right {
 		position: relative;
 		font-size: 1.3em;
-		line-height: 30px;
+		line-height: 36px;
+		padding-bottom: 4px;
 		.by {
 			color: red;
 		}
-		&:after, &:before {
-			border: black solid 15px;
-		}
+		// &:after, &:before {
+		// 	border: black solid 15px;
+		// }
 
-		&:after {
-			border: black solid 15px;
-			border-left-color: transparent;
-			border-bottom-color: none;
-		}
+		// &:after {
+		// 	border: black solid 15px;
+		// 	border-left-color: transparent;
+		// 	border-bottom-color: none;
+		// }
 		&:before {
-			border: black solid 15px;
+			border: black solid 20px;
 			border-left-color: transparent;
 			border-top-color: none;
 		}
@@ -1901,7 +1944,7 @@ a:hover {
 
  .home-column-sidebar {
  	margin: 0;
- 	max-height: 500px;
+ 	max-height: 450px;
  }
 
  .home-column-sidebar.expanded {
@@ -2199,7 +2242,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .podcast_icons {
 	position: absolute;
 	top: 0;
-	right: 0;
+	right: 20px;
 	background: red;
 	a.podcast_icon {
 		color: white;
@@ -2299,6 +2342,23 @@ h1, h2, h3 {
 	}
 	.column-sidebar {
 		position: relative;
+	}
+	.column {
+		.column-header {
+			// text-align: center;
+			.byline {
+				display: inline-block;
+				margin: 15px 0 15px;
+				float: right;
+			}
+			.date {
+				color: #999;
+				display: inline-block;
+				margin: 15px 0 15px;
+				float: left;
+
+			}
+		}
 	}
 }
 
@@ -2502,8 +2562,13 @@ h1, h2, h3 {
 
 	.column {
 		.column-header {
+			text-align: center;
 			.title {
 				font-size: 30px;
+			}
+			.date, .byline {
+				display: block;
+				float: none;
 			}
 		}
 		.subtitle {
