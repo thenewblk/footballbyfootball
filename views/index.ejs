@@ -7,7 +7,7 @@
 						 	tmp_day_entries = [];
 						 	first = true; %>
 
-			<div class="row">
+			<div class="row desktop">
 				<div class="col-md-6">
 					<% entry = entries[0]%><%= include big-select %>
 				</div>
@@ -30,11 +30,44 @@
 				</div>
 			</div>
 
-			<div class="row">
+			<div class="row desktop">
 				<hr>
 				<div class="col-md-6">
 					<% entry = entries[1]%><%= include big-select %>
 				</div>
+				<div class="col-md-3">
+					<div class="home-column-sidebar">
+						<div class="home-column-overlay"><span class="up_arrow"></span></div>
+						<h2 class="lr-sidebar-title">Most Recent</h2>
+						<%	entries.splice(5,10).forEach(function(entry, index){ %>
+							<% if (entry.type != 'lockerroom') { %> 
+								<h5 class="lr-sidebar-link"><a href="/column/<%= entry.slug %>"><%= entry.title %></a></h5>
+							<% } else { %>
+								<h5 class="lr-sidebar-link"><a href="/lockerroom/<%= entry.slug %>"><%= entry.title %></a></h5>
+							<% } %>
+						<% }); %>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="home-column-sidebar">
+						<div class="home-column-overlay"><span class="up_arrow"></span></div>
+						<h2 class="lr-sidebar-title">Other News</h2>
+						<% links.forEach(function(link, index){ %>
+							<h5 class="lr-sidebar-link"><a href="<%= link.link %>" target="_blank"><%= link.title %></a></h5>
+						<% }); %>
+						<% if (links.length > 4 ) { %>
+						<h5 class="lr-sidebar-link"><a href="/links">All Links</a></h5>
+						<% } %>
+					</div>
+				</div>
+			</div>
+
+			<div class="row mobile">
+				<%	for (i = 0; i < 5; i++) { %>
+				<div class="col-md-3">
+					<% entry = entries[i]%><%= include medium-select %>
+				</div>
+				<% } %>
 				<div class="col-md-3">
 					<div class="home-column-sidebar">
 						<div class="home-column-overlay"><span class="up_arrow"></span></div>

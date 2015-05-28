@@ -12,19 +12,25 @@
 							<% } %>
 
 						 </h2>
-						<p class="date"><%= column.updated_at %></p>
-						<div class="byline">
+					</div>
+					<% if ( column.main_image.image_url ) { %>
+					<img class="column-image"src="https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url%>" alt="">
+					<div class="byline">
 							<% if (column.type == 'column' || column.type == 'fantasy') { %>
-							<%= column.player.name %>
+							<span class="player-name"><%= column.player.name %></span>
 							<div class="author-image" style="background-image: url(<%= column.player.image_url %>)"></div>
 							<% } %>
 						</div>
-					</div>
-					<% if ( column.main_image.image_url ) { %>
-					<img src="https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url%>" alt="">
 					<% } %>
-					<% if (column.main_image.caption) { %><p class="ap-image"><%= column.main_image.caption %></p><% } %>
+				
+					<p class="date"><%= column.updated_at %></p>
+					
 				</div>
+				
+
+
+				<% if (column.main_image.caption) { %><p class="ap-image"><%= column.main_image.caption %></p><% } %>
+				
 				<% if ( column.subtitle ) { %>
 					<h3 class="subtitle"><%= column.subtitle %></h3>
 				<% } %>

@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Football by Football</title>
-	<link rel="icon" href="/img/favicon-logo.png">
+	<link rel="icon" href="/img/favicon-fbf.png">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -28,7 +28,7 @@
 		<% if ( column.main_image.image_url ) { %>
 			<meta property="og:image"         content="https://s3.amazonaws.com/footballbyfootball-dev<%= column.main_image.image_url%>" /> 
 		<% } %>
-		
+
 	<% } else if (locals.lockerroom) { %>
 		<meta property="og:type"            content="article" /> 
 		<meta property="og:url"             content="http://www.footballbyfootball.com/lockerroom/<%=lockerroom.slug %>" /> 
@@ -81,7 +81,8 @@
 	<div class="topbar">
 		<div class="container cf">
 			<% if (locals.page_type && page_type =='home') {%>
-				<p class="today">Today, <%= today %></p>
+				<p class="today desktop">Today, <%= today %></p>
+				<div class="logo mobile"><a href="/"><img src="/img/logo-fullonblack.png" alt=""></a></div>
 			<% } else if (locals.page_type && page_type =='lockerroom') { %>
 				<div class="logo"><a href="/"><img src="/img/logo-whitebanner.png" alt=""></a></div>
 			<% } else { %>
