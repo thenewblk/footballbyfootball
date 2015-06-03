@@ -62,7 +62,7 @@
 				[728,90]).setClickUrl("%%CLICK_URL_UNESC%%").display();
 			</script>
 		</div>
-		<img src="/img/logo-masthead.png" alt="" class="big-logo">
+		<img src="/img/masthead-logo-01.png" alt="" class="big-logo">
 	</div>
 	<%} %>
 
@@ -79,24 +79,27 @@
 	<% } %>
 
 	<div class="topbar">
-		<div class="container cf">
+		<div class="container cf top-main">
 			<% if (locals.page_type && page_type =='home') {%>
 				<p class="today desktop">Today, <%= today %></p>
-				<div class="logo mobile"><a href="/"><img src="/img/logo-fullonblack.png" alt=""></a></div>
+				<div class="logo mobile home"><a href="/"><img src="/img/logo-fullongrey.png" alt=""></a></div>
 			<% } else if (locals.page_type && page_type =='lockerroom') { %>
 				<div class="logo"><a href="/"><img src="/img/logo-whitebanner.png" alt=""></a></div>
 			<% } else { %>
-				<div class="logo"><a href="/"><img src="/img/logo-blackbanner.png" alt=""></a></div>
+				<div class="logo tablet"><a href="/"><img src="/img/logo-blackbanner.png" alt=""></a></div>
+				<div class="logo mobile"><a href="/"><img src="/img/logo-whitebanner.png" alt=""></a></div>
 			<% } %>
 			<div class="right-side">
-				<a href="/lockerrooms" class="article-links">Locker Rooms</a>
-				<a href="/columns" class="article-links">Columns</a>
-				<a href="/locks" class="article-links">Locks</a>
-				<a href="/fantasy" class="article-links">Fantasy</a>
+				<a href="/about" class="article-links">About</a>
 				<a href="/writers" class="article-links">Writers</a>
-				<a href="#footer" target="_blank" class="article-links social subscribe"><span class="fa fa-envelope"></span></a>
-				<a href="https://twitter.com/FBbyFB" target="_blank" class="article-links social twitter"><span class="fa fa-twitter"></span></a>
-				<a href="https://www.facebook.com/FootballByFootball"  target="_blank" class="article-links social facebook"><span class="fa fa-facebook"></span></a>
+				<a href="/columns" class="article-links">Columns</a>
+				<a href="/lockerrooms" class="article-links">Locker Rooms</a>
+				<a href="/fantasy" class="article-links no-border">Fantasy</a>
+				<span class="icon-container">
+					<a href="#footer" target="_blank" class="article-links social subscribe"><span class="fa fa-envelope"></span></a>
+					<a href="https://twitter.com/FBbyFB" target="_blank" class="article-links social twitter"><span class="fa fa-twitter"></span></a>
+					<a href="https://www.facebook.com/FootballByFootball"  target="_blank" class="article-links social facebook"><span class="fa fa-facebook"></span></a>
+				</span>
 			</div>
 			<div class="lines-button" type="button" role="button">
 			  <span class="lines"></span>
