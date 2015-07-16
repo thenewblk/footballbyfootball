@@ -14,10 +14,15 @@ body {
 body.column {
   background: #fff; }
 
+.icon-container {
+  margin-left: 15px; }
+
 .footer {
   background: #222;
   padding: 50px 0;
-  color: #aaa; }
+  color: #aaa;
+  z-index: 1;
+  position: relative; }
   .footer .footer-links {
     color: white;
     font-weight: normal; }
@@ -436,6 +441,9 @@ input[type="submit"] {
     margin: 0;
     line-height: 2; }
 
+.logo.mobile.home {
+  width: 200px; }
+
 .login {
   position: absolute;
   right: 0;
@@ -584,7 +592,7 @@ img {
   margin-right: 0; }
 
 .masthead {
-  background: url('/img/masthead.jpg');
+  background: url('/img/masthead-backer-01.jpg');
   background-size: cover;
   background-position: center bottom;
   padding: 20px 0; }
@@ -606,7 +614,8 @@ img {
     margin: 0; }
   .topbar .podcast {
     height: 50px;
-    background: red; }
+    background: red;
+    box-shadow: 0 0 5px black; }
   .topbar .right-side {
     display: inline-block;
     font-family: "abril-titling-condensed", sans-serif;
@@ -836,7 +845,7 @@ img {
   padding: 20px;
   line-height: 15px;
   cursor: pointer;
-  transition: 0.15s ease-in-out;
+  transition: .15s ease-in-out;
   z-index: 10; }
 
 .close-lockerroom-responses:hover {
@@ -855,7 +864,7 @@ img {
   top: 50%;
   margin-top: -21px;
   cursor: pointer;
-  transition: 0.15s ease-in-out;
+  transition: .15s ease-in-out;
   z-index: 10; }
 
 .next-lockerroom-response:hover {
@@ -874,7 +883,7 @@ img {
   top: 50%;
   margin-top: -21px;
   cursor: pointer;
-  transition: 0.15s ease-in-out;
+  transition: .15s ease-in-out;
   z-index: 10; }
 
 .prev-lockerroom-response:hover {
@@ -917,6 +926,9 @@ img {
   border-right: none;
   top: 0;
   left: 0; }
+
+.first .medium-article {
+  margin-top: 0; }
 
 .medium-article {
   height: 240px;
@@ -1158,7 +1170,7 @@ img {
 .column .column-content-wrapper p:first-child:first-letter {
   float: left;
   display: block;
-  margin: 0.15em 0.15em 0 0;
+  margin: .15em .15em 0 0;
   font-weight: 900;
   font-size: 75px;
   line-height: 50px;
@@ -1641,7 +1653,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     vertical-align: middle; }
 
 .article-links.social.subscribe {
-  background: #aaa; }
+  background: #bfbfbf; }
 
 .article-links.social.twitter {
   background: #00b0ed; }
@@ -1732,7 +1744,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .podcast_icons {
   position: absolute;
   top: 0;
-  right: 20px;
+  right: 0;
+  padding: 0 20px;
   background: red; }
   .podcast_icons a.podcast_icon {
     color: white;
@@ -1786,6 +1799,12 @@ h1, h2, h3 {
 .home .mobile {
   display: none; }
 
+.tablet, .logo.tablet {
+  display: inline-block; }
+
+.mobile, .logo.mobile {
+  display: none; }
+
 @media (min-width: 992px) {
   .lockerroom .lockerroom-controls .author-image-wrap .author-image {
     height: 100px;
@@ -1807,7 +1826,7 @@ h1, h2, h3 {
     .lockerroom .lockerroom-header .title {
       font-size: 40px; }
   .column-sidebar {
-    position: relative; }
+    position: static; }
   .column .column-header .byline {
     display: inline-block;
     margin: 15px 0 15px;
@@ -1824,9 +1843,19 @@ h1, h2, h3 {
       border: 1px solid red;
       border-left: none; }
   .column .column-header .date {
+    display: none; }
+  .column .author-badge {
+    display: none; }
+  .tablet, .logo.tablet {
+    display: inline-block; }
+  .mobile, .logo.mobile {
     display: none; } }
 
 @media (max-width: 480px) {
+  .tablet, .logo.tablet {
+    display: none; }
+  .mobile, .logo.mobile {
+    display: inline-block; }
   .home .mobile {
     display: inline-block; }
   .home .desktop, .home .masthead {
@@ -1885,7 +1914,7 @@ h1, h2, h3 {
     display: inline-block;
     width: 30px;
     height: 3px;
-    background: white;
+    background: black;
     transition: 0.15s ease-in-out;
     border-radius: 0;
     position: relative;
@@ -1895,7 +1924,7 @@ h1, h2, h3 {
       display: inline-block;
       width: 30px;
       height: 3px;
-      background: white;
+      background: black;
       transition: 0.15s ease-in-out;
       border-radius: 0;
       position: absolute;
@@ -1960,11 +1989,14 @@ h1, h2, h3 {
   .column .column-header {
     text-align: center; }
     .column .column-header .top {
-      padding: 0 15px; }
+      padding: 0 15px;
+      position: relative;
+      background: black; }
     .column .column-header .title {
-      font-size: 15px;
+      font-size: 18px;
       margin-bottom: 0;
-      line-height: 2.5; }
+      line-height: 1.5;
+      padding: 10px 0; }
     .column .column-header .date {
       display: none; }
     .column .column-header .byline {
@@ -1972,6 +2004,10 @@ h1, h2, h3 {
       .column .column-header .byline .author-image {
         height: 50px;
         width: 50px; }
+  .column .ap-image {
+    font-size: 12px;
+    line-height: 1.5;
+    padding: 10px 0; }
   .column .subtitle {
     font-size: 18px; }
   .column .date {
@@ -1984,14 +2020,25 @@ h1, h2, h3 {
     display: block;
     float: none;
     text-align: center;
-    border-top: #eee solid 1px;
+    border-top: #666 solid 1px;
     margin-top: 10px; }
     .topbar .right-side.active .article-links {
+      color: black;
       display: block;
-      border-bottom: #eee solid 1px; }
+      border-bottom: #666 solid 1px; }
+      .topbar .right-side.active .article-links.no-border {
+        border: none; }
+    .topbar .right-side.active .icon-container {
+      display: table;
+      width: 100%;
+      margin-left: 0; }
     .topbar .right-side.active .article-links.social {
-      display: inline-block;
-      border-bottom: none; }
+      display: table-cell;
+      border-bottom: none;
+      color: white; }
+  .topbar .top-main {
+    background: #bfbfbf;
+    color: black; }
   .lockerroom-controls .author-image-wrap .author-image:hover {
     z-index: auto;
     box-shadow: none; }
