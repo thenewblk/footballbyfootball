@@ -26,7 +26,7 @@ body.column {
 		color: white;
 		font-weight: normal;
 	}
-	.copyright { 
+	.copyright {
 		text-align: center;
 	}
 
@@ -237,7 +237,7 @@ input[type="submit"] {
 }
 
 .close-link:hover {
-	color: #ad1a19; 
+	color: #ad1a19;
 	text-decoration: none;
 }
 
@@ -277,7 +277,7 @@ input[type="submit"] {
 	position: relative;
 	z-index: 1;
 	padding: 75px 0;
-	.dz-progress{ 
+	.dz-progress{
 		height: 2px;
 		background: transparent;
 		width: 60%;
@@ -310,7 +310,7 @@ input[type="submit"] {
   color: #202b2a;
 }
 
-.post { 
+.post {
 	border: 5px solid transparent;
 	background: white;
 	color: #444;
@@ -427,7 +427,7 @@ input[type="submit"] {
 		padding: 15px;
 		.instagrams, .posts {
 			display: none;
-		} 
+		}
 		.instagrams.active, .posts.active {
 			display: block;
 
@@ -446,7 +446,7 @@ input[type="submit"] {
 .column-content {
 	display: block;
 	vertical-align: top;
-	
+
 	.position-control {
 		position: absolute;
 		z-index: 1;
@@ -524,7 +524,7 @@ input[type="submit"] {
 
 		.instagrams, .posts {
 			display: none;
-		} 
+		}
 		.instagrams.active, .posts.active {
 			display: block;
 		}
@@ -590,7 +590,7 @@ input[type="submit"] {
 	text-align: center;
 	line-height: 48px;
 	margin: 0;
-	cursor: pointer; 
+	cursor: pointer;
 	border-left: 1px solid #ccc;
 }
 
@@ -921,7 +921,7 @@ img {
 			padding-top: 85px;
 
 		}
-		
+
 	}
 
 }
@@ -941,13 +941,13 @@ img {
 	position: relative;
 	background-size: cover;
 	background-position: center;
-	
+
 	a {
 		color: white;
 	}
 	a:hover {
 		color: white;
-		text-decoration: underline;	
+		text-decoration: underline;
 	}
 
 	.headline {
@@ -968,7 +968,7 @@ img {
 				font-size: 50px;
 				margin-bottom: 25px;
 			}
-			
+
 			.byline {
 				text-align: right;
 				font-size: 16px;
@@ -1130,8 +1130,8 @@ img {
 	border: black solid 2px;
 	border-bottom: none;
 	border-left: none;
-	transform: rotate(45deg); 
-	-webkit-transform: rotate(45deg); 
+	transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
 	position: absolute;
 	right: 20px;
 	top: 50%;
@@ -1151,8 +1151,8 @@ img {
 	border: black solid 2px;
 	border-top: none;
 	border-right: none;
-	transform: rotate(45deg); 
-	-webkit-transform: rotate(45deg); 
+	transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
 	position: absolute;
 	left: 20px;
 	top: 50%;
@@ -1245,7 +1245,7 @@ img {
 					font-size: 22px;
 				}
 			}
-			
+
 			.byline {
 				text-align: right;
 				font-size: 16px;
@@ -1273,7 +1273,7 @@ img {
 	&:hover {
 		.overcast {
 			opacity: 0.7;
-		}	
+		}
 	}
 }
 
@@ -1314,7 +1314,7 @@ img {
 	background-size: cover;
 	background-position: center;
 	margin-bottom: 0;
-	
+
 	.headline {
 		color: white;
 		display: table-cell;
@@ -1544,7 +1544,7 @@ img {
 				}
 			}
 		}
-		
+
 		.column-image {
 			width: 100%;
 		}
@@ -1590,7 +1590,7 @@ img {
 			line-height: 2;
 			margin-bottom: 0;
 		}
-	
+
 		.approved-check {
 			display: inline-block;
 			float: right;
@@ -1798,8 +1798,8 @@ form .form-group {
 }
 
 .caption-image {
-	float: right; 
-	width: 50%; 
+	float: right;
+	width: 50%;
 	padding: 15px;
 	img {
 		width: 100%;
@@ -1813,21 +1813,21 @@ form .form-group {
 }
 
 .caption-image.right-aligned {
-	float: right; 
-	width: 50%; 
+	float: right;
+	width: 50%;
 }
 
 .caption-image.left-aligned {
-	float: left; 
+	float: left;
 }
 
 .caption-image.left-logo {
 	float: left;
-	width: 180px; 
+	width: 180px;
 }
 
 .caption-image.full-width {
-	float: none; 
+	float: none;
 	width: 100%;
 }
 
@@ -1930,7 +1930,7 @@ form .form-group {
 
 a {
   color: #ad1a19;
-  transition: 0.15s ease-in-out; 
+  transition: 0.15s ease-in-out;
   text-decoration: none;
 }
 a:hover {
@@ -1944,7 +1944,7 @@ a:hover {
 
 .adminbar {
 	background: #a78039;
-	a { 
+	a {
 		padding: 0 15px;
 		line-height: 50px;
 		color: white;
@@ -1970,6 +1970,7 @@ a:hover {
  .home-column-sidebar {
  	margin: 0 0 15px;
  	max-height: 450px;
+	overflow: hidden;
  }
 
  .home-column-sidebar.expanded {
@@ -1985,7 +1986,7 @@ a:hover {
 		}
 	}
  }
-	.home-column-overlay.expanded:hover{ 
+	.home-column-overlay.expanded:hover{
 		.up_arrow {
 			opacity: 0.8;
 		}
@@ -2021,7 +2022,7 @@ a:hover {
 	.lr-sidebar-link:last-child {
 		border: none;
 	}
-	.home-column-overlay { 
+	.home-column-overlay {
 		display: block;
 		overflow: hidden;
 		height: 100px;
@@ -2055,7 +2056,7 @@ a:hover {
 			opacity: 0.8;
 		}
 	}
-	.home-column-overlay:hover{ 
+	.home-column-overlay:hover{
 		.up_arrow {
 			opacity: 0.8;
 		}
@@ -2271,7 +2272,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	background: red;
 	a.podcast_icon {
 		color: white;
-		font-size: 25px; 
+		font-size: 25px;
 		padding: 0 10px;
 		line-height: 50px;
 	}
@@ -2463,12 +2464,12 @@ h1, h2, h3 {
 		  background: black;
 		  transition: 0.15s ease-in-out;
 		  border-radius: 0;
-	    position: relative; 
+	    position: relative;
 	    vertical-align: middle;
-	   
+
 	    /*create the upper and lower lines as pseudo-elements of the middle line*/
 	    &:before, &:after {
-	     
+
 	     	display: inline-block;
 			  width: 30px;
 			  height: 3px;
@@ -2493,12 +2494,12 @@ h1, h2, h3 {
 		  background: white;
 		  transition: 0.15s ease-in-out;
 		  border-radius: 0;
-	    position: relative; 
+	    position: relative;
 	    vertical-align: middle;
-	   
+
 	    /*create the upper and lower lines as pseudo-elements of the middle line*/
 	    &:before, &:after {
-	     
+
 	     	display: inline-block;
 			  width: 30px;
 			  height: 3px;
@@ -2520,22 +2521,22 @@ h1, h2, h3 {
 	.lines-button.x .lines{
 	    /*hide the middle line*/
 	    background: transparent;
-	 
+
 	    /*overlay the lines by setting both their top values to 0*/
 	    &:before, &:after{
 	      transform-origin: 50% 50%;
 	      top:0;
 	      width: 30px;
 	    }
-	 
+
 	    // rotate the lines to form the x shape
 	    &:before{
 	      -webkit-transform: rotate3d(0, 0, 1, 45deg);
-	      transform: rotate3d(0,0,1,45deg); 
+	      transform: rotate3d(0,0,1,45deg);
 	    }
 	    &:after{
 	      -webkit-transform: rotate3d(0, 0, 1, -45deg);
-	      transform: rotate3d(0,0,1,-45deg); 
+	      transform: rotate3d(0,0,1,-45deg);
 	    }
 	}
 	body {
@@ -2546,7 +2547,7 @@ h1, h2, h3 {
 	}
 
 	.caption-image.right-aligned, .caption-image.left-aligned, .caption-image.left-logo {
-		float: none; 
+		float: none;
 		width: 100%;
 	}
 
@@ -2648,7 +2649,7 @@ h1, h2, h3 {
 			text-align: center;
 			border-top: #eee solid 1px;
 			margin-top: 10px;
-			
+
 			.article-links {
 				display: block;
 				border-bottom: #eee solid 1px;
@@ -2667,7 +2668,7 @@ h1, h2, h3 {
 			.author-image:hover {
 					z-index: auto;
 					box-shadow: none;
-				
+
 			}
 
 		}

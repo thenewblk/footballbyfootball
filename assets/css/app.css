@@ -1500,7 +1500,8 @@ a:hover {
 
 .home-column-sidebar {
   margin: 0 0 15px;
-  max-height: 450px; }
+  max-height: 450px;
+  overflow: hidden; }
 
 .home-column-sidebar.expanded {
   max-height: inherit;

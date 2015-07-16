@@ -40,7 +40,7 @@
 						<div class="home-column-overlay"><span class="up_arrow"></span></div>
 						<h2 class="lr-sidebar-title">Most Recent</h2>
 						<%	entries.splice(5,10).forEach(function(entry, index){ %>
-							<% if (entry.type != 'lockerroom') { %> 
+							<% if (entry.type != 'lockerroom') { %>
 								<h5 class="lr-sidebar-link"><a href="/column/<%= entry.slug %>"><%= entry.title %></a></h5>
 							<% } else { %>
 								<h5 class="lr-sidebar-link"><a href="/lockerroom/<%= entry.slug %>"><%= entry.title %></a></h5>
@@ -73,7 +73,7 @@
 						<div class="home-column-overlay"><span class="up_arrow"></span></div>
 						<h2 class="lr-sidebar-title">Most Recent</h2>
 						<%	entries.splice(5,10).forEach(function(entry, index){ %>
-							<% if (entry.type != 'lockerroom') { %> 
+							<% if (entry.type != 'lockerroom') { %>
 								<h5 class="lr-sidebar-link"><a href="/column/<%= entry.slug %>"><%= entry.title %></a></h5>
 							<% } else { %>
 								<h5 class="lr-sidebar-link"><a href="/lockerroom/<%= entry.slug %>"><%= entry.title %></a></h5>
@@ -101,7 +101,7 @@
 				<div class="col-md-8">
 						<%	entries.filter(function(item){
 									return item.updated_at != first_date;
-								}).splice(0,10).forEach(function(entry, index){ %>
+								}).splice(5,15).forEach(function(entry, index){ %>
 							<% if (entry.type == 'lockerroom'){ %>
 								<div class="small-entry cf">
 									<div class="col-md-4">
@@ -128,12 +128,12 @@
 										</div>
 									</div>
 								</div>
-							<% } %>	
+							<% } %>
 						<% }); %>
 				</div>
 				<div class="col-md-4">
 					<iframe id="yb_widget_83540" frameBorder="0" scrolling=no style="width: 300px; height: 484px; border: 0px;" src="http://www.yardbarker.com/widget/ybn/83540"></iframe>
-					
+
 					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 					<!-- Home and Archive Skyscraper -->
 					<ins class="adsbygoogle"
@@ -154,7 +154,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-9">
-						<h4><a class="article-submit" href="/archive">Archive</a></h4>	
+						<h4><a class="article-submit" href="/archive">Archive</a></h4>
 				</div>
 			</div>
 		</div>
