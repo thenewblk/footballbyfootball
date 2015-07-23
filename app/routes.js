@@ -18,7 +18,7 @@ var  	async = require('async'),
     	fs = require('fs'),
     	util = require('util'),
     	auth = require('../config/auth.js');
-    	
+
 function slugify(text) {
   return text.toString().toLowerCase()
     .replace(/\s+/g, '-')           // Replace spaces with -
@@ -121,7 +121,7 @@ module.exports = function(app, passport, knox) {
 				});
 		});
 	});
-	
+
 	app.get('/admin/lockerrooms', isLoggedIn, function(req, res) {
 	  	LockerRoom.find().sort({updated_date: -1}).exec(function(err, lockerrooms) {
 			res.render('admin/lockerrooms.ejs', {
@@ -174,7 +174,7 @@ module.exports = function(app, passport, knox) {
 			});
 		});
 	});
-	
+
 	app.get('/fantasy', function(req, res) {
 		Column.find({approved: true, type: 'fantasy'}).sort({updated_date: -1}).populate('player').exec(function(err, columns) {
 			res.render('columns.ejs', {
@@ -292,7 +292,7 @@ module.exports = function(app, passport, knox) {
 
 	// Repositioning with AJAX via jQuery UI Sortable
 	app.post('/thing-position', isLoggedIn, function(req, res) {
-		
+
 		User.findById(req.user.id, function(err, user) {
 			var new_order = req.body.thing;
 
@@ -326,7 +326,7 @@ module.exports = function(app, passport, knox) {
 		          res.send(true);
 		      });
 				})
-			}	
+			}
 		});
 	});
 
@@ -340,13 +340,13 @@ module.exports = function(app, passport, knox) {
 
 			    for(var i = 0; i < user.things.length; i++ ) {
 			    	if (user.things[i].instagram ) {
-			        if (user.things[i].instagram.id == instagramId) { 
+			        if (user.things[i].instagram.id == instagramId) {
 			        	console.log('removed: '+user.things[i].id);
 			          user.things.remove(user.things[i]._id.toString());
 			        }
 			      }
 		      }
-					
+
 					user.save();
 					res.send(true);
 				});
@@ -889,12 +889,12 @@ module.exports = function(app, passport, knox) {
   };
 
 // S3 Connector
-var connect = function() {  
+var connect = function() {
   return knox.createClient(credential);
 };
 
 // Remove Temp File
-var removeTemp = function(path, callback) {  
+var removeTemp = function(path, callback) {
   fs.unlink(path, function(err) {
     if (typeof callback === 'function') {
       process.nextTick(function() {
@@ -905,7 +905,7 @@ var removeTemp = function(path, callback) {
 };
 
 // Upload when '/upload' with POST requested
-app.post('/upload', function(req, res){  
+app.post('/upload', function(req, res){
   var client = connect(),
       item = req.files.file,
       // append current timestamp to prevent filename conflicts
@@ -977,7 +977,7 @@ app.post('/upload', function(req, res){
 				user : req.user
 			});
 			console.log('req.user: '+req.user);
-		
+
 	});
 
 	// LOGOUT ==============================
@@ -1006,7 +1006,7 @@ app.post('/upload', function(req, res){
 
 		// SIGNUP =================================
 		// show the signup form
-		app.get('/signup', function(req, res) {
+		app.get('/fbf_new_user_sign_up_', function(req, res) {
 			res.render('signup.ejs', { message: req.flash('loginMessage') });
 		});
 
@@ -1055,9 +1055,9 @@ app.post('/upload', function(req, res){
 			}));
 
 	// instagram ----------------------------
-	
+
 		// route for instagram authentication and login
-		app.get('/auth/instagram', passport.authenticate('instagram', { scope : 'likes' }), 
+		app.get('/auth/instagram', passport.authenticate('instagram', { scope : 'likes' }),
 			function(req, res){
 	    // The request will be redirected to Instagram for authentication, so this
 	    // function will not be called.
@@ -1204,7 +1204,7 @@ app.post('/upload', function(req, res){
        	site_url:       'http://www.footballbyfootball.com/',
         image_url:      'http://www.footballbyfootball.com/img/logo-masthead.png',
         copyright:      'Copyright © 2014 Football by Football, LLC. All rights reserved',
-        generator: 			'bangarang' 
+        generator: 			'bangarang'
     });
 
 		Column.find({approved: true}).sort({updated_date: 1}).populate('player').exec(function(err, columns) {
@@ -1222,13 +1222,13 @@ app.post('/upload', function(req, res){
 				var posts = all_posts.splice(0,10);
 
 		    for(var key in posts) {
-		    	var description = '';	
+		    	var description = '';
 	    		if (posts[key].type == 'lockerroom') {
 	    			var url = 'http://www.footballbyfootball.com/lockerroom/'+posts[key].slug;
 	    			var image = 'https://s3.amazonaws.com/footballbyfootball-dev/lockerroom/sansjags_backer.jpg';
 	    			var description = '';
 	    		} else {
-	    				    			
+
 	    			var url = 'http://www.footballbyfootball.com/column/'+posts[key].slug;
 	    			// description = posts[key].data[0].content.replace(/<(?:.|\n)*?>/gm, '');
 	    			for (x in posts[key].data) {
@@ -1236,10 +1236,10 @@ app.post('/upload', function(req, res){
 	    					description = description + posts[key].data[x].content.replace(/<(?:.|\n)*?>/gm, '');
 	    				} else if (posts[key].data[x].type == 'image') {
 	    				}
-	    				
+
 	    			}
-	    			
-	    			if (posts[key].main_image){ 
+
+	    			if (posts[key].main_image){
 	    				var image = 'https://s3.amazonaws.com/footballbyfootball-dev'+posts[key].main_image.image_url;
 	    			} else {
 	    				var image = 'http://www.footballbyfootball.com/img/logo-masthead.png';
