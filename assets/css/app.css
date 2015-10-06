@@ -104,11 +104,13 @@ input.player-title-tag {
     .post-form .toolbar .link-tool a:hover {
       text-decoration: none;
       color: #202b2a; }
+
 .post-form .link_dialog {
   text-align: center;
   background: #eee; }
   .post-form .link_dialog a, .post-form .link_dialog span {
     padding: 0 15px; }
+
 .post-form .title {
   width: 100%;
   height: 40px;
@@ -116,6 +118,7 @@ input.player-title-tag {
   border: 1px solid #ccc;
   margin: 0 0 15px;
   background: transparent; }
+
 .post-form .content {
   line-height: 20px;
   width: 100%;
@@ -123,8 +126,10 @@ input.player-title-tag {
   padding: 15px;
   border-color: transparent;
   border: none; }
+
 .post-form .content:focus {
   outline: none; }
+
 .post-form .submit {
   width: 100%;
   background: #202b2a;
@@ -136,8 +141,10 @@ input.player-title-tag {
   transition: 0.15s ease-in-out;
   text-transform: uppercase;
   font-size: 13px; }
+
 .post-form .submit:hover {
   opacity: 1; }
+
 .post-form input {
   float: none;
   padding: 0 15px; }
@@ -506,7 +513,8 @@ hr {
  * 2. The use of `table` rather than `block` is only necessary if using
  *    `:before` to contain the top-margins of child elements.
  */
-.cf:before, .cf:after {
+.cf:before,
+.cf:after {
   content: " ";
   /* 1 */
   display: table;
@@ -592,7 +600,7 @@ img {
   margin-right: 0; }
 
 .masthead {
-  background: url('/img/masthead-backer-01.jpg');
+  background: url("/img/masthead-backer-01.jpg");
   background-size: cover;
   background-position: center bottom;
   padding: 20px 0; }
@@ -618,7 +626,7 @@ img {
     box-shadow: 0 0 5px black; }
   .topbar .right-side {
     display: inline-block;
-    font-family: "abril-titling-condensed", sans-serif;
+    font-family: "abril-titling-condensed",sans-serif;
     font-size: 0;
     float: right; }
     .topbar .right-side .article-links {
@@ -649,22 +657,27 @@ img {
 .lockerroom.editor .lockerroom-entry {
   background: white;
   padding-bottom: 15px; }
+
 .lockerroom.editor .column-content {
   padding: 0 15px; }
+
 .lockerroom.editor .lockerroom-entry .lockerroom-entry-delete {
   display: inline-block;
   text-align: right;
   position: absolute;
   right: 15px;
   cursor: pointer; }
+
 .lockerroom.editor .lockerroom-header .title input {
   background: transparent;
   border: none;
   border-bottom: #666 solid 1px;
   color: white;
   outline: none; }
+
 .lockerroom.editor .lr-sidebar-link {
   cursor: pointer; }
+
 .lockerroom.editor .article-submit {
   background: #222; }
   .lockerroom.editor .article-submit:hover {
@@ -845,7 +858,7 @@ img {
   padding: 20px;
   line-height: 15px;
   cursor: pointer;
-  transition: 0.15s ease-in-out;
+  transition: .15s ease-in-out;
   z-index: 10; }
 
 .close-lockerroom-responses:hover {
@@ -864,7 +877,7 @@ img {
   top: 50%;
   margin-top: -21px;
   cursor: pointer;
-  transition: 0.15s ease-in-out;
+  transition: .15s ease-in-out;
   z-index: 10; }
 
 .next-lockerroom-response:hover {
@@ -883,7 +896,7 @@ img {
   top: 50%;
   margin-top: -21px;
   cursor: pointer;
-  transition: 0.15s ease-in-out;
+  transition: .15s ease-in-out;
   z-index: 10; }
 
 .prev-lockerroom-response:hover {
@@ -1017,7 +1030,7 @@ img {
   text-transform: uppercase; }
 
 .banner {
-  font-family: "abril-titling-condensed", sans-serif; }
+  font-family: "abril-titling-condensed",sans-serif; }
 
 .banner.white.left {
   background: white;
@@ -1167,6 +1180,7 @@ img {
 
 .column .column-content-wrapper {
   margin: 0 0 50px; }
+
 .column .column-content-wrapper p:first-child:first-letter {
   float: left;
   display: block;
@@ -1174,7 +1188,8 @@ img {
   font-weight: 900;
   font-size: 75px;
   line-height: 50px;
-  font-family: "abril-titling-condensed", sans-serif; }
+  font-family: "abril-titling-condensed",sans-serif; }
+
 .column .column-content-wrapper blockquote p:first-child:first-letter {
   float: none;
   display: inline;
@@ -1183,6 +1198,7 @@ img {
   font-size: inherit;
   line-height: inherit;
   font-family: inherit; }
+
 .column .column-header {
   position: relative; }
   .column .column-header .top {
@@ -1248,8 +1264,10 @@ img {
     display: none; }
   .column .column-header .active .close-link {
     display: block; }
+
 .column .date {
   text-align: center; }
+
 .column .ap-image {
   background: white;
   margin-bottom: 0;
@@ -1335,6 +1353,7 @@ form label {
   position: absolute;
   text-align: center;
   width: 75px; }
+
 form input {
   font-family: inherit;
   font-size: inherit;
@@ -1342,8 +1361,10 @@ form input {
   line-height: 38px;
   width: 100%;
   padding-left: 85px; }
+
 form input[type="checkbox"] {
   width: auto; }
+
 form button {
   width: 100%;
   background: #aaa;
@@ -1363,6 +1384,7 @@ form .form-group input {
   line-height: 38px;
   width: 100%;
   padding: 0 15px; }
+
 form .form-group label {
   display: inline-block;
   margin-bottom: 0;
@@ -1676,6 +1698,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .bio .bio_title {
   text-align: center; }
+
 .bio .bio_content {
   padding-bottom: 50px; }
 
@@ -1725,7 +1748,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-size: 29px;
   vertical-align: middle;
   margin: 0;
-  font-family: "abril-titling-condensed", sans-serif;
+  font-family: "abril-titling-condensed",sans-serif;
   text-shadow: -1px 1px 0px white, -2px 2px 0px black;
   float: left; }
 
@@ -1759,7 +1782,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   vertical-align: middle;
   float: left;
   position: absolute;
-  font-family: "abril-titling-condensed", sans-serif; }
+  font-family: "abril-titling-condensed",sans-serif; }
 
 .trumbowyg-box, .trumbowyg-editor {
   border: none;
@@ -1780,11 +1803,14 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .writers .author-badge .author-square {
   height: 150px;
   width: 150px; }
+
 .writers .author-badge .banner.black.right:after, .writers .author-badge .banner.black.right:before {
   display: none; }
+
 .writers .author-badge .content {
   max-height: 110px;
   overflow: scroll; }
+
 .writers .writer-link {
   display: table;
   padding: 0px 30px;
@@ -2053,6 +2079,11 @@ div[id^="grabDiv"] {
   width: 100% !important;
   height: auto !important;
   padding-bottom: 56.25%; }
-  div[id^="grabDiv"] video[id^="GrabPlayer"], div[id^="grabDiv"] img[id^="grabPreview"], div[id^="grabDiv"] div[id^="grabPlayButton"], div[id^="grabDiv"] div[id^="grabSpinner"], div[id^="grabDiv"] div[id^="grabError"] {
+  div[id^="grabDiv"] video[id^="GrabPlayer"],
+  div[id^="grabDiv"] img[id^="grabPreview"],
+  div[id^="grabDiv"] div[id^="grabPlayButton"],
+  div[id^="grabDiv"] div[id^="grabSpinner"],
+  div[id^="grabDiv"]
+div[id^="grabError"] {
     height: 100% !important;
     width: 100% !important; }

@@ -1,6 +1,6 @@
 // gulpfile.js
 // Include gulp
-var gulp = require('gulp'); 
+var gulp = require('gulp');
 
 // Include Our Plugins
 var jshint = require('gulp-jshint'),
@@ -9,9 +9,9 @@ var jshint = require('gulp-jshint'),
 		uglify = require('gulp-uglify'),
 		rename = require('gulp-rename'),
 		nodemon = require('gulp-nodemon'),
-        browserify = require('browserify'),
-        reactify = require('reactify'),
-        source = require('vinyl-source-stream');
+    browserify = require('browserify'),
+    reactify = require('reactify'),
+    source = require('vinyl-source-stream');
 
 // Lint Task
 gulp.task('lint', function() {

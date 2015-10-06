@@ -59,7 +59,6 @@ module.exports = function(app, passport, knox) {
     	});
 	});
 
-		// PROFILE SECTION =========================
 	app.get('/admin', isLoggedIn, function(req, res) {
 		Player.find().sort({name: 1}).exec(function(err, players) {
 			Column.find().sort({updated_date: -1}).limit(5).exec(function(err, columns) {
@@ -81,7 +80,6 @@ module.exports = function(app, passport, knox) {
 			});
     	});
 	});
-
 
 	app.get('/writers', function(req, res) {
 		Player.find({published: true}).sort({name: 1}).exec(function(err, writers) {
@@ -163,6 +161,7 @@ module.exports = function(app, passport, knox) {
 			});
 		});
 	});
+
 	app.get('/locks', function(req, res) {
 		Column.find({approved: true, type: 'locks'}).sort({updated_date: -1}).populate('player').exec(function(err, columns) {
 			res.render('columns.ejs', {
@@ -231,16 +230,6 @@ module.exports = function(app, passport, knox) {
 		});
 	});
 
-	// Article Example
-	app.get('/article-example', function(req, res) {
-	  User.find().exec(function(err, users) {
-			res.render('article.ejs', {
-				user : req.user,
-				page_type: 'column'
-			});
-    });
-	});
-
 	// Column Page
 	app.get('/column/base', function(req, res) {
 		User.findById(req.user)
@@ -289,7 +278,6 @@ module.exports = function(app, passport, knox) {
 		});
 	});
 
-
 	// Repositioning with AJAX via jQuery UI Sortable
 	app.post('/thing-position', isLoggedIn, function(req, res) {
 
@@ -306,7 +294,6 @@ module.exports = function(app, passport, knox) {
 			user.save();
 		});
 	});
-
 
 	// Add Instagram Images to User Grid
 	app.post('/users/:user_id/instagram', function(req, res) {
@@ -379,7 +366,6 @@ module.exports = function(app, passport, knox) {
 		});
 	});
 
-
 	// Display Column
 	app.get('/column/:slug', function(req, res) {
 		Column
@@ -415,7 +401,6 @@ module.exports = function(app, passport, knox) {
 				res.send(true);
 		});
 	});
-
 
 	// Display Edit Column Form
 	app.get('/column/:slug/edit', isLoggedIn, function(req, res) {
@@ -476,7 +461,6 @@ module.exports = function(app, passport, knox) {
 			});
 	});
 
-
 	// Locker Room Page
 	app.get('/lockerroom/new', isLoggedIn, function(req, res) {
 		Player.find().sort({name: 1}).exec(function(err, players) {
@@ -501,7 +485,6 @@ module.exports = function(app, passport, knox) {
 		  	res.send(lockerroom.slug);
 		});
 	});
-
 
 	// Display Locker Room
 	app.get('/lockerroom/:slug', function(req, res) {
@@ -530,7 +513,6 @@ module.exports = function(app, passport, knox) {
 				res.send(true);
 		});
 	});
-
 
 	// Display Edit Locker Room Form
 	app.get('/lockerroom/:slug/edit', isLoggedIn, function(req, res) {
@@ -585,7 +567,7 @@ module.exports = function(app, passport, knox) {
 			});
 	});
 
-		// Display New Link Form
+	// Display New Link Form
 	app.get('/link/new', isLoggedIn, function(req, res) {
 		res.render('link/new.ejs', {
 			user: req.user,
@@ -619,7 +601,7 @@ module.exports = function(app, passport, knox) {
 		});
 	});
 
-		// Delete Locker Room
+	// Delete Locker Room
 	app.delete('/link/:slug/delete', function(req, res) {
 		Link
 			.findOne({ slug: req.params.slug })
@@ -628,7 +610,6 @@ module.exports = function(app, passport, knox) {
 				res.send(true);
 		});
 	});
-
 
 	// Display Edit Link Form
 	app.get('/link/:slug/edit', isLoggedIn, function(req, res) {
@@ -669,8 +650,7 @@ module.exports = function(app, passport, knox) {
 			});
 	});
 
-
-		// Display New Link Form
+	// Display New Link Form
 	app.get('/podcast/new', isLoggedIn, function(req, res) {
 		res.render('podcast/new.ejs', {
 			user: req.user,
@@ -713,7 +693,6 @@ module.exports = function(app, passport, knox) {
 				res.send(true);
 		});
 	});
-
 
 	// Display Edit podcast Form
 	app.get('/podcast/:slug/edit', isLoggedIn, function(req, res) {
@@ -761,7 +740,6 @@ module.exports = function(app, passport, knox) {
 		});
 	});
 
-
 	// Display New Player Form
 	app.get('/player/new', isLoggedIn, function(req, res) {
 		res.render('player-new.ejs', {
@@ -782,7 +760,6 @@ module.exports = function(app, passport, knox) {
 		  res.send(player.id);
 		});
 	});
-
 
 	// Display Player
 	app.get('/player/:id', isLoggedIn, function(req, res) {
@@ -839,9 +816,6 @@ module.exports = function(app, passport, knox) {
 		});
 	});
 
-
-
-
 	// Add Post to User Grid
 	app.post('/users/:user_id/post', function(req, res) {
 		var title = req.body.title;
@@ -888,87 +862,63 @@ module.exports = function(app, passport, knox) {
     bucket: 'footballbyfootball-dev'
   };
 
-// S3 Connector
-var connect = function() {
-  return knox.createClient(credential);
-};
+	// S3 Connector
+	var connect = function() {
+	  return knox.createClient(credential);
+	};
 
-// Remove Temp File
-var removeTemp = function(path, callback) {
-  fs.unlink(path, function(err) {
-    if (typeof callback === 'function') {
-      process.nextTick(function() {
-        callback(err);
-      });
-    }
-  });
-};
+	// Remove Temp File
+	var removeTemp = function(path, callback) {
+	  fs.unlink(path, function(err) {
+	    if (typeof callback === 'function') {
+	      process.nextTick(function() {
+	        callback(err);
+	      });
+	    }
+	  });
+	};
 
-// Upload when '/upload' with POST requested
-app.post('/upload', function(req, res){
-  var client = connect(),
-      item = req.files.file,
-      // append current timestamp to prevent filename conflicts
-      filename = slugify(item.name) + Date.now();
+	// Upload when '/upload' with POST requested
+	app.post('/upload', function(req, res){
+	  var client = connect(),
+	      item = req.files.file,
+	      // append current timestamp to prevent filename conflicts
+	      filename = slugify(item.name) + Date.now();
 
-  var localPath = item.path,
-      s3Path = '/files/' + filename + '.' + mime.extension(item.type);
+	  var localPath = item.path,
+	      s3Path = '/files/' + filename + '.' + mime.extension(item.type);
 
-  async.waterfall([
-    // Upload the file to S3
-    function(callback) {
-      client.putFile(
-        localPath, s3Path, {'x-amz-acl': 'public-read'},
-        function(err, result) {
-          if (result.statusCode !== 200) {
-            err = new Error('Upload Failure: ' + result.statusCode);
-          }
-          result.resume();
-          callback(err);
-        }
-      )
-    },
+	  async.waterfall([
+	    // Upload the file to S3
+	    function(callback) {
+	      client.putFile(
+	        localPath, s3Path, {'x-amz-acl': 'public-read'},
+	        function(err, result) {
+	          if (result.statusCode !== 200) {
+	            err = new Error('Upload Failure: ' + result.statusCode);
+	          }
+	          result.resume();
+	          callback(err);
+	        }
+	      )
+	    },
 
-    // Remove the temp file on local
-    function(callback) {
-      removeTemp(localPath, function(err) {
-        callback(err);
-      });
-    }
-  ], function(err) {
-    if (err) {
-      res.send(500, 'upload failure');
-    } else {
-      // { saved: 'relative path of your bucket' }
-      res.json({ saved: s3Path });
-    }
-  });
-});
+	    // Remove the temp file on local
+	    function(callback) {
+	      removeTemp(localPath, function(err) {
+	        callback(err);
+	      });
+	    }
+	  ], function(err) {
+	    if (err) {
+	      res.send(500, 'upload failure');
+	    } else {
+	      // { saved: 'relative path of your bucket' }
+	      res.json({ saved: s3Path });
+	    }
+	  });
+	});
 
-
-
-
-	// PROFILE SECTION =========================
-	// app.get('/profile', isLoggedIn, function(req, res) {
-	// 	if ( req.user.instagram.length ) {
-	// 		InstagramGlobal.set('access_token', req.user.instagram.token );
-	// 		InstagramGlobal.users.recent({ user_id: req.user.instagram.id,
-	// 			complete: function(instagrams){
-
-	// 				res.render('profile.ejs', {
-	// 					player: req.user,
-	// 					user : req.user,
-	// 					instas: instagrams
-	// 				});
-	// 				console.log('req.user: '+req.user);
-	// 			}
-	// 		});
-	// 	} else {
-	// 		res.render('profile.ejs', {
-	// 			user : req.user
-	// 		});
-	// 	}
-	// });
 
 	// PROFILE SECTION =========================
 	app.get('/profile', isLoggedIn, function(req, res) {
@@ -1041,7 +991,6 @@ app.post('/upload', function(req, res){
 				failureRedirect : '/'
 			}));
 
-
 	// google ---------------------------------
 
 		// send to google to do the authentication
@@ -1106,7 +1055,6 @@ app.post('/upload', function(req, res){
 				successRedirect : '/profile',
 				failureRedirect : '/'
 			}));
-
 
 	// google ---------------------------------
 
@@ -1292,6 +1240,63 @@ app.post('/upload', function(req, res){
 			});
 		});
 	});
+
+	app.get('/forgot', function(req, res) {
+	  res.render('forgot', {
+	    user: req.user
+	  });
+	});
+
+	// app.post('/forgot', function(req, res, next) {
+	//   async.waterfall([
+	//     function(done) {
+	//       crypto.randomBytes(20, function(err, buf) {
+	//         var token = buf.toString('hex');
+	//         done(err, token);
+	//       });
+	//     },
+	//     function(token, done) {
+	//       User.findOne({ email: req.body.email }, function(err, user) {
+	//         if (!user) {
+	//           req.flash('error', 'No account with that email address exists.');
+	//           return res.redirect('/forgot');
+	//         }
+	//
+	//         user.resetPasswordToken = token;
+	//         user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+	//
+	//         user.save(function(err) {
+	//           done(err, token, user);
+	//         });
+	//       });
+	//     },
+	//     function(token, user, done) {
+	//       var smtpTransport = nodemailer.createTransport('SMTP', {
+	//         service: 'SendGrid',
+	//         auth: {
+	//           user: '!!! YOUR SENDGRID USERNAME !!!',
+	//           pass: '!!! YOUR SENDGRID PASSWORD !!!'
+	//         }
+	//       });
+	//       var mailOptions = {
+	//         to: user.email,
+	//         from: 'passwordreset@demo.com',
+	//         subject: 'Node.js Password Reset',
+	//         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+	//           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+	//           'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+	//           'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+	//       };
+	//       smtpTransport.sendMail(mailOptions, function(err) {
+	//         req.flash('info', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+	//         done(err, 'done');
+	//       });
+	//     }
+	//   ], function(err) {
+	//     if (err) return next(err);
+	//     res.redirect('/forgot');
+	//   });
+	// });
 
 	//The 404 Route (ALWAYS Keep this as the last route)
 	app.get('*', function(req, res){
