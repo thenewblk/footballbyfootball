@@ -96,14 +96,12 @@ var Podcast = React.createClass({
 
     return (
       <div className="container">
-        <span className="podcast_label">FBF PODCAST:</span>
-        <span className={playClass} onClick={self.playPause}></span>
-        <span className="podcast_progress">{progress} | {duration}</span>
-        <marquee className="podcast_title">{title}</marquee>
-        <span className="podcast_icons">
-          <a href="http://www.blogtalkradio.com/footballbyfootball/podcast" className="fa fa-rss podcast_icon"></a>
-          <a href={url} className="fa fa-download podcast_icon"></a>
-        </span>
+
+        <h2 className="podcast_square_title">{title}</h2>
+        <div className="podcast_play">
+          <span className={playClass} onClick={self.playPause}></span>
+          <span className="podcast_progress">{progress} | {duration}</span>
+        </div>
       </div>
 
     )
@@ -114,5 +112,5 @@ var Podcast = React.createClass({
 
 React.renderComponent(
   Podcast(),
-  document.getElementById('podcast')
+  document.getElementById('podcast_square')
 )

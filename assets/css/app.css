@@ -29,6 +29,19 @@ body.column {
   .footer .copyright {
     text-align: center; }
 
+.embed-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%; }
+  .embed-container iframe, .embed-container embed, .embed-container object {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; }
+
 .instagram {
   width: 200px;
   display: inline-block;
@@ -1751,6 +1764,22 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: "abril-titling-condensed",sans-serif;
   text-shadow: -1px 1px 0px white, -2px 2px 0px black;
   float: left; }
+
+.podcast_square {
+  background-color: red;
+  min-height: 155px;
+  margin-bottom: 15px;
+  text-align: center; }
+  .podcast_square .container {
+    width: 100% !important; }
+  .podcast_square .podcast_square_title {
+    color: white;
+    font-size: 20px; }
+  .podcast_square .podcast_play {
+    display: table;
+    margin: auto; }
+  .podcast_square .podcast_progress {
+    color: white; }
 
 .podcast_progress {
   padding-right: 20px;
