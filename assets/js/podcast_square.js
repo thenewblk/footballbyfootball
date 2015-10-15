@@ -23,41 +23,112 @@ var Podcast = React.createClass({
 
   componentWillMount: function(){
     var self = this;
+    if(self.props.type == 'nfl') {
+      request
+        .get('/latest-nfl-podcast')
+        .end(function(res) {
+          var podcast = res.body[0];
 
-    request
-      .get('/latest-podcast')
-      .end(function(res) {
-        var podcast = res.body[0];
+          console.log('podcast.podcast: ' + podcast.podcast);
+          var audioReady = function () {
+            this.load(podcast.podcast);
 
-        console.log('podcast.podcast: ' + podcast.podcast);
-        var audioReady = function () {
-          this.load(podcast.podcast);
+            this.on('timeupdate', function (position, duration) {
+              var total = moment.duration(duration, "s");
+              self.setState({progress: position, duration: total.minutes() + ":" + total.seconds() });
+            }, this);
 
-          this.on('timeupdate', function (position, duration) {
-            var total = moment.duration(duration, "s");
-            self.setState({progress: position, duration: total.minutes() + ":" + total.seconds() });
-          }, this);
+          }
 
-        }
-
-        var initAudio = function () {
-          var audio5js = new Audio5js({
-            swf_path: '/js/audio5js.swf',
-            throw_errors: true,
-            format_time: true,
-            ready: audioReady
-          });
-
-
-          self.setState({ url: podcast.podcast, title: podcast.title, updated_at: podcast.updated_at, player: audio5js});
-        }
-
-        initAudio();
+          var initAudio = function () {
+            var audio5js = new Audio5js({
+              swf_path: '/js/audio5js.swf',
+              throw_errors: true,
+              format_time: true,
+              ready: audioReady
+            });
 
 
+            self.setState({ url: podcast.podcast, title: podcast.title, updated_at: podcast.updated_at, player: audio5js});
+          }
+
+          initAudio();
 
 
-      }.bind(self));
+
+
+        }.bind(self));
+      } else if ((self.props.type == 'college')){
+        request
+          .get('/latest-college-podcast')
+          .end(function(res) {
+            var podcast = res.body[0];
+
+            console.log('podcast.podcast: ' + podcast.podcast);
+            var audioReady = function () {
+              this.load(podcast.podcast);
+
+              this.on('timeupdate', function (position, duration) {
+                var total = moment.duration(duration, "s");
+                self.setState({progress: position, duration: total.minutes() + ":" + total.seconds() });
+              }, this);
+
+            }
+
+            var initAudio = function () {
+              var audio5js = new Audio5js({
+                swf_path: '/js/audio5js.swf',
+                throw_errors: true,
+                format_time: true,
+                ready: audioReady
+              });
+
+
+              self.setState({ url: podcast.podcast, title: podcast.title, updated_at: podcast.updated_at, player: audio5js});
+            }
+
+            initAudio();
+
+
+
+
+          }.bind(self));
+      } else {
+        request
+          .get('/latest-podcast')
+          .end(function(res) {
+            var podcast = res.body[0];
+
+            console.log('podcast.podcast: ' + podcast.podcast);
+            var audioReady = function () {
+              this.load(podcast.podcast);
+
+              this.on('timeupdate', function (position, duration) {
+                var total = moment.duration(duration, "s");
+                self.setState({progress: position, duration: total.minutes() + ":" + total.seconds() });
+              }, this);
+
+            }
+
+            var initAudio = function () {
+              var audio5js = new Audio5js({
+                swf_path: '/js/audio5js.swf',
+                throw_errors: true,
+                format_time: true,
+                ready: audioReady
+              });
+
+
+              self.setState({ url: podcast.podcast, title: podcast.title, updated_at: podcast.updated_at, player: audio5js});
+            }
+
+            initAudio();
+
+
+
+
+          }.bind(self));
+      }
   },
 
 
@@ -111,6 +182,11 @@ var Podcast = React.createClass({
 
 
 React.renderComponent(
-  Podcast(),
-  document.getElementById('podcast_square')
+  <Podcast type="nfl" />,
+  document.getElementById('podcast_nfl')
+)
+
+React.renderComponent(
+  <Podcast type="college" />,
+  document.getElementById('podcast_college')
 )

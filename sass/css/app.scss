@@ -2278,11 +2278,21 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	float: left;
 }
 
-.podcast_square {
+.podcast_wrap {
+	display: flex;
+	flex-direction: row;
+}
+
+.podcast_square, .podcast_nfl, .podcast_college {
 	background-color: red;
 	min-height: 155px;
 	margin-bottom: 15px;
 	text-align: center;
+	flex: 1;
+	margin-right: 15px;
+	&:last-child {
+		margin-right: 0;
+	}
 	.container {
 		width: 100%!important;
 	}

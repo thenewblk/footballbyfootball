@@ -11,6 +11,7 @@ function slugify(text) {
 }
 
 var podcastSchema = mongoose.Schema({
+    type			 : String,
     title			 : String,
     podcast    : String,
     slug       : String,
@@ -24,8 +25,8 @@ podcastSchema.pre('save', function (next) {
   this.updated_date = moment().format();
 
   this.slug = slugify(this.title);
-  
+
   next();
 });
- 
+
 module.exports = mongoose.model('Podcast', podcastSchema);

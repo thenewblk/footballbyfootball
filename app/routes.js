@@ -662,9 +662,10 @@ module.exports = function(app, passport, knox) {
 	app.post('/podcast/new', isLoggedIn, function(req, res) {
 		var title = req.body.title;
 		var podcast = req.body.podcast;
+		var type = req.body.type;
 		var approved = req.body.approved;
 
-		Podcast.create({ title: title, podcast: podcast, approved: approved }, function (err, podcast) {
+		Podcast.create({ title: title, type: type, podcast: podcast, approved: approved }, function (err, podcast) {
 		  if (err) return console.log(err);
 		  	res.redirect('/admin');
 		});
@@ -716,6 +717,7 @@ module.exports = function(app, passport, knox) {
 		tmp_podcast = {};
 		tmp_podcast.title = req.body.title;
 		tmp_podcast.podcast = req.body.podcast;
+		tmp_podcast.type = req.body.type;
 		tmp_podcast.approved = req.body.approved;
 
 		Podcast
@@ -723,6 +725,7 @@ module.exports = function(app, passport, knox) {
 			.exec(function (err, podcast) {
 			  if (err) return console.log(err);
 			  podcast.title = tmp_podcast.title;
+				podcast.type = tmp_podcast.type;
 				podcast.podcast = tmp_podcast.podcast;
 				podcast.approved = tmp_podcast.approved;
 
@@ -735,6 +738,20 @@ module.exports = function(app, passport, knox) {
 
 	app.get('/latest-podcast', function(req, res) {
 		Podcast.find().where({approved: true}).sort({updated_date: -1}).limit(1).exec(function(err, podcast) {
+			 if (err) return console.log(err);
+			 res.json(podcast);
+		});
+	});
+
+	app.get('/latest-college-podcast', function(req, res) {
+		Podcast.find().where({approved: true, type: 'college'}).sort({updated_date: -1}).limit(1).exec(function(err, podcast) {
+			 if (err) return console.log(err);
+			 res.json(podcast);
+		});
+	});
+
+	app.get('/latest-nfl-podcast', function(req, res) {
+		Podcast.find().where({approved: true, type: 'nfl'}).sort({updated_date: -1}).limit(1).exec(function(err, podcast) {
 			 if (err) return console.log(err);
 			 res.json(podcast);
 		});

@@ -1765,20 +1765,28 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   text-shadow: -1px 1px 0px white, -2px 2px 0px black;
   float: left; }
 
-.podcast_square {
+.podcast_wrap {
+  display: flex;
+  flex-direction: row; }
+
+.podcast_square, .podcast_nfl, .podcast_college {
   background-color: red;
   min-height: 155px;
   margin-bottom: 15px;
-  text-align: center; }
-  .podcast_square .container {
+  text-align: center;
+  flex: 1;
+  margin-right: 15px; }
+  .podcast_square:last-child, .podcast_nfl:last-child, .podcast_college:last-child {
+    margin-right: 0; }
+  .podcast_square .container, .podcast_nfl .container, .podcast_college .container {
     width: 100% !important; }
-  .podcast_square .podcast_square_title {
+  .podcast_square .podcast_square_title, .podcast_nfl .podcast_square_title, .podcast_college .podcast_square_title {
     color: white;
     font-size: 20px; }
-  .podcast_square .podcast_play {
+  .podcast_square .podcast_play, .podcast_nfl .podcast_play, .podcast_college .podcast_play {
     display: table;
     margin: auto; }
-  .podcast_square .podcast_progress {
+  .podcast_square .podcast_progress, .podcast_nfl .podcast_progress, .podcast_college .podcast_progress {
     color: white; }
 
 .podcast_progress {
