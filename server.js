@@ -45,17 +45,19 @@ app.configure(function() {
 	app.set('view engine', 'ejs'); // set up ejs for templating
   app.use(express.session({ secret: "bangarang",
     maxAge : new Date(Date.now() + 7200000),
-    store: new RedisStore({client: redis})
+    store: new RedisStore({client: redis}),
+    saveUninitialized: true,
+    resave: true
   }));
 	// required for passport
-	app.use(express.session({ secret: 'bangarang' })); // session secret
+	// app.use(express.session({ secret: 'bangarang' })); // session secret
 	app.use(passport.initialize());
 	app.use(passport.session()); // persistent login sessions
 	app.use(flash()); // use connect-flash for flash messages stored in session
 
 	app.use(
 	   sass.middleware({
-	       src: __dirname + '/sass', //where the sass files are 
+	       src: __dirname + '/sass', //where the sass files are
 	       dest: __dirname + '/assets', //where css should go
 	       outputStyle: 'compressed',
 	       debug: true // obvious

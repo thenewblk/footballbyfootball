@@ -40,11 +40,13 @@
 				<div class="col-md-6">
 					<% entry = entries[1]%><%= include big-select %>
 				</div>
+
+				<% var most_recent = entries.splice(2,6); %>
 				<div class="col-md-3">
 					<div class="home-column-sidebar">
 						<div class="home-column-overlay"><span class="up_arrow"></span></div>
 						<h2 class="lr-sidebar-title">Most Recent</h2>
-						<%	entries.splice(2,6).forEach(function(entry, index){ %>
+						<%	most_recent.forEach(function(entry, index){ %>
 							<% if (entry.type != 'lockerroom') { %>
 								<h5 class="lr-sidebar-link"><a href="/column/<%= entry.slug %>"><%= entry.title %></a></h5>
 							<% } else { %>
@@ -68,16 +70,16 @@
 			</div>
 
 			<div class="row mobile">
-				<%	for (i = 0; i < 5; i++) { %>
-				<div class="col-md-3<% if (i == 0) { %> first<% } %>">
-					<% entry = entries[i]%><%= include medium-select %>
+				<div class="col-md-3 first">
+					<% entry = entries[0]%><%= include medium-select %>
 				</div>
-				<% } %>
 				<div class="col-md-3">
-					<div class="home-column-sidebar">
-						<div class="home-column-overlay"><span class="up_arrow"></span></div>
+					<% entry = entries[1]%><%= include medium-select %>
+				</div>
+				<div class="col-md-3">
+					<div class="home-column-sidebar expanded">
 						<h2 class="lr-sidebar-title">Most Recent</h2>
-						<%	entries.splice(2,6).forEach(function(entry, index){ %>
+						<%	most_recent.forEach(function(entry, index){ %>
 							<% if (entry.type != 'lockerroom') { %>
 								<h5 class="lr-sidebar-link"><a href="/column/<%= entry.slug %>"><%= entry.title %></a></h5>
 							<% } else { %>
@@ -86,27 +88,11 @@
 						<% }); %>
 					</div>
 				</div>
-				<div class="col-md-3">
-					<div class="home-column-sidebar">
-						<div class="home-column-overlay"><span class="up_arrow"></span></div>
-						<h2 class="lr-sidebar-title">Other News</h2>
-						<% links.forEach(function(link, index){ %>
-							<h5 class="lr-sidebar-link"><a href="<%= link.link %>" target="_blank"><%= link.title %></a></h5>
-						<% }); %>
-						<% if (links.length > 4 ) { %>
-						<h5 class="lr-sidebar-link"><a href="/links">All Links</a></h5>
-						<% } %>
-					</div>
-				</div>
 			</div>
-
-		  	<div class="row"><hr></div>
 
 			<div class="row">
 				<div class="col-md-8">
-						<%	entries.filter(function(item){
-									return item.updated_at != first_date;
-								}).splice(2,11).forEach(function(entry, index){ %>
+						<%	entries.splice(2,12).forEach(function(entry, index){ %>
 							<% if (entry.type == 'lockerroom'){ %>
 								<div class="small-entry cf">
 									<div class="col-md-4">
