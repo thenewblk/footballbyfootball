@@ -9,10 +9,11 @@
 
 			<div class="row desktop">
 				<div class="col-md-6">
-					<% entry = entries[0]%><%= include big-select %>
+					<% entry = entries[0]%><%= include medium-select %>
+					<% entry = entries[1]%><%= include medium-select %>
 				</div>
 				<div class="col-md-6">
-					<div class="row podcast_wrap">
+					<div class="row">
 						<!-- <div class="col-md-6">
 							 <% entry = entries[2]%><%= include medium-select %> \
 						</div>
@@ -22,14 +23,16 @@
 								[300,250]).setClickUrl("%%CLICK_URL_UNESC%%").display();
 							</script>
 						</div> -->
-						<div class="podcast_square" id="podcast_college"></div>
-						<div class="podcast_square" id="podcast_nfl"></div>
+						<div class="col-md-12 podcast_wrap">
+							<div class="podcast_square" id="podcast_college"></div>
+							<div class="podcast_square" id="podcast_nfl"></div>
+						</div>
 					</div>
 					<div class="row">
-						<!-- <div class="col-md-6"><% entry = entries[3]%><%= include medium-select %></div>
-						<div class="col-md-6"><% entry = entries[4]%><%= include medium-select %></div> -->
-						<div class="embed-container">
-							<iframe width="560" height="315" src="https://www.youtube.com/embed/O4ZaELnopTU" frameborder="0" allowfullscreen="" kwframeid="1"></iframe>
+						<div class="col-md-12">
+							<div class="embed-container">
+								<iframe width="560" height="315" src="https://www.youtube.com/embed/O4ZaELnopTU" frameborder="0" allowfullscreen="" kwframeid="1"></iframe>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -38,10 +41,11 @@
 			<div class="row desktop">
 				<hr>
 				<div class="col-md-6">
-					<% entry = entries[1]%><%= include big-select %>
+					<% entry = entries[2]%><%= include medium-select %>
+					<% entry = entries[3]%><%= include medium-select %>
 				</div>
 
-				<% var most_recent = entries.splice(2,6); %>
+				<% var most_recent = entries.splice(4,8); %>
 				<div class="col-md-3">
 					<div class="home-column-sidebar">
 						<div class="home-column-overlay"><span class="up_arrow"></span></div>
@@ -72,9 +76,11 @@
 			<div class="row mobile">
 				<div class="col-md-3 first">
 					<% entry = entries[0]%><%= include medium-select %>
+					<% entry = entries[1]%><%= include medium-select %>
 				</div>
 				<div class="col-md-3">
-					<% entry = entries[1]%><%= include medium-select %>
+					<% entry = entries[2]%><%= include medium-select %>
+					<% entry = entries[3]%><%= include medium-select %>
 				</div>
 				<div class="col-md-3">
 					<div class="home-column-sidebar expanded">
@@ -91,6 +97,7 @@
 			</div>
 
 			<div class="row">
+				<hr>
 				<div class="col-md-8">
 						<%	entries.splice(2,12).forEach(function(entry, index){ %>
 							<% if (entry.type == 'lockerroom'){ %>

@@ -957,7 +957,7 @@ img {
   margin-top: 0; }
 
 .medium-article {
-  height: 240px;
+  height: 265px;
   background: #eee;
   position: relative;
   background-size: cover;
@@ -974,7 +974,7 @@ img {
     width: 100%;
     top: 40px;
     color: white;
-    height: 200px; }
+    height: 225px; }
     .medium-article .headline .inner-content {
       padding: 10px; }
       .medium-article .headline .inner-content .copy {
@@ -1190,6 +1190,18 @@ img {
     font-size: 25px; }
   .column-title input:focus {
     outline: none; }
+
+.column .top {
+  background: black;
+  padding: 0 15px;
+  margin-top: 25px; }
+  .column .top .title {
+    color: white; }
+  .column .top .byline {
+    color: white; }
+    .column .top .byline .author-image {
+      height: 30px;
+      width: 30px; }
 
 .column .column-content-wrapper {
   margin: 0 0 50px; }
@@ -1738,9 +1750,12 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   position: absolute;
   display: block;
   border: 8px solid white;
-  border-left: red solid 13px;
   top: 7px;
   left: 11px; }
+  #podcast_college .play.podcastbutton:after {
+    border-left: #dca628 solid 13px; }
+  #podcast_nfl .play.podcastbutton:after {
+    border-left: red solid 13px; }
 
 .pause.podcastbutton:after, .pause.podcastbutton:before {
   content: '';
@@ -1750,6 +1765,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   width: 4px;
   display: block;
   top: 7px; }
+  #podcast_college .pause.podcastbutton:after, #podcast_college .pause.podcastbutton:before {
+    background: #dca628; }
+  #podcast_nfl .pause.podcastbutton:after, #podcast_nfl .pause.podcastbutton:before {
+    background: red; }
 
 .podcast_label {
   font-weight: bold;
@@ -1770,19 +1789,30 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   flex-direction: row; }
 
 .podcast_square, .podcast_nfl, .podcast_college {
-  background-color: red;
   min-height: 155px;
   margin-bottom: 15px;
   text-align: center;
   flex: 1;
-  margin-right: 15px; }
+  margin-right: 15px;
+  padding: 15px 0; }
+  .podcast_square#podcast_college, .podcast_nfl#podcast_college, .podcast_college#podcast_college {
+    background-color: #dca628;
+    background-image: url(/img/background_cfbbreakdown.png);
+    background-position: right;
+    background-size: cover; }
+  .podcast_square#podcast_nfl, .podcast_nfl#podcast_nfl, .podcast_college#podcast_nfl {
+    background-color: red;
+    background-image: url(/img/background_nflinthegame.png);
+    background-position: right;
+    background-size: cover; }
   .podcast_square:last-child, .podcast_nfl:last-child, .podcast_college:last-child {
     margin-right: 0; }
   .podcast_square .container, .podcast_nfl .container, .podcast_college .container {
     width: 100% !important; }
   .podcast_square .podcast_square_title, .podcast_nfl .podcast_square_title, .podcast_college .podcast_square_title {
     color: white;
-    font-size: 20px; }
+    font-size: 15px;
+    font-family: "museo-sans",sans-serif; }
   .podcast_square .podcast_play, .podcast_nfl .podcast_play, .podcast_college .podcast_play {
     display: table;
     margin: auto; }

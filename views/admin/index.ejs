@@ -5,7 +5,7 @@
 		<div class="row">
 			<div class="col-md-6">
 				<h2>Columns</h2>
-				<p><a class="article-submit" href="/column/new"><span class="fa fa-plus"></span> New Column</a></p>	
+				<p><a class="article-submit" href="/column/new"><span class="fa fa-plus"></span> New Column</a></p>
 				<% columns.forEach(function(column){ %>
 				    <div class="thing">
 				    	<p><a href="/column/<%= column.slug %>"><%= column.title %></a>
@@ -18,7 +18,7 @@
 		  </div>
 			<div class="col-md-6">
 				<h2>Locker Rooms</h2>
-				<p><a class="article-submit" href="/lockerroom/new"><span class="fa fa-plus"></span> New Locker Room</a></p>	
+				<p><a class="article-submit" href="/lockerroom/new"><span class="fa fa-plus"></span> New Locker Room</a></p>
 
 				<% lockerrooms.forEach(function(lockerroom){ %>
 			    <div class="thing">
@@ -42,7 +42,7 @@
 				    	<span style="float:right"><a href="/link/<%= link.slug %>/edit">Edit</a></span></p>
 				    </div>
 
-			  	<% }) %>	
+			  	<% }) %>
 
 			  	<div class="thing">
 		    		<h5><a href="/admin/links/">All Links</a></h5>
@@ -54,11 +54,11 @@
 				<% podcasts.forEach(function(podcast){ %>
 
 				    <div class="thing">
-				    	<p><a href="/podcast/<%= podcast.slug %>/edit"><%= podcast.title %></a>
+				    	<p><span style="font-weight: bold; text-transform: uppercase;"><%= podcast.type %>:</span> <a href="/podcast/<%= podcast.slug %>/edit"><%= podcast.title %></a>
 				    	<span style="float:right"><a href="/podcast/<%= podcast.slug %>/edit">Edit</a></span></p>
 				    </div>
 
-			  	<% }) %>	
+			  	<% }) %>
 
 <!-- 			  	<div class="thing">
 		    		<h5><a href="/admin/podcasts/">All Podcasts</a></h5>
@@ -73,7 +73,7 @@
 			    	<span style="float:right"><a href="/player/<%= player.id %>/edit">Edit</a></span></p>
 			    	<hr>
 			  	<% }) %>
-				<p><a href="/player/new"><span class="fa fa-plus"></span> New Player</a></p>	
+				<p><a href="/player/new"><span class="fa fa-plus"></span> New Player</a></p>
 			</div>
 		</div>
 	</div>

@@ -1240,7 +1240,7 @@ img {
 	margin-top: 0;
 }
 .medium-article {
-	height: 240px;
+	height: 265px;
 	background: #eee;
 	position: relative;
 	background-size: cover;
@@ -1261,7 +1261,7 @@ img {
 		width: 100%;
 		top: 40px;
 		color: white;
-		height: 200px;
+		height: 225px;
 
 		.inner-content {
 			padding: 10px;
@@ -1531,6 +1531,22 @@ img {
 }
 
 .column {
+	.top {
+		background: black;
+		// background: rgba(0,0,0,0.7);
+		padding: 0 15px;
+		margin-top: 25px;
+		.title {
+			color: white;
+		}
+		.byline {
+			color: white;
+			.author-image {
+				height: 30px;
+				width: 30px;
+			}
+		}
+	}
 	.column-content-wrapper {
 		margin: 0 0 50px;
 	}
@@ -2248,7 +2264,12 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	position: absolute;
 	display: block;
 	border: 8px solid white;
-	border-left: red solid 13px;
+	#podcast_college & {
+		border-left: #dca628 solid 13px;
+	}
+	#podcast_nfl & {
+		border-left: red solid 13px;
+	}
 	top: 7px;
 	left: 11px;
 }
@@ -2257,6 +2278,12 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	content: '';
 	position: absolute;
 	background: red;
+	#podcast_college & {
+		background: #dca628;
+	}
+	#podcast_nfl & {
+		background: red;
+	}
 	height: 16px;
 	width: 4px;
 	display: block;
@@ -2284,12 +2311,25 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 .podcast_square, .podcast_nfl, .podcast_college {
-	background-color: red;
 	min-height: 155px;
 	margin-bottom: 15px;
 	text-align: center;
 	flex: 1;
 	margin-right: 15px;
+	padding: 15px 0;
+
+	&#podcast_college {
+		background-color: #dca628;
+		background-image: url(/img/background_cfbbreakdown.png);
+		background-position: right;
+		background-size: cover;
+	}
+	&#podcast_nfl {
+		background-color: red;
+		background-image: url(/img/background_nflinthegame.png);
+		background-position: right;
+		background-size: cover;
+	}
 	&:last-child {
 		margin-right: 0;
 	}
@@ -2298,8 +2338,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	}
 	.podcast_square_title {
 		color: white;
-		font-size: 20px;
+		font-size: 15px;
+		font-family: "museo-sans",sans-serif;
 	}
+
 	.podcast_play {
 		display: table;
 		margin: auto;

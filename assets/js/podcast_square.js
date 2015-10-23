@@ -166,8 +166,9 @@ var Podcast = React.createClass({
     }
 
     return (
-      <div className="container">
-
+      <div className={"container " + self.props.type}>
+        { (self.props.type == 'nfl') ? <img className="podcast_square_label" src="/img/title_nflinthegame.png" /> : null }
+        { (self.props.type == 'college') ?  <img className="podcast_square_label" src="/img/title_cfbbreakdown.png" /> : null }
         <h2 className="podcast_square_title">{title}</h2>
         <div className="podcast_play">
           <span className={playClass} onClick={self.playPause}></span>
