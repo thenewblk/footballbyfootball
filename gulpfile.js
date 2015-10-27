@@ -11,6 +11,8 @@ var jshint = require('gulp-jshint'),
 		nodemon = require('gulp-nodemon'),
     browserify = require('browserify'),
     reactify = require('reactify'),
+    autoprefixer = require('gulp-autoprefixer'),
+    minifyCSS = require('gulp-minify-css'),
     source = require('vinyl-source-stream');
 
 // Lint Task
@@ -24,7 +26,21 @@ gulp.task('lint', function() {
 gulp.task('sass', function() {
     return gulp.src('sass/css/*.scss')
         .pipe(sass())
+				.pipe(autoprefixer())
         .pipe(gulp.dest('assets/css'));
+});
+
+// Compile Our Production Sass
+gulp.task('build-styles-production', function() {
+  return gulp.src('sass/css/*.scss')
+          .pipe(sass({
+            style: 'compact'
+          }))
+          .pipe(autoprefixer())
+          .pipe(rename('app.min.css'))
+          .pipe(minifyCSS({keepBreaks:false}))
+          .pipe(gulp.dest('assets/css'))
+
 });
 
 // // Compile Our React Stuff

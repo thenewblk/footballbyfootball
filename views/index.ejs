@@ -7,7 +7,7 @@
 						 	tmp_day_entries = [];
 						 	first = true; %>
 
-			<div class="row desktop">
+			<div class="row">
 				<div class="col-md-6">
 					<% entry = entries[0]%><%= include medium-select %>
 					<% entry = entries[1]%><%= include medium-select %>
@@ -28,7 +28,7 @@
 							<div class="podcast_square" id="podcast_nfl"></div>
 						</div>
 					</div>
-					<div class="row">
+					<div class="row desktop">
 						<div class="col-md-12">
 							<div class="embed-container">
 								<iframe width="560" height="315" src="https://www.youtube.com/embed/O4ZaELnopTU" frameborder="0" allowfullscreen="" kwframeid="1"></iframe>
@@ -36,7 +36,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> 
 
 			<div class="row desktop">
 				<hr>
@@ -74,10 +74,6 @@
 			</div>
 
 			<div class="row mobile">
-				<div class="col-md-3 first">
-					<% entry = entries[0]%><%= include medium-select %>
-					<% entry = entries[1]%><%= include medium-select %>
-				</div>
 				<div class="col-md-3">
 					<% entry = entries[2]%><%= include medium-select %>
 					<% entry = entries[3]%><%= include medium-select %>

@@ -10,8 +10,11 @@
 		<link rel="stylesheet" href="/css/trumbowyg2.css">
 		<link rel="stylesheet" href="/css/ui/trumbowyg2.colors.css">
 	<% } %>
-	<link rel="stylesheet" href="/css/app.css">
-
+	<% if (process.env.NODE_ENV == "production") { %>
+		<link rel="stylesheet" href="/css/app.min.css">
+	<% } else { %>
+		<link rel="stylesheet" href="/css/app.css">
+	<% } %>
 	<meta name="viewport" content="width=device-width, user-scalable=no">
 
 	<script src="/js/jquery.1.9.min.js"></script>
