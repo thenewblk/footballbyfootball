@@ -29,14 +29,20 @@
 						</div>
 					</div>
 					<div class="row desktop">
+						<% if (video.length){ %>
 						<div class="col-md-12">
 							<div class="embed-container">
-								<iframe width="560" height="315" src="https://www.youtube.com/embed/O4ZaELnopTU" frameborder="0" allowfullscreen="" kwframeid="1"></iframe>
+								<iframe width="560" height="315" src="<%= video[0].video %>" frameborder="0" allowfullscreen="" kwframeid="1"></iframe>
 							</div>
 						</div>
+						<% } else { %>
+							<div class="col-md-12">
+								<% entry = entries[4]%><%= include medium-select %>
+							</div>
+						<% } %>
 					</div>
 				</div>
-			</div> 
+			</div>
 
 			<div class="row desktop">
 				<hr>
@@ -126,24 +132,29 @@
 						<% }); %>
 				</div>
 				<div class="col-md-4">
-					<iframe id="yb_widget_83540" frameBorder="0" scrolling=no style="width: 300px; height: 484px; border: 0px;" src="http://www.yardbarker.com/widget/ybn/83540"></iframe>
-
-					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-					<!-- Home and Archive Skyscraper -->
-					<ins class="adsbygoogle"
-					     style="display:inline-block;width:300px;height:600px"
-					     data-ad-client="ca-pub-2768251721679098"
-					     data-ad-slot="5577095568"></ins>
-					<script>
-					(adsbygoogle = window.adsbygoogle || []).push({});
-					</script>
-
-
-					<!-- yb_Football_By_Football -->
-					<script src="https://www.googletagservices.com/tag/js/gpt.js">
-						googletag.pubads().definePassback("/20893548/yb/footballbyfootball",
-						[160,600]).setClickUrl("%%CLICK_URL_UNESC%%").display();
-					</script>
+					<div class="under-author desktop">
+						<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+						<!-- Column-Player Ad -->
+						<ins class="adsbygoogle"
+								 style="display:inline-block;width:300px;height:250px"
+								 data-ad-client="ca-pub-2768251721679098"
+								 data-ad-slot="2559373961"></ins>
+						<script>
+						(adsbygoogle = window.adsbygoogle || []).push({});
+						</script>
+					</div>
+					<div class="under-author mobile">
+						<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+						<!-- Mobile Ad -->
+						<ins class="adsbygoogle"
+								 style="display:block"
+								 data-ad-client="ca-pub-2768251721679098"
+								 data-ad-slot="6838992768"
+								 data-ad-format="auto"></ins>
+						<script>
+						(adsbygoogle = window.adsbygoogle || []).push({});
+						</script>
+					</div>
 				</div>
 			</div>
 			<div class="row">
