@@ -4,20 +4,23 @@
 
 var React = require('react');
 
-var ReactScriptLoaderModule = require('../ReactScriptLoader.js');
-var ReactScriptLoaderMixin= ReactScriptLoaderModule.ReactScriptLoaderMixin;
-var ReactScriptLoader= ReactScriptLoaderModule.ReactScriptLoader;
+// var ReactScriptLoaderModule = require('../ReactScriptLoader.js');
+// var ReactScriptLoaderMixin= ReactScriptLoaderModule.ReactScriptLoaderMixin;
+// var ReactScriptLoader= ReactScriptLoaderModule.ReactScriptLoader;
 
 var util = require('util');
+
+// var Dropzone = require('../dropzone.js');
+var Dropzone = require("dropzone");
 
 var myDropzone = [];
 
 var Types =  ['full-width', 'left-aligned', 'right-aligned', 'left-logo'];
 
 var imageUploader = React.createClass({
-  
 
-  mixins: [ReactScriptLoaderMixin],
+
+  // mixins: [ReactScriptLoaderMixin],
 
   getInitialState: function() {
     return {active: false, image_removed: false };
@@ -32,7 +35,7 @@ var imageUploader = React.createClass({
   },
 
   handleClose: function() {
-    
+
     var self = this;
     self.props.removed({id: self.props.identifier});
     self.setState({active: false});
@@ -47,11 +50,11 @@ var imageUploader = React.createClass({
     this.props.swap_next({id: this.props.identifier});
   },
 
-  getScriptURL: function() {
-    return '/js/dropzone.js';
-  },
+  // getScriptURL: function() {
+  //   return '/js/dropzone.js';
+  // },
 
-  onScriptLoaded: function() {
+  componentDidMount: function() {
     var self = this;
     var image = this.props.image.image_url;
     if (!image) {
@@ -70,13 +73,13 @@ var imageUploader = React.createClass({
       });
     }
   },
- 
-  onScriptError: function() {
-      alert('Script Load Error');
-  },
 
-  theValue: function (){
-  },
+  // onScriptError: function() {
+  //     alert('Script Load Error');
+  // },
+  //
+  // theValue: function (){
+  // },
 
   render: function() {
 
@@ -94,17 +97,17 @@ var imageUploader = React.createClass({
       return <option value={option} >{option}</option>
     });
 
-    return ( 
+    return (
       <div className={className} ref='contentwrapper'>
         <div className="position-control">
           <span className="move up" onClick={this.handleSwapPrevious}></span>
           <span className="move down" onClick={this.handleSwapNext}></span>
         </div>
-        {image.image_url ?  
+        {image.image_url ?
           <div className='uploaded-image'>
             <img src={"https://s3.amazonaws.com/footballbyfootball-dev"+image.image_url} />
-          </div> 
-        : 
+          </div>
+        :
           <div className='image-container'>
             <div className={"image-uploader-label image-uploader uploader-"+self.props.identifier}>
               <p className="fa fa-image upload-icon label-copy"></p>
@@ -114,11 +117,11 @@ var imageUploader = React.createClass({
           </div>
         }
         <input className='caption-input' type="text" placeholder="Caption" value={caption} onChange={self.handleCaptionChange} />
-        {self.props.identifier != 'main' ? 
-        <select onChange={self.handleTypeChange} value={image.image_type}> 
+        {self.props.identifier != 'main' ?
+        <select onChange={self.handleTypeChange} value={image.image_type}>
           <option value="">Image Type</option>
           {type_options}
-        </select> 
+        </select>
         : ''}
         <a className="close-link" onClick={self.handleClose}>×</a>
       </div> )

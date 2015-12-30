@@ -398,11 +398,12 @@ module.exports = function(app, passport, knox) {
 	});
 
 	// Delete Column
-	app.delete('/column/:slug/delete', function(req, res) {
+	app.delete('/column/:slug/delete', isLoggedIn,function(req, res) {
 		Column
 			.findOne({ slug: req.params.slug })
 			.remove( function (err, column) {
 			  if (err) return console.log(err);
+				console.log("req.params.slug: " + req.params.slug + " removed." )
 				res.send(true);
 		});
 	});

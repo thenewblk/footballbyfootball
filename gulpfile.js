@@ -11,9 +11,13 @@ var jshint = require('gulp-jshint'),
 		nodemon = require('gulp-nodemon'),
     browserify = require('browserify'),
     reactify = require('reactify'),
+		globify = require('require-globify'),
     autoprefixer = require('gulp-autoprefixer'),
     minifyCSS = require('gulp-minify-css'),
     source = require('vinyl-source-stream');
+
+		// npm install --save-dev gulp-jshint gulp-sass gulp-concat gulp-uglify gulp-rename gulp-nodemon browserify reactify gulp-autoprefixer gulp-minify-css vinyl-source-stream
+
 
 // Lint Task
 gulp.task('lint', function() {
@@ -44,14 +48,14 @@ gulp.task('build-styles-production', function() {
 });
 
 // // Compile Our React Stuff
-// gulp.task('react-column', function() {
-//     // Browserify/bundle the JS.
-//     browserify('./assets/js/column-editor/_col_source/column-edit.js')
-//         .transform(reactify)
-//         .bundle()
-//         .pipe(source('column-edit.compiled.js'))
-//         .pipe(gulp.dest('assets/js/column-editor/'));
-// });
+gulp.task('react-column', function() {
+    // Browserify/bundle the JS.
+    browserify('./assets/js/column-editor/column-edit.js')
+        .transform(reactify)
+        .bundle()
+        .pipe(source('column-edit.compiled.1.js'))
+        .pipe(gulp.dest('assets/js/column-editor/'));
+});
 
 // // Compile Our React Stuff
 // gulp.task('react-lock', function() {
@@ -83,7 +87,7 @@ gulp.task('build-styles-production', function() {
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-//     gulp.watch('./assets/js/column-editor/_col_source/*.*', ['react-column']);
+    gulp.watch('./assets/js/column-editor/*.*', ['react-column']);
 //     gulp.watch('./assets/js/column-editor/_lock_source/*.*', ['react-lock']);
 //     gulp.watch('./assets/js/player-editor/_source/*.*', ['react-player']);
     gulp.watch('sass/css/*.scss', ['sass']);

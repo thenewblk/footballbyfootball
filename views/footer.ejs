@@ -72,9 +72,9 @@
 
 	</div>
 	<script src="/js/app.js"></script>
-
-	<script type="text/javascript" src="/js/podcast_square.min.js"></script>
-
+	<% if (locals.page_type && page_type =='home') {%>
+		<script type="text/javascript" src="/js/podcast_square.min.js"></script>
+	<% } %>
 	<script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/signup-forms/popup/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">require(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us11.list-manage.com","uuid":"c49d0f3db9eb039d661f19d41","lid":"d5798c9ad0"}) })</script>
 
 	<% if (process.env.NODE_ENV == "production") { %>

@@ -152,7 +152,7 @@ input.player-title-tag {
   -webkit-appearance: none;
   opacity: 0.7;
   -webkit-transition: 0.15s ease-in-out;
-          transition: 0.15s ease-in-out;
+  transition: 0.15s ease-in-out;
   text-transform: uppercase;
   font-size: 13px; }
 
@@ -179,7 +179,7 @@ input[type="submit"] {
   right: 0;
   padding: 0px 15px;
   -webkit-transition: 0.15s ease-in-out;
-          transition: 0.15s ease-in-out;
+  transition: 0.15s ease-in-out;
   line-height: 40px;
   font-size: 30px;
   cursor: pointer;
@@ -195,7 +195,7 @@ input[type="submit"] {
   line-height: 40px;
   text-align: center;
   -webkit-transition: 0.15s ease-in-out;
-          transition: 0.15s ease-in-out;
+  transition: 0.15s ease-in-out;
   cursor: pointer;
   margin-bottom: 25px; }
 
@@ -219,7 +219,7 @@ input[type="submit"] {
     cursor: pointer;
     padding: 0 15px;
     -webkit-transition: 0.15s ease-in-out;
-            transition: 0.15s ease-in-out;
+    transition: 0.15s ease-in-out;
     display: table-cell; }
   .contentbar .content-link:hover {
     background: #222;
@@ -381,7 +381,7 @@ input[type="submit"] {
       display: block;
       cursor: pointer;
       -webkit-transition: 0.15s ease-in-out;
-              transition: 0.15s ease-in-out; }
+      transition: 0.15s ease-in-out; }
     .column-content .position-control .move.up {
       border: 10px solid #ccc;
       border-top: none;
@@ -808,7 +808,7 @@ img {
       margin: 5px auto;
       box-shadow: 0 0 5px black;
       -webkit-transition: 0.15s ease-in-out;
-              transition: 0.15s ease-in-out;
+      transition: 0.15s ease-in-out;
       background-color: white; }
       .lockerroom-controls .author-image-wrap .author-image:hover {
         z-index: 1000;
@@ -878,7 +878,7 @@ img {
   line-height: 15px;
   cursor: pointer;
   -webkit-transition: .15s ease-in-out;
-          transition: .15s ease-in-out;
+  transition: .15s ease-in-out;
   z-index: 10; }
 
 .close-lockerroom-responses:hover {
@@ -890,8 +890,7 @@ img {
   border: black solid 2px;
   border-bottom: none;
   border-left: none;
-  -ms-transform: rotate(45deg);
-      transform: rotate(45deg);
+  transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   position: absolute;
   right: 20px;
@@ -899,7 +898,7 @@ img {
   margin-top: -21px;
   cursor: pointer;
   -webkit-transition: .15s ease-in-out;
-          transition: .15s ease-in-out;
+  transition: .15s ease-in-out;
   z-index: 10; }
 
 .next-lockerroom-response:hover {
@@ -911,8 +910,7 @@ img {
   border: black solid 2px;
   border-top: none;
   border-right: none;
-  -ms-transform: rotate(45deg);
-      transform: rotate(45deg);
+  transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   position: absolute;
   left: 20px;
@@ -920,7 +918,7 @@ img {
   margin-top: -21px;
   cursor: pointer;
   -webkit-transition: .15s ease-in-out;
-          transition: .15s ease-in-out;
+  transition: .15s ease-in-out;
   z-index: 10; }
 
 .prev-lockerroom-response:hover {
@@ -1008,7 +1006,7 @@ img {
     background: -webkit-radial-gradient(top, rgba(20, 20, 20, 0.25) 0%, rgba(20, 20, 20, 0.75) 71%, #141414 100%);
     background: -ms-radial-gradient(top, rgba(20, 20, 20, 0.25) 0%, rgba(20, 20, 20, 0.75) 71%, #141414 100%);
     -webkit-transition: 0.25s ease-in-out;
-            transition: 0.25s ease-in-out;
+    transition: 0.25s ease-in-out;
     opacity: 1; }
   .medium-article:hover .overcast {
     opacity: 0.7; }
@@ -1220,7 +1218,7 @@ img {
 .column .column-content-wrapper p:first-child:first-letter {
   float: left;
   display: block;
-  margin: 0.15em 0.15em 0 0;
+  margin: .15em .15em 0 0;
   font-weight: 900;
   font-size: 75px;
   line-height: 50px;
@@ -1285,7 +1283,7 @@ img {
     cursor: pointer;
     opacity: 0.7;
     -webkit-transition: 0.15s ease-in-out;
-            transition: 0.15s ease-in-out; }
+    transition: 0.15s ease-in-out; }
     .column .column-header .add-main-image:hover {
       opacity: 1; }
   .column .column-header .image-uploader {
@@ -1407,7 +1405,7 @@ form button {
   background: #aaa;
   color: #222;
   -webkit-transition: 0.15s ease-in-out;
-          transition: 0.15s ease-in-out;
+  transition: 0.15s ease-in-out;
   border: none;
   line-height: 40px; }
   form button:hover, form button:active, form button:focus {
@@ -1541,7 +1539,7 @@ form .form-group label {
 a {
   color: #ad1a19;
   -webkit-transition: 0.15s ease-in-out;
-          transition: 0.15s ease-in-out;
+  transition: 0.15s ease-in-out;
   text-decoration: none; }
 
 a:hover {
@@ -1583,8 +1581,7 @@ a:hover {
     background: transparent;
     height: 30px; }
     .home-column-sidebar.expanded .home-column-overlay .up_arrow {
-      -ms-transform: rotate(45deg);
-          transform: rotate(45deg);
+      transform: rotate(45deg);
       -webkit-transform: rotate(45deg);
       bottom: 5px; }
 
@@ -1630,15 +1627,14 @@ a:hover {
       height: 20px;
       border-top: 2px solid white;
       border-left: 2px solid white;
-      -ms-transform: rotate(225deg);
-          transform: rotate(225deg);
+      transform: rotate(225deg);
       -webkit-transform: rotate(225deg);
       position: absolute;
       bottom: 15px;
       left: 50%;
       margin-left: -20px;
       -webkit-transition: 0.15s ease-out;
-              transition: 0.15s ease-out;
+      transition: 0.15s ease-out;
       outline: none; }
     .lockerroom-sidebar .home-column-overlay .up_arrow:hover, .home-column-sidebar .home-column-overlay .up_arrow:hover {
       opacity: 0.8; }
@@ -1675,7 +1671,7 @@ a:hover {
   background: #ddd;
   line-height: 1;
   -webkit-transition: 0.15s ease-in-out;
-          transition: 0.15s ease-in-out;
+  transition: 0.15s ease-in-out;
   padding: 10px;
   margin: 10px 0;
   display: inline-block; }
@@ -1749,7 +1745,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   border-radius: 50%;
   cursor: pointer;
   -webkit-transition: 0.15s ease-out;
-          transition: 0.15s ease-out;
+  transition: 0.15s ease-out;
   position: relative;
   display: inline-block;
   margin: 10px;
@@ -2008,7 +2004,7 @@ h1, h2, h3 {
     height: 3px;
     background: black;
     -webkit-transition: 0.15s ease-in-out;
-            transition: 0.15s ease-in-out;
+    transition: 0.15s ease-in-out;
     border-radius: 0;
     position: relative;
     vertical-align: middle;
@@ -2019,13 +2015,12 @@ h1, h2, h3 {
       height: 3px;
       background: black;
       -webkit-transition: 0.15s ease-in-out;
-              transition: 0.15s ease-in-out;
+      transition: 0.15s ease-in-out;
       border-radius: 0;
       position: absolute;
       left: 0;
       content: '';
       -webkit-transform-origin: 5px center;
-          -ms-transform-origin: 5px center;
               transform-origin: 5px center; }
     .lockerroom .lines:before {
       top: 8px; }
@@ -2037,7 +2032,7 @@ h1, h2, h3 {
     height: 3px;
     background: black;
     -webkit-transition: 0.15s ease-in-out;
-            transition: 0.15s ease-in-out;
+    transition: 0.15s ease-in-out;
     border-radius: 0;
     position: relative;
     vertical-align: middle;
@@ -2048,13 +2043,12 @@ h1, h2, h3 {
       height: 3px;
       background: black;
       -webkit-transition: 0.15s ease-in-out;
-              transition: 0.15s ease-in-out;
+      transition: 0.15s ease-in-out;
       border-radius: 0;
       position: absolute;
       left: 0;
       content: '';
       -webkit-transform-origin: 5px center;
-          -ms-transform-origin: 5px center;
               transform-origin: 5px center; }
     .lines:before {
       top: 8px; }
@@ -2066,7 +2060,6 @@ h1, h2, h3 {
     /*overlay the lines by setting both their top values to 0*/ }
     .lines-button.x .lines:before, .lines-button.x .lines:after {
       -webkit-transform-origin: 50% 50%;
-          -ms-transform-origin: 50% 50%;
               transform-origin: 50% 50%;
       top: 0;
       width: 30px; }
@@ -2184,7 +2177,6 @@ div[id^="grabDiv"] {
   div[id^="grabDiv"] img[id^="grabPreview"],
   div[id^="grabDiv"] div[id^="grabPlayButton"],
   div[id^="grabDiv"] div[id^="grabSpinner"],
-  div[id^="grabDiv"]
-div[id^="grabError"] {
+  div[id^="grabDiv"] div[id^="grabError"] {
     height: 100% !important;
     width: 100% !important; }

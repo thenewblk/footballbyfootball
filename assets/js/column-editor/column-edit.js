@@ -25,7 +25,7 @@ uniqId = function(thing) {
 };
 
 
-var ColumnList = React.createClass({  
+var ColumnList = React.createClass({
   getInitialState: function() {
     return { id: '', data: [], title: '', main_image: {active: true}, player: Players[0]._id, approved: false, submitted: false, type: 'column' };
   },
@@ -50,9 +50,9 @@ var ColumnList = React.createClass({
 
   },
 
-  // 
+  //
   // Image Content Events
-  // 
+  //
 
   addImage: function(){
     var current_data = this.state.data;
@@ -89,9 +89,9 @@ var ColumnList = React.createClass({
     console.log('removeImage: after new_data: '+ JSON.stringify(new_data));
   },
 
-  // 
+  //
   // Embed Events
-  // 
+  //
 
   addEmbed: function(){
     var current_data = this.state.data;
@@ -114,9 +114,9 @@ var ColumnList = React.createClass({
     console.log('removeContent: after new_data: '+ JSON.stringify(new_data));
   },
 
-  // 
+  //
   // Text Content Events
-  // 
+  //
 
   addContent: function(){
     var current_data = this.state.data;
@@ -155,9 +155,9 @@ var ColumnList = React.createClass({
     this.setState({type: event.target.value});
   },
 
-  // 
+  //
   // Main Image Events
-  // 
+  //
 
   handleMainImage: function(image){
     var main_image = this.state.main_image;
@@ -181,9 +181,9 @@ var ColumnList = React.createClass({
     this.setState({main_image: {active: true} });
   },
 
-  // 
+  //
   // Approved Check Box Events
-  // 
+  //
 
   handleCheckbox: function() {
     var self = this;
@@ -196,24 +196,24 @@ var ColumnList = React.createClass({
   },
 
 
-  // 
+  //
   // Handle Delete Events
-  // 
+  //
 
   handleDelete: function() {
     var self = this;
     request
-      .del('/column/'+self.props.slug+'/delete')
+      .del('/column/'+self.state.slug+'/delete')
       .send(self.state)
       .end(function(res) {
         console.log(res)
         window.location = '/admin';
       }.bind(self));
-  }, 
+  },
 
-  // 
+  //
   // Test Content
-  // 
+  //
 
   testContent: function(){
     var self = this;
@@ -223,9 +223,9 @@ var ColumnList = React.createClass({
   },
 
 
-  // 
+  //
   // Handle Swaps
-  // 
+  //
 
   swapPreviousThing: function(content){
 
@@ -254,7 +254,7 @@ var ColumnList = React.createClass({
     } else {
       alert("You've reached the end.");
     }
-  }, 
+  },
 
   // unMoved: function(content){
   //   var new_data = this.state.data;
@@ -270,9 +270,9 @@ var ColumnList = React.createClass({
   // },
 
 
-  // 
+  //
   // Submit Form
-  // 
+  //
 
   formatDate: function(stuff){
     console.log('stuff: ' + util.inspect(stuff));
@@ -329,7 +329,7 @@ var ColumnList = React.createClass({
           thing_moved={moved}
 
           key={object.id}
-          
+
           thing_un_moved={self.unMoved}
 
           swap_previous={self.swapPreviousThing}
@@ -356,13 +356,13 @@ var ColumnList = React.createClass({
           swap_next={self.swapNextThing} />;
       }
       if ( object.type == 'image' ) {
-        return <Image 
-          ref={'image-'+i} 
-          identifier={i} 
-          image={object} 
-          caption_content={self.handleImageCaption} 
-          type_content={self.handleImageType}  
-          content={self.handleImage} 
+        return <Image
+          ref={'image-'+i}
+          identifier={i}
+          image={object}
+          caption_content={self.handleImageCaption}
+          type_content={self.handleImageType}
+          content={self.handleImage}
           removed={self.removeImage}
           swap_previous={self.swapPreviousThing}
           swap_next={self.swapNextThing} />;
@@ -385,20 +385,20 @@ var ColumnList = React.createClass({
 
     return (
       <div className="container">
-        <div className="row"> 
+        <div className="row">
           <div className="col-md-8">
             <div className="column-header">
               <h2 className="title"><input key={'title'} className='column-title-tag' type="text" value={title} onChange={this.handleTitleChange} placeholder="Title" /></h2>
               <p className="date">{ today_date }</p>
-              { this.state.main_image.image_url || this.state.main_image.active ? 
-                <Image 
+              { this.state.main_image.image_url || this.state.main_image.active ?
+                <Image
                 identifier='main'
                 image={main_image}
                 key={'main_image'}
                 caption_content={self.handleMainImageCaption}
-                content={self.handleMainImage} 
+                content={self.handleMainImage}
                 removed={self.removeMainImage} />
-                : <p className="add-main-image" onClick={this.addMainImage}><span className="fa fa-plus"></span> Add Main Image</p> 
+                : <p className="add-main-image" onClick={this.addMainImage}><span className="fa fa-plus"></span> Add Main Image</p>
               }
               <h3 className="subtitle"><input key={'subtitle'} className='column-title-tag' type="text" value={subtitle} onChange={this.handleSubTitleChange} placeholder="Sub Title" /></h3>
             </div>
@@ -434,7 +434,7 @@ var ColumnList = React.createClass({
           </div>
         </div>
       </div>
-      
+
     )
   }
 });
